@@ -1,84 +1,35 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+    <router-view />
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<style lang="scss">
+@import '@/styles/index.scss';
+</style>
+<style lang="scss">
+* {
+    box-sizing: border-box;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+html,
+body {
+    width: 100%;
+    height: 100%;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+#app {
+    width: 100%;
+    height: 100%;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+/**
+ * 左侧 menu 样式宏
+ */
+:root {
+    --el-route-menu-bg-color: #304156 !important; // 主要主体颜色
+    --el-route-menu-hover-bg-color: #263445 !important; // 菜单背景颜色
+    --el-route-menu-text-color: #b8babf !important; // 鼠标移上菜单背景颜色
+    --el-route-menu-hover-text-color: #bfcbd9 !important; // 菜单文字颜色
+    --el-route-menu-active-color: var(--el-color-primary) !important; // 鼠标移上菜单文字颜色
+    --el-route-menu-active-bg-color: #304156 !important; // 菜单选中背景颜色
+    --el-route-menu-inline-bg-color: #263445 !important; // 展开的子菜单背景颜色
 }
 </style>

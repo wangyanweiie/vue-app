@@ -1,20 +1,67 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
+import appLayout from '@/layout/index.vue';
+import { menu1Routes } from './menu1';
+import { menu2Routes } from './menu2';
+import { menu3Routes } from './menu3';
+import { markRaw } from 'vue';
 
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
+/**
+ * menu-routes
+ */
+const menuRoutes: RouteRecordRaw[] = [
     {
-      path: '/',
-      name: 'home',
-      component: HomeView
+        path: '/home',
+        name: 'home',
+        component: () => import('@/views/home/index.vue'),
+        meta: {
+            title: '首页',
+            icon: 'Folder',
+        },
+    },
+    menu1Routes,
+    menu2Routes,
+    menu3Routes,
+];
+
+/**
+ * routers
+ */
+const routes: RouteRecordRaw[] = [
+    {
+        path: '/',
+        name: '/',
+        component: markRaw(appLayout),
+        redirect: '/home',
+        meta: {
+            icon: 'HomeFilled',
+            title: 'index',
+        },
+        children: menuRoutes,
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue')
-    }
-  ]
-})
+        path: '/login',
+        component: () => import('@/views/login/index.vue'),
+        meta: {
+            title: '登录',
+        },
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        component: () => import('@/views/not-found/404.vue'),
+        meta: {
+            title: '404',
+        },
+    },
+];
 
-export default router
+/**
+ * router
+ */
+const router = createRouter({
+    // 历史模式
+    history: createWebHistory(),
+    routes,
+});
+
+export default router;
+export { menuRoutes, routes };
