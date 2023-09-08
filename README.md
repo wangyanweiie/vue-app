@@ -1,33 +1,22 @@
-# vue-app
+# vue-app-template
 
-This template should help get you started developing with Vue 3 in Vite.
+vue3 + ts + + element-plus + vite  + eslint + preitter + husky + commitlint + cz-config
 
-## Project Setup
+## 准备工作
 
-```sh
-pnpm install
-```
+- pnpm install
+- pnpm dev
 
-### Compile and Hot-Reload for Development
+## 格式校验
 
-```sh
-pnpm dev
-```
+- pnpm type check
+- pnpm lint
+- pnpm format
 
-### Type-Check and Minify for Production
+## 提交代码
 
-```sh
-pnpm build
-```
+- pnpm commit
 
-### Lint with [ESLint](https://eslint.org/)
+## 打包部署
 
-```sh
-pnpm lint
-```
-
-### Commit with [cz-config](https://github.com/leoforfree/cz-customizable/)
-
-```sh
-pnpm commit
-```
+- pnpm build
