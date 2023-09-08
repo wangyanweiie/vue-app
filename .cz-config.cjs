@@ -44,5 +44,5 @@ module.exports = {
     /**
      * 描述文字长度限制
      */
-    subjectLimit: 30,
+    subjectLimit: 50,
 };
