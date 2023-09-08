@@ -1,7 +1,6 @@
-import { type RouteRecordRaw } from 'vue-router';
-import { ParentView } from '@/components/index';
+import { ParentView, type RouteRecordRawTypes } from '@/components/index';
 
-export const menu2Routes: RouteRecordRaw = {
+export const menu2Routes: RouteRecordRawTypes = {
     path: '/menu2',
     name: 'menu2',
     component: h(ParentView, { matchedIndex: 2 }),

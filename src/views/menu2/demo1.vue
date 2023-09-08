@@ -25,9 +25,6 @@
 
 <script setup lang="ts">
 import type { RadioValueType, SelectValueType } from '@/components/index';
-import XCheckbox from '@/components/form/components/x-checkbox.vue';
-import XRadio from '@/components/form/components/x-radio.vue';
-import XSelect from '@/components/form/components/x-select.vue';
 import { ref } from 'vue';
 
 /**

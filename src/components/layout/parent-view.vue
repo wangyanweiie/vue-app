@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRefresh } from './use-refresh';
+import { useRefresh } from '@/components/layout/use-refresh';
 
 /**
  * props

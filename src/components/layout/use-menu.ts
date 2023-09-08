@@ -1,4 +1,4 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRawTypes } from '@/components/index';
 
 /**
  * menu item 类型
@@ -12,12 +12,12 @@ enum MenuType {
 
 /**
  * 处理路由转换为 el-menu-item 数组
- * @param { RouteRecordRaw[] } routes 路由数组
+ * @param { RouteRecordRawTypes[] } routes 路由数组
  * @param { string[] | undefined } permissions 权限数组
  * @returns 处理后数组
  */
-function routesToMenuItemList(routes: RouteRecordRaw[], permissions?: string[]): RouteRecordRaw[] {
-    const menuRoutes: RouteRecordRaw[] = [];
+function routesToMenuItemList(routes: RouteRecordRawTypes[], permissions?: string[]): RouteRecordRawTypes[] {
+    const menuRoutes: RouteRecordRawTypes[] = [];
 
     for (let i = 0; i < routes.length; i += 1) {
         const currentRoute = routes[i];

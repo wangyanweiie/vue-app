@@ -57,7 +57,7 @@ import { DArrowLeft, Close, DArrowRight, RefreshRight, Setting } from '@element-
 
 interface Tab {
     path: string;
-    name: RouteRecordName;
+    name: string;
     title: string;
 }
 
@@ -70,7 +70,7 @@ const currentIndex = ref<number>(0);
 const tabs = ref<Tab[]>([
     {
         path: router.currentRoute.value.path as string,
-        name: router.currentRoute.value.name as RouteRecordName,
+        name: router.currentRoute.value.name as string,
         title: router.currentRoute.value.meta.title as string,
     },
 ]);
@@ -92,7 +92,7 @@ async function updateScroll(): Promise<void> {
 /**
  * 路由跳转结束后存储 tab
  */
-router.afterEach(to => {
+router.afterEach((to: any) => {
     const nextIndex = tabs.value.findIndex(tab => tab.name === to.name);
 
     // 存在

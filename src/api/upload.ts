@@ -1,4 +1,4 @@
-import { post } from './index';
+import { post } from '@/api/index';
 
 /**
  * 上传文件接口

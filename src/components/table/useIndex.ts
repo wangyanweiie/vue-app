@@ -212,7 +212,6 @@ export default function useIndex(props: XTableProp) {
                     if (selected[props.rowKey as string] === row[props.rowKey as string]) {
                         nextTick(() => {
                             tableRef.value?.toggleRowSelection(row, true);
-                            selectedRows.value.push(row);
                         });
                     }
                 });

@@ -1,4 +1,4 @@
-import { getSelectListByParams } from './common';
+import { getSelectListByParams } from '@/api/common';
 
 export default {
     /**

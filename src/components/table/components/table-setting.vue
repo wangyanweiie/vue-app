@@ -46,11 +46,12 @@
 </template>
 
 <script lang="ts" setup>
-import { Setting, Refresh } from '@element-plus/icons-vue';
+import { ref, watch, onBeforeMount } from 'vue';
 import type { CheckboxValueType } from 'element-plus';
-import type { XTableColumn } from '../interface';
+import { Setting, Refresh } from '@element-plus/icons-vue';
 import { cloneDeep } from 'lodash-es';
 import draggable from 'vuedraggable';
+import type { XTableColumn } from '../interface';
 
 /**
  * props

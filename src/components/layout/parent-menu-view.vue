@@ -17,9 +17,10 @@
 </template>
 
 <script setup lang="ts">
-import { type RouteRecordRaw, useRoute } from 'vue-router';
-import { useRefresh } from './use-refresh';
 import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { useRefresh } from '@/components/layout/use-refresh';
+import type { RouteRecordRawTypes } from '@/components/index';
 
 /**
  * props
@@ -27,7 +28,7 @@ import { computed } from 'vue';
 const props = withDefaults(
     defineProps<{
         /** menu 列表 */
-        menus: RouteRecordRaw[];
+        menus: RouteRecordRawTypes[];
         /** 缓存列表 */
         cacheList?: string[];
         matchedIndex?: number;

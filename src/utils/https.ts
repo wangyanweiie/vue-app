@@ -1,9 +1,41 @@
 import axios, { type AxiosError, type AxiosResponse } from 'axios';
 import { ElNotification } from 'element-plus';
 import { throttle } from 'lodash-es';
-import type { Options } from './interface';
-import { getStorage } from '../storage/index';
-import { HTTP_ERROR_NOTICE } from '../contant/index';
+import { HTTP_ERROR_NOTICE } from '@/constant/base';
+import { getStorage } from '@/utils/index';
+
+/**
+ * 后端返回数据格式
+ */
+interface responseData {
+    code: number;
+    message: string | null;
+    data: any;
+}
+
+/**
+ * 拦截器配置函数参数
+ */
+interface Options {
+    /** url */
+    url?: string;
+    /** 超时时间 ms */
+    timeout?: number;
+    /** 保存在 local storage 里的 token 的 key 值 */
+    storageTokenKey?: string;
+    /** 请求头携带 token 的 key 值 */
+    requestHeaderTokenKey?: string;
+    /** 过期码 */
+    expireCode?: number;
+    /** 过期回调 */
+    expireCallback?: () => void;
+    /** get 请求携带的参数 */
+    getMethodsParams?: Record<string, any>;
+    /** post 请求携带的参数 */
+    postMethodsParams?: Record<string, any>;
+    /** 成功响函数 */
+    successValidate?: (responseData: responseData) => boolean;
+}
 
 /**
  * 拦截器配置函数
@@ -110,7 +142,7 @@ export function setupAxiosInterceptors(options: Options) {
                 return Promise.resolve(data || true);
             } else {
                 switch (responsedata.code) {
-                    case options.expireCode || -997:
+                    case options.expireCode || -997: {
                         handleResponseError({
                             type: 'warning',
                             message: HTTP_ERROR_NOTICE.EXPIRE,
@@ -122,8 +154,9 @@ export function setupAxiosInterceptors(options: Options) {
                         });
 
                         return Promise.resolve(false);
+                    }
 
-                    default:
+                    default: {
                         const { message } = response.data as { message: string };
 
                         ElNotification({
@@ -133,6 +166,7 @@ export function setupAxiosInterceptors(options: Options) {
                         });
 
                         return Promise.resolve(false);
+                    }
                 }
             }
         },

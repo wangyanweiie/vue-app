@@ -64,12 +64,13 @@
 </template>
 
 <script setup lang="ts">
-import { type RouteRecordRaw, useRoute } from 'vue-router';
-import subMenu from './sub-menu.vue';
+import { useRoute } from 'vue-router';
 import { Fold, Expand } from '@element-plus/icons-vue';
-import xBreadcrumb from './x-breadcrumb.vue';
-import historyTabs from './history-tabs.vue';
-import { useRefresh } from './use-refresh';
+import subMenu from '@/components/layout/sub-menu.vue';
+import xBreadcrumb from '@/components/layout/x-breadcrumb.vue';
+import historyTabs from '@/components/layout/history-tabs.vue';
+import { useRefresh } from '@/components/layout/use-refresh';
+import type { RouteRecordRawTypes } from '@/components/index';
 
 interface MenuStyle {
     backgroundColor: string;
@@ -83,7 +84,7 @@ interface MenuStyle {
 withDefaults(
     defineProps<{
         /** 路由数组 */
-        routes?: RouteRecordRaw[];
+        routes?: RouteRecordRawTypes[];
         /** include */
         includeList?: string[];
         /** 最大缓存数量 */

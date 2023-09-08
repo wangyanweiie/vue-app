@@ -34,15 +34,14 @@
 import * as Icons from '@element-plus/icons-vue';
 import { ElMenuItem, ElSubMenu } from 'element-plus';
 import { computed, markRaw, type Component } from 'vue';
-import type { RouteRecordRaw } from 'vue-router';
-import type { IconTypes } from '../utils/router-helper';
+import type { IconTypes, RouteRecordRawTypes } from '@/components/index';
 
 /**
  * props
  */
 const props = withDefaults(
     defineProps<{
-        menu?: RouteRecordRaw;
+        menu?: RouteRecordRawTypes;
         /** menu info */
         menuInfo?: Map<string, number>;
     }>(),

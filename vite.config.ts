@@ -15,25 +15,6 @@ import VueDevTools from 'vite-plugin-vue-devtools';
 const pathSrc = path.resolve(__dirname, 'src');
 
 export default defineConfig({
-    build: {
-        lib: {
-            entry: path.resolve(pathSrc, 'index.ts'),
-            name: 'custom',
-            fileName: format => `index.${format}.js`,
-        },
-        rollupOptions: {
-            // 确保外部化处理那些你不想打包进库的依赖
-            external: ['vue', 'vue-router', 'element-plus'],
-            output: {
-                // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
-                globals: {
-                    vue: 'Vue',
-                    'vue-router': 'VueRouter',
-                    'element-plus': 'ElementPlus',
-                },
-            },
-        },
-    },
     resolve: {
         alias: {
             '@': pathSrc,
@@ -58,7 +39,7 @@ export default defineConfig({
         AutoImport({
             imports: ['vue', 'vue-router'],
             resolvers: [ElementPlusResolver()],
-            dts: path.resolve('types/auto-imports.d.ts'),
+            dts: path.resolve('src/types/auto-imports.d.ts'),
         }),
 
         /**
@@ -77,7 +58,7 @@ export default defineConfig({
             ],
 
             // 配置文件生成位置
-            dts: path.resolve('types/components.d.ts'),
+            dts: path.resolve('src/types/components.d.ts'),
         }),
 
         /**

@@ -2,15 +2,16 @@ import type { RouteRecordRaw } from 'vue-router';
 import type IconNameMap from '@element-plus/icons-vue';
 import { cloneDeep } from 'lodash-es';
 
-export type IconTypes = keyof typeof IconNameMap;
+type IconTypes = keyof typeof IconNameMap;
+type RouteRecordRawTypes = typeof RouteRecordRaw;
 
 /**
  * 生成缓存数组
- * @param { RouteRecordRaw[] } routes 路由数组
+ * @param { RouteRecordRawTypes[] } routes 路由数组
  * @param { string[] | undefined } permissions 权限数组
  * @returns { string[] } 缓存数组
  */
-export function generateCacheList(routes: RouteRecordRaw[], permissions?: string[]): string[] {
+function generateCacheList(routes: RouteRecordRawTypes[], permissions?: string[]): string[] {
     const cloneRoutes = cloneDeep(routes);
     const cacheList: string[] = [];
 
@@ -46,13 +47,13 @@ export function generateCacheList(routes: RouteRecordRaw[], permissions?: string
 
 /**
  * 生成可用路由
- * @param { RouteRecordRaw[] } routes 路由数组
+ * @param { RouteRecordRawTypes[] } routes 路由数组
  * @param { string[] | undefined } permissions 权限数组
- * @returns { RouteRecordRaw[] } 可用路由
+ * @returns { RouteRecordRawTypes[] } 可用路由
  */
-export function generateActiveRoutes(routes: RouteRecordRaw[], permissions?: string[]): RouteRecordRaw[] {
+function generateActiveRoutes(routes: RouteRecordRawTypes[], permissions?: string[]): RouteRecordRawTypes[] {
     const cloneRoutes = cloneDeep(routes);
-    const activeRoutes: RouteRecordRaw[] = [];
+    const activeRoutes: RouteRecordRawTypes[] = [];
 
     for (let i = 0; i < cloneRoutes.length; i += 1) {
         const currentRoute = cloneRoutes[i];
@@ -83,13 +84,13 @@ export function generateActiveRoutes(routes: RouteRecordRaw[], permissions?: str
 
 /**
  * 生成菜单路由
- * @param { RouteRecordRaw[] } routes 路由数组
+ * @param { RouteRecordRawTypes[] } routes 路由数组
  * @param { string[] | undefined } permissions 权限数组
- * @returns  { RouteRecordRaw[] } 菜单路由
+ * @returns  { RouteRecordRawTypes[] } 菜单路由
  */
-export function generateShowMenus(routes: RouteRecordRaw[], permissions?: string[]): RouteRecordRaw[] {
+function generateShowMenus(routes: RouteRecordRawTypes[], permissions?: string[]): RouteRecordRawTypes[] {
     const cloneRoutes = cloneDeep(routes);
-    const showMenus: RouteRecordRaw[] = [];
+    const showMenus: RouteRecordRawTypes[] = [];
 
     for (let i = 0; i < cloneRoutes.length; i += 1) {
         const currentRoute = cloneRoutes[i];
@@ -122,3 +123,5 @@ export function generateShowMenus(routes: RouteRecordRaw[], permissions?: string
 
     return showMenus;
 }
+
+export { type IconTypes, type RouteRecordRawTypes, generateCacheList, generateActiveRoutes, generateShowMenus };

@@ -1,4 +1,7 @@
-import type { Options } from './interface';
+interface Options {
+    label: string;
+    value: string | number;
+}
 
 /**
  * 校验是否为数字类型（正数/负数/整数/小数）

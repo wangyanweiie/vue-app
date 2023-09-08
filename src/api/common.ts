@@ -1,4 +1,4 @@
-import { get } from './index';
+import { get } from '@/api/index';
 
 /**
  * @description 字典表查询

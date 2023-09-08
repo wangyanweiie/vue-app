@@ -1,14 +1,19 @@
 import type { App, Component } from 'vue';
 import {
     XLayout,
-    XDialogForm,
-    XSearchForm,
-    XLogo,
-    XTable,
     ParentView,
     ParentMenuView,
+    XLogo,
     XUser,
+    XTable,
+    XTableV2,
+    XDialogForm,
+    XSearchForm,
     XForm,
+    XRadio,
+    XCheckbox,
+    XSelect,
+    XDescription,
 } from '@/components/index';
 
 /**
@@ -20,14 +25,6 @@ const componentsList: { name: string; component: Component }[] = [
         component: XLayout,
     },
     {
-        name: 'XLogo',
-        component: XLogo,
-    },
-    {
-        name: 'XTable',
-        component: XTable,
-    },
-    {
         name: 'ParentView',
         component: ParentView,
     },
@@ -36,12 +33,20 @@ const componentsList: { name: string; component: Component }[] = [
         component: ParentMenuView,
     },
     {
+        name: 'XLogo',
+        component: XLogo,
+    },
+    {
         name: 'XUser',
         component: XUser,
     },
     {
-        name: 'XForm',
-        component: XForm,
+        name: 'XTable',
+        component: XTable,
+    },
+    {
+        name: 'XTableV2',
+        component: XTableV2,
     },
     {
         name: 'XDialogForm',
@@ -50,6 +55,26 @@ const componentsList: { name: string; component: Component }[] = [
     {
         name: 'XSearchForm',
         component: XSearchForm,
+    },
+    {
+        name: 'XForm',
+        component: XForm,
+    },
+    {
+        name: 'XRadio',
+        component: XRadio,
+    },
+    {
+        name: 'XCheckbox',
+        component: XCheckbox,
+    },
+    {
+        name: 'XSelect',
+        component: XSelect,
+    },
+    {
+        name: 'XDescription',
+        component: XDescription,
     },
 ];
 

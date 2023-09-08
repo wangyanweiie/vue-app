@@ -34,6 +34,7 @@ export function useRefresh(option: UseRefreshOption) {
             return;
         }
 
+        console.log('refresh');
         componentKey.value = '';
         excludeSets.value.add(name);
 
