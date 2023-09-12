@@ -1,6 +1,6 @@
-import type { RouteRecordRawTypes } from '@/components/index';
+import type { RouteRecordRaw } from 'vue-router';
 
-export const subRoutes: RouteRecordRawTypes[] = [
+export const subRoutes: RouteRecordRaw[] = [
     {
         path: '/menu1/sub/sub1',
         name: 'menu1-sub1',

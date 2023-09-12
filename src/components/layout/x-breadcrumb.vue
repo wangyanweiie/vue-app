@@ -7,11 +7,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
-import type { RouteRecordRawTypes } from '@/components/index';
+import { useRoute, type RouteRecordRaw } from 'vue-router';
 
-const breadcrumbs = computed<RouteRecordRawTypes[]>(() => useRoute().matched);
+const breadcrumbs = computed<RouteRecordRaw[]>(() => useRoute().matched);
 </script>
 
 <style lang="scss" scoped>

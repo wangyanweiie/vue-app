@@ -1,8 +1,8 @@
-import { ParentView, ParentMenuView, type RouteRecordRawTypes } from '@/components/index';
+import type { RouteRecordRaw } from 'vue-router';
+import { ParentView, ParentMenuView } from '@/components/index';
 import { subRoutes } from './sub';
-import { h } from 'vue';
 
-export const menu1Routes: RouteRecordRawTypes = {
+export const menu1Routes: RouteRecordRaw = {
     path: '/menu1',
     name: 'menu1',
     // FIXME: 等价写法

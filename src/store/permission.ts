@@ -1,19 +1,14 @@
 import { defineStore } from 'pinia';
 import store from 'store2';
-import { computed, ref } from 'vue';
-import {
-    generateActiveRoutes,
-    generateCacheList,
-    generateShowMenus,
-    type RouteRecordRawTypes,
-} from '@/components/index';
+import type { RouteRecordRaw } from 'vue-router';
+import { generateActiveRoutes, generateCacheList, generateShowMenus } from '@/components/index';
 import router, { menuRoutes } from '@/router/index';
 import appLayout from '@/layout/index.vue';
 
 /**
  * 权限缓存状态
  */
-const usePermissionStore = defineStore('permission', () => {
+const usePermissionStore: any = defineStore('permission', () => {
     // ================= 权限 =================
     /**
      * 是否开启权限设置
@@ -50,19 +45,19 @@ const usePermissionStore = defineStore('permission', () => {
     /**
      * 路由数组
      */
-    const routes = ref<RouteRecordRawTypes[]>([]);
+    const routes = ref<RouteRecordRaw[]>([]);
 
     /**
      * 更新路由数组
      */
-    function setRoutes(value: RouteRecordRawTypes[]): void {
+    function setRoutes(value: RouteRecordRaw[]): void {
         routes.value = value;
     }
 
     /**
      * 根据路由与权限数据生成可用路由
      */
-    const activeRoutes = computed<RouteRecordRawTypes[]>(() => {
+    const activeRoutes = computed<RouteRecordRaw[]>(() => {
         if (usable.value) {
             return generateActiveRoutes(routes.value, permissions.value);
         }
@@ -109,7 +104,7 @@ const usePermissionStore = defineStore('permission', () => {
     /**
      * 根据路由与权限数组生成菜单路由
      */
-    const showMenus = computed<RouteRecordRawTypes[]>(() => {
+    const showMenus = computed<RouteRecordRaw[]>(() => {
         if (usable.value) {
             return generateShowMenus(routes.value, permissions.value);
         }
@@ -121,7 +116,7 @@ const usePermissionStore = defineStore('permission', () => {
     /**
      * 筛选带有权限的 menus ==> 搭配 parentMenuView 使用
      */
-    function getPermissionMenus(routes: RouteRecordRawTypes[]) {
+    function getPermissionMenus(routes: RouteRecordRaw[]) {
         if (usable.value) {
             return routes.filter(route => permissions.value.includes(route.meta?.title as string));
         }

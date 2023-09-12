@@ -1,15 +1,13 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 import appLayout from '@/layout/index.vue';
 import { menu1Routes } from './menu1';
 import { menu2Routes } from './menu2';
 import { menu3Routes } from './menu3';
-import { markRaw } from 'vue';
-import type { RouteRecordRawTypes } from '@/components/index';
 
 /**
  * menu-routes
  */
-const menuRoutes: RouteRecordRawTypes[] = [
+const menuRoutes: RouteRecordRaw[] = [
     {
         path: '/home',
         name: 'home',
@@ -27,7 +25,7 @@ const menuRoutes: RouteRecordRawTypes[] = [
 /**
  * routers
  */
-const routes: RouteRecordRawTypes[] = [
+const routes: RouteRecordRaw[] = [
     {
         path: '/',
         name: '/',

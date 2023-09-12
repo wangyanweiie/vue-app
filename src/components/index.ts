@@ -17,7 +17,6 @@ import {
     generateCacheList,
     generateShowMenus,
     type IconTypes,
-    type RouteRecordRawTypes,
 } from '@/components/utils/router-helper';
 
 export * from '@/components/table/interface';
@@ -44,5 +43,4 @@ export {
     generateCacheList,
     generateShowMenus,
     type IconTypes,
-    type RouteRecordRawTypes,
 };
