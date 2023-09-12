@@ -26,9 +26,10 @@
     ],
 
     "exclude": [
-        "src/**/__tests__/*",
         "node_modules/**/*",
-        "dist/**/*"
+        "dist/**/*",
+        "src/**/__tests__/*"
+
     ],
 
     // 编译选项

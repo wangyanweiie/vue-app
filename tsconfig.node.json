@@ -12,6 +12,7 @@
 
     "exclude": [],
 
+    // 编译选项
     "compilerOptions": {
         // 启用项目编译
         "composite": true,
