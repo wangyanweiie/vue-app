@@ -25,8 +25,6 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
 import type { FormInstance } from 'element-plus';
 import { useUserStore } from '@/store/user-info';
 import { usePermissionStore } from '@/store/permission';

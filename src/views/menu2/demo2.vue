@@ -40,7 +40,6 @@
 <script setup lang="ts">
 import type { ColProps, FormProps } from 'element-plus';
 import type { XFormItemSchema } from '@/components/index';
-import { ref } from 'vue';
 
 /**
  ***************** search from *****************

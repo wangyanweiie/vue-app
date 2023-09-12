@@ -1,3 +1,3 @@
 module.exports = {
-    'src/**/*.{js,ts,vue}': ['pnpm eslint'],
+    'src/**/*.{js,ts,vue}': ['pnpm lint'],
 };

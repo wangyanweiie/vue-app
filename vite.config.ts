@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import path from 'path';
 import { defineConfig } from 'vite';
 import Vue from '@vitejs/plugin-vue';
@@ -38,7 +39,11 @@ export default defineConfig({
          */
         AutoImport({
             imports: ['vue', 'vue-router'],
+
+            // 自定义组件解析器
             resolvers: [ElementPlusResolver()],
+
+            // 配置文件生成位置
             dts: path.resolve('src/types/auto-imports.d.ts'),
         }),
 
@@ -49,7 +54,15 @@ export default defineConfig({
             // 指定组件位置，默认是src/components
             // dirs: ['src/components'],
 
-            // 组件解析器
+            // 组件的有效文件扩展名。
+            // extensions: ['vue'],
+
+            // 自动导入指令
+            // 默认值：Vue 3 的 `true`，Vue 2 的 `false`
+            // 需要 Babel 来为 Vue 2 进行转换，出于性能考虑，它默认处于禁用状态。
+            // directives: true,
+
+            // 自定义组件解析器
             resolvers: [
                 ElementPlusResolver(),
                 IconsResolver({

@@ -16,10 +16,15 @@ import {
     XDescription,
 } from '@/components/index';
 
+interface ComponentItem {
+    name: string;
+    component: Component;
+}
+
 /**
  * 组件列表
  */
-const componentsList: { name: string; component: Component }[] = [
+const componentList: ComponentItem[] = [
     {
         name: 'XLayout',
         component: XLayout,
@@ -83,7 +88,7 @@ const componentsList: { name: string; component: Component }[] = [
  * @param app 实例
  */
 export function registerComponents(app: App) {
-    componentsList.forEach((item: { name: string; component: Component }) => {
-        app.component(item.name, item.component);
+    componentList.forEach(({ name, component }) => {
+        app.component(name, component);
     });
 }
