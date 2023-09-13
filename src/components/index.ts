@@ -5,8 +5,8 @@ import ParentView from './Layout/ParentView.vue';
 import ParentMenuView from './Layout/ParentMenuView.vue';
 import XTable from './Table/index.vue';
 import XTableV2 from './TableV2/index.vue';
-import XEditTable from './EditTable/index.vue';
-import XEditTableItem from './EditTable/components/EditTableItem.vue';
+import XEditTable from './EditTable/XEditTable.vue';
+import XEditTableItem from './EditTable/XEditTableItem.vue';
 import XSearchForm from './Form/XSearchForm.vue';
 import XDialogForm from './Form/XDialogForm.vue';
 import XForm from './Form/XForm.vue';
@@ -20,6 +20,7 @@ import { type CommandComponent, useCommandComponent } from './hooks/command-dial
 
 export * from './Table/interface';
 export * from './TableV2/interface';
+export * from './EditTable/interface';
 export * from './Form/interface';
 export * from './Description/interface';
 

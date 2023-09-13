@@ -2,6 +2,7 @@
     // extends 属性可以从另一个配置文件里继承配置
     "extends": "./tsconfig.app.json",
 
+    // 编译选项
     "compilerOptions": {
         // 启用项目编译
         "composite": true,

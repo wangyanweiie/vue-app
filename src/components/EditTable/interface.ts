@@ -20,13 +20,6 @@ interface EditActions {
     saveEdit: (index: number) => void;
 }
 
-interface ColumnScope {
-    row?: any;
-    column: any;
-    $index: number;
-    [key: string]: any;
-}
-
 /**
  * 表格列配置
  */
@@ -37,24 +30,6 @@ interface XEditTableColumn {
     edit?: boolean;
     /** 编辑时是否校验必填 */
     required?: boolean;
-    /** 编辑组件提示文字 */
-    placeholder?: string;
 }
 
-/**
- * 表格数据类型
- */
-interface XEditTableDataType {
-    [key: string]: number | string | undefined | boolean | null | Array<XEditTableDataType>;
-}
-
-export type {
-    RequestResult,
-    RequestFunc,
-    FormModelItem,
-    FormModel,
-    EditActions,
-    ColumnScope,
-    XEditTableColumn,
-    XEditTableDataType,
-};
+export type { RequestResult, RequestFunc, FormModelItem, FormModel, EditActions, XEditTableColumn };

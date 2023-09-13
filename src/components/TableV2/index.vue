@@ -8,13 +8,18 @@
                         <div class="table__header__title">
                             <slot name="title">
                                 <span>{{ title }}</span>
+
+                                <el-tooltip v-if="tooltipContent" :content="tooltipContent" placement="top">
+                                    <el-icon class="icon">
+                                        <info-filled />
+                                    </el-icon>
+                                </el-tooltip>
                             </slot>
                         </div>
 
                         <el-scrollbar>
                             <div class="table__header__operation">
                                 <slot name="operation" :checked-rows="selectedRows"> </slot>
-                                <!-- <table-setting v-model="tableColumns" @reload="loadData(searchData)" /> -->
                             </div>
                         </el-scrollbar>
                     </div>
@@ -80,7 +85,7 @@
 <script lang="ts" setup>
 import type { Column } from 'element-plus';
 import type { XTableV2APIKeyMap } from './interface';
-import { Loading as LoadingIcon } from '@element-plus/icons-vue';
+import { Loading as LoadingIcon, InfoFilled } from '@element-plus/icons-vue';
 import useIndex from './useIndex';
 
 /**
@@ -107,6 +112,8 @@ const props = withDefaults(
         bodyStyle?: Record<string, string>;
         /** 表格标题 */
         title?: string;
+        /** 感叹号提示内容 */
+        tooltipContent?: string;
         /** 是否展示索引 */
         showIndex?: boolean;
         /** 是否可选 */
@@ -153,6 +160,7 @@ const props = withDefaults(
             };
         },
         title: '数据列表',
+        tooltipContent: '',
         showIndex: false,
         selectable: false,
         rowKey: 'id',

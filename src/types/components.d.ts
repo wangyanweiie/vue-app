@@ -9,9 +9,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     Breadcrumb: typeof import('./../components/Layout/Breadcrumb.vue')['default']
     Description: typeof import('./../components/Description/index.vue')['default']
-    EditTable: typeof import('./../components/EditTable/index.vue')['default']
-    EditTableColumn: typeof import('./../components/EditTable/components/EditTableColumn.vue')['default']
-    EditTableItem: typeof import('./../components/EditTable/components/EditTableItem.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAutoResizer: typeof import('element-plus/es')['ElAutoResizer']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
@@ -63,6 +60,8 @@ declare module 'vue' {
     XCheckbox: typeof import('./../components/Form/components/XCheckbox.vue')['default']
     XDescription: (typeof import('../components/Description/index.vue'))['default']
     XDialogForm: typeof import('./../components/Form/XDialogForm.vue')['default']
+    XEditTable: typeof import('./../components/EditTable/XEditTable.vue')['default']
+    XEditTableItem: typeof import('./../components/EditTable/XEditTableItem.vue')['default']
     XForm: typeof import('./../components/Form/XForm.vue')['default']
     XFormItem: typeof import('./../components/Form/XFormItem.vue')['default']
     XLayout: typeof import('./../components/Layout/XLayout.vue')['default']

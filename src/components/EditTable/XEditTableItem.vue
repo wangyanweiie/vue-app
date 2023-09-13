@@ -1,38 +1,33 @@
 <template>
-    <el-table-column v-bind="$attrs" :label="label" :prop="prop" min-width="150" :width="width">
-        <template #default="scope">
+    <el-table-column v-bind="$attrs" :label="label" :prop="prop" align="center" min-width="150" :width="width">
+        <template #default="{ $index, row, column }">
             <el-form-item
-                v-if="edit && isEditing(scope.$index)"
-                :prop="required ? `model.${scope.$index}.formData.${prop}` : ''"
+                v-if="edit && isEditing($index)"
+                :prop="required ? `model.${$index}.formData.${prop}` : ''"
                 :rules="required ? [{ required: true, message: `${label}不能为空`, trigger: 'blur' }] : []"
+                class="cell-form-item"
             >
-                <slot
-                    name="edit"
-                    :index="scope.$index"
-                    :row="getEditRow(scope.$index)"
-                    :column="scope.column"
-                    :actions="editActions"
-                >
-                    {{ modelValue(scope) }}
+                <slot name="edit" :index="$index" :row="getEditRow($index)" :column="column" :actions="editActions">
+                    {{ modelValue(row) }}
                 </slot>
             </el-form-item>
 
-            <slot v-else :index="scope.$index" :row="scope.row" :column="scope.column" :actions="editActions">
-                {{ modelValue(scope) }}
+            <slot v-else :index="$index" :row="row" :column="column" :actions="editActions">
+                {{ modelValue(row) }}
             </slot>
         </template>
     </el-table-column>
 </template>
 
 <script lang="ts" setup>
-import type { EditActions, FormModel, FormModelItem, ColumnScope } from '../interface';
+import type { EditActions, FormModel, FormModelItem } from './interface';
 
 /**
  * props
  */
 const props = withDefaults(
     defineProps<{
-        prop: string;
+        prop?: string;
         label: string;
         width?: string;
         edit?: boolean;
@@ -64,7 +59,7 @@ const formModel = inject<Ref<FormModel | undefined>>('formModel');
 /**
  * 字段值
  */
-const modelValue = (scope: ColumnScope) => scope.row?.[props.prop];
+const modelValue = (row: Record<string, any>) => row?.[props.prop];
 
 /**
  * 行编辑状态
@@ -95,3 +90,9 @@ const getEditModel = (index: number): FormModelItem => {
  */
 const getEditRow = (index: number): Record<string, any> => getEditModel(index).formData;
 </script>
+<style lang="scss">
+// 修改 el-form-item 的样式，但提示文字也被隐藏了；
+.cell-form-item {
+    margin-bottom: 0px !important;
+}
+</style>

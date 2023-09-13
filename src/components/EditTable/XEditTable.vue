@@ -23,12 +23,20 @@
 
         <!-- 表格主体 -->
         <el-form ref="formRef" :model="formModel" class="table__main'">
-            <el-table v-bind="$attrs" border :data="tableData">
+            <el-table v-bind="$attrs" border size="small" :data="tableData" :row-key="rowKey">
+                <!-- 选择列 -->
+                <el-table-column v-if="selectable" type="selection" align="center" width="50px" reserve-selection />
+
+                <!-- 索引列 -->
+                <el-table-column v-if="showIndex" type="index" align="center" width="50px" label="#" />
+
                 <x-edit-table-item v-for="(item, index) in columns" :key="index" v-bind="item">
                     <template #edit="{ row }">
-                        <el-input v-model="row[item.prop]" :placeholder="item.placeholder"></el-input>
+                        <el-input v-model="row[item.prop]" placeholder="请输入"></el-input>
                     </template>
                 </x-edit-table-item>
+
+                <!-- 操作列 -->
                 <slot name="action"> </slot>
             </el-table>
         </el-form>
@@ -36,22 +44,8 @@
 </template>
 
 <script lang="ts" setup>
-import type {
-    RequestFunc,
-    FormModelItem,
-    FormModel,
-    EditActions,
-    XEditTableColumn,
-    XEditTableDataType,
-} from './interface';
-import XEditTableItem from './components/EditTableItem.vue';
-
-/**
- * 定义组件选项
- */
-defineOptions({
-    name: 'XEditTable',
-});
+import type { RequestFunc, FormModelItem, FormModel, EditActions, XEditTableColumn } from './interface';
+import XEditTableItem from './XEditTableItem.vue';
 
 /**
  * props
@@ -72,10 +66,12 @@ const props = withDefaults(
         showIndex?: boolean;
         /** 是否可选 */
         selectable?: boolean;
+        /** 行数据 key 值 */
+        rowKey?: string;
         /** 表格列配置 */
         columns: XEditTableColumn[];
         /** 表格数据 */
-        dataSource?: XEditTableDataType[];
+        dataSource?: Record<string, any>[];
         /** 请求接口 */
         api?: RequestFunc<any> | null;
         /** 请求接口参数 */
@@ -93,6 +89,7 @@ const props = withDefaults(
         tooltipContent: '',
         showIndex: false,
         selectable: false,
+        rowKey: 'id',
         columns: () => [],
         dataSource: () => [],
         api: null,
