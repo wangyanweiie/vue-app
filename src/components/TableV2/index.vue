@@ -87,7 +87,7 @@ import useIndex from './useIndex';
  * 定义组件选项
  */
 defineOptions({
-    name: 'XTable',
+    name: 'XTableV2',
 });
 
 /**

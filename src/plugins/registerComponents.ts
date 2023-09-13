@@ -7,6 +7,8 @@ import {
     XUser,
     XTable,
     XTableV2,
+    XEditTable,
+    XEditTableItem,
     XDialogForm,
     XSearchForm,
     XForm,
@@ -30,14 +32,6 @@ const componentList: ComponentItem[] = [
         component: XLayout,
     },
     {
-        name: 'ParentView',
-        component: ParentView,
-    },
-    {
-        name: 'ParentMenuView',
-        component: ParentMenuView,
-    },
-    {
         name: 'XLogo',
         component: XLogo,
     },
@@ -46,12 +40,28 @@ const componentList: ComponentItem[] = [
         component: XUser,
     },
     {
+        name: 'ParentView',
+        component: ParentView,
+    },
+    {
+        name: 'ParentMenuView',
+        component: ParentMenuView,
+    },
+    {
         name: 'XTable',
         component: XTable,
     },
     {
         name: 'XTableV2',
         component: XTableV2,
+    },
+    {
+        name: 'XEditTable',
+        component: XEditTable,
+    },
+    {
+        name: 'XEditTableItem',
+        component: XEditTableItem,
     },
     {
         name: 'XDialogForm',

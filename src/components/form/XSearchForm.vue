@@ -41,9 +41,9 @@
 
 <script setup lang="ts">
 import type { ColProps, FormProps } from 'element-plus';
-import type { XFormInstance, XFormItemSchema } from '../form/interface';
+import type { XFormInstance, XFormItemSchema } from './interface';
 import { ArrowDownBold, ArrowUpBold } from '@element-plus/icons-vue';
-import XFormItem from '../form/x-form-item.vue';
+import XFormItem from './XFormItem.vue';
 
 /**
  * 扩展 HTMLElement

@@ -29,8 +29,8 @@ import {
     ElDatePicker,
     ElCascader,
 } from 'element-plus';
-import XRadio from './components/x-radio.vue';
-import XSelect from './components/x-select.vue';
+import XRadio from './components/XRadio.vue';
+import XSelect from './components/XSelect.vue';
 
 /**
  * props

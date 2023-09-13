@@ -1,5 +1,26 @@
 <template>
     <div>
+        <!-- x-edit-table -->
+        <x-edit-table ref="editTableRef" header="x-edit-table" :columns="editColumns" :data-source="data">
+            <template #operation>
+                <el-button type="success" @click="editTableRef?.editActions.addRow()">新增</el-button>
+            </template>
+
+            <template #action>
+                <x-edit-table-item label="操作">
+                    <template #default="{ actions, index }">
+                        <el-button @click="actions.startEdit(index)">操作</el-button>
+                        <el-button @click="actions.deleteRow(index)">删除</el-button>
+                    </template>
+                    <template #edit="{ actions, index }">
+                        <el-button @click="actions.saveEdit(index)">保存</el-button>
+                        <el-button @click="actions.cancelEdit(index)">取消</el-button>
+                        <el-button @click="actions.deleteRow(index)">删除</el-button>
+                    </template>
+                </x-edit-table-item>
+            </template>
+        </x-edit-table>
+
         <!-- x-table -->
         <x-table
             ref="tableRef"
@@ -53,10 +74,31 @@ const selectedList = ref([
  */
 const tableRef = ref();
 const tableV2Ref = ref();
+const editTableRef = ref();
 
 /**
  * 表格列配置
  */
+const editColumns: any[] = [
+    {
+        label: '姓名',
+        prop: 'name',
+        required: true,
+    },
+    {
+        label: '年龄',
+        prop: 'age',
+        edit: false,
+    },
+    {
+        label: '性别',
+        prop: 'sex',
+    },
+    {
+        label: '爱好',
+        prop: 'hobby',
+    },
+];
 const columns: any[] = [
     {
         label: '姓名',

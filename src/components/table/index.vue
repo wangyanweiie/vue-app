@@ -118,7 +118,6 @@
 
 <script lang="ts" setup>
 import type { PaginationProps, TableProps } from 'element-plus';
-import { InfoFilled } from '@element-plus/icons-vue';
 import type {
     XTableAPIKeyMap,
     XTableColumn,
@@ -126,8 +125,9 @@ import type {
     XTableActionButton,
     XTableExportConfig,
 } from './interface';
+import { InfoFilled } from '@element-plus/icons-vue';
 import useIndex from './useIndex';
-import TableSetting from './components/table-setting.vue';
+import TableSetting from './components/TableSetting.vue';
 
 /**
  * 定义组件选项

@@ -1,6 +1,5 @@
 import { ElCheckbox, type CheckboxValueType, type Column, type TableV2Instance } from 'element-plus';
 import type { XTableV2Pagination, XTableV2Prop } from './interface';
-import { ref, unref, computed, onMounted, onUnmounted, h, watch } from 'vue';
 import { cloneDeep } from 'lodash-es';
 
 /**

@@ -35,7 +35,7 @@
                 </div>
 
                 <!-- 路由层级面包屑 -->
-                <x-breadcrumb></x-breadcrumb>
+                <breadcrumb></breadcrumb>
 
                 <h3 v-if="isBoxVisible" class="header-center">{{ title }}</h3>
 
@@ -66,10 +66,10 @@
 <script setup lang="ts">
 import { useRoute, type RouteRecordRaw } from 'vue-router';
 import { Fold, Expand } from '@element-plus/icons-vue';
-import subMenu from '@/components/layout/sub-menu.vue';
-import xBreadcrumb from '@/components/layout/x-breadcrumb.vue';
-import historyTabs from '@/components/layout/history-tabs.vue';
-import { useRefresh } from '@/components/layout/use-refresh';
+import SubMenu from './SubMenu.vue';
+import HistoryTabs from './HistoryTabs.vue';
+import Breadcrumb from './Breadcrumb.vue';
+import { useRefresh } from './use-refresh';
 
 interface MenuStyle {
     backgroundColor: string;
@@ -276,3 +276,4 @@ body,
     transform: translateX(30px);
 }
 </style>
+@/components/Layout/use-refresh

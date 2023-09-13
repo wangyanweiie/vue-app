@@ -1,7 +1,6 @@
 import type { TableInstance } from 'element-plus';
 import type { XTablePagination, XTableColumn, XTableActionButton, XTableProp } from './interface';
 import { cloneDeep } from 'lodash-es';
-import { computed, nextTick, onMounted, ref, watch, watchEffect } from 'vue';
 
 /**
  * @description useIndex

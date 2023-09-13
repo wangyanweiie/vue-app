@@ -9,7 +9,7 @@ interface UseRefreshOption {
 /**
  * refresh
  */
-export function useRefresh(option: UseRefreshOption) {
+function useRefresh(option: UseRefreshOption) {
     const route = useRoute();
     const proxy = getCurrentInstance()?.proxy;
 
@@ -59,3 +59,5 @@ export function useRefresh(option: UseRefreshOption) {
         excludeList,
     };
 }
+
+export { useRefresh };

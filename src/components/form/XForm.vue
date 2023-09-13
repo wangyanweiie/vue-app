@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import type { FormInstance, FormProps } from 'element-plus';
 import type { XFormItemSchema } from './interface';
-import XFormItem from './x-form-item.vue';
+import XFormItem from './XFormItem.vue';
 
 /**
  * props

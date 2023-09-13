@@ -44,10 +44,10 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import type { XFormInstance, XFormItemSchema } from './interface';
 import type { FormProps } from 'element-plus';
-import XForm from './x-form.vue';
-import XFormItem from './x-form-item.vue';
+import type { XFormInstance, XFormItemSchema } from './interface';
+import XForm from './XForm.vue';
+import XFormItem from './XFormItem.vue';
 
 /**
  * props

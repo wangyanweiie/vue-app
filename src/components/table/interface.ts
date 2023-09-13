@@ -91,6 +91,7 @@ export interface XTableProp {
 export type XTableColumn<T = any> = Partial<TableColumnCtx<T>> & {
     label?: string;
     prop: keyof T | '';
+    /** 是否选中 */
     checked?: boolean;
 };
 
