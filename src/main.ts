@@ -3,10 +3,10 @@ import mitt from 'mitt';
 import { createPinia } from 'pinia';
 import App from '@/App.vue';
 import router from '@/router/index';
-import permission from '@/directive/permission';
+import { setupRouterGuard } from '@/router/route-guard';
 import { usePermission } from '@/store/permission';
-import { setupRouterGuard } from '@/routeGuard';
 import { registerComponents } from '@/plugins/registerComponents';
+import permission from '@/directive/permission';
 
 import 'element-plus/dist/index.css';
 
@@ -25,11 +25,11 @@ import 'element-plus/dist/index.css';
     // 注册权限指令
     app.use(permission);
 
+    // 注册 UI
+    // app.use(ElementPlus);
+
     // 设置路由权限
     usePermission();
-
-    // 注册 ui
-    // app.use(ElementPlus);
 
     // 路由守卫
     setupRouterGuard(router);

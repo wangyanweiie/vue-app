@@ -1,4 +1,4 @@
-import { setupAxiosInterceptors, removeStorage } from '@/utils';
+import { setupAxiosInterceptors, removeStorage } from '@/utils/index';
 import router from '@/router/index';
 import { LOCAL_TOKEN_KEY } from '@/constant/global';
 

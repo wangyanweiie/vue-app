@@ -1,5 +1,6 @@
-export * from './https';
+export * from './request';
 export * from './await-to';
+export * from './web-socket';
 export * from './common-methods';
 export * from './confirm-message';
 export * from './storage';

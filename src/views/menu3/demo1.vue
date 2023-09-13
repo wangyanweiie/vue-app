@@ -1,9 +1,12 @@
-<template>
-    <div>
-        <el-input v-model="str" placeholder="menu3-demo2"></el-input>
-    </div>
-</template>
-
 <script setup lang="ts">
-const str = ref<string>('');
+import { useCommandComponent } from '@/components/index';
+import MyDialog from './dialog.vue';
+
+const myDialog = useCommandComponent(MyDialog);
 </script>
+
+<template>
+    <el-card shadow="hover" header="命令式弹窗">
+        <el-button @click="myDialog({})"> 打开弹窗 </el-button>
+    </el-card>
+</template>

@@ -12,12 +12,14 @@ import XRadio from '@/components/form/components/x-radio.vue';
 import XCheckbox from '@/components/form/components/x-checkbox.vue';
 import XSelect from '@/components/form/components/x-select.vue';
 import XDescription from '@/components/description/index.vue';
+
 import {
+    type IconTypes,
     generateActiveRoutes,
     generateCacheList,
     generateShowMenus,
-    type IconTypes,
-} from '@/components/utils/router-helper';
+} from '@/components/hooks/router-helper';
+import { type CommandComponent, useCommandComponent } from '@/components/hooks/command-dialog-helper';
 
 export * from '@/components/table/interface';
 export * from '@/components/table-v2/interface';
@@ -39,8 +41,10 @@ export {
     XCheckbox,
     XSelect,
     XDescription,
+    type IconTypes,
     generateActiveRoutes,
     generateCacheList,
     generateShowMenus,
-    type IconTypes,
+    type CommandComponent,
+    useCommandComponent,
 };

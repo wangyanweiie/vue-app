@@ -1,7 +1,7 @@
 import type { Router } from 'vue-router';
 import { useUserStore } from '@/store/user-info';
 
-export function setupRouterGuard(router: any) {
+export function setupRouterGuard(router: Router) {
     router.beforeEach(async (to: any, _: any, next: any) => {
         if (to.path === '/login') {
             next();

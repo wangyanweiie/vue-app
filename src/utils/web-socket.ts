@@ -14,7 +14,7 @@ enum READY_STATUS {
  * @description use websocket
  * @param handleReceive 服务端信息的处理方法
  */
-export default function useWebSocket(
+function useWebSocket(
     url: string,
     handleOpen: () => void,
     handleMessage: (data: any) => void,
@@ -162,3 +162,5 @@ export default function useWebSocket(
         ws,
     };
 }
+
+export { useWebSocket };
