@@ -5,18 +5,13 @@ import App from '@/App.vue';
 import router from '@/router/index';
 import { setupRouterGuard } from '@/router/route-guard';
 import { usePermission } from '@/store/permission';
-import { registerComponents } from '@/plugins/registerComponents';
 import permission from '@/directive/permission';
-import VXETable from 'vxe-table';
+import { registerComponents } from '@/components/register';
 
 import 'element-plus/dist/index.css';
-import 'vxe-table/lib/style.css';
 
 (() => {
     const app = createApp(App);
-
-    // 统一注册组件
-    registerComponents(app);
 
     // 注册状态管理器
     app.use(createPinia());
@@ -30,8 +25,8 @@ import 'vxe-table/lib/style.css';
     // 注册 UI
     // app.use(ElementPlus);
 
-    // 注册 vxe-table
-    app.use(VXETable);
+    // 统一注册组件
+    registerComponents(app);
 
     // 设置路由权限
     usePermission();

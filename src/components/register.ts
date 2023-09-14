@@ -1,22 +1,20 @@
 import type { App, Component } from 'vue';
-import {
-    XLayout,
-    ParentView,
-    ParentMenuView,
-    XLogo,
-    XUser,
-    XTable,
-    XTableV2,
-    XEditTable,
-    XEditTableItem,
-    XDialogForm,
-    XSearchForm,
-    XForm,
-    XRadio,
-    XCheckbox,
-    XSelect,
-    XDescription,
-} from '@/components/index';
+import XLayout from './Layout/XLayout.vue';
+import XLogo from './Layout/XLogo.vue';
+import XUser from './Layout/XUser.vue';
+import ParentView from './Layout/ParentView.vue';
+import ParentMenuView from './Layout/ParentMenuView.vue';
+import XTable from './Table/index.vue';
+import XTableV2 from './TableV2/index.vue';
+import XEditTable from './EditTable/XEditTable.vue';
+import XEditTableItem from './EditTable/XEditTableItem.vue';
+import XSearchForm from './Form/XSearchForm.vue';
+import XDialogForm from './Form/XDialogForm.vue';
+import XForm from './Form/XForm.vue';
+import XRadio from './Form/components/XRadio.vue';
+import XCheckbox from './Form/components/XCheckbox.vue';
+import XSelect from './Form/components/XSelect.vue';
+import XDescription from './Description/index.vue';
 
 interface ComponentItem {
     name: string;

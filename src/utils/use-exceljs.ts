@@ -9,7 +9,7 @@ import { isNumber } from 'lodash-es';
 export default function useExcelJs(sheetName = 'sheet1', fileName = 'example.xlsx') {
     /**
      * 对象数组转换成 excel 导出
-     * @param { any[] } columns 表格配置
+     * @param { XTableColumn[] } columns 表格配置
      * @param { Record<string, any>[] } data 对象数组
      */
     function exportExcelByList(columns: XTableColumn[], data: Record<string, any>[]) {
@@ -32,9 +32,9 @@ export default function useExcelJs(sheetName = 'sheet1', fileName = 'example.xls
         });
 
         // 设置表头样式
-        worksheet.getRow(1).eachCell(cell => {
-            console.log('headerCell', cell);
-        });
+        // worksheet.getRow(1).eachCell(cell => {
+        //     console.log('headerCell', cell);
+        // });
 
         /**
          * addRow 与 addRows

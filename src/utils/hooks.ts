@@ -4,6 +4,23 @@ interface Options {
 }
 
 /**
+ * 时间问候语
+ * @param param 当前时间，new Date() 格式
+ * @returns 返回拼接后的时间字符串
+ */
+export function handleFormatAxis(param: Date): string {
+    const hour: number = new Date(param).getHours();
+    if (hour < 6) return '凌晨好！';
+    else if (hour < 9) return '早上好！';
+    else if (hour < 12) return '上午好！';
+    else if (hour < 14) return '中午好！';
+    else if (hour < 17) return '下午好！';
+    else if (hour < 19) return '傍晚好！';
+    else if (hour < 22) return '晚上好！';
+    else return '夜里好';
+}
+
+/**
  * 校验是否为数字格式（正数/负数/整数/小数）
  * @param value 字符串
  * @return { number | null }
@@ -56,26 +73,6 @@ export function keepDecimalPrecision(value: number | string, precision: number) 
 }
 
 /**
- * 将枚举转换为 options
- * @param enumeration 枚举
- * @return { Options[] }
- */
-export function transformEnumToOptions(enumeration: Record<string, string | number>): Options[] {
-    // Object.entries 返回给定对象自身可枚举属性的键值对数组
-    const list = Object.entries(enumeration);
-    const transList = list
-        .map(([label, value]) => {
-            return {
-                label,
-                value: value as number,
-            };
-        })
-        .slice(list.length / 2);
-
-    return transList;
-}
-
-/**
  * 将 '-' 拼接字符串改为驼峰格式
  * @param str 要转换的字符串
  * @param type 要转换的驼峰格式
@@ -98,6 +95,26 @@ export function handleToHumpFormat(str: string, type: 'min' | 'max') {
             return res;
         }
     }
+}
+
+/**
+ * 将枚举转换为 options
+ * @param enumeration 枚举
+ * @return { Options[] }
+ */
+export function transformEnumToOptions(enumeration: Record<string, string | number>): Options[] {
+    // Object.entries 返回给定对象自身可枚举属性的键值对数组
+    const list = Object.entries(enumeration);
+    const transList = list
+        .map(([label, value]) => {
+            return {
+                label,
+                value: value as number,
+            };
+        })
+        .slice(list.length / 2);
+
+    return transList;
 }
 
 /**
