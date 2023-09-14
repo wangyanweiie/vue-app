@@ -3,7 +3,7 @@ import type { RouteRecordRaw } from 'vue-router';
 /**
  * menu item 类型
  */
-enum MenuType {
+export enum MenuType {
     /** 有子菜单 */
     submenu = 'submenu',
     /** 无子菜单 */
@@ -16,7 +16,7 @@ enum MenuType {
  * @param { string[] | undefined } permissions 权限数组
  * @returns 处理后数组
  */
-function routesToMenuItemList(routes: RouteRecordRaw[], permissions?: string[]): RouteRecordRaw[] {
+export function routesToMenuItemList(routes: RouteRecordRaw[], permissions?: string[]): RouteRecordRaw[] {
     const menuRoutes: RouteRecordRaw[] = [];
 
     for (let i = 0; i < routes.length; i += 1) {
@@ -46,5 +46,3 @@ function routesToMenuItemList(routes: RouteRecordRaw[], permissions?: string[]):
 
     return menuRoutes;
 }
-
-export { MenuType, routesToMenuItemList };

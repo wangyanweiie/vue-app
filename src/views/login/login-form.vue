@@ -28,7 +28,7 @@
 import type { FormInstance } from 'element-plus';
 import { useUserStore } from '@/store/user-info';
 import { usePermissionStore } from '@/store/permission';
-import { to } from '@/utils/index';
+import to from '@/utils/await-to';
 import dropdownAPI from '@/api/dropdown';
 import RequestAPI from '@/api/login';
 

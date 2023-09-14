@@ -7,8 +7,10 @@ import { setupRouterGuard } from '@/router/route-guard';
 import { usePermission } from '@/store/permission';
 import { registerComponents } from '@/plugins/registerComponents';
 import permission from '@/directive/permission';
+import VXETable from 'vxe-table';
 
 import 'element-plus/dist/index.css';
+import 'vxe-table/lib/style.css';
 
 (() => {
     const app = createApp(App);
@@ -27,6 +29,9 @@ import 'element-plus/dist/index.css';
 
     // 注册 UI
     // app.use(ElementPlus);
+
+    // 注册 vxe-table
+    app.use(VXETable);
 
     // 设置路由权限
     usePermission();

@@ -30,6 +30,8 @@
         "dayjs": "^1.11.9",
         "echarts": "^5.4.3",
         "element-plus": "^2.3.12",
+        "exceljs": "^4.3.0",
+        "file-saver": "^2.0.5",
         "jsbarcode": "^3.11.5",
         "lodash-es": "^4.17.21",
         "mitt": "^3.0.1",

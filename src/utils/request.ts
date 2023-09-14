@@ -2,7 +2,7 @@ import axios, { type AxiosError, type AxiosResponse } from 'axios';
 import { ElNotification } from 'element-plus';
 import { throttle } from 'lodash-es';
 import { HTTP_ERROR_NOTICE } from '@/constant/base';
-import { getStorage } from '@/utils/index';
+import { getStorage } from '@/utils/local-storage';
 
 /**
  * 后端返回数据格式

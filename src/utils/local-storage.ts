@@ -31,7 +31,7 @@ function judgeStorageUseful(): boolean {
  * @param key 存储字段
  * @param value 存储值
  */
-function saveStorage(key: string, value: unknown): void {
+export function saveStorage(key: string, value: unknown): void {
     if (judgeStorageUseful()) {
         window.localStorage.setItem(key, JSON.stringify(value));
     }
@@ -41,7 +41,7 @@ function saveStorage(key: string, value: unknown): void {
  * 获取存储字段的值
  * @param key 存储字段
  */
-function getStorage(key: string): any {
+export function getStorage(key: string): any {
     if (!judgeStorageUseful()) {
         return null;
     }
@@ -59,7 +59,7 @@ function getStorage(key: string): any {
  * 删除存储字段
  * @param key 存储字段
  */
-function removeStorage(key: string): void {
+export function removeStorage(key: string): void {
     if (judgeStorageUseful()) {
         window.localStorage.removeItem(key);
     }
@@ -68,10 +68,8 @@ function removeStorage(key: string): void {
 /**
  * 清空所有存储字段
  */
-function clearStorage(): void {
+export function clearStorage(): void {
     if (judgeStorageUseful()) {
         window.localStorage.clear();
     }
 }
-
-export { saveStorage, getStorage, removeStorage, clearStorage };

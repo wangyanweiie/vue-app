@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import { useRoute, type RouteRecordRaw } from 'vue-router';
-import { useRefresh } from '@/components/layout/use-refresh';
+import { useRefresh } from '@/components/Layout/use-refresh';
 
 /**
  * props

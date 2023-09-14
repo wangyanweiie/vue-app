@@ -13,7 +13,7 @@
         >
             <template #operation>
                 <el-button type="success" @click="editTableRef?.editActions.addRow()">新增</el-button>
-                <el-button @click="editTableSubmit">提交</el-button>
+                <el-button type="primary" @click="editTableSubmit">提交</el-button>
             </template>
 
             <template #default>
@@ -50,7 +50,7 @@
         >
             <template #operation>
                 <el-button type="success">新增</el-button>
-                <el-button type="warning">导出</el-button>
+                <el-button type="warning" @click="handleExport">导出</el-button>
             </template>
         </x-table>
 
@@ -76,7 +76,7 @@
 
 <script setup lang="ts">
 import type { XTableColumn, XEditTableColumn } from '@/components';
-import type { Column } from 'element-plus';
+import useExcelJs from '@/utils/use-exceljs';
 
 /**
  * 选中列表
@@ -116,7 +116,7 @@ const columns: XTableColumn[] = [
         prop: 'hobby',
     },
 ];
-const columnsV2: Column[] = [
+const columnsV2: any[] = [
     {
         title: '姓名',
         key: 'name',
@@ -192,6 +192,18 @@ const data = [
  */
 function editTableSubmit() {
     console.log('result', editTableRef.value?.resultData);
+}
+
+/**
+ * use-exceljs
+ */
+const { exportExcelByList } = useExcelJs();
+
+/**
+ * 导出
+ */
+function handleExport() {
+    exportExcelByList(columns, data);
 }
 </script>
 <style lang="scss" scoped>

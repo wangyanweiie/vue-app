@@ -14,11 +14,11 @@ enum READY_STATUS {
  * @description use websocket
  * @param handleReceive 服务端信息的处理方法
  */
-function useWebSocket(
+export default function useWebSocket(
     url: string,
-    handleOpen: () => void,
-    handleMessage: (data: any) => void,
-    handleClose: () => void,
+    openCallback: () => void,
+    messageCallback: (data: any) => void,
+    closeCallback: () => void,
 ) {
     /**
      * websocket 实例
@@ -49,7 +49,7 @@ function useWebSocket(
         // 开启心跳
         // heartCheck.start();
         console.log('onopen');
-        handleOpen();
+        openCallback();
     }
 
     /**
@@ -62,10 +62,10 @@ function useWebSocket(
         // if (res.type === 'heartbeat') {
         //     heartCheck.reset();
         // } else {
-        //     handleMessage(res);
+        //     messageCallback(res);
         // }
 
-        handleMessage(res);
+        messageCallback(res);
     }
 
     /**
@@ -73,7 +73,7 @@ function useWebSocket(
      */
     function onclose() {
         console.log('onclose');
-        handleClose();
+        closeCallback();
     }
 
     /**
@@ -162,5 +162,3 @@ function useWebSocket(
         ws,
     };
 }
-
-export { useWebSocket };

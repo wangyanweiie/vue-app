@@ -1,12 +1,13 @@
 import { ElMessage } from 'element-plus';
 import { OPERATION_NOTICE } from '@/constant/base';
 import type { XFormItemSchema, XFormInstance } from '@/components/index';
-import { confirmExitMessage, getUserInfo, getUserToken } from '@/utils/index';
+import { getUserInfo, getUserToken } from '@/utils/storage';
+import { confirmExitMessage } from '@/utils/confirm-message';
 import { useUserStore } from '@/store/user-info';
 import router from '@/router';
 import RequestAPI from '@/api/login';
 
-export function useConf() {
+export default function useIndex() {
     const token = getUserToken();
     const userInfo = getUserInfo();
     const { clearCache } = useUserStore();
