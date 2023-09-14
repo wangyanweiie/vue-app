@@ -1,5 +1,41 @@
 <template>
     <div>
+        <!-- x-edit-table -->
+        <x-edit-table
+            ref="editTableRef"
+            header="x-edit-table"
+            show-index
+            selectable
+            :columns="editColumns"
+            :data-source="data"
+            row-key="id"
+            class="component"
+        >
+            <template #operation>
+                <el-button type="success" @click="editTableRef?.editActions.addRow()">新增</el-button>
+                <el-button @click="editTableSubmit">提交</el-button>
+            </template>
+
+            <template #default>
+                <x-edit-table-item v-for="(item, index) in editColumns" :key="index" v-bind="item">
+                    <template #edit="{ row }">
+                        <el-input v-model="row[item.prop]" placeholder="请输入"></el-input>
+                    </template>
+                </x-edit-table-item>
+                <x-edit-table-item label="操作" :required="false" fixed="right">
+                    <template #default="{ actions, index }">
+                        <el-button text type="primary" @click="actions.startEdit(index)">操作</el-button>
+                        <el-button text type="primary" @click="actions.deleteRow(index)">删除</el-button>
+                    </template>
+                    <template #edit="{ actions, index }">
+                        <el-button text type="primary" @click="actions.saveEdit(index)">保存</el-button>
+                        <el-button text type="primary" @click="actions.cancelEdit(index)">取消</el-button>
+                        <el-button text type="primary" @click="actions.deleteRow(index)">删除</el-button>
+                    </template>
+                </x-edit-table-item>
+            </template>
+        </x-edit-table>
+
         <!-- x-table -->
         <x-table
             ref="tableRef"
@@ -35,42 +71,13 @@
                 <el-button type="warning">导出</el-button>
             </template>
         </x-table-v2>
-
-        <!-- x-edit-table -->
-        <x-edit-table
-            ref="editTableRef"
-            header="x-edit-table"
-            show-index
-            selectable
-            :columns="editColumns"
-            :data-source="data"
-            row-key="id"
-            class="component"
-        >
-            <template #operation>
-                <el-button type="success" @click="editTableRef?.editActions.addRow()">新增</el-button>
-                <el-button @click="editTableSubmit">提交</el-button>
-            </template>
-
-            <template #action>
-                <x-edit-table-item label="操作" :required="false">
-                    <template #default="{ actions, index }">
-                        <el-button text type="primary" @click="actions.startEdit(index)">操作</el-button>
-                        <el-button text type="primary" @click="actions.deleteRow(index)">删除</el-button>
-                    </template>
-                    <template #edit="{ actions, index }">
-                        <el-button text type="primary" @click="actions.saveEdit(index)">保存</el-button>
-                        <el-button text type="primary" @click="actions.cancelEdit(index)">取消</el-button>
-                        <el-button text type="primary" @click="actions.deleteRow(index)">删除</el-button>
-                    </template>
-                </x-edit-table-item>
-            </template>
-        </x-edit-table>
     </div>
 </template>
 
 <script setup lang="ts">
-import type { XTableColumn, XTableV2Column, XEditTableColumn } from '@/components';
+import type { XTableColumn, XEditTableColumn } from '@/components';
+import type { Column } from 'element-plus';
+
 /**
  * 选中列表
  */
@@ -109,7 +116,7 @@ const columns: XTableColumn[] = [
         prop: 'hobby',
     },
 ];
-const columnsV2: XTableV2Column[] = [
+const columnsV2: Column[] = [
     {
         title: '姓名',
         key: 'name',

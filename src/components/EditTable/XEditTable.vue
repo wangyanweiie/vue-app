@@ -30,22 +30,15 @@
                 <!-- 索引列 -->
                 <el-table-column v-if="showIndex" type="index" align="center" width="50px" label="#" />
 
-                <x-edit-table-item v-for="(item, index) in columns" :key="index" v-bind="item">
-                    <template #edit="{ row }">
-                        <el-input v-model="row[item.prop]" placeholder="请输入"></el-input>
-                    </template>
-                </x-edit-table-item>
-
-                <!-- 操作列 -->
-                <slot name="action"> </slot>
+                <!-- slot -->
+                <slot> </slot>
             </el-table>
         </el-form>
     </el-card>
 </template>
 
 <script lang="ts" setup>
-import type { RequestFunc, FormModelItem, FormModel, EditActions, XEditTableColumn } from './interface';
-import XEditTableItem from './XEditTableItem.vue';
+import type { RequestFunc, FormModelItem, FormModel, EditActions } from './interface';
 
 /**
  * props
@@ -69,7 +62,7 @@ const props = withDefaults(
         /** 行数据 key 值 */
         rowKey?: string;
         /** 表格列配置 */
-        columns: XEditTableColumn[];
+        // columns: XEditTableColumn[];
         /** 表格数据 */
         dataSource?: Record<string, any>[];
         /** 请求接口 */
@@ -90,7 +83,7 @@ const props = withDefaults(
         showIndex: false,
         selectable: false,
         rowKey: 'id',
-        columns: () => [],
+        // columns: () => [],
         dataSource: () => [],
         api: null,
         apiParams: () => ({}),

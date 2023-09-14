@@ -91,7 +91,7 @@ export interface XTableV2Prop {
 export interface XTableV2Column {
     /** 表头字段名 */
     key: string;
-    dateKey: string;
+    dataKey: string;
     /** 表头展示文字 */
     title: string;
     /** 表格列宽度 */
