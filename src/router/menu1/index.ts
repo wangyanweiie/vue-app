@@ -1,6 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router';
-import { ParentView, ParentMenuView } from '@/components/index';
 import { subRoutes } from './sub';
+import ParentMenuView from '@/components/Layout/ParentMenuView.vue';
+import ParentView from '@/components/Layout/ParentView.vue';
 
 export const menu1Routes: RouteRecordRaw = {
     path: '/menu1',

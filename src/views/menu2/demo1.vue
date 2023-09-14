@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import type { RadioValueType, SelectValueType } from '@/components/index';
+import type { RadioValueType, SelectValueType } from '@/components/Form/interface';
 
 /**
  * radio

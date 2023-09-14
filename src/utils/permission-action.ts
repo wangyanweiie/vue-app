@@ -1,5 +1,5 @@
 import { usePermissionStore } from '@/store/permission';
-import type { XTableActionButton } from '@/components';
+import type { XTableActionButton } from '@/components/Table/interface';
 
 export function getPermissionAction(actionList: any[], permission?: any): XTableActionButton[] {
     const { usable } = usePermissionStore();

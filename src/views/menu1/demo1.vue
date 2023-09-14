@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import type { XDescriptionColumn } from '@/components/index';
+import type { XDescriptionColumn } from '@/components/Description/interface';
 
 /**
  * 表格列配置

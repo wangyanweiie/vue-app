@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { useCommandComponent } from '@/components/index';
+import { useCommandComponent } from '@/components/hooks/command-dialog-helper';
 import MyDialog from './dialog.vue';
 
 const myDialog = useCommandComponent(MyDialog);

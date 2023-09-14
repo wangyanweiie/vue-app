@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="ts">
-import { ParentMenuView } from '@/components/index';
 import { subRoutes } from '@/router/menu1/sub';
 import { usePermissionStore } from '@/store/permission';
 

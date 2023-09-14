@@ -75,7 +75,8 @@
 </template>
 
 <script setup lang="ts">
-import type { XTableColumn, XEditTableColumn } from '@/components';
+import type { XTableColumn } from '@/components/Table/interface';
+import type { XEditTableColumn } from '@/components/EditTable/interface';
 import useExcelJs from '@/utils/use-exceljs';
 
 /**

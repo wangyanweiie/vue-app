@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import store from 'store2';
 import type { RouteRecordRaw } from 'vue-router';
-import { generateActiveRoutes, generateCacheList, generateShowMenus } from '@/components/index';
+import { generateActiveRoutes, generateCacheList, generateShowMenus } from '@/components/hooks/router-helper';
 import router, { menuRoutes } from '@/router/index';
 import appLayout from '@/layout/index.vue';
 

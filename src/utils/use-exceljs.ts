@@ -1,4 +1,4 @@
-import type { XTableColumn } from '@/components';
+import type { XTableColumn } from '@/components/Table/interface';
 import * as ExcelJs from 'exceljs';
 import { saveAs } from 'file-saver';
 import { isNumber } from 'lodash-es';

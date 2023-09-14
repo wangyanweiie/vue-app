@@ -1,6 +1,6 @@
 import { ElMessage } from 'element-plus';
 import { OPERATION_NOTICE } from '@/constant/base';
-import type { XFormItemSchema, XFormInstance } from '@/components/index';
+import type { XFormItemSchema, XFormInstance } from '@/components/Form/interface';
 import { getUserInfo, getUserToken } from '@/utils/storage';
 import { confirmExitMessage } from '@/utils/confirm-message';
 import { useUserStore } from '@/store/user-info';
