@@ -19,6 +19,7 @@ specifiers:
   axios: ^1.5.0
   cz-customizable: ^7.0.0
   dayjs: ^1.11.9
+  docx-preview: ^0.1.18
   echarts: ^5.4.3
   element-plus: ^2.3.12
   eslint: ^8.46.0
@@ -34,6 +35,7 @@ specifiers:
   jsdom: ^22.1.0
   lint-staged: ^14.0.1
   lodash-es: ^4.17.21
+  luckyexcel: ^1.0.1
   mitt: ^3.0.1
   nprogress: ^0.2.0
   pinia: ^2.1.6
@@ -62,12 +64,14 @@ dependencies:
   '@element-plus/icons-vue': 2.1.0_vue@3.3.4
   axios: 1.5.0
   dayjs: 1.11.9
+  docx-preview: 0.1.18
   echarts: 5.4.3
   element-plus: 2.3.12_vue@3.3.4
   exceljs: 4.3.0
   file-saver: 2.0.5
   jsbarcode: 3.11.5
   lodash-es: 4.17.21
+  luckyexcel: 1.0.1
   mitt: 3.0.1
   nprogress: 0.2.0
   pinia: 2.1.6_typescript@5.2.2+vue@3.3.4
@@ -3007,6 +3011,12 @@ packages:
       esutils: 2.0.3
     dev: true
 
+  /docx-preview/0.1.18:
+    resolution: {integrity: sha512-nmkeghp9k4Qw+T3/sttwuMhTnn0gQaq23EN8dLoB7nxb/fEd8S57mh9l8j7SpVgpGg5MSW1WZJffv6Yoy29KaA==}
+    dependencies:
+      jszip: 3.10.1
+    dev: false
+
   /domexception/4.0.0:
     resolution: {integrity: sha512-A2is4PLG+eeSfoTMA95/s4pvAoSo2mKtiM5jlHkAVewmiO8ISFTFKZjH7UAM1Atli/OT/7JHOrJRJiMKUZKYBw==}
     engines: {node: '>=12'}
@@ -4672,6 +4682,12 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
+
+  /luckyexcel/1.0.1:
+    resolution: {integrity: sha512-hvbJmCXNp/vST/huA6sieDn32Ib8bd80L9aIu5ZGxniJvZle7VlpHZrl6weLGaEnX99+t7cPAoYGqrqbfZp/AQ==}
+    dependencies:
+      jszip: 3.10.1
+    dev: false
 
   /magic-string-ast/0.3.0:
     resolution: {integrity: sha512-0shqecEPgdFpnI3AP90epXyxZy9g6CRZ+SZ7BcqFwYmtFEnZ1jpevcV5HoyVnlDS9gCnc1UIg3Rsvp3Ci7r8OA==}

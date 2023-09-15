@@ -15,6 +15,7 @@ import XRadio from './Form/components/XRadio.vue';
 import XCheckbox from './Form/components/XCheckbox.vue';
 import XSelect from './Form/components/XSelect.vue';
 import XDescription from './Description/index.vue';
+import XFilePreview from './FilePreview/index.vue';
 
 interface ComponentItem {
     name: string;
@@ -88,6 +89,10 @@ const componentList: ComponentItem[] = [
     {
         name: 'XDescription',
         component: XDescription,
+    },
+    {
+        name: 'XFilePreview',
+        component: XFilePreview,
     },
 ];
 
