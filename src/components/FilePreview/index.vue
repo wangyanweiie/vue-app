@@ -9,8 +9,7 @@
 
         <!-- 容器 -->
         <div ref="docsPreviewRef"></div>
-        <div id="luckysheetId"></div>
-        <canvas id="canvasId"></canvas>
+        <div id="luckysheetId" class="luckysheet"></div>
     </el-dialog>
 </template>
 
@@ -65,12 +64,7 @@ const { dialogVisible, docsPreviewRef, download } = useIndex(props, emits);
     justify-content: end;
 }
 
-#luckysheetId {
-    width: 100%;
-    height: 100%;
-}
-
-#canvasId {
+.luckysheet {
     width: 100%;
     height: 100%;
 }

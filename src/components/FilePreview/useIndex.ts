@@ -1,9 +1,9 @@
+import type { PreviewProps } from './interface';
 import axios from 'axios';
 import { renderAsync } from 'docx-preview';
 import { transformExcelToLuckyByUrl } from 'luckyexcel';
 import { downloadFileFromURL } from '@/utils/common-methods';
 import { ElMessage } from 'element-plus';
-import type { PreviewProps } from './interface';
 
 /**
  * @description useIndex
@@ -100,8 +100,6 @@ export default function useIndex(props: PreviewProps, emits: any) {
                 showinfobar: false,
                 // 是否显示底部计数栏
                 showstatisticBar: false,
-                // sheet页下方的添加行按钮和回到顶部按钮配置
-                // sheetBottomConfig: false,
                 // 是否允许前台编辑
                 allowEdit: false,
                 // 是否允许复制
@@ -118,7 +116,7 @@ export default function useIndex(props: PreviewProps, emits: any) {
      * pdf 预览
      */
     function pdfPreview() {
-        console.log(props.url);
+        console.log('pdf', props.url);
     }
 
     /**
@@ -130,7 +128,7 @@ export default function useIndex(props: PreviewProps, emits: any) {
         } else if (props.url.indexOf('.xlsx') !== -1) {
             excelPreview();
         } else if (props.url.indexOf('.pdf') !== -1) {
-            pdfPreview;
+            pdfPreview();
         }
     }
 
