@@ -3,15 +3,17 @@ import path from 'path';
 import { defineConfig } from 'vite';
 import Vue from '@vitejs/plugin-vue';
 import Icons from 'unplugin-icons/vite';
-import dts from 'vite-plugin-dts';
+import Dts from 'vite-plugin-dts';
 import Inspect from 'vite-plugin-inspect';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import IconsResolver from 'unplugin-icons/resolver';
 import ElementPlus from 'unplugin-element-plus/vite';
-import DefineOptions from 'unplugin-vue-define-options/vite';
 import VueDevTools from 'vite-plugin-vue-devtools';
+import Legacy from '@vitejs/plugin-legacy';
+import ViteCompression from 'vite-plugin-compression';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 const pathSrc = path.resolve(__dirname, 'src');
 
@@ -19,6 +21,30 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': pathSrc,
+        },
+    },
+    build: {
+        minify: 'terser',
+        terserOptions: {
+            compress: {
+                // 生产环境时删除 console 与 debugger
+                drop_console: true,
+                drop_debugger: true,
+            },
+        },
+
+        /**
+         * rollup 打包后的静态资源名称格式
+         * vite 基于 rollup打包，打包后的 chunk（代码块）后静态资源名称比较简单，
+         * 使用命名规则可以确保在每次构建应用程序时，文件的名称都会随着内容的更改而变化，
+         * 可以避免浏览器缓存旧版本文件的问题，并确保每次部署新的构建版本时，浏览器可以正确加载更新的文件
+         */
+        rollupOptions: {
+            output: {
+                chunkFileNames: 'static/js/[name]-[hash].js',
+                entryFileNames: 'static/js/[name]-[hash].js',
+                assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+            },
         },
     },
     plugins: [
@@ -82,7 +108,7 @@ export default defineConfig({
         /**
          * 生成类型声明文件
          */
-        dts(),
+        Dts(),
 
         /**
          * 为 Element Plus 按需引入样式
@@ -92,13 +118,26 @@ export default defineConfig({
         }),
 
         /**
-         * 设置组件名称
-         */
-        DefineOptions(),
-
-        /**
          * 增强 Vue 开发者体验
          */
         VueDevTools(),
+
+        /**
+         * 兼容旧版浏览器
+         */
+        Legacy({
+            targets: ['defaults', 'not IE 11'],
+        }),
+
+        /**
+         * gzip 压缩 => Nginx 要开启 gzip 才有作用
+         */
+        ViteCompression(),
+
+        /**
+         * 可以展示构建时长、chunk 数量及大小
+         * PS：需要将 visualizer 插件放到最后的位置
+         */
+        visualizer(),
     ],
 });

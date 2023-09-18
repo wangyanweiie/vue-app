@@ -53,17 +53,13 @@ declare module 'vue' {
         LuckySheet: (typeof import('./../components/LuckySheet/index.vue'))['default'];
         ParentMenuView: (typeof import('./../components/Layout/ParentMenuView.vue'))['default'];
         ParentView: (typeof import('./../components/Layout/ParentView.vue'))['default'];
-        Preview: (typeof import('../components/FilePreview/index.vue'))['default'];
-        PreviewDialog: (typeof import('./../components/PreviewDialog/index.vue'))['default'];
         RouterLink: (typeof import('vue-router'))['RouterLink'];
         RouterView: (typeof import('vue-router'))['RouterView'];
         SubMenu: (typeof import('./../components/Layout/SubMenu.vue'))['default'];
         Table: (typeof import('./../components/Table/index.vue'))['default'];
         TableSetting: (typeof import('./../components/Table/components/TableSetting.vue'))['default'];
         TableV2: (typeof import('./../components/TableV2/index.vue'))['default'];
-        UseIndex: (typeof import('../components/PreviewDialog/useIndex.ts'))['default'];
         XCheckbox: (typeof import('./../components/Form/components/XCheckbox.vue'))['default'];
-        XDescription: (typeof import('../components/Description/index.vue'))['default'];
         XDialogForm: (typeof import('./../components/Form/XDialogForm.vue'))['default'];
         XEditTable: (typeof import('./../components/EditTable/XEditTable.vue'))['default'];
         XEditTableItem: (typeof import('./../components/EditTable/XEditTableItem.vue'))['default'];
