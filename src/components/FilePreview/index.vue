@@ -19,8 +19,10 @@
             />
 
             <div class="pdf-style__operate">
-                <el-button size="small" @click="prePage()">上一页</el-button>
-                <el-button size="small" @click="nextPage()">下一页</el-button>
+                <el-button size="small" :disabled="pdfState.currentPage === 1" @click="prePage()">上一页</el-button>
+                <el-button size="small" :disabled="pdfState.currentPage === pdfState.totalPages" @click="nextPage()">
+                    下一页
+                </el-button>
                 <el-button size="small" disabled>{{ `${pdfState.currentPage} / ${pdfState.totalPages}` }}</el-button>
             </div>
         </div>

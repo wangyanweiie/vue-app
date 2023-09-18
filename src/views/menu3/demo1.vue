@@ -13,6 +13,7 @@ import { useCommandComponent } from '@/components/hooks/command-dialog-helper';
 import PreviewDialog from '@/components/FilePreview/index.vue';
 
 const previewDialog = useCommandComponent(PreviewDialog);
+
 const wordUrl = ref<string>('http://192.168.3.38:9000/lvling/1694743570966电脑添加打印机.docx');
 const excelUrl = ref<string>('http://192.168.3.38:9000/lvling/1694743598502绿菱条码模板.xlsx');
 const pdfUrl = ref<string>('http://192.168.3.38:9000/lvling/1694770849198掼蛋.pdf');

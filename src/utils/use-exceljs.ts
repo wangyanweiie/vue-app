@@ -48,9 +48,17 @@ export default function useExcelJs(sheetName = 'sheet1', fileName = 'example.xls
 
         // 导出文件
         workbook.xlsx.writeBuffer().then(data => {
+            // 返回一个新创建的 Blob 对象，其内容由参数中给定的数组拼接组成
             const blob = new Blob([data], {
-                // type 默认值为 ""，它代表了将会被放入到 blob 中的数组内容的 MIME 类型
-                // type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8',
+                /**
+                 * options
+                 * type：默认值为 ""，它代表了将会被放入到 blob 中的数组内容的 MIME 类型
+                 * endings：默认值为 "transparent"，用于指定包含行结束符 \n 的字符串如何被写入
+                 *   - "native"，代表行结束符会被更改为适合宿主操作系统文件系统的换行符
+                 *   - "transparent"，代表会保持 blob 中保存的结束符不变
+                 */
+                // type: 'text/plain;charset=utf-8',
+                // endings: 'transparent',
             });
 
             saveAs(blob, fileName);
