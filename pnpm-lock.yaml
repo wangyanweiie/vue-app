@@ -56,8 +56,10 @@ specifiers:
   vite-plugin-vue-devtools: 1.0.0-rc.3
   vitest: ^0.34.3
   vue: ^3.3.4
+  vue-pdf-embed: ^1.1.6
   vue-router: ^4.2.4
   vue-tsc: ^1.8.10
+  vue3-pdfjs: ^0.1.6
   vuedraggable: ^4.1.0
 
 dependencies:
@@ -79,7 +81,9 @@ dependencies:
   qrcode.vue: 3.4.1_vue@3.3.4
   store2: 2.14.2
   vue: 3.3.4
+  vue-pdf-embed: 1.1.6_vue@3.3.4
   vue-router: 4.2.4_vue@3.3.4
+  vue3-pdfjs: 0.1.6
   vuedraggable: 4.1.0_vue@3.3.4
 
 devDependencies:
@@ -3024,6 +3028,11 @@ packages:
       webidl-conversions: 7.0.0
     dev: true
 
+  /dommatrix/1.0.3:
+    resolution: {integrity: sha512-l32Xp/TLgWb8ReqbVJAFIvXmY7go4nTxxlWiAFyhoQw9RKEOHBZNnyGvJWqDVSPmq3Y9HlM4npqF/T6VMOXhww==}
+    deprecated: dommatrix is no longer maintained. Please use @thednp/dommatrix.
+    dev: false
+
   /dot-prop/5.3.0:
     resolution: {integrity: sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==}
     engines: {node: '>=8'}
@@ -5151,6 +5160,18 @@ packages:
     resolution: {integrity: sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==}
     dev: true
 
+  /pdfjs-dist/2.16.105:
+    resolution: {integrity: sha512-J4dn41spsAwUxCpEoVf6GVoz908IAA3mYiLmNxg8J9kfRXc2jxpbUepcP0ocp0alVNLFthTAM8DZ1RaHh8sU0A==}
+    peerDependencies:
+      worker-loader: ^3.0.8
+    peerDependenciesMeta:
+      worker-loader:
+        optional: true
+    dependencies:
+      dommatrix: 1.0.3
+      web-streams-polyfill: 3.2.1
+    dev: false
+
   /picocolors/1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
 
@@ -6620,6 +6641,14 @@ packages:
       - supports-color
     dev: true
 
+  /vue-pdf-embed/1.1.6_vue@3.3.4:
+    resolution: {integrity: sha512-CRQIw8OxiD6H1n8KT2zVWbp/00fA3PgSV/JYJ0Ut+FdC1jHrRDHNBj3BvaRVwZFZg3EJ8LLjyEDYxWWUMOjrDw==}
+    peerDependencies:
+      vue: ^2.x || ^3.x
+    dependencies:
+      vue: 3.3.4
+    dev: false
+
   /vue-router/4.2.4_vue@3.3.4:
     resolution: {integrity: sha512-9PISkmaCO02OzPVOMq2w82ilty6+xJmQrarYZDkjZBfl4RvYAlt4PKnEX21oW4KTtWfa9OuO/b3qk1Od3AEdCQ==}
     peerDependencies:
@@ -6657,6 +6686,16 @@ packages:
       '@vue/server-renderer': 3.3.4_vue@3.3.4
       '@vue/shared': 3.3.4
 
+  /vue3-pdfjs/0.1.6:
+    resolution: {integrity: sha512-7UaWbsp8wNqB0y/rRlyo5yRb0S+XOkkSpmdUuS267Dhi07Pt4RFEetQ8inrpf/aTFJwGnW0Uc/UE4p376s+Zmw==}
+    engines: {node: '>=10.0.0'}
+    dependencies:
+      pdfjs-dist: 2.16.105
+      vue: 3.3.4
+    transitivePeerDependencies:
+      - worker-loader
+    dev: false
+
   /vuedraggable/4.1.0_vue@3.3.4:
     resolution: {integrity: sha512-FU5HCWBmsf20GpP3eudURW3WdWTKIbEIQxh9/8GE806hydR9qZqRRxRE3RjqX7PkuLuMQG/A7n3cfj9rCEchww==}
     peerDependencies:
@@ -6672,6 +6711,11 @@ packages:
     dependencies:
       xml-name-validator: 4.0.0
     dev: true
+
+  /web-streams-polyfill/3.2.1:
+    resolution: {integrity: sha512-e0MO3wdXWKrLbL0DgGnUV7WHVuw9OUvL4hjgnPkIeEvESk74gAITi5G606JtZPp39cd8HA9VQzCIvA49LpPN5Q==}
+    engines: {node: '>= 8'}
+    dev: false
 
   /webidl-conversions/7.0.0:
     resolution: {integrity: sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==}

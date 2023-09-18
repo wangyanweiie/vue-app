@@ -8,12 +8,27 @@
         </template>
 
         <!-- 容器 -->
-        <div ref="docsPreviewRef"></div>
-        <div id="luckysheetId" class="luckysheet"></div>
+        <div v-if="fileType === FileType['word']" ref="wordRef" class="word-style"></div>
+        <div v-if="fileType === FileType['excel']" id="excelId" class="luckysheet"></div>
+        <div v-if="fileType === FileType['pdf']" class="pdf-style">
+            <vue-pdf-embed
+                :source="pdfState.source"
+                :page="pdfState.currentPage"
+                :style="pdfState.scale"
+                :rotate="pdfState.rotate"
+            />
+
+            <div class="pdf-style__operate">
+                <el-button size="small" @click="prePage()">上一页</el-button>
+                <el-button size="small" @click="nextPage()">下一页</el-button>
+                <el-button size="small" disabled>{{ `${pdfState.currentPage} / ${pdfState.totalPages}` }}</el-button>
+            </div>
+        </div>
     </el-dialog>
 </template>
 
 <script lang="ts" setup>
+import VuePdfEmbed from 'vue-pdf-embed';
 import useIndex from './useIndex';
 
 /**
@@ -56,16 +71,30 @@ const emits = defineEmits<{
 /**
  * use-index
  */
-const { dialogVisible, docsPreviewRef, download } = useIndex(props, emits);
+const { FileType, fileType, dialogVisible, wordRef, pdfState, prePage, nextPage, download } = useIndex(props, emits);
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .dialog-header {
     display: flex;
     justify-content: end;
 }
 
+// FIXME: class 不用 luckysheet 不生效？
 .luckysheet {
     width: 100%;
     height: 100%;
+}
+
+.pdf-style {
+    position: relative;
+    padding: 30px;
+    background-color: #808080;
+
+    &__operate {
+        position: sticky;
+        bottom: 0;
+        padding: 15px;
+        text-align: center;
+    }
 }
 </style>

@@ -2,8 +2,18 @@ import type { PreviewProps } from './interface';
 import axios from 'axios';
 import { renderAsync } from 'docx-preview';
 import { transformExcelToLuckyByUrl } from 'luckyexcel';
+import { createLoadingTask } from 'vue3-pdfjs';
 import { downloadFileFromURL } from '@/utils/common-methods';
 import { ElMessage } from 'element-plus';
+
+/**
+ * 文件类型枚举
+ */
+enum FileType {
+    'word' = 1,
+    'excel' = 2,
+    'pdf' = 3,
+}
 
 /**
  * @description useIndex
@@ -26,9 +36,44 @@ export default function useIndex(props: PreviewProps, emits: any) {
     });
 
     /**
+     * 文件类型
+     */
+    const fileType = computed(() => {
+        let type: number | null;
+
+        if (props.url.indexOf('.docx') !== -1) {
+            type = FileType['word'];
+        } else if (props.url.indexOf('.xlsx') !== -1) {
+            type = FileType['excel'];
+        } else if (props.url.indexOf('.pdf') !== -1) {
+            type = FileType['pdf'];
+        } else {
+            type = null;
+        }
+
+        return type;
+    });
+
+    /**
      * word-ref
      */
-    const docsPreviewRef = ref<HTMLElement>();
+    const wordRef = ref<HTMLElement>();
+
+    /**
+     * pdf-state
+     */
+    const pdfState = reactive({
+        // 预览 pdf 文件地址
+        source: props.url,
+        // 当前页面
+        currentPage: 1,
+        // 总页数
+        totalPages: 1,
+        // 缩放比例
+        scale: 1,
+        // 旋转角度
+        rotate: 0,
+    });
 
     /**
      * word 预览
@@ -44,7 +89,7 @@ export default function useIndex(props: PreviewProps, emits: any) {
                 return;
             }
 
-            renderAsync(res.data, docsPreviewRef.value as unknown as HTMLElement, undefined, {
+            renderAsync(res.data, wordRef.value as unknown as HTMLElement, undefined, {
                 // 默认和文档样式类的类名/前缀
                 className: 'docx',
                 // 启用围绕文档内容渲染包装器
@@ -85,7 +130,7 @@ export default function useIndex(props: PreviewProps, emits: any) {
             // 重新创建新表格
             window.luckysheet.create({
                 // 设定 DOM 容器的 ID
-                container: 'luckysheetId',
+                container: 'excelId',
                 // 表格内容
                 data: exportJson.sheets,
                 // 表格标题
@@ -116,19 +161,50 @@ export default function useIndex(props: PreviewProps, emits: any) {
      * pdf 预览
      */
     function pdfPreview() {
-        console.log('pdf', props.url);
+        const loadingTask = createLoadingTask(pdfState.source);
+        loadingTask.promise
+            .then((pdf: { numPages: number }) => {
+                pdfState.totalPages = pdf.numPages;
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }
+
+    /**
+     * pdf 上一页
+     */
+    function prePage() {
+        let page = pdfState.currentPage;
+        page = page > 1 ? page - 1 : page;
+        pdfState.currentPage = page;
+    }
+
+    /**
+     * pdf 下一页
+     */
+    function nextPage() {
+        let page = pdfState.currentPage;
+        page = page < pdfState.totalPages ? page + 1 : pdfState.totalPages;
+        pdfState.currentPage = page;
     }
 
     /**
      * 预览
      */
     function handlePreview() {
-        if (props.url.indexOf('.docx') !== -1) {
-            wordPreview();
-        } else if (props.url.indexOf('.xlsx') !== -1) {
-            excelPreview();
-        } else if (props.url.indexOf('.pdf') !== -1) {
-            pdfPreview();
+        switch (fileType.value) {
+            case FileType['word']:
+                wordPreview();
+                break;
+
+            case FileType['excel']:
+                excelPreview();
+                break;
+
+            case FileType['pdf']:
+                pdfPreview();
+                break;
         }
     }
 
@@ -147,8 +223,13 @@ export default function useIndex(props: PreviewProps, emits: any) {
     });
 
     return {
+        FileType,
+        fileType,
         dialogVisible,
-        docsPreviewRef,
+        wordRef,
+        pdfState,
+        prePage,
+        nextPage,
         download,
     };
 }
