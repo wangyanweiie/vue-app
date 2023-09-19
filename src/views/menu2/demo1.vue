@@ -1,16 +1,13 @@
 <template>
     <div>
-        <!-- radio -->
         <el-card header="x-radio" shadow="hover" class="component">
             <x-radio v-model="radioValue" :options="radioOptions"></x-radio>
         </el-card>
 
-        <!-- checkbox -->
         <el-card header="x-checkbox" shadow="hover" class="component">
             <x-checkbox v-model="checkboxValue" :all-choose="true" :options="checkboxOptions"></x-checkbox>
         </el-card>
 
-        <!-- select -->
         <el-card header="x-select" shadow="hover" class="component">
             <x-select v-model="selectValue" :all-choose="true" :options="selectOptions"></x-select>
         </el-card>

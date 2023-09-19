@@ -50,9 +50,9 @@ declare module 'vue' {
         ElTooltip: (typeof import('element-plus/es'))['ElTooltip'];
         FilePreview: (typeof import('./../components/FilePreview/index.vue'))['default'];
         HistoryTabs: (typeof import('./../components/Layout/HistoryTabs.vue'))['default'];
-        LuckySheet: (typeof import('./../components/LuckySheet/index.vue'))['default'];
         ParentMenuView: (typeof import('./../components/Layout/ParentMenuView.vue'))['default'];
         ParentView: (typeof import('./../components/Layout/ParentView.vue'))['default'];
+        RichTextEditor: (typeof import('./../components/RichTextEditor/index.vue'))['default'];
         RouterLink: (typeof import('vue-router'))['RouterLink'];
         RouterView: (typeof import('vue-router'))['RouterView'];
         SubMenu: (typeof import('./../components/Layout/SubMenu.vue'))['default'];

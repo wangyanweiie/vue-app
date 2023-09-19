@@ -2,7 +2,7 @@
  * columnItem type
  * @interface
  */
-export interface PreviewProps {
+export interface XFilePreviewProps {
     /** 是否展示 */
     visible: boolean;
     /** 弹窗标题 */

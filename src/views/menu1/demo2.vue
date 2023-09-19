@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- x-edit-table -->
         <x-edit-table
             ref="editTableRef"
             header="x-edit-table"
@@ -36,7 +35,6 @@
             </template>
         </x-edit-table>
 
-        <!-- x-table -->
         <x-table
             ref="tableRef"
             header="x-table"
@@ -54,7 +52,6 @@
             </template>
         </x-table>
 
-        <!-- x-table-v2 -->
         <x-table-v2
             ref="tableV2Ref"
             header="x-table-v2"

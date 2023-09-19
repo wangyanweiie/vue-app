@@ -8,8 +8,10 @@ import { usePermission } from '@/store/permission';
 import permission from '@/directive/permission';
 import { registerComponents } from '@/components/register';
 
+// 引入组件样式
 import 'element-plus/dist/index.css';
 import 'nprogress/nprogress.css';
+import '@wangeditor/editor/dist/css/style.css';
 
 (() => {
     const app = createApp(App);

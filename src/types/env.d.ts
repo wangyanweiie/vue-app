@@ -4,3 +4,4 @@ declare interface Window {
 }
 
 declare module 'luckyexcel';
+declare module '@wangeditor/editor-for-vue';

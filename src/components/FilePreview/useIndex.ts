@@ -1,4 +1,4 @@
-import type { PreviewProps } from './interface';
+import type { XFilePreviewProps } from './interface';
 import axios from 'axios';
 import { renderAsync } from 'docx-preview';
 import { transformExcelToLuckyByUrl } from 'luckyexcel';
@@ -20,7 +20,7 @@ enum FileType {
  * @param props 组件传参
  * @param emit 自定义事件
  */
-export default function useIndex(props: PreviewProps, emits: any) {
+export default function useIndex(props: XFilePreviewProps, emits: any) {
     /**
      * 是否展示弹窗
      */

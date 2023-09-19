@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- search-form -->
         <x-search-form
             v-model="searchForm"
             :schemas="searchSchemas"
@@ -11,7 +10,6 @@
         >
         </x-search-form>
 
-        <!-- form -->
         <el-card header="x-form" shadow="hover" class="component">
             <x-form ref="formRef" v-model="form" :el-form-props="elFromProps" :schemas="schemas"> </x-form>
 
@@ -20,7 +18,6 @@
             <el-button type="primary" @click="handleTest"> TEST </el-button>
         </el-card>
 
-        <!-- dialog-form -->
         <el-card header="x-dialog-form" shadow="hover" class="component">
             <el-button @click="openDialog">打开弹窗</el-button>
 
