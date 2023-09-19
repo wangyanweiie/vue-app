@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
-import useIndex from './useIndex.ts';
+import useIndex from './useIndex';
 
 /**
  * 定义组件选项
@@ -28,6 +28,8 @@ defineOptions({
  */
 const props = withDefaults(
     defineProps<{
+        /** 双向绑定 */
+        modelValue: string;
         /** 上传地址 */
         uploadUrl?: string;
         /** 文件名 */
@@ -36,24 +38,16 @@ const props = withDefaults(
         mode?: 'default' | 'simple';
         /** 编辑器样式 */
         editorStyle?: Record<string, string | number>;
-        /** 请求接口 */
-        api?: any;
-        /** 请求接口参数 */
-        apiParams?: Record<string, string | number>;
-        /** 静态数据 */
-        data?: string;
     }>(),
     {
+        modelValue: '<p>hello</p>',
         uploadUrl: `${import.meta.env.VITE_API_URL}${import.meta.env.VITE_GLOB_UPLOAD_URL}`,
         fileName: 'file',
-        mode: 'default',
+        mode: 'simple',
         editorStyle: () => ({
             height: '400px',
             overflowY: 'hidden',
         }),
-        api: undefined,
-        apiParams: () => ({}),
-        data: '',
     },
 );
 
@@ -61,20 +55,34 @@ const props = withDefaults(
  * emits
  */
 const emits = defineEmits<{
+    /** 更新弹窗是否显示 */
+    (e: 'update:modelValue', value: string): void;
+    /** change */
     (event: 'change', value: any): void;
 }>();
 
 /**
  * use-index
  */
-const { editorRef, toolbarConfig, editorConfig, handleCreated, handleChange, disable, enable, clear, confirm } =
-    useIndex(props, emits);
+const {
+    editorRef,
+    editorValue,
+    toolbarConfig,
+    editorConfig,
+    handleCreated,
+    handleChange,
+    disable,
+    enable,
+    clear,
+    confirm,
+} = useIndex(props, emits);
 
 /**
  * 暴露的属性/方法
  */
 defineExpose({
     editorRef,
+    editorValue,
     disable,
     enable,
     clear,

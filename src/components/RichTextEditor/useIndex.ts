@@ -15,7 +15,10 @@ export default function useIndex(props: XRichTextEditorProps, emits: any) {
     /**
      * 编辑器内容 HTML
      */
-    const editorValue = ref('<p>hello</p>');
+    const editorValue = computed<string>({
+        get: () => props.modelValue,
+        set: value => emits('update:modelValue', value),
+    });
 
     /**
      * 工具栏配置项
@@ -117,46 +120,6 @@ export default function useIndex(props: XRichTextEditorProps, emits: any) {
     }
 
     /**
-     * 初始化数据
-     */
-    async function loadData(): Promise<void> {
-        if (props.api) {
-            const params = {
-                ...props.apiParams,
-            };
-
-            const res = await props.api(params);
-
-            if (!res) {
-                return;
-            }
-
-            editorValue.value = res;
-        } else {
-            editorValue.value = props.data as string;
-        }
-    }
-
-    /**
-     * 监听数据
-     */
-    watch(
-        () => props.data,
-        newValue => {
-            if (newValue) {
-                loadData();
-            }
-        },
-    );
-
-    /**
-     * 页面挂载
-     */
-    onMounted(() => {
-        loadData();
-    });
-
-    /**
      * 页面卸载之前
      */
     onBeforeUnmount(() => {
@@ -166,6 +129,7 @@ export default function useIndex(props: XRichTextEditorProps, emits: any) {
 
     return {
         editorRef,
+        editorValue,
         toolbarConfig,
         editorConfig,
         handleCreated,

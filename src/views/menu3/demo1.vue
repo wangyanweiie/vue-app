@@ -7,7 +7,7 @@
         </el-card>
 
         <el-card shadow="hover" header="x-rich-text-editor" class="component">
-            <rich-text-editor ref="editorRef" @change="handleChange"></rich-text-editor>
+            <x-rich-text-editor ref="editorRef" v-model="editorValue" @change="handleChange"></x-rich-text-editor>
             <br />
 
             <el-button @click="handleDisabled"> DISABLED </el-button>
@@ -20,13 +20,13 @@
 
 <script setup lang="ts">
 import { useCommandComponent } from '@/components/hooks/command-dialog-helper';
-import FilePreviewDialog from '@/components/FilePreview/index.vue';
-import RichTextEditor from '@/components/RichTextEditor/index.vue';
+import XFilePreviewDialog from '@/components/FilePreview/index.vue';
+import XRichTextEditor from '@/components/RichTextEditor/index.vue';
 
 /**
  * file-preview-dialog
  */
-const previewDialog = useCommandComponent(FilePreviewDialog);
+const previewDialog = useCommandComponent(XFilePreviewDialog);
 
 /**
  * file-url
@@ -39,6 +39,13 @@ const pdfUrl = ref<string>('http://192.168.3.38:9000/lvling/1694770849198掼蛋.
  * 编辑器实例
  */
 const editorRef = shallowRef();
+
+/**
+ * 默认值
+ */
+const editorValue = ref<string>(
+    '<p style="text-align: start; line-height: 1;"><span style="background-color: rgb(255, 173, 210);"><em><strong>工具栏配置 - 插入新菜单，屏蔽某个菜单等</strong></em></span></p><p style="text-align: start; line-height: 1;"><span style="background-color: rgb(255, 173, 210);"><em><strong>编辑器配置 - 兼听各个生命周期，自定义粘贴</strong></em></span></p><p style="text-align: start; line-height: 1;"><span style="background-color: rgb(255, 173, 210);"><em><strong>菜单配置 - 配置颜色、字体、字号、链接校验、上传图片、视频等</strong></em></span></p>',
+);
 
 /**
  * 编辑器内容、选区变化的回调
