@@ -9,6 +9,7 @@ import permission from '@/directive/permission';
 import { registerComponents } from '@/components/register';
 
 import 'element-plus/dist/index.css';
+import 'nprogress/nprogress.css';
 
 (() => {
     const app = createApp(App);
@@ -22,7 +23,7 @@ import 'element-plus/dist/index.css';
     // 注册权限指令
     app.use(permission);
 
-    // 注册 UI
+    // 全局引入 ==> 按需引入
     // app.use(ElementPlus);
 
     // 统一注册组件
