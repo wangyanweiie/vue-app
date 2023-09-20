@@ -5,14 +5,22 @@ import { isNumber } from 'lodash-es';
 
 /**
  * use-exceljs
+ * @param { XTableColumn[] } columns 表格配置
+ * @param { Record<string, any>[] } data 对象数组
+ * @param sheetName 工作表名称
+ * @param fileName 生成的文件名称
  */
-export default function useExcelJs(sheetName = 'sheet1', fileName = 'example.xlsx') {
+export default function useExcelJs(
+    columns: XTableColumn[],
+    data: Record<string, any>[],
+    sheetName = 'sheet1',
+    fileName = 'example',
+) {
     /**
      * 对象数组转换成 excel 导出
-     * @param { XTableColumn[] } columns 表格配置
-     * @param { Record<string, any>[] } data 对象数组
+
      */
-    function exportExcelByList(columns: XTableColumn[], data: Record<string, any>[]) {
+    function exportExcelByList() {
         // 创建一个空工作簿
         const workbook = new ExcelJs.Workbook();
 
@@ -61,7 +69,7 @@ export default function useExcelJs(sheetName = 'sheet1', fileName = 'example.xls
                 // endings: 'transparent',
             });
 
-            saveAs(blob, fileName);
+            saveAs(blob, `${fileName}.xlsx`);
         });
     }
 

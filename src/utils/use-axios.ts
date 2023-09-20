@@ -42,7 +42,7 @@ interface Options {
  * @param {Options} options 配置项
  * @returns 接口函数
  */
-export function setupAxiosInterceptors(options: Options) {
+export default function useAxiosInterceptors(options: Options) {
     if (!options.url) {
         throw new Error('未设置 url');
     }

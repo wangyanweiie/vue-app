@@ -195,13 +195,13 @@ function editTableSubmit() {
 /**
  * use-exceljs
  */
-const { exportExcelByList } = useExcelJs();
+const { exportExcelByList } = useExcelJs(columns, data);
 
 /**
  * 导出
  */
 function handleExport() {
-    exportExcelByList(columns, data);
+    exportExcelByList();
 }
 </script>
 <style lang="scss" scoped>

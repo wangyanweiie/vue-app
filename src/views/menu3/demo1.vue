@@ -1,32 +1,42 @@
 <template>
-    <div>
-        <el-card shadow="hover" header="x-file-preview" class="component">
-            <el-button @click="previewDialog({ url: wordUrl })"> WORD_PREVIEW </el-button>
-            <el-button @click="previewDialog({ url: excelUrl })"> EXCEl_PREVIEW </el-button>
-            <el-button @click="previewDialog({ url: pdfUrl })"> PDF_PREVIEW </el-button>
-        </el-card>
+    <div class="component">
+        <div v-if="showDom" id="domId">
+            <el-card shadow="hover" header="x-file-preview" class="component whole-node">
+                <el-button @click="previewDialog({ url: wordUrl })"> WORD </el-button>
+                <el-button @click="previewDialog({ url: excelUrl })"> EXCEl </el-button>
+                <el-button @click="previewDialog({ url: pdfUrl })"> PDF </el-button>
+            </el-card>
 
-        <el-card shadow="hover" header="x-rich-text-editor" class="component">
-            <x-rich-text-editor ref="editorRef" v-model="editorValue" @change="handleChange"></x-rich-text-editor>
-            <br />
+            <el-card shadow="hover" header="x-rich-text-editor" class="component whole-node">
+                <x-rich-text-editor
+                    ref="editorRef"
+                    v-model="editorValue"
+                    class="component"
+                    @change="handleChange"
+                ></x-rich-text-editor>
 
-            <el-button @click="handleDisabled"> DISABLED </el-button>
-            <el-button @click="handleEnabled"> CANCEL_DISABLED </el-button>
-            <el-button @click="handleConfirm"> CONFIRM </el-button>
-            <el-button @click="handleClear"> CLEAR </el-button>
-        </el-card>
+                <div>
+                    <el-button @click="handleDisable"> DISABLE </el-button>
+                    <el-button @click="handleEnable"> ENABLE </el-button>
+                    <el-button @click="handleConfirm"> CONFIRM </el-button>
+                    <el-button @click="handleClear"> CLEAR </el-button>
+                </div>
+            </el-card>
+        </div>
     </div>
+
+    <el-button @click="generatePDF"> PDF </el-button>
 </template>
 
 <script setup lang="ts">
 import { useCommandComponent } from '@/components/hooks/command-dialog-helper';
-import XFilePreviewDialog from '@/components/FilePreview/index.vue';
-import XRichTextEditor from '@/components/RichTextEditor/index.vue';
+import XFilePreview from '@/components/FilePreview/index.vue';
+import useJsPDF from '@/utils/use-jspdf';
 
 /**
  * file-preview-dialog
  */
-const previewDialog = useCommandComponent(XFilePreviewDialog);
+const previewDialog = useCommandComponent(XFilePreview);
 
 /**
  * file-url
@@ -57,14 +67,14 @@ function handleChange(content: any) {
 /**
  * 禁用
  */
-function handleDisabled() {
+function handleDisable() {
     editorRef.value.disable();
 }
 
 /**
  * 使用
  */
-function handleEnabled() {
+function handleEnable() {
     editorRef.value.enable();
 }
 
@@ -82,6 +92,11 @@ function handleConfirm() {
 function handleClear() {
     editorRef.value.clear();
 }
+
+/**
+ * use-jspdf
+ */
+const { showDom, generatePDF } = useJsPDF('domId', 'whole-node');
 </script>
 <style lang="scss" scoped>
 .component {

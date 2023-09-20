@@ -1,9 +1,9 @@
 import router from '@/router/index';
 import { LOCAL_TOKEN_KEY } from '@/constant/global';
-import { setupAxiosInterceptors } from '@/utils/request';
+import useAxiosInterceptors from '@/utils/use-axios';
 import { removeStorage } from '@/utils/local-storage';
 
-const { get, post } = setupAxiosInterceptors({
+const { get, post } = useAxiosInterceptors({
     url: import.meta.env.VITE_API_URL as string,
 
     storageTokenKey: 'token',
