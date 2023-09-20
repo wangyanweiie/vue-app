@@ -2,7 +2,7 @@
     <el-config-provider :locale="zhCn">
         <x-layout :routes="showMenus" :include-list="[]">
             <template #logo="{ collapsed }">
-                <x-logo logo="/logo.png" title="Template" :collapsed="collapsed"></x-logo>
+                <x-logo logo="/logo.png" :title="title" :collapsed="collapsed"></x-logo>
             </template>
 
             <template #header-right>
@@ -27,6 +27,8 @@
 import zhCn from 'element-plus/es/locale/lang/zh-cn';
 import { usePermissionStore } from '@/store/permission';
 import useIndex from './useIndex';
+
+const title = ref<string>(import.meta.env.VITE_APP_NAME as string);
 
 const { showMenus } = usePermissionStore();
 const { userInfo, dropdownItems, schemas, visible, formRef, loading, form, changePassword } = useIndex();

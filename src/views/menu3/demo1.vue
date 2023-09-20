@@ -15,7 +15,7 @@
                     @change="handleChange"
                 ></x-rich-text-editor>
 
-                <div>
+                <div class="ignore-node">
                     <el-button @click="handleDisable"> DISABLE </el-button>
                     <el-button @click="handleEnable"> ENABLE </el-button>
                     <el-button @click="handleConfirm"> CONFIRM </el-button>
@@ -96,7 +96,7 @@ function handleClear() {
 /**
  * use-jspdf
  */
-const { showDom, generatePDF } = useJsPDF('domId', 'whole-node');
+const { showDom, generatePDF } = useJsPDF('domId', 'whole-node', 'ignore-node');
 </script>
 <style lang="scss" scoped>
 .component {
