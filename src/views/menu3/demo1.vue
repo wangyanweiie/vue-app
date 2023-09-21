@@ -2,9 +2,9 @@
     <div class="component">
         <div v-if="showDom" id="domId">
             <el-card shadow="hover" header="x-file-preview" class="component whole-node">
-                <el-button @click="previewDialog({ url: wordUrl })"> WORD </el-button>
-                <el-button @click="previewDialog({ url: excelUrl })"> EXCEl </el-button>
-                <el-button @click="previewDialog({ url: pdfUrl })"> PDF </el-button>
+                <el-button @click="preview({ url: wordUrl })"> WORD </el-button>
+                <el-button @click="preview({ url: excelUrl })"> EXCEl </el-button>
+                <el-button @click="preview({ url: pdfUrl })"> PDF </el-button>
             </el-card>
 
             <el-card shadow="hover" header="x-rich-text-editor" class="component whole-node">
@@ -36,7 +36,7 @@ import useJsPDF from '@/utils/use-jspdf';
 /**
  * file-preview-dialog
  */
-const previewDialog = useCommandComponent(XFilePreview);
+const preview = useCommandComponent(XFilePreview);
 
 /**
  * file-url

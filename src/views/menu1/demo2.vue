@@ -38,14 +38,15 @@
         <x-table
             ref="tableRef"
             header="x-table"
+            row-key="id"
+            combine-field="age"
             show-index
             selectable
             :columns="columns"
             :data="data"
             :selected-list="selectedList"
             :column-index="3"
-            combine-field="age"
-            row-key="id"
+            :actions="actionsConf"
             class="component"
         >
             <template #operation>
@@ -74,18 +75,15 @@
 </template>
 
 <script setup lang="ts">
-import type { XTableColumn } from '@/components/Table/interface';
-import type { XEditTableColumn } from '@/components/EditTable/interface';
 import useExcelJs from '@/utils/use-exceljs';
+import store from 'store2';
+import { getPermissionAction } from '@/utils/permission-action';
+import { columns, columnsV2, editColumns } from './conf2';
 
 /**
  * 选中列表
  */
-const selectedList = ref([
-    {
-        id: '11',
-    },
-]);
+const selectedList = ref([{ id: '11' }, { id: '22' }, { id: '33' }]);
 
 /**
  * table ref
@@ -93,72 +91,6 @@ const selectedList = ref([
 const tableRef = ref();
 const tableV2Ref = ref();
 const editTableRef = ref();
-
-/**
- * 表格列配置
- */
-
-const columns: XTableColumn[] = [
-    {
-        label: '姓名',
-        prop: 'name',
-    },
-    {
-        label: '年龄',
-        prop: 'age',
-    },
-    {
-        label: '性别',
-        prop: 'sex',
-    },
-    {
-        label: '爱好',
-        prop: 'hobby',
-    },
-];
-const columnsV2: any[] = [
-    {
-        title: '姓名',
-        key: 'name',
-        dataKey: 'name',
-    },
-    {
-        title: '年龄',
-        key: 'age',
-        dataKey: 'age',
-    },
-    {
-        title: '性别',
-        key: 'sex',
-        dataKey: 'sex',
-    },
-    {
-        title: '爱好',
-        key: 'hobby',
-        dataKey: 'hobby',
-    },
-];
-const editColumns: XEditTableColumn[] = [
-    {
-        label: '姓名',
-        prop: 'name',
-        edit: false,
-    },
-    {
-        label: '年龄',
-        prop: 'age',
-        required: true,
-    },
-    {
-        label: '性别',
-        prop: 'sex',
-        required: true,
-    },
-    {
-        label: '爱好',
-        prop: 'hobby',
-    },
-];
 
 /**
  * 表格数据
@@ -188,10 +120,28 @@ const data = [
 ];
 
 /**
- * 编辑表格提交
+ * x-table-actions
  */
-function editTableSubmit() {
-    console.log('result', editTableRef.value?.resultData);
+function actionsConf(row: Record<string, any>) {
+    return getPermissionAction(
+        [
+            {
+                label: '详情',
+                permission: 'detail',
+                onClick: () => {
+                    console.log('详情', row);
+                },
+            },
+            {
+                label: '删除',
+                permission: 'delete',
+                onClick: () => {
+                    console.log('删除', row);
+                },
+            },
+        ],
+        [],
+    );
 }
 
 /**
@@ -204,6 +154,13 @@ const { exportExcelByList } = useExcelJs(columns, data);
  */
 function handleExport() {
     exportExcelByList();
+}
+
+/**
+ * 编辑表格提交
+ */
+function editTableSubmit() {
+    console.log('result', editTableRef.value?.resultData);
 }
 </script>
 <style lang="scss" scoped>

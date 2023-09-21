@@ -245,7 +245,7 @@ export default function useIndex(props: XTableProp) {
     /**
      * 是否存在操作列
      */
-    const hasActionBtn = ref<boolean>(false);
+    const hasActionBtn = ref<boolean>(true);
 
     /**
      * 操作列的宽度
@@ -256,11 +256,11 @@ export default function useIndex(props: XTableProp) {
      * action buttons
      */
     function actionButtons(row: Record<string, any>, index: number): XTableActionButton[] {
-        let buttons: any[] = [];
-
-        if (typeof props.actions === 'function') {
-            buttons = props.actions(row, index);
+        if (typeof props.actions !== 'function') {
+            return [];
         }
+
+        const buttons = props.actions(row, index);
 
         // 更新是否展示操作列
         hasActionBtn.value = !!buttons.length;
@@ -341,7 +341,7 @@ export default function useIndex(props: XTableProp) {
     /**
      * 合并单元格-首列
      */
-    function spanMethod({ column, rowIndex, columnIndex }: XTableSpanMethodProps) {
+    function spanMethod({ rowIndex, columnIndex }: XTableSpanMethodProps) {
         if (!props.columnIndex && props.columnIndex !== 0) {
             console.warn('columnIndex 未设置会导致合并不生效');
             return;
@@ -350,8 +350,6 @@ export default function useIndex(props: XTableProp) {
         computeCell(tableData.value);
 
         if (columnIndex === props.columnIndex) {
-            console.log('column', column);
-
             const rowspan = cellList[rowIndex];
             const colspan = rowspan > 0 ? 1 : 0;
 

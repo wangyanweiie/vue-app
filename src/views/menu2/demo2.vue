@@ -15,7 +15,7 @@
 
             <el-button @click="handleDefault"> DEFAULT </el-button>
             <el-button @click="handleRest"> REST </el-button>
-            <el-button type="primary" @click="handleTest"> TEST </el-button>
+            <el-button type="primary" @click="handleConfirm"> CONFIRM </el-button>
         </el-card>
 
         <el-card header="x-dialog-form" shadow="hover" class="component">
@@ -35,18 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ColProps, FormProps } from 'element-plus';
-import type { XFormItemSchema } from '@/components/Form/interface';
-
-/**
- ***************** search from *****************
- */
-interface SearchForm {
-    text: string;
-    number: number;
-    select: string | number;
-    daterange: string[];
-}
+import { type Form, type SearchForm, elFromProps, searchSchemas, schemas } from './conf2';
 
 /**
  * searchForm 查询表单
@@ -59,79 +48,11 @@ const searchForm = ref<SearchForm>({
 });
 
 /**
- * 查询表单配置
- */
-const searchProps: Partial<ColProps> = {
-    span: 6,
-};
-const searchSchemas: XFormItemSchema[] = [
-    {
-        label: '日期范围',
-        prop: 'daterange',
-        components: 'el-date-picker',
-        colProps: {
-            span: 12,
-        },
-        elProps: {
-            type: 'daterange',
-            format: 'YYYY-MM-DD',
-            valueFormat: 'YYYY-MM-DD',
-        },
-    },
-    {
-        label: '文本',
-        prop: 'text',
-        components: 'el-input',
-        colProps: searchProps,
-    },
-    {
-        label: '数字',
-        prop: 'number',
-        components: 'el-input-number',
-        colProps: searchProps,
-        elProps: {
-            controlsPosition: 'right',
-        },
-    },
-    {
-        label: '下拉',
-        prop: 'select',
-        components: 'el-select-v2',
-        colProps: searchProps,
-        elProps: {
-            options: [
-                { label: 'label1', value: 'value1' },
-                { label: 'label2', value: 'value2' },
-            ],
-        },
-    },
-];
-
-/**
  * 查询
  */
 function handleSearch(form: any) {
     console.log('searchForm', form);
 }
-
-/**
- ***************** from *****************
- */
-interface Form {
-    text: string;
-    number: number | undefined;
-    radio: string | number | undefined;
-    select: string | number;
-    selectLabel: string;
-    switch: boolean;
-    date: string;
-    dateTime: string;
-}
-
-/**
- * form ref
- */
-const formRef = ref();
 
 /**
  * form 表单
@@ -148,136 +69,9 @@ const form = ref<Form>({
 });
 
 /**
- * form props
+ * form-ref
  */
-const elFromProps: Partial<FormProps> = {
-    labelWidth: '100px',
-};
-
-/**
- * 表单配置
- */
-const colProps: Partial<ColProps> = {
-    span: 12,
-};
-const schemas: XFormItemSchema[] = [
-    {
-        label: '文本',
-        prop: 'text',
-        components: 'el-input',
-        colProps,
-        elFormItemProps: {
-            rules: [
-                {
-                    required: true,
-                    message: '文本不能为空',
-                },
-            ],
-        },
-    },
-    {
-        label: '数字',
-        prop: 'number',
-        components: 'el-input-number',
-        colProps,
-        elProps: {
-            controlsPosition: 'right',
-        },
-        elFormItemProps: {
-            rules: [
-                {
-                    required: true,
-                    message: '数字不能为空',
-                },
-            ],
-        },
-    },
-    {
-        label: '单选',
-        prop: 'radio',
-        components: 'x-radio',
-        colProps,
-        elProps: {
-            options: [
-                { labelName: '是', label: 1 },
-                { labelName: '否', label: 2 },
-            ],
-        },
-        elFormItemProps: {
-            rules: [
-                {
-                    required: true,
-                    message: '单选不能为空',
-                },
-            ],
-        },
-    },
-    {
-        label: '下拉',
-        prop: 'select',
-        components: 'el-select-v2',
-        colProps,
-        elProps: {
-            labelSchema: 'selectLabel',
-            options: [
-                { label: 'label1', value: 'value1' },
-                { label: 'label2', value: 'value2' },
-            ],
-        },
-        elFormItemProps: {
-            rules: [
-                {
-                    required: true,
-                    message: '下拉不能为空',
-                },
-            ],
-        },
-    },
-    {
-        label: '日期',
-        prop: 'date',
-        components: 'el-date-picker',
-        colProps,
-        elProps: {
-            type: 'date',
-            format: 'YYYY-MM-DD',
-            valueFormat: 'YYYY-MM-DD',
-        },
-        elFormItemProps: {
-            rules: [
-                {
-                    required: true,
-                    message: '日期不能为空',
-                },
-            ],
-        },
-    },
-    {
-        label: '日期时间',
-        prop: 'dateTime',
-        components: 'el-date-picker',
-        colProps,
-        elProps: {
-            type: 'datetime',
-            format: 'YYYY-MM-DD HH:mm:ss',
-            valueFormat: 'YYYY-MM-DD HH:mm:ss',
-        },
-        elFormItemProps: {
-            rules: [
-                {
-                    required: true,
-                    message: '日期时间不能为空',
-                },
-            ],
-        },
-    },
-    {
-        label: '开关',
-        prop: 'switch',
-        components: 'el-switch',
-        colProps,
-    },
-];
+const formRef = ref();
 
 /**
  * 默认值
@@ -312,9 +106,9 @@ function handleRest() {
 }
 
 /**
- * 测试
+ * 确认
  */
-async function handleTest() {
+async function handleConfirm() {
     // 表单校验
     const valid = await formRef.value.validate();
 
@@ -324,14 +118,6 @@ async function handleTest() {
 
     console.log('form', form.value);
 }
-
-/**
- ***************** dialog from *****************
- */
-/**
- * form ref
- */
-const dialogFormRef = ref();
 
 /**
  * 弹窗是否展示
@@ -349,6 +135,11 @@ const loading = ref<boolean>(false);
 function openDialog() {
     dialogVisible.value = true;
 }
+
+/**
+ * dialog-form-ref
+ */
+const dialogFormRef = ref();
 
 /**
  * 提交
