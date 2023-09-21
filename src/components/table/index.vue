@@ -33,6 +33,7 @@
                 :data="tableData"
                 :row-key="rowKey"
                 :tree-props="treeProps"
+                :span-method="spanMethod"
                 :style="{ width: '100%' }"
                 v-bind="elTableProps"
                 @selection-change="handleSelectChange"
@@ -77,13 +78,13 @@
                     <template #default="{ row, $index }">
                         <div class="actions">
                             <el-button
-                                v-for="(button, index) in actionButtons(row, $index)"
+                                v-for="(item, index) in actionButtons(row, $index)"
                                 :key="index"
                                 text
                                 type="primary"
-                                v-bind="button"
+                                v-bind="item"
                             >
-                                {{ button.label }}
+                                {{ item.label }}
                             </el-button>
                         </div>
                     </template>
@@ -187,6 +188,10 @@ const props = withDefaults(
         actions?: (row: any, index: number) => XTableActionButton[];
         /** 导出配置 */
         exportProps?: XTableExportConfig;
+        /** 要合并的列索引 */
+        columnIndex?: number;
+        /** 要合并的列字段 */
+        combineField?: string;
     }>(),
     {
         header: '',
@@ -225,6 +230,8 @@ const props = withDefaults(
         afterQuery: undefined,
         actions: () => [],
         exportProps: () => ({}),
+        columnIndex: undefined,
+        combineField: '',
     },
 );
 
@@ -254,6 +261,7 @@ const {
     getSelectedRows,
     clearSelection,
     getTableData,
+    spanMethod,
 } = useIndex(props);
 
 /**

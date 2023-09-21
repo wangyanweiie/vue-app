@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
     export interface GlobalComponents {
         Breadcrumb: (typeof import('./../components/Layout/Breadcrumb.vue'))['default'];
+        CombineTable: (typeof import('./../components/CombineTable/index.vue'))['default'];
         Description: (typeof import('./../components/Description/index.vue'))['default'];
         ElAside: (typeof import('element-plus/es'))['ElAside'];
         ElAutoResizer: (typeof import('element-plus/es'))['ElAutoResizer'];

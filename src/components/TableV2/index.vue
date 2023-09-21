@@ -25,6 +25,8 @@
                     </div>
 
                     <!-- 表格区域 -->
+                    <!-- :header-class="typeof headerClass === 'function' && headerClass()"
+                    :row-class="typeof rowClass === 'function' && rowClass()" -->
                     <div class="table__main">
                         <el-table-v2
                             ref="tableRef"
@@ -36,8 +38,6 @@
                             :header-height="headerHeight"
                             :columns="tableColumns"
                             :data="tableData"
-                            :header-class="typeof headerClass === 'function' && headerClass()"
-                            :row-class="typeof rowClass === 'function' && rowClass()"
                             :onmouseover="handleMouseOver"
                             :onmouseleave="handleMouseLeave"
                         >
@@ -142,10 +142,10 @@ const props = withDefaults(
         dividePage?: boolean;
         /** 分页设置 */
         paginationProp?: Record<string, number>;
-        /** 表头行样式 */
-        headerClass?: any;
-        /** 表格行样式 */
-        rowClass?: any;
+        // /** 表头行样式 */
+        // headerClass?: any;
+        // /** 表格行样式 */
+        // rowClass?: any;
         /** 滚动 */
         scroll?: boolean;
     }>(),
@@ -184,8 +184,8 @@ const props = withDefaults(
         paginationProp: () => ({
             pageSize: 10,
         }),
-        headerClass: null,
-        rowClass: null,
+        // headerClass: null,
+        // rowClass: null,
         scroll: false,
     },
 );

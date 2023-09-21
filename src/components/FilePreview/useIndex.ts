@@ -13,6 +13,7 @@ enum FileType {
     'word' = 1,
     'excel' = 2,
     'pdf' = 3,
+    'other' = 4,
 }
 
 /**
@@ -48,7 +49,7 @@ export default function useIndex(props: XFilePreviewProps, emits: any) {
         } else if (props.url.indexOf('.pdf') !== -1) {
             type = FileType['pdf'];
         } else {
-            type = null;
+            type = FileType['other'];
         }
 
         return type;
@@ -204,6 +205,10 @@ export default function useIndex(props: XFilePreviewProps, emits: any) {
 
             case FileType['pdf']:
                 pdfPreview();
+                break;
+
+            case FileType['other']:
+                download();
                 break;
         }
     }

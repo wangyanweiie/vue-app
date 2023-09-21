@@ -61,14 +61,12 @@ const props = withDefaults(
         selectable?: boolean;
         /** 行数据 key 值 */
         rowKey?: string;
-        /** 表格列配置 */
-        // columns: XEditTableColumn[];
         /** 表格数据 */
         dataSource?: Record<string, any>[];
         /** 请求接口 */
         api?: RequestFunc<any> | null;
         /** 请求接口参数 */
-        apiParams: Record<string, string | number>;
+        apiParams?: Record<string, string | number>;
     }>(),
     {
         header: '',
@@ -83,7 +81,6 @@ const props = withDefaults(
         showIndex: false,
         selectable: false,
         rowKey: 'id',
-        // columns: () => [],
         dataSource: () => [],
         api: null,
         apiParams: () => ({}),

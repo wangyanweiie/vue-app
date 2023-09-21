@@ -43,6 +43,8 @@
             :columns="columns"
             :data="data"
             :selected-list="selectedList"
+            :column-index="3"
+            combine-field="age"
             row-key="id"
             class="component"
         >
@@ -172,7 +174,7 @@ const data = [
     {
         id: '22',
         name: '小强',
-        age: '20',
+        age: '18',
         sex: '男',
         hobby: '骑行',
     },

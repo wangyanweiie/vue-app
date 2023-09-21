@@ -77,10 +77,10 @@ export interface XTableV2Prop {
     dividePage?: boolean;
     /** 分页设置 */
     paginationProp?: Record<string, number>;
-    /** 表头行样式 */
-    headerClass?: any;
-    /** 表格行样式 */
-    rowClass?: any;
+    // /** 表头行样式 */
+    // headerClass?: any;
+    // /** 表格行样式 */
+    // rowClass?: any;
     /** 滚动 */
     scroll?: boolean;
 }
