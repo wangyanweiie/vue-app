@@ -60,6 +60,7 @@ declare module 'vue' {
         Table: (typeof import('./../components/Table/index.vue'))['default'];
         TableSetting: (typeof import('./../components/Table/components/TableSetting.vue'))['default'];
         TableV2: (typeof import('./../components/TableV2/index.vue'))['default'];
+        Upload: (typeof import('./../components/Upload/index.vue'))['default'];
         XCheckbox: (typeof import('./../components/Form/components/XCheckbox.vue'))['default'];
         XDialogForm: (typeof import('./../components/Form/XDialogForm.vue'))['default'];
         XEditTable: (typeof import('./../components/EditTable/XEditTable.vue'))['default'];
@@ -71,6 +72,7 @@ declare module 'vue' {
         XRadio: (typeof import('./../components/Form/components/XRadio.vue'))['default'];
         XSearchForm: (typeof import('./../components/Form/XSearchForm.vue'))['default'];
         XSelect: (typeof import('./../components/Form/components/XSelect.vue'))['default'];
+        XUpload: (typeof import('./../components/x-upload/index.vue'))['default'];
         XUser: (typeof import('./../components/Layout/XUser.vue'))['default'];
     }
     export interface ComponentCustomProperties {

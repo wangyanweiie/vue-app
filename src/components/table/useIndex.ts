@@ -1,4 +1,4 @@
-import { ElMessage, type TableInstance } from 'element-plus';
+import type { TableInstance } from 'element-plus';
 import type {
     XTablePagination,
     XTableColumn,
@@ -7,7 +7,6 @@ import type {
     XTableSpanMethodProps,
 } from './interface';
 import { cloneDeep } from 'lodash-es';
-import type { as } from 'vitest/dist/reporters-cb94c88b.js';
 
 /**
  * @description useIndex
@@ -342,14 +341,14 @@ export default function useIndex(props: XTableProp) {
      * 合并单元格-首列
      */
     function spanMethod({ rowIndex, columnIndex }: XTableSpanMethodProps) {
-        if (!props.columnIndex && props.columnIndex !== 0) {
+        if (!props.columnIndex || props.columnIndex?.length === 0) {
             console.warn('columnIndex 未设置会导致合并不生效');
             return;
         }
 
         computeCell(tableData.value);
 
-        if (columnIndex === props.columnIndex) {
+        if (props.columnIndex?.includes(columnIndex)) {
             const rowspan = cellList[rowIndex];
             const colspan = rowspan > 0 ? 1 : 0;
 

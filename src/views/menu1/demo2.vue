@@ -21,7 +21,7 @@
                         <el-input v-model="row[item.prop]" placeholder="请输入"></el-input>
                     </template>
                 </x-edit-table-item>
-                <x-edit-table-item label="操作" :required="false" fixed="right">
+                <x-edit-table-item label="操作" :required="false" fixed="right" width="250">
                     <template #default="{ actions, index }">
                         <el-button text type="primary" @click="actions.startEdit(index)">操作</el-button>
                         <el-button text type="primary" @click="actions.deleteRow(index)">删除</el-button>
@@ -45,7 +45,7 @@
             :columns="columns"
             :data="data"
             :selected-list="selectedList"
-            :column-index="3"
+            :column-index="[3, 6]"
             :actions="actionsConf"
             class="component"
         >

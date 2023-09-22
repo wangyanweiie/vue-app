@@ -83,10 +83,10 @@ export interface XTableProp {
     actions?: (row: any, index: number) => XTableActionButton[];
     /** 导出配置 */
     exportProps?: XTableExportConfig;
-    /** 要合并到列索引 */
-    columnIndex?: number;
-    /** 要合并到列字段 */
+    /** 要合并的某一列字段 */
     combineField?: string;
+    /** 要根据某一列字段进行合并的列索引 */
+    columnIndex?: number[];
 }
 
 /**
