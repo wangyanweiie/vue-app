@@ -8,7 +8,6 @@ export {}
 declare module 'vue' {
     export interface GlobalComponents {
         Breadcrumb: (typeof import('./../components/Layout/Breadcrumb.vue'))['default'];
-        CombineTable: (typeof import('./../components/CombineTable/index.vue'))['default'];
         Description: (typeof import('./../components/Description/index.vue'))['default'];
         ElAside: (typeof import('element-plus/es'))['ElAside'];
         ElAutoResizer: (typeof import('element-plus/es'))['ElAutoResizer'];
@@ -72,7 +71,6 @@ declare module 'vue' {
         XRadio: (typeof import('./../components/Form/components/XRadio.vue'))['default'];
         XSearchForm: (typeof import('./../components/Form/XSearchForm.vue'))['default'];
         XSelect: (typeof import('./../components/Form/components/XSelect.vue'))['default'];
-        XUpload: (typeof import('./../components/x-upload/index.vue'))['default'];
         XUser: (typeof import('./../components/Layout/XUser.vue'))['default'];
     }
     export interface ComponentCustomProperties {

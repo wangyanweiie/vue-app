@@ -119,13 +119,7 @@
 
 <script lang="ts" setup>
 import type { PaginationProps, TableProps } from 'element-plus';
-import type {
-    XTableAPIKeyMap,
-    XTableColumn,
-    XTableDataType,
-    XTableActionButton,
-    XTableExportConfig,
-} from './interface';
+import type { XTableAPIKeyMap, XTableColumn, XTableDataType, XTableActionButton } from './interface';
 import { InfoFilled } from '@element-plus/icons-vue';
 import useIndex from './useIndex';
 import TableSetting from './components/TableSetting.vue';
@@ -186,8 +180,6 @@ const props = withDefaults(
         apiKeyMap?: XTableAPIKeyMap;
         /** 操作栏 */
         actions?: (row: any, index: number) => XTableActionButton[];
-        /** 导出配置 */
-        exportProps?: XTableExportConfig;
         /** 要合并的某一列字段 */
         combineField?: string;
         /** 要根据某一列字段进行合并的列索引 */
@@ -228,7 +220,6 @@ const props = withDefaults(
             returnRecordKey: 'records',
         }),
         actions: () => [],
-        exportProps: () => ({}),
         combineField: '',
         columnIndex: () => [],
     },

@@ -76,7 +76,6 @@
 
 <script setup lang="ts">
 import useExcelJs from '@/utils/use-exceljs';
-import store from 'store2';
 import { getPermissionAction } from '@/utils/permission-action';
 import { columns, columnsV2, editColumns } from './conf2';
 
