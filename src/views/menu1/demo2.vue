@@ -112,7 +112,7 @@ const data = [
     {
         id: '33',
         name: '小红',
-        age: '18',
+        age: '20',
         sex: '女',
         hobby: '跳舞',
     },

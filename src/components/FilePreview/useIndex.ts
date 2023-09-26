@@ -131,7 +131,7 @@ export default function useIndex(props: XFilePreviewProps, emits: any) {
             // 重新创建新表格
             window.luckysheet.create({
                 // 设定 DOM 容器的 ID
-                container: 'excelId',
+                container: 'luckysheetId',
                 // 表格内容
                 data: exportJson.sheets,
                 // 表格标题

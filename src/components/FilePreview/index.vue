@@ -1,5 +1,5 @@
 <template>
-    <el-dialog v-model="dialogVisible" :title="title" :width="width" :show-close="false" destroy-on-close fullscreen>
+    <el-dialog v-model="dialogVisible" :title="title" fullscreen :show-close="false" destroy-on-close>
         <template #header="{ close }">
             <div class="dialog-header">
                 <el-button type="success" @click="download()">下载</el-button>
@@ -8,8 +8,8 @@
         </template>
 
         <!-- 容器 -->
-        <div v-if="fileType === FileType['word']" ref="wordRef" class="word-style"></div>
-        <div v-if="fileType === FileType['excel']" id="excelId" class="luckysheet"></div>
+        <div v-if="fileType === FileType['word']" ref="wordRef"></div>
+        <div v-if="fileType === FileType['excel']" id="luckysheetId" class="luckysheet"></div>
         <div v-if="fileType === FileType['pdf']" class="pdf-style">
             <vue-pdf-embed
                 :source="pdfState.source"
@@ -49,15 +49,12 @@ const props = withDefaults(
         visible: boolean;
         /** 弹窗标题 */
         title?: string;
-        /** 弹窗宽度 */
-        width?: string;
         /** 文档路径 */
         url: string;
     }>(),
     {
         visible: false,
         title: '弹窗标题',
-        width: '40%',
         url: '',
     },
 );

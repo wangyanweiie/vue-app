@@ -212,7 +212,6 @@ export default function useIndex(props: XTableProp) {
      */
     function handleToggleRowSelection(selectedList: any[]) {
         if (!props.rowKey) {
-            console.warn(`row-key 未设置会导致回显不生效`);
             return;
         }
 
@@ -234,7 +233,6 @@ export default function useIndex(props: XTableProp) {
      */
     function handleSelectedList() {
         if (!props.selectedList || props.selectedList.length === 0) {
-            console.warn(`selectedList 未设置会导致回显不生效`);
             return;
         }
 
@@ -308,7 +306,6 @@ export default function useIndex(props: XTableProp) {
      */
     function computeCell(data: any[]) {
         if (!props.combineField) {
-            console.warn('combineField 未设置会导致合并不生效');
             return;
         }
 
@@ -342,7 +339,6 @@ export default function useIndex(props: XTableProp) {
      */
     function spanMethod({ rowIndex, columnIndex }: XTableSpanMethodProps) {
         if (!props.columnIndex || props.columnIndex?.length === 0) {
-            console.warn('columnIndex 未设置会导致合并不生效');
             return;
         }
 

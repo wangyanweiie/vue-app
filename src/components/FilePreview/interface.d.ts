@@ -7,8 +7,6 @@ export interface XFilePreviewProps {
     visible: boolean;
     /** 弹窗标题 */
     title?: string;
-    /** 弹窗宽度 */
-    width?: string;
     /** 文档路径 */
     url: string;
 }
