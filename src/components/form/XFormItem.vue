@@ -100,7 +100,7 @@ const formItemProps = computed(() => {
 /**
  * is component
  */
-const isComponent = computed(() => {
+const isComponent = computed<any>(() => {
     return get(maps, schema.value.components, undefined);
 });
 

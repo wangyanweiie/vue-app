@@ -2,7 +2,7 @@
     <el-config-provider :locale="zhCn">
         <x-layout :routes="showMenus" :include-list="[]">
             <template #logo="{ collapsed }">
-                <x-logo logo="/logo.png" :title="LOCAL_APP_NAME" :collapsed="collapsed"></x-logo>
+                <x-logo logo="/logo.png" :title="APP_NAME" :collapsed="collapsed"></x-logo>
             </template>
 
             <template #header-right>
@@ -39,7 +39,7 @@
 <script setup lang="ts">
 import zhCn from 'element-plus/es/locale/lang/zh-cn';
 import { usePermissionStore } from '@/store/permission';
-import { ENV, LOCAL_APP_NAME } from '@/constant/global';
+import { ENV, APP_NAME } from '@/constant/global';
 import useIndex from './useIndex';
 
 const { showMenus } = usePermissionStore();

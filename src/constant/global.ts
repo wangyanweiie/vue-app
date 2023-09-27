@@ -4,9 +4,9 @@
 export const ENV = import.meta.env.MODE;
 
 /**
- * 本地存储 app-name key
+ * 本地存储 app-name
  */
-export const LOCAL_APP_NAME = import.meta.env.VITE_APP_NAME;
+export const APP_NAME = import.meta.env.VITE_APP_NAME;
 
 /**
  * 本地存储 base-url key
