@@ -1,18 +1,29 @@
 import { defineStore } from 'pinia';
-import { saveUserToken, getUserToken, saveUserInfo, getUserInfo } from '@/utils/storage';
 import store from 'store2';
+import { saveBaseUrl, getBaseUrl, saveUserToken, getUserToken, saveUserInfo, getUserInfo } from '@/utils/storage';
 
 /**
  * 权限缓存状态
  */
 export const useUserStore = defineStore('userInfo', () => {
     /**
+     * base-url
+     */
+    const url = ref<string>('');
+    const getUrl = computed(() => url.value || getBaseUrl());
+
+    function setUrl(info: string) {
+        url.value = info;
+        saveBaseUrl(info);
+    }
+
+    /**
      * token
      */
-    const token = ref<string | undefined | null>(null);
+    const token = ref<string>('');
     const getToken = computed(() => token.value || getUserToken());
 
-    function setToken(info?: string | null) {
+    function setToken(info: string) {
         token.value = info;
         saveUserToken(info);
     }
@@ -20,10 +31,10 @@ export const useUserStore = defineStore('userInfo', () => {
     /**
      * user-info
      */
-    const userInfo = ref<any>(null);
+    const userInfo = ref<any>();
     const getInfo = computed(() => userInfo.value || getUserInfo());
 
-    function setUserInfo(info?: any) {
+    function setUserInfo(info: any) {
         userInfo.value = info;
         saveUserInfo(info);
         setLastUpdateTime(info ? new Date().getTime() : 0);
@@ -40,18 +51,21 @@ export const useUserStore = defineStore('userInfo', () => {
     }
 
     /**
-     * 清空 token 与 userInfo
+     * 清空
      */
     function clearCache() {
-        setToken(null);
-        setUserInfo(null);
+        setUrl('');
+        setToken('');
+        setUserInfo('');
         store.local.clear();
     }
 
     return {
+        getUrl,
         getToken,
         getInfo,
         getLastUpdateTime,
+        setUrl,
         setToken,
         setUserInfo,
         setLastUpdateTime,

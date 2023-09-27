@@ -81,28 +81,28 @@ const maps = {
 };
 
 /**
- * item props
- */
-const formItemProps = computed(() => {
-    return typeof props.schema.elFormItemProps === 'function'
-        ? props.schema.elFormItemProps(props.modelValue)
-        : props.schema.elFormItemProps;
-});
-
-/**
- * is component
- */
-const isComponent = computed<any>(() => {
-    return get(maps, props.schema.components, undefined);
-});
-
-/**
  * 当响应式数据为 props 时
  * toRef 复制数据时，一次可以复制 props 中的一个数据
  * toRefs 复制数据时，一次可以复制 props 中的一个或多个数据
  */
 const { modelValue: modelForm } = toRefs(props);
 const { schema } = toRefs(props);
+
+/**
+ * item props
+ */
+const formItemProps = computed(() => {
+    return typeof schema.value.elFormItemProps === 'function'
+        ? schema.value.elFormItemProps(props.modelValue)
+        : schema.value.elFormItemProps;
+});
+
+/**
+ * is component
+ */
+const isComponent = computed(() => {
+    return get(maps, schema.value.components, undefined);
+});
 
 /**
  * _.get(object, path, [defaultValue])
@@ -129,118 +129,6 @@ function handleEnter(): void {
 }
 
 /**
- * 更新当前值
- */
-function handleUpdate(value: string | number | null | undefined): void {
-    let selectedValue = value;
-
-    // 文本字符串/数字
-    if (isString(currentValue.value)) {
-        selectedValue = selectedValue ?? '';
-    } else if (isNumber(currentValue.value)) {
-        if (selectedValue === undefined || selectedValue === null) {
-            selectedValue = null;
-        }
-    }
-
-    // 下拉
-    if (props.schema.components === 'el-select-v2' || props.schema.components === 'x-select') {
-        if (componentProps.value.labelSchema) {
-            getSelectedLabel(selectedValue);
-        }
-    }
-
-    currentValue.value = selectedValue;
-    emits('update:modelValue', set(modelForm.value, schema.value.prop, selectedValue));
-}
-
-/**
- * 获取下拉列表
- */
-async function getResource(): Promise<boolean> {
-    if (
-        props.schema.components !== 'el-select-v2' &&
-        props.schema.components !== 'el-cascader' &&
-        props.schema.components !== 'x-select'
-    ) {
-        return false;
-    }
-
-    if (!props.schema.api) {
-        return false;
-    }
-
-    // 更新下拉列表
-    const res = await props.schema.api(props.modelValue);
-
-    extraProps.value = {
-        options: res,
-    };
-
-    // 通过 label 回显
-    const label = props.modelValue[props.schema.elProps?.labelSchema];
-
-    if (!label) {
-        return true;
-    }
-
-    const item = componentProps.value.options.find((item: any) => item.label === label);
-
-    if (!item) {
-        return true;
-    }
-
-    handleUpdate(item.value);
-    return true;
-}
-
-/**
- * component props
- */
-const componentProps = computed<any>(() => {
-    const { schema } = props;
-
-    // 排除 custom
-    if (schema.components === 'custom') {
-        return undefined;
-    }
-
-    // 默认 props
-    const defaultProps: any = {
-        placeholder: schema.label,
-        clearable: true,
-    };
-
-    // select || cascader
-    if (
-        schema.components === 'el-select-v2' ||
-        schema.components === 'el-cascader' ||
-        schema.components === 'x-select'
-    ) {
-        Object.assign(defaultProps, {
-            // el-select-v2 => on-visible-change
-            onVisibleChange: async (val: boolean): Promise<void> => {
-                if (!val) {
-                    return;
-                }
-
-                await getResource();
-            },
-            filterable: true,
-            options: [],
-        });
-    }
-
-    // merge props
-    if (typeof schema.elProps === 'function') {
-        const sec = schema.elProps(props.modelValue);
-        return mergeProps(defaultProps, extraProps.value, sec);
-    } else {
-        return mergeProps(defaultProps, extraProps.value, schema.elProps);
-    }
-});
-
-/**
  * 获取下拉的 label
  */
 function getSelectedLabel(value: any | any[]) {
@@ -256,6 +144,109 @@ function getSelectedLabel(value: any | any[]) {
         emits('update:modelValue', set(modelForm.value, componentProps.value.labelSchema, selectedLabel));
     }
 }
+
+/**
+ * 更新当前值
+ */
+function handleUpdate(value: string | number | null | undefined): void {
+    let updateValue = value;
+
+    // 文本字符串/数字
+    if (isString(currentValue.value)) {
+        updateValue = updateValue ?? '';
+    } else if (isNumber(currentValue.value)) {
+        if (updateValue === undefined || updateValue === null) {
+            updateValue = null;
+        }
+    }
+
+    // 下拉
+    if (['el-select-v2', 'x-select'].includes(schema.value.components)) {
+        if (componentProps.value.labelSchema) {
+            getSelectedLabel(updateValue);
+        }
+    }
+
+    currentValue.value = updateValue;
+    emits('update:modelValue', set(modelForm.value, schema.value.prop, updateValue));
+}
+
+/**
+ * 获取下拉列表
+ */
+async function getResource(): Promise<boolean> {
+    if (
+        schema.value.components !== 'el-select-v2' &&
+        schema.value.components !== 'el-cascader' &&
+        schema.value.components !== 'x-select'
+    ) {
+        return false;
+    }
+
+    if (!schema.value.api) {
+        return false;
+    }
+
+    const res = await schema.value.api(props.modelValue);
+
+    // 更新下拉列表
+    extraProps.value = {
+        options: res,
+    };
+
+    // 通过 label 回显
+    const label = props.modelValue[schema.value.elProps?.labelSchema];
+
+    if (!label) {
+        return true;
+    }
+
+    const item = componentProps.value.options.find((item: SelectOption) => item.label === label);
+
+    if (!item) {
+        return true;
+    }
+
+    handleUpdate(item.value);
+    return true;
+}
+
+/**
+ * component props
+ */
+const componentProps = computed<any>(() => {
+    const defaultProps = {
+        placeholder: schema.value.label,
+        clearable: true,
+    };
+
+    if (schema.value.components === 'custom') {
+        return undefined;
+    }
+
+    if (['el-select-v2', 'x-select', 'el-cascader'].includes(schema.value.components)) {
+        Object.assign(defaultProps, {
+            onVisibleChange: async (val: boolean): Promise<void> => {
+                if (!val) {
+                    return;
+                }
+
+                await getResource();
+            },
+            filterable: true,
+            options: [],
+        });
+    }
+
+    // merge props
+    if (typeof schema.value.elProps === 'function') {
+        // props.modelValue => form 表单
+        const sec = schema.value.elProps(props.modelValue);
+        return mergeProps(defaultProps, extraProps.value, sec);
+    } else {
+        return mergeProps(defaultProps, extraProps.value, schema.value.elProps);
+    }
+});
 
 /**
  * 监听外部数据变化

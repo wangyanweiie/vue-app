@@ -62,7 +62,7 @@ const props = withDefaults(
         /** 行数据 key 值 */
         rowKey?: string;
         /** 表格数据 */
-        dataSource?: Record<string, any>[];
+        dataSource?: Record<string, unknown>[];
         /** 请求接口 */
         api?: RequestFunc<any> | null;
         /** 请求接口参数 */
@@ -205,7 +205,7 @@ const cancelEdit = (index: number) => {
 const saveEdit = async (index: number) => {
     // 循环表单验证
     let formValid = false;
-    await formRef.value.validate((valid: any) => {
+    await formRef.value.validate((valid: boolean) => {
         formValid = valid;
     });
 

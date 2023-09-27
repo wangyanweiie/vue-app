@@ -2,11 +2,9 @@
     <el-container class="x-layout">
         <!-- 侧边栏容器 -->
         <el-aside width="250px" class="x-aside" :class="collapsedClass">
-            <!-- logo -->
             <slot name="logo" :collapsed="collapsed"> </slot>
 
-            <!-- menu -->
-            <div class="x-layout__menu">
+            <div class="x-menu-wrap">
                 <el-scrollbar>
                     <el-menu
                         class="x-menu"
@@ -26,20 +24,18 @@
         <el-container>
             <!-- 顶栏容器 -->
             <el-header class="x-header">
-                <!-- 展开/折叠 -->
-                <div class="x-collapse" @click="toggleMenu">
-                    <span class="x-collapse-icon">
+                <div class="x-header__collapse" @click="toggleMenu">
+                    <span class="x-header__collapse__icon">
                         <expand v-if="collapsed"></expand>
                         <fold v-else></fold>
                     </span>
                 </div>
 
-                <!-- 路由层级面包屑 -->
                 <breadcrumb></breadcrumb>
 
-                <h3 v-if="isBoxVisible" class="header-center">{{ title }}</h3>
+                <h4 v-if="isBoxVisible" class="x-header__center">{{ title }}</h4>
 
-                <div class="header-right">
+                <div class="x-header__right">
                     <slot name="header-right"></slot>
                 </div>
             </el-header>
@@ -47,11 +43,11 @@
             <!-- 历史页面面包屑 -->
             <history-tabs></history-tabs>
 
+            <!-- 主要区域容器 -->
             <el-scrollbar>
-                <!-- 主要区域容器 -->
-                <el-main class="x-layout-main">
+                <el-main class="x-main">
                     <router-view v-slot="{ Component }">
-                        <transition name="fade-slide" mode="out-in">
+                        <transition name="fade" mode="out-in">
                             <keep-alive :max="max" :include="includeList" :exclude="excludeList">
                                 <component :is="Component" :key="componentKey"></component>
                             </keep-alive>
@@ -210,7 +206,7 @@ body,
     }
 }
 
-.x-layout__menu {
+.x-menu-wrap {
     height: calc(100% - 60px);
 }
 
@@ -220,60 +216,61 @@ body,
 
 .x-header {
     display: flex;
-    padding: 0 10px 0 0;
     align-items: center;
+    padding: 0 10px;
     box-shadow: var(--el-box-shadow-lighter);
-}
 
-.x-collapse {
-    display: flex;
-    height: 100%;
-    width: 40px;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+    &__collapse {
+        display: flex;
+        height: 100%;
+        width: 40px;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
 
-    &:hover {
-        background-color: var(--el-color-primary-light-9);
+        &:hover {
+            background-color: var(--el-color-primary-light-9);
+        }
+
+        &__icon {
+            color: var(--el-text-color-secondary);
+            display: block;
+            width: 18px;
+            height: 18px;
+        }
+    }
+
+    &__center {
+        flex: 1;
+        text-align: center;
+    }
+
+    &__right {
+        flex: 1;
+        text-align: right;
     }
 }
 
-.x-collapse-icon {
-    color: var(--el-text-color-secondary);
-    display: block;
-    width: 18px;
-    height: 18px;
-}
-
-.header-center {
-    flex: 1;
-    text-align: center;
-}
-
-.header-right {
-    flex: 1;
-    text-align: right;
-}
-
-.x-layout-main {
+.x-main {
     background-color: var(--el-bg-color-page);
     min-height: calc(100vh - 95px);
 }
 
-/* transition fade-slide */
-.fade-slide-leave-active,
-.fade-slide-enter-active {
+// 进入 & 离开动画的生效状态
+.fade-enter-active,
+.fade-leave-active {
     transition: all 0.3s;
 }
 
-.fade-slide-enter-from {
+// 进入动画的起始状态
+.fade-enter-from {
     opacity: 0;
     transform: translateX(-30px);
 }
 
-.fade-slide-leave-to {
+// 离开动画的结束状态
+.fade-leave-to {
     opacity: 0;
     transform: translateX(30px);
 }
 </style>
-@/components/Layout/use-refresh

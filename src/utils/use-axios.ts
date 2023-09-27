@@ -22,6 +22,8 @@ interface Options {
     /** 超时时间 ms */
     timeout?: number;
     /** 保存在 local storage 里的 token 的 key 值 */
+    storageUrlKey?: string;
+    /** 保存在 local storage 里的 token 的 key 值 */
     storageTokenKey?: string;
     /** 请求头携带 token 的 key 值 */
     requestHeaderTokenKey?: string;
@@ -63,14 +65,20 @@ export default function useAxiosInterceptors(options: Options) {
      */
     service.interceptors.request.use(
         (config: any) => {
-            // 获取存储在本地的 token 放在请求头中
             const token = getStorage(options.storageTokenKey || 'token') as string;
+            const baseUrl = getStorage(options.storageUrlKey || 'baseUrl') as string;
 
+            // 设置 token
             if (token && config.headers) {
                 config.headers[options.requestHeaderTokenKey || 'v-token'] = token;
             }
 
-            // 更新请求参数
+            // 更新 base-url
+            if (baseUrl) {
+                config.url = baseUrl + config.url;
+            }
+
+            // 将配置的全局参数更新到请求参数
             if (options.getMethodsParams && config.params) {
                 config.params = {
                     ...options.getMethodsParams,
@@ -94,15 +102,11 @@ export default function useAxiosInterceptors(options: Options) {
     );
 
     /**
-     * 节流处理错误信息
+     * 节流处理响应错误信息
      */
-    const handleNetworkError = throttle(
-        (message: string) => {
-            ElNotification({
-                type: 'error',
-                message,
-                zIndex: 9999,
-            });
+    const handleResponseError = throttle(
+        (options: any) => {
+            ElNotification(options);
         },
         500,
         {
@@ -112,11 +116,15 @@ export default function useAxiosInterceptors(options: Options) {
     );
 
     /**
-     * 节流处理响应错误信息
+     * 节流处理错误信息
      */
-    const handleResponseError = throttle(
-        (options: any) => {
-            ElNotification(options);
+    const handleNetworkError = throttle(
+        (message: string) => {
+            ElNotification({
+                type: 'error',
+                message,
+                zIndex: 9999,
+            });
         },
         500,
         {
@@ -138,7 +146,7 @@ export default function useAxiosInterceptors(options: Options) {
                 : Math.floor(responsedata.code / 100) === 1;
 
             if (successStatus) {
-                const { data } = response.data as { data: any };
+                const { data } = response.data;
                 return Promise.resolve(data || true);
             } else {
                 switch (responsedata.code) {
@@ -205,30 +213,10 @@ export default function useAxiosInterceptors(options: Options) {
         },
     );
 
-    /**
-     * GET
-     */
-    const get = service.get;
-
-    /**
-     * POST
-     */
-    const post = service.post;
-
-    /**
-     * PUT
-     */
-    const put = service.put;
-
-    /**
-     * DELETE
-     */
-    const del = service.delete;
-
     return {
-        get,
-        post,
-        put,
-        del,
+        get: service.get,
+        post: service.post,
+        put: service.put,
+        del: service.delete,
     };
 }

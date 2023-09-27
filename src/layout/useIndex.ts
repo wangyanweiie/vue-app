@@ -1,16 +1,28 @@
 import { ElMessage } from 'element-plus';
 import { OPERATION_NOTICE } from '@/constant/base';
 import type { XFormItemSchema, XFormInstance } from '@/components/Form/interface';
-import { getUserInfo, getUserToken } from '@/utils/storage';
+import { getBaseUrl, getUserToken, getUserInfo, saveBaseUrl } from '@/utils/storage';
 import { confirmExitMessage } from '@/utils/confirm-message';
 import { useUserStore } from '@/store/user-info';
 import router from '@/router';
 import RequestAPI from '@/api/login';
 
 export default function useIndex() {
+    const baseUrl = ref<string>(getBaseUrl());
     const token = getUserToken();
     const userInfo = getUserInfo();
     const { clearCache } = useUserStore();
+
+    /**
+     * 改变 base-url
+     */
+    function handleBlur(e: any) {
+        if (!e.target.value) {
+            return;
+        }
+
+        saveBaseUrl(e.target.value);
+    }
 
     /**
      * 下拉列表
@@ -19,28 +31,6 @@ export default function useIndex() {
         { title: '修改密码', onClick: openDialog },
         { title: '注销', onClick: logout },
     ];
-
-    /**
-     * 退出登录
-     */
-    async function logout() {
-        const confirm = await confirmExitMessage();
-
-        if (!confirm) {
-            return;
-        }
-
-        if (!token) {
-            return;
-        }
-
-        const res = await RequestAPI.logout();
-
-        if (res) {
-            clearCache();
-            router.push(`/login`);
-        }
-    }
 
     /**
      * 表单配置
@@ -131,7 +121,30 @@ export default function useIndex() {
         }
     }
 
+    /**
+     * 退出登录
+     */
+    async function logout() {
+        const confirm = await confirmExitMessage();
+
+        if (!confirm) {
+            return;
+        }
+
+        if (!token) {
+            return;
+        }
+
+        const res = await RequestAPI.logout();
+
+        if (res) {
+            clearCache();
+            router.push(`/login`);
+        }
+    }
+
     return {
+        baseUrl,
         userInfo,
         dropdownItems,
         schemas,
@@ -139,6 +152,7 @@ export default function useIndex() {
         formRef,
         loading,
         form,
+        handleBlur,
         changePassword,
     };
 }

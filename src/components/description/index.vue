@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <el-card :header="header" :shadow="shadow" :body-style="bodyStyle">
         <el-descriptions
             :title="title"
             :border="border"
@@ -16,7 +16,7 @@
                 <span v-else>{{ data[item.prop] }}</span>
             </el-descriptions-item>
         </el-descriptions>
-    </div>
+    </el-card>
 </template>
 <script setup lang="ts">
 import type { XDescriptionColumn } from './interface';
@@ -33,6 +33,12 @@ defineOptions({
  */
 withDefaults(
     defineProps<{
+        /** el-card-header */
+        header: string;
+        /** el-card-shadow */
+        shadow?: 'hover' | 'always' | 'never';
+        /** card-body-style */
+        bodyStyle?: Record<string, string>;
         /** 标题 */
         title: string;
         /** 边框 */
@@ -51,6 +57,13 @@ withDefaults(
         data: Record<string, any>;
     }>(),
     {
+        header: '',
+        shadow: 'hover',
+        bodyStyle: () => {
+            return {
+                padding: '15px',
+            };
+        },
         title: '',
         border: true,
         column: 4,

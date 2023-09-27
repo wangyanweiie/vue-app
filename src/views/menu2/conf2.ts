@@ -1,5 +1,6 @@
-import type { FormProps, ColProps } from 'element-plus';
+import { type FormProps, type ColProps } from 'element-plus';
 import type { XFormItemSchema } from '@/components/Form/interface';
+import dayjs from 'dayjs';
 
 /**
  * search-form 表单类型
@@ -22,7 +23,7 @@ export interface Form {
     selectLabel: string;
     switch: boolean;
     date: string;
-    dateTime: string;
+    datetime: string;
 }
 
 /**
@@ -144,13 +145,20 @@ export const schemas: XFormItemSchema[] = [
         prop: 'select',
         components: 'el-select-v2',
         colProps,
-        elProps: {
+        elProps: (form: Record<string, string | number | boolean>) => ({
             labelSchema: 'selectLabel',
             options: [
                 { label: 'label1', value: 'value1' },
                 { label: 'label2', value: 'value2' },
             ],
-        },
+            onChange: (value: string | number) => {
+                if (value === 'value1') {
+                    form.switch = true;
+                } else {
+                    form.switch = false;
+                }
+            },
+        }),
         elFormItemProps: {
             rules: [
                 {
@@ -165,11 +173,14 @@ export const schemas: XFormItemSchema[] = [
         prop: 'date',
         components: 'el-date-picker',
         colProps,
-        elProps: {
+        elProps: (form: Record<string, string | number | boolean>) => ({
             type: 'date',
             format: 'YYYY-MM-DD',
             valueFormat: 'YYYY-MM-DD',
-        },
+            onChange: (value: string) => {
+                form.datetime = dayjs(value).format('YYYY-MM-DD HH:mm:ss');
+            },
+        }),
         elFormItemProps: {
             rules: [
                 {
@@ -181,7 +192,7 @@ export const schemas: XFormItemSchema[] = [
     },
     {
         label: '日期时间',
-        prop: 'dateTime',
+        prop: 'datetime',
         components: 'el-date-picker',
         colProps,
         elProps: {

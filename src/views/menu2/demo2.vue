@@ -10,13 +10,13 @@
         >
         </x-search-form>
 
-        <el-card header="x-form" shadow="hover" class="component">
+        <!-- <el-card header="x-form" shadow="hover" class="component">
             <x-form ref="formRef" v-model="form" :el-form-props="elFromProps" :schemas="schemas"> </x-form>
 
             <el-button @click="handleDefault"> DEFAULT </el-button>
             <el-button @click="handleRest"> REST </el-button>
             <el-button type="primary" @click="handleConfirm"> CONFIRM </el-button>
-        </el-card>
+        </el-card> -->
 
         <el-card header="x-dialog-form" shadow="hover" class="component">
             <el-button @click="openDialog">打开弹窗</el-button>
@@ -65,59 +65,59 @@ const form = ref<Form>({
     selectLabel: '',
     switch: false,
     date: '',
-    dateTime: '',
+    datetime: '',
 });
 
-/**
- * form-ref
- */
-const formRef = ref();
+// /**
+//  * form-ref
+//  */
+// const formRef = ref();
 
-/**
- * 默认值
- */
-function handleDefault() {
-    form.value = {
-        text: '哈哈',
-        number: 18,
-        radio: 1,
-        select: 'value1',
-        selectLabel: 'label1',
-        switch: true,
-        date: '2023-08-31',
-        dateTime: '2023-08-31 12:00:00',
-    };
-}
+// /**
+//  * 默认值
+//  */
+// function handleDefault() {
+//     form.value = {
+//         text: '哈哈',
+//         number: 18,
+//         radio: 1,
+//         select: 'value1',
+//         selectLabel: 'label1',
+//         switch: true,
+//         date: '2023-08-31',
+//         datetime: '2023-08-31 12:00:00',
+//     };
+// }
 
-/**
- * 清空
- */
-function handleRest() {
-    form.value = {
-        text: '',
-        number: undefined,
-        radio: undefined,
-        select: '',
-        selectLabel: '',
-        switch: false,
-        date: '',
-        dateTime: '',
-    };
-}
+// /**
+//  * 清空
+//  */
+// function handleRest() {
+//     form.value = {
+//         text: '',
+//         number: undefined,
+//         radio: undefined,
+//         select: '',
+//         selectLabel: '',
+//         switch: false,
+//         date: '',
+//         datetime: '',
+//     };
+// }
 
-/**
- * 确认
- */
-async function handleConfirm() {
-    // 表单校验
-    const valid = await formRef.value.validate();
+// /**
+//  * 确认
+//  */
+// async function handleConfirm() {
+//     // 表单校验
+//     const valid = await formRef.value.validate();
 
-    if (!valid) {
-        return;
-    }
+//     if (!valid) {
+//         return;
+//     }
 
-    console.log('form', form.value);
-}
+//     console.log('form', form.value);
+// }
 
 /**
  * 弹窗是否展示

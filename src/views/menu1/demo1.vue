@@ -1,8 +1,6 @@
 <template>
     <div>
-        <el-card header="x-description" shadow="hover" class="component">
-            <x-description :columns="columns" :data="data"></x-description>
-        </el-card>
+        <x-description :columns="columns" :data="data" header="x-description" class="component"></x-description>
     </div>
 </template>
 

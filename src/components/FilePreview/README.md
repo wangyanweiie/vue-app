@@ -4,8 +4,8 @@
 
 ## 一、Pdf
 
--   `vue3-pdfjs`
--   `vue-pdf-embed`
+- [vue3-pdfjs](https://github.com/randolphtellis/vue3-pdfjs)
+- [vue-pdf-embed](https://github.com/hrynko/vue-pdf-embed)
 
 ```html
 <div class="pdf-style">
@@ -84,7 +84,8 @@ function nextPage() {
 ```
 
 ```scss
-<style lang='scss' scoped > .pdf-style {
+<style lang='scss' scoped> 
+.pdf-style {
     position: relative;
     padding: 30px;
     background-color: #808080;
@@ -96,11 +97,12 @@ function nextPage() {
         text-align: center;
     }
 }
+</style> 
 ```
 
 ## 二、Word
 
--   `docx-preview`
+- [docx-preview](https://github.com/VolodymyrBaydalka/docxjs#readme)
 
 ```html
 <div ref="wordRef"></div>
@@ -159,7 +161,7 @@ function wordPreview() {
 
 ## 三、Excel
 
--   `luckyexcel`
+- [luckyexcel](https://mengshukeji.gitee.io/luckysheetdocs/zh/)
 
 ```html
 <div id="luckysheetId" class="luckysheet"></div>
@@ -214,8 +216,12 @@ function excelPreview() {
 ```
 
 ```scss
-<style lang='scss' scoped > .luckysheet {
+<style lang='scss' scoped> 
+.luckysheet {
     width: 100%;
     height: 100%;
 }
+</style> 
 ```
+
+以上就是常用文件类型的预览，可以根据自己的需求封装在组件中从而实现多类型的预览。

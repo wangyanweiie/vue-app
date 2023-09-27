@@ -1,12 +1,27 @@
 /**
- * 本地存储token key
+ * 当前环境
+ */
+export const ENV = import.meta.env.MODE;
+
+/**
+ * 本地存储 app-name key
+ */
+export const LOCAL_APP_NAME = import.meta.env.VITE_APP_NAME;
+
+/**
+ * 本地存储 base-url key
+ */
+export const LOCAL_BASE_URL = 'baseUrl';
+
+/**
+ * 本地存储 token key
  */
 export const LOCAL_TOKEN_KEY = 'token';
 
 /**
  * 本地存储 userInfo key
  */
-export const LOCAL_USER_INFO_KEY = `${import.meta.env.VITE_APP_NAME}_USER_INFO`;
+export const LOCAL_USER_INFO_KEY = 'userInfo';
 
 /**
  * 上传接口

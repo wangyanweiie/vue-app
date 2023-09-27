@@ -33,7 +33,7 @@ import RequestAPI from '@/api/login';
 
 const router = useRouter();
 const { setPermission, setActiveRouteList } = usePermissionStore();
-const { setToken, setUserInfo } = useUserStore();
+const { setUrl, setToken, setUserInfo } = useUserStore();
 
 /**
  * 登录提交表单
@@ -94,6 +94,7 @@ async function login(): Promise<void> {
 
     loading.value = false;
 
+    setUrl(import.meta.env.VITE_API_URL);
     setToken(res.token);
     setUserInfo(res);
     setPermission(res?.pcPerms);

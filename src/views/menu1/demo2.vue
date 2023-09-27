@@ -139,6 +139,7 @@ function actionsConf(row: Record<string, any>) {
                 },
             },
         ],
+        // 权限列表
         [],
     );
 }

@@ -1,7 +1,7 @@
 /**
  * 连接错误信息提示
  */
-enum HTTP_ERROR_NOTICE {
+export enum HTTP_ERROR_NOTICE {
     /** 连接超时 */
     TIME_OUT = '连接超时',
 
@@ -24,7 +24,7 @@ enum HTTP_ERROR_NOTICE {
 /**
  * 操作提示
  */
-enum OPERATION_NOTICE {
+export enum OPERATION_NOTICE {
     /** 暂无数据 */
     NO_DATA = '暂无数据',
 
@@ -77,5 +77,3 @@ enum OPERATION_NOTICE {
     LOGOUT_SUCCESS = '退出成功',
     LOGOUT_ERROR = '退出失败',
 }
-
-export { HTTP_ERROR_NOTICE, OPERATION_NOTICE };

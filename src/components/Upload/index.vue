@@ -1,6 +1,6 @@
 <template>
     <el-upload
-        :action="url"
+        :action="uploadUrl"
         :show-file-list="props.showFileList"
         :file-list="reverseList"
         :limit="props.limit"
