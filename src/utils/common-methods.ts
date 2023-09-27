@@ -7,29 +7,17 @@ import { isBoolean } from 'lodash-es';
 /**
  * 通用删除
  * @param rows 批量删除选中项
- * @param deleteApi 删除接口
- * @param row 单条数据删除
- * @param tableRef 表格实例用于刷新数据
+ * @param api 删除接口
  * @param deleteParameter 指定字段为删除唯一标识符
+ * @param tableRef 表格实例用于刷新数据
  */
 export async function commonDelete(
-    rows?: any[],
-    deleteApi?: any,
-    row?: any,
-    tableRef?: any,
+    rows: Record<string, any>[],
+    api: (data: Record<string, unknown>) => Promise<unknown>,
     deleteParameter?: string,
+    tableRef?: any,
 ): Promise<void> {
-    let selectedRows = [];
-
-    if (row !== undefined) {
-        selectedRows.push(row);
-    } else if (rows !== undefined) {
-        selectedRows = rows;
-    } else {
-        return;
-    }
-
-    if (selectedRows.length === 0) {
+    if (rows.length === 0) {
         ElMessage.warning(OPERATION_NOTICE.SELECT_NONE);
         return;
     }
@@ -40,9 +28,9 @@ export async function commonDelete(
         return;
     }
 
-    const res = await deleteApi({
-        ids: selectedRows.map(selectedRow => selectedRow.id || ''),
-        [deleteParameter as string]: selectedRows.map(selectedRow => selectedRow[deleteParameter as string] || ''),
+    const res = await api({
+        ids: rows.map(row => row.id || ''),
+        [deleteParameter as string]: rows.map(row => row[deleteParameter as string] || ''),
     });
 
     if (!res) {
@@ -57,18 +45,18 @@ export async function commonDelete(
 
 /**
  * 通用导出
- * @param rows 选中项目
- * @param exportApi 导出接口
- * @param tableRef 表格实例
  * @param searchData 查询数据
+ * @param rows 选中项目
+ * @param api 导出接口
  * @param extraParams 成员为字段时指定查询对象，成员为对象时查询中添加该对象,可同时传
+ * @param tableRef 表格实例
  */
 export async function commonExport(
-    rows?: any,
-    exportApi?: any,
+    searchData: Record<string, string | number>,
+    rows: Record<string, any>[],
+    api: (data: Record<string, unknown>) => Promise<unknown>,
+    extraParams: any[],
     tableRef?: any,
-    searchData?: any,
-    ...extraParams: any[]
 ): Promise<void> {
     let res: any;
 
@@ -89,13 +77,13 @@ export async function commonExport(
     }, {});
 
     if (!rows.length) {
-        res = await exportApi({
+        res = await api({
             ...searchData,
             ...extraData,
         });
     } else {
-        res = await exportApi({
-            ids: rows.map((row: any) => row.id).filter((id: any) => id !== undefined),
+        res = await api({
+            ids: rows.map((row: any) => row.id).filter((id: string) => !!id),
             ...searchData,
             ...extraData,
         });
@@ -109,7 +97,7 @@ export async function commonExport(
 }
 
 /**
- * FIXME: 导入方法
+ * FIXME: 通用导入
  * @param options 通过 upload 获取到的文件数据
  * @param api 导入接口
  * @param apiParams 导入接口参数
@@ -158,7 +146,7 @@ export function importTemplate(
 }
 
 /**
- * 下载文件
+ * 通用下载
  * @param url 文件路径
  * @param fileName 文件名
  * @returns { boolean }

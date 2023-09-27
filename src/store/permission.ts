@@ -8,12 +8,12 @@ import appLayout from '@/layout/index.vue';
 /**
  * 权限缓存状态
  */
-const usePermissionStore: any = defineStore('permission', () => {
+export const usePermissionStore: any = defineStore('permission', () => {
     // ================= 权限 =================
     /**
      * 是否开启权限设置
      */
-    const usable = ref<boolean>(false);
+    const usable = ref<boolean>(true);
 
     /**
      * 开启权限
@@ -32,7 +32,7 @@ const usePermissionStore: any = defineStore('permission', () => {
     /**
      * 权限数组
      */
-    const permissions = ref<string[]>([]);
+    const permissions = ref<string[]>(['首页']);
 
     /**
      * 更新权限数组
@@ -126,7 +126,7 @@ const usePermissionStore: any = defineStore('permission', () => {
     }
 
     /**
-     * FIXME: 动态加载路由？
+     * 动态加载路由
      */
     function setActiveRouteList() {
         router.addRoute({
@@ -163,11 +163,10 @@ const usePermissionStore: any = defineStore('permission', () => {
 /**
  * 设置路由
  */
-function setPermissionRoute() {
+export function setPermissionRoute() {
     const permissionStore = usePermissionStore();
 
+    // 赋值路由数组并动态加载路由
     permissionStore.setRoutes(menuRoutes);
     permissionStore.setActiveRouteList();
 }
-
-export { usePermissionStore, setPermissionRoute };

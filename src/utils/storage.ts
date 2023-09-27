@@ -46,13 +46,13 @@ export function getUserInfo(): any {
 /**
  * 保存权限信息
  */
-export function savePermission(permission: any): void {
+export function savePermission(permission: string[]): void {
     store.local.set(LOCAL_PERMISSION_KEY, permission);
 }
 
 /**
  * 获取权限信息
  */
-export function getPermission(): any {
-    return store.local.get(LOCAL_PERMISSION_KEY) as any;
+export function getPermission(): string[] {
+    return store.local.get(LOCAL_PERMISSION_KEY) as string[];
 }

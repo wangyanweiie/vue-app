@@ -5,6 +5,7 @@ import useAxiosInterceptors from '@/utils/use-axios';
 const { get, post } = useAxiosInterceptors({
     url: import.meta.env.VITE_API_URL as string,
 
+    storageUrlKey: 'baseUrl',
     storageTokenKey: 'token',
 
     // 退出登录

@@ -76,7 +76,6 @@ const loading = ref<boolean>(false);
  */
 async function login(): Promise<void> {
     // 表单校验
-    // const [err] = await to(formRef.value?.validate());
     const valid = await formRef.value?.validate();
 
     if (!valid) {
@@ -93,14 +92,16 @@ async function login(): Promise<void> {
 
     loading.value = false;
 
+    // 保存 baseurl、token 以及用户信息
     saveBaseUrl(import.meta.env.VITE_API_URL);
     saveUserToken(res.token);
     saveUserInfo(res);
 
+    // 保存权限列表并动态加载路由
     setPermission(res?.pcPerms);
     setActiveRouteList();
 
-    // 重定向
+    // 路由重定向
     const redirectPath = router.currentRoute.value.query.redirect;
     if (redirectPath) {
         router.push({ path: redirectPath as string });

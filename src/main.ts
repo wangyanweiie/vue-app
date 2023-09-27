@@ -31,7 +31,7 @@ import '@wangeditor/editor/dist/css/style.css';
     // 统一注册组件
     registerComponents(app);
 
-    // 设置权限路由
+    // 赋值路由数组并动态加载路由
     setPermissionRoute();
 
     // 路由守卫

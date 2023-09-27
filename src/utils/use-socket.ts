@@ -16,9 +16,9 @@ enum READY_STATUS {
  */
 export default function useWebSocket(
     url: string,
-    openCallback: () => void,
-    messageCallback: (data: any) => void,
-    closeCallback: () => void,
+    openCallback?: () => void,
+    messageCallback?: (data: any) => void,
+    closeCallback?: () => void,
 ) {
     /**
      * websocket 实例
@@ -49,7 +49,7 @@ export default function useWebSocket(
         // 开启心跳
         // heartCheck.start();
         console.log('onopen');
-        openCallback();
+        openCallback && openCallback();
     }
 
     /**
@@ -62,10 +62,10 @@ export default function useWebSocket(
         // if (res.type === 'heartbeat') {
         //     heartCheck.reset();
         // } else {
-        //     messageCallback(res);
+        //     messageCallback && messageCallback(res);
         // }
 
-        messageCallback(res);
+        messageCallback && messageCallback(res);
     }
 
     /**
@@ -73,7 +73,7 @@ export default function useWebSocket(
      */
     function onclose() {
         console.log('onclose');
-        closeCallback();
+        closeCallback && closeCallback();
     }
 
     /**
