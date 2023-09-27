@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
-import store from 'store2';
 import type { RouteRecordRaw } from 'vue-router';
 import { generateActiveRoutes, generateCacheList, generateShowMenus } from '@/components/hooks/router-helper';
 import router, { menuRoutes } from '@/router/index';
+import { savePermission } from '@/utils/storage';
 import appLayout from '@/layout/index.vue';
 
 /**
@@ -39,6 +39,7 @@ const usePermissionStore: any = defineStore('permission', () => {
      */
     function setPermission(value: string[]): void {
         permissions.value = ['首页', ...(value ?? [])];
+        savePermission(permissions.value);
     }
 
     // ================= 路由 =================
@@ -160,15 +161,13 @@ const usePermissionStore: any = defineStore('permission', () => {
 });
 
 /**
- * 设置路由与权限
+ * 设置路由
  */
-function usePermission() {
+function setPermissionRoute() {
     const permissionStore = usePermissionStore();
-    const permissions = store.local.get('permissions');
 
-    permissionStore.setPermission(permissions);
     permissionStore.setRoutes(menuRoutes);
     permissionStore.setActiveRouteList();
 }
 
-export { usePermissionStore, usePermission };
+export { usePermissionStore, setPermissionRoute };

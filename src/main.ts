@@ -4,7 +4,7 @@ import { createPinia } from 'pinia';
 import App from '@/App.vue';
 import router from '@/router/index';
 import { setupRouterGuard } from '@/router/route-guard';
-import { usePermission } from '@/store/permission';
+import { setPermissionRoute } from '@/store/permission';
 import permission from '@/directive/permission';
 import { registerComponents } from '@/components/register';
 
@@ -31,8 +31,8 @@ import '@wangeditor/editor/dist/css/style.css';
     // 统一注册组件
     registerComponents(app);
 
-    // 设置路由权限
-    usePermission();
+    // 设置权限路由
+    setPermissionRoute();
 
     // 路由守卫
     setupRouterGuard(router);

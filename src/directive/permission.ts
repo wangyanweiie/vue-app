@@ -1,12 +1,12 @@
+import { getPermission } from '@/utils/storage';
 import type { App } from 'vue';
-import store from 'store2';
 
 /**
  * 是否拥有权限
  * @param permission
  */
 function hasPermission(permission: string) {
-    const permissions: string[] = store.local.get('userInfo')?.pcPerms || [];
+    const permissions: string[] = getPermission() ?? [];
     return permissions.includes(permission);
 }
 

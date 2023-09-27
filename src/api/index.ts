@@ -1,7 +1,6 @@
 import router from '@/router/index';
-import { LOCAL_TOKEN_KEY } from '@/constant/global';
+import { clearStorage } from '@/utils/local-storage';
 import useAxiosInterceptors from '@/utils/use-axios';
-import { removeStorage } from '@/utils/local-storage';
 
 const { get, post } = useAxiosInterceptors({
     url: import.meta.env.VITE_API_URL as string,
@@ -10,8 +9,7 @@ const { get, post } = useAxiosInterceptors({
 
     // 退出登录
     expireCallback: () => {
-        removeStorage(LOCAL_TOKEN_KEY);
-        removeStorage('userInfo');
+        clearStorage();
         router.push(`/login?redirect=${router.currentRoute.value.path}`);
     },
 });

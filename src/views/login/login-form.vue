@@ -26,14 +26,13 @@
 
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus';
-import { useUserStore } from '@/store/user-info';
 import { usePermissionStore } from '@/store/permission';
 import dropdownAPI from '@/api/dropdown';
 import RequestAPI from '@/api/login';
+import { saveBaseUrl, saveUserToken, saveUserInfo } from '@/utils/storage';
 
 const router = useRouter();
 const { setPermission, setActiveRouteList } = usePermissionStore();
-const { setUrl, setToken, setUserInfo } = useUserStore();
 
 /**
  * 登录提交表单
@@ -94,9 +93,10 @@ async function login(): Promise<void> {
 
     loading.value = false;
 
-    setUrl(import.meta.env.VITE_API_URL);
-    setToken(res.token);
-    setUserInfo(res);
+    saveBaseUrl(import.meta.env.VITE_API_URL);
+    saveUserToken(res.token);
+    saveUserInfo(res);
+
     setPermission(res?.pcPerms);
     setActiveRouteList();
 
