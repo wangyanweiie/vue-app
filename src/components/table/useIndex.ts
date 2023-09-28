@@ -64,23 +64,6 @@ export default function useIndex(props: XTableProp) {
     });
 
     /**
-     * 选中的行数据
-     */
-    const selectedRows = ref<any[]>([]);
-
-    /**
-     * 选中的行数据数量
-     */
-    const selectedCount = computed<number>(() => selectedRows.value.length ?? 0);
-
-    /**
-     * 改变选中状态
-     */
-    function handleSelectChange(selection: any[]) {
-        selectedRows.value = selection;
-    }
-
-    /**
      * 序号展示
      */
     function handleIndex(index: number) {
@@ -92,6 +75,23 @@ export default function useIndex(props: XTableProp) {
     }
 
     /**
+     * 选中的行数据
+     */
+    const selectedRows = ref<Record<string, any>[]>([]);
+
+    /**
+     * 选中的行数据数量
+     */
+    const selectedCount = computed<number>(() => selectedRows.value.length ?? 0);
+
+    /**
+     * 改变选中状态
+     */
+    function handleSelectChange(selection: Record<string, any>[]) {
+        selectedRows.value = selection;
+    }
+
+    /**
      * 是否可以选中当前行数据
      * @param row 行数据
      */
@@ -100,15 +100,34 @@ export default function useIndex(props: XTableProp) {
     }
 
     /**
+     * 数据回显勾选
+     */
+    function handleToggleRowSelection() {
+        if (!props.selectable || !props.rowKey || !props.selectedList || props.selectedList.length === 0) {
+            return;
+        }
+
+        props.selectedList.forEach(selected => {
+            tableData.value.forEach(row => {
+                if (selected[props.rowKey as string] === row[props.rowKey as string]) {
+                    nextTick(() => {
+                        tableRef.value?.toggleRowSelection(row, true);
+                    });
+                }
+            });
+        });
+    }
+
+    /**
      * 查询条件
      */
-    const searchData = ref<Record<string, any> | undefined>({});
+    const searchData = ref<Record<string, string | number>>({});
 
     /**
      * 获取表格数据
      * @param query 查询参数
      */
-    async function loadData(query?: Record<string, string | number>): Promise<void> {
+    async function loadData(query: Record<string, string | number> = {}): Promise<void> {
         searchData.value = query;
 
         // 1.动态赋值，分页接口
@@ -145,7 +164,7 @@ export default function useIndex(props: XTableProp) {
                 ...query,
             };
 
-            const res: any = await props.api(params);
+            const res = await props.api(params);
 
             if (!res) {
                 return;
@@ -167,7 +186,8 @@ export default function useIndex(props: XTableProp) {
             tableData.value = props.data;
         }
 
-        handleSelectedList();
+        clearSelection();
+        handleToggleRowSelection();
     }
 
     /**
@@ -180,7 +200,7 @@ export default function useIndex(props: XTableProp) {
                 ? props.data!.slice(skipNum, props.data!.length)
                 : props.data!.slice(skipNum, skipNum + pagination.value.pageSize);
 
-        handleSelectedList();
+        handleToggleRowSelection();
     }
 
     /**
@@ -205,38 +225,6 @@ export default function useIndex(props: XTableProp) {
         } else {
             handleFalsePage();
         }
-    }
-
-    /**
-     * 数据回显勾选
-     */
-    function handleToggleRowSelection(selectedList: any[]) {
-        if (!props.rowKey) {
-            return;
-        }
-
-        if (selectedList.length) {
-            selectedList.forEach(selected => {
-                tableData.value.forEach(row => {
-                    if (selected[props.rowKey as string] === row[props.rowKey as string]) {
-                        nextTick(() => {
-                            tableRef.value?.toggleRowSelection(row, true);
-                        });
-                    }
-                });
-            });
-        }
-    }
-
-    /**
-     * 判断是否需要回显
-     */
-    function handleSelectedList() {
-        if (!props.selectedList || props.selectedList.length === 0) {
-            return;
-        }
-
-        handleToggleRowSelection(props.selectedList);
     }
 
     /**
@@ -297,14 +285,14 @@ export default function useIndex(props: XTableProp) {
     /**
      * FIXME: 合并单元格方法
      */
-    let cellList: any[] = [];
+    let cellList: number[] = [];
     let count: number = 0;
 
     /**
      * 遍历单元格
      * @param data 表格数据
      */
-    function computeCell(data: any[]) {
+    function computeCell(data: Record<string, any>[]) {
         if (!props.combineField) {
             return;
         }

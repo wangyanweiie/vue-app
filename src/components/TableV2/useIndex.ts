@@ -15,7 +15,7 @@ export default function useIndex(props: XTableV2Prop) {
     /**
      * 表格数据
      */
-    const tableData = ref<any[]>([]);
+    const tableData = ref<Record<string, any>[]>([]);
 
     /**
      * 分页设置
@@ -58,7 +58,7 @@ export default function useIndex(props: XTableV2Prop) {
                 [props.apiKeyMap?.queryPageSizeKey ?? 'limit']: pagination.value.pageSize,
             };
 
-            const res: any = await props.api(params);
+            const res = await props.api(params);
 
             if (!res) {
                 return;
@@ -79,7 +79,7 @@ export default function useIndex(props: XTableV2Prop) {
                 ...query,
             };
 
-            const res: any = await props.api(params);
+            const res = await props.api(params);
 
             if (!res) {
                 return;

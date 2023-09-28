@@ -17,6 +17,7 @@
 <script lang="ts" setup>
 import { ElMessage } from 'element-plus';
 import { guid } from '@/utils/hooks';
+import { UPLOAD_URL } from '@/constant/global';
 
 /**
  * 定义组件选项
@@ -50,7 +51,7 @@ const props = withDefaults(
         buttonText: string;
     }>(),
     {
-        uploadUrl: (import.meta.env.VITE_API_URL + '/api/upload') as string,
+        uploadUrl: UPLOAD_URL,
         fileList: () => [],
         showFileList: true,
         accept: '',
@@ -67,15 +68,15 @@ const props = withDefaults(
  */
 const emit = defineEmits<{
     /** 更新上传列表 */
-    (e: 'update', reverseList: any): void;
+    (e: 'update', reverseList: any[]): void;
     /** 预览 */
-    (e: 'preview', url: any): void;
+    (e: 'preview', url: string): void;
 }>();
 
 /**
  * 反显已上传的文件列表
  */
-const reverseList = ref<any>([]);
+const reverseList = ref<any[]>([]);
 
 /**
  * 上传之前

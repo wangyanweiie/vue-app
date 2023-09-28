@@ -15,7 +15,7 @@ export default function useIndex() {
     /**
      * 改变 base-url
      */
-    function handleBlur(e: any) {
+    function handleBlur(e: any): void {
         if (!e.target.value) {
             return;
         }

@@ -1,6 +1,6 @@
 <template>
-    <div class="component">
-        <div v-if="showDom" id="domId">
+    <div>
+        <div v-if="showDom" id="domId" class="component">
             <el-card shadow="hover" header="x-file-preview" class="component whole-node">
                 <el-button @click="preview({ url: wordUrl })"> WORD </el-button>
                 <el-button @click="preview({ url: excelUrl })"> EXCEl </el-button>
@@ -23,9 +23,9 @@
                 </div>
             </el-card>
         </div>
-    </div>
 
-    <el-button @click="generatePDF"> PDF </el-button>
+        <el-button @click="generatePDF"> PDF </el-button>
+    </div>
 </template>
 
 <script setup lang="ts">

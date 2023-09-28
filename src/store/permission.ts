@@ -13,7 +13,7 @@ export const usePermissionStore: any = defineStore('permission', () => {
     /**
      * 是否开启权限设置
      */
-    const usable = ref<boolean>(true);
+    const usable = ref<boolean>(false);
 
     /**
      * 开启权限

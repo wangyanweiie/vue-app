@@ -88,7 +88,7 @@ const getEditModel = (index: number): FormModelItem => {
  * 获取当前编辑行的表单数据
  * @param index 行索引
  */
-const getEditRow = (index: number): Record<string, unknown> => getEditModel(index).formData;
+const getEditRow = (index: number): Record<string, any> => getEditModel(index).formData;
 </script>
 <style lang="scss">
 // 修改 el-form-item 的样式，但提示文字也被隐藏了；
