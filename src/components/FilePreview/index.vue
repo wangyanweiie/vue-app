@@ -86,8 +86,6 @@ const { FileType, fileType, dialogVisible, wordRef, pdfState, prePage, nextPage,
 
 .pdf-style {
     position: relative;
-    padding: 30px;
-    background-color: #808080;
 
     &__operate {
         position: sticky;
