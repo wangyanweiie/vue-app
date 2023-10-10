@@ -89,27 +89,6 @@ const material = new THREE.MeshPhongMaterial({
     specular: 0xff0000,
 });
 
-// ==================================================================
-/**
- * gui.addFolder => 创建子菜单
- * materialFolder => 改变 material 对象的属性
- *  - .addColor() 生成颜色值改变的交互界面
- *  - .add() 创建的交互界面，会默认显示所改变属性的名字
- *    - .name() 改变 gui 生成交互界面显示的内容
- *    - .step() 可以设置交互界面每次改变属性值间隔是多少
- */
-const materialFolder = gui.addFolder('材质');
-materialFolder.addColor(material, 'color').name('颜色');
-materialFolder.addColor(material, 'specular').name('高光颜色');
-materialFolder
-    .add(material, 'opacity', {
-        全透明: 0,
-        半透明: 0.5,
-        不透明: 1,
-    })
-    .name('透明度');
-// ==================================================================
-
 /**
  ** 网格模型
  * mesh.position => 设置模型 mesh 的 xyz 坐标
@@ -120,13 +99,6 @@ materialFolder
 const mesh = new THREE.Mesh(geometry, material);
 mesh.position.set(0, 0, 0);
 scene.add(mesh);
-
-// ==================================================================
-const meshFolder = gui.addFolder('网格模型');
-meshFolder.add(mesh.position, 'x', -5, 5).name('x 坐标').step(0.5);
-meshFolder.add(mesh.position, 'y', -5, 5).name('y 坐标').step(0.5);
-meshFolder.add(mesh.position, 'z', -5, 5).name('z 坐标').step(0.5);
-// ==================================================================
 
 /**
  ** 坐标系辅助观察
@@ -161,19 +133,6 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 directionalLight.position.set(50, 50, 50);
 directionalLight.target = mesh;
 scene.add(directionalLight);
-
-// ==================================================================
-const lightFolder = gui.addFolder('光源');
-lightFolder.add(directionalLight.position, 'x', 0, 100).name('x 坐标').step(5);
-lightFolder.add(directionalLight.position, 'y', 0, 100).name('y 坐标').step(5);
-lightFolder.add(directionalLight.position, 'z', 0, 100).name('z 坐标').step(5);
-lightFolder
-    .add(directionalLight, 'intensity', [0, 0.5, 1])
-    .name('强度')
-    .onChange(function (value) {
-        console.log('强度', value);
-    });
-// ==================================================================
 
 /**
  ** 平行光辅助观察
@@ -228,8 +187,49 @@ window.onresize = function () {
 };
 
 /**
+ ** gui
+ * gui.addFolder => 创建子菜单
+ * materialFolder => 改变 material 对象的属性
+ *  - .addColor() 生成颜色值改变的交互界面
+ *  - .add() 创建的交互界面，会默认显示所改变属性的名字
+ *    - .name() 改变 gui 生成交互界面显示的内容
+ *    - .step() 可以设置交互界面每次改变属性值间隔是多少
+ */
+// ==================================================================
+// 材质子菜单
+const materialFolder = gui.addFolder('材质');
+materialFolder.addColor(material, 'color').name('颜色');
+materialFolder.addColor(material, 'specular').name('高光颜色');
+materialFolder
+    .add(material, 'opacity', {
+        全透明: 0,
+        半透明: 0.5,
+        不透明: 1,
+    })
+    .name('透明度');
+
+// 网格模型子菜单
+const meshFolder = gui.addFolder('网格模型');
+meshFolder.add(mesh.position, 'x', -5, 5).name('x 坐标').step(0.5);
+meshFolder.add(mesh.position, 'y', -5, 5).name('y 坐标').step(0.5);
+meshFolder.add(mesh.position, 'z', -5, 5).name('z 坐标').step(0.5);
+
+// 平行光子菜单
+const dirLightFolder = gui.addFolder('平行光');
+dirLightFolder.add(directionalLight.position, 'x', 0, 100).name('x 坐标').step(5);
+dirLightFolder.add(directionalLight.position, 'y', 0, 100).name('y 坐标').step(5);
+dirLightFolder.add(directionalLight.position, 'z', 0, 100).name('z 坐标').step(5);
+dirLightFolder
+    .add(directionalLight, 'intensity', [0, 0.5, 1])
+    .name('强度')
+    .onChange(function (value) {
+        console.log('强度', value);
+    });
+// ==================================================================
+
+/**
  ** log
  */
 console.log('查看材质对象', material);
-console.log('查看网格模型', mesh);
+console.log('查看网格模型对象', mesh);
 console.log('查看当前屏幕设备像素比', window.devicePixelRatio);

@@ -18,6 +18,14 @@
                     </el-option>
                 </el-select>
             </el-form-item>
+            <el-form-item prop="baseUrl">
+                <el-input
+                    v-if="ENV !== 'production'"
+                    v-model="form.baseUrl"
+                    placeholder="BASE_URl"
+                    @blur="handleBlur"
+                ></el-input>
+            </el-form-item>
         </el-form>
 
         <el-button class="form__login-button" type="primary" :loading="loading" @click="login"> 登录 </el-button>
@@ -41,6 +49,7 @@ interface Form {
     account: string;
     password: string;
     companyId: string;
+    baseUrl: string;
 }
 
 /**
@@ -55,6 +64,7 @@ const form = reactive<Form>({
     account: '',
     password: '',
     companyId: '',
+    baseUrl: import.meta.env.VITE_API_URL,
 });
 
 /**
@@ -64,7 +74,19 @@ const rules = {
     account: [{ required: true, message: '账号不能为空' }],
     password: [{ required: true, message: '密码不能为空' }],
     companyId: [{ required: true, message: '公司不能为空' }],
+    baseUrl: [{ required: true, message: 'BASE_URL 不能为空' }],
 };
+
+/**
+ * 改变 base-url
+ */
+function handleBlur(e: any) {
+    if (!e.target.value) {
+        return;
+    }
+
+    saveBaseUrl(e.target.value);
+}
 
 /**
  * loading
@@ -92,13 +114,11 @@ async function login(): Promise<void> {
 
     loading.value = false;
 
-    // 保存 baseurl、token 以及用户信息
-    saveBaseUrl(import.meta.env.VITE_API_URL);
     saveUserToken(res.token);
     saveUserInfo(res);
-
-    // 保存权限列表并动态加载路由
     setPermission(res?.pcPerms);
+
+    // 动态加载路由
     setActiveRouteList();
 
     // 路由重定向
@@ -116,9 +136,9 @@ async function login(): Promise<void> {
 const companyList = ref<any>([]);
 
 /**
- * 页面渲染
+ * 获取公司列表
  */
-onMounted(async () => {
+async function getCompanyList() {
     const res = await dropdownAPI.getCompanyName();
 
     if (!res) {
@@ -126,6 +146,14 @@ onMounted(async () => {
     }
 
     companyList.value = res;
+}
+
+/**
+ * 页面渲染
+ */
+onMounted(async () => {
+    saveBaseUrl(import.meta.env.VITE_API_URL);
+    getCompanyList();
 });
 </script>
 
