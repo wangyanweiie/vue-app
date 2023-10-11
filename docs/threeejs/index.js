@@ -135,8 +135,11 @@ const lineMaterial = new THREE.LineBasicMaterial({
  *  - MeshPhongMaterial：高光材质
  *  - MeshStandardMaterial：物理材质
  *  - MeshPhysicalMaterial：物理材质
+ *
+ * 占用资源与渲染表现能力：渲染表现能力越强，占用的计算机硬件资源更多
+ * MeshBasicMaterial < MeshLambertMaterial < MeshPhongMaterial < MeshStandardMaterial < MeshPhysicalMaterial
  */
-const meshMaterial = new THREE.MeshPhongMaterial({
+const meshMaterial = new THREE.MeshPhysicalMaterial({
     // 设置材质颜色
     // color: 0x004bfa,
     // 开启透明
@@ -151,13 +154,18 @@ const meshMaterial = new THREE.MeshPhongMaterial({
     // 两面可见
     side: THREE.DoubleSide,
 
-    // 高光部分的亮度，默认30
+    // 高光部分的亮度，默认 30
     shininess: 20,
     // 高光部分的颜色
     specular: 0xff0000,
 
     // 设置纹理贴图：map 表示材质的颜色贴图属性，Texture 对象作为材质 map 属性的属性值
     map: texture,
+
+    // 金属度属性：表示材质像金属的程度，非金属材料使用 0，金属使用 1，默认 0.5
+    metalness: 1.0,
+    // 表面粗糙度：0 表示平滑的镜面反射，1 表示完全漫反射，默认 0.5
+    roughness: 0,
 });
 
 /**

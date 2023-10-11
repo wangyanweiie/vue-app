@@ -64,7 +64,8 @@ const form = reactive<Form>({
     account: '',
     password: '',
     companyId: '',
-    baseUrl: getBaseUrl() ?? import.meta.env.VITE_API_URL,
+    // m ?? n：只有当左侧 m 值为 null/undefined 时才返回 n的值，为 0/空字符串/false 都返回 m 的值
+    baseUrl: getBaseUrl() || import.meta.env.VITE_API_URL,
 });
 
 /**
