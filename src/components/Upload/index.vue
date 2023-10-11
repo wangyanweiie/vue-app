@@ -9,7 +9,6 @@
         :on-success="handleSuccess"
         :on-remove="handleRemove"
         :on-exceed="handleExceed"
-        :on-preview="handlePreview"
     >
         <el-button type="primary" :text="text" :disabled="disabled">{{ buttonText }}</el-button>
     </el-upload>
@@ -127,19 +126,12 @@ function handleExceed() {
 }
 
 /**
- * 预览
- */
-function handlePreview(file: Record<string, any>) {
-    emit('preview', file.response.data);
-}
-
-/**
  * 页面挂载
  */
 onMounted(() => {
     // 反显已上传的文件列表
     reverseList.value = props.fileList
-        ?.filter((item: string) => item !== null)
+        ?.filter((item: string) => !!item)
         .map((_item: string) => {
             return {
                 name: _item.split('/')[_item.split('/').length - 1],

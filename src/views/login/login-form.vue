@@ -37,7 +37,7 @@ import type { FormInstance } from 'element-plus';
 import { usePermissionStore } from '@/store/permission';
 import dropdownAPI from '@/api/dropdown';
 import RequestAPI from '@/api/login';
-import { saveBaseUrl, saveUserToken, saveUserInfo } from '@/utils/storage';
+import { getBaseUrl, saveBaseUrl, saveUserToken, saveUserInfo } from '@/utils/storage';
 
 const router = useRouter();
 const { setPermission, setActiveRouteList } = usePermissionStore();
@@ -64,7 +64,7 @@ const form = reactive<Form>({
     account: '',
     password: '',
     companyId: '',
-    baseUrl: import.meta.env.VITE_API_URL,
+    baseUrl: getBaseUrl() ?? import.meta.env.VITE_API_URL,
 });
 
 /**
@@ -76,6 +76,24 @@ const rules = {
     companyId: [{ required: true, message: '公司不能为空' }],
     baseUrl: [{ required: true, message: 'BASE_URL 不能为空' }],
 };
+
+/**
+ * 公司列表
+ */
+const companyList = ref<any>([]);
+
+/**
+ * 获取公司列表
+ */
+async function getCompanyList() {
+    const res = await dropdownAPI.getCompanyName();
+
+    if (!res) {
+        return false;
+    }
+
+    companyList.value = res;
+}
 
 /**
  * 改变 base-url
@@ -131,28 +149,13 @@ async function login(): Promise<void> {
 }
 
 /**
- * 公司列表
- */
-const companyList = ref<any>([]);
-
-/**
- * 获取公司列表
- */
-async function getCompanyList() {
-    const res = await dropdownAPI.getCompanyName();
-
-    if (!res) {
-        return false;
-    }
-
-    companyList.value = res;
-}
-
-/**
  * 页面渲染
  */
 onMounted(async () => {
-    saveBaseUrl(import.meta.env.VITE_API_URL);
+    if (!getBaseUrl()) {
+        saveBaseUrl(import.meta.env.VITE_API_URL);
+    }
+
     getCompanyList();
 });
 </script>
