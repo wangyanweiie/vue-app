@@ -9,19 +9,53 @@
             }
 
             #info {
+                width: 100%;
+                text-align: center;
                 color: aliceblue;
                 position: absolute;
                 top: 15px;
-                width: 100%;
-                text-align: center;
-                z-index: 100;
-                display: block;
+            }
+
+            #download {
+                position: absolute;
+                top: 15px;
+                left: 15px;
+            }
+
+            #container {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 400px;
+                height: 16px;
+                border-radius: 8px;
+                border: 1px solid #8E71C7;
+                overflow: hidden;
+            }
+
+            #per {
+                height: 100%;
+                width: 0px;
+                background: #8E71C7;
+                color: #8E71C7;
+                line-height: 15px;
             }
         </style>
     </head>
     <body>
+        <div id="webgl"></div>
+
         <!-- 渲染文字 -->
         <div id="info">My first three.js app</div>
+
+        <!-- 下载按钮 -->
+        <button id="download">download</button>
+
+        <!-- 下载进度 -->
+        <div id="container">
+            <div id="per"></div>
+        </div>
 
         <!-- 导入映射 -->
         <script type="importmap">

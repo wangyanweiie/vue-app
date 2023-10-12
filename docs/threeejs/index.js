@@ -50,17 +50,28 @@ camera.lookAt(0, 0, 0);
  ** 渲染器
  *********************************************************
  * 可以通过类（构造函数）的参数设置属性或者访问对象属性改变属性的值
- * setSize() => 定义 three.js 输出画布的尺寸（单位: 像素 px）
- * setPixelRatio() => 获取屏幕设备像素比告诉 threejs，以免渲染模糊问题
+ * setSize(m,n) => 设置 three.js 输出画布的尺寸（单位: 像素 px）
+ * setPixelRatio(n) => 设置屏幕设备像素比告诉 threejs，以免渲染模糊问题
+ * setClearAlpha(n) => 设置背景透明度值，0 完全透明，1 不透明
+ * setClearColor(m,n) => 设置背景颜色和透明度
  * 通过 renderer.domElement 属性可以访问 threejs 的渲染结果，也就是 HTML 的元素 canvas 画布
  */
 const renderer = new THREE.WebGLRenderer({
     // 设置渲染器锯齿属性
-    antialias: true,
+    // antialias: true,
+    // 背景透明
+    // alpha: true,
+    // 要想把 canvas 画布上内容下载到本地，需要设置为 true
+    preserveDrawingBuffer: true,
+    // 设置对数深度缓冲区，优化深度冲突问题，就是当两个面间距较小时，让 threejs 更容易区分两个面，谁在前，谁在后
+    logarithmicDepthBuffer: true,
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
-document.body.appendChild(renderer.domElement);
+// renderer.setClearAlpha(0.5);
+renderer.setClearColor(0x262626, 1);
+// document.body.appendChild(renderer.domElement);
+document.getElementById('webgl').appendChild(renderer.domElement);
 
 /**
  ** 几何体
@@ -73,7 +84,7 @@ document.body.appendChild(renderer.domElement);
  *  - PlaneGeometry：矩形平面
  *  - CircleGeometry：圆形平面
  *
- * 细分数：对于曲面而言，细分数越大，表面越光滑，但是三角形与顶点数量越多；三角形与顶点数量直接影响 Three.js 的渲染性能，在不影响渲染效果的情况下，越少越好
+ * 细分数：对于曲面而言，细分数越大，表面越光滑，但是三角形和顶点数量越多；三角形和顶点数量直接影响 Three.js 的渲染性能，在不影响渲染效果的情况下，越少越好
  *  - 矩形平面 PlaneGeometry 的参数 3,4 表示细分数，默认是 1,1
  *  - 球体 SphereGeometry 参数 2、3 分别代表宽、高度两个方向上的细分数，默认是 32,16
  *
@@ -83,10 +94,10 @@ document.body.appendChild(renderer.domElement);
  * geometry.rotateX(n) => 绕 x 轴旋转 n 度
  */
 // const geometry = new THREE.BoxGeometry(1, 1, 1);
-// const geometry = new THREE.SphereGeometry(1, 48, 24);
-// const geometry = new THREE.CylinderGeometry(1,1,1);
+const geometry = new THREE.SphereGeometry(1, 48, 24);
+// const geometry = new THREE.CylinderGeometry(1, 1, 1);
 // const geometry = new THREE.ConeGeometry(1,1,1);
-const geometry = new THREE.PlaneGeometry(2, 2);
+// const geometry = new THREE.PlaneGeometry(2, 2);
 // const geometry = new THREE.CircleGeometry(1);
 // geometry.scale(2, 2, 2);
 // geometry.translate(2, 0, 0);
@@ -136,10 +147,10 @@ const lineMaterial = new THREE.LineBasicMaterial({
  *  - MeshStandardMaterial：物理材质
  *  - MeshPhysicalMaterial：物理材质
  *
- * 占用资源与渲染表现能力：渲染表现能力越强，占用的计算机硬件资源更多
+ * 占用资源和渲染表现能力：渲染表现能力越强，占用的计算机硬件资源更多
  * MeshBasicMaterial < MeshLambertMaterial < MeshPhongMaterial < MeshStandardMaterial < MeshPhysicalMaterial
  */
-const meshMaterial = new THREE.MeshPhysicalMaterial({
+const meshMaterial = new THREE.MeshPhongMaterial({
     // 设置材质颜色
     // color: 0x004bfa,
     // 开启透明
@@ -149,21 +160,21 @@ const meshMaterial = new THREE.MeshPhysicalMaterial({
     // 线条模式渲染 mesh 对应的三角形数据
     // wireframe: true,
 
-    // 对于矩形平面与圆形平面默认只有正面可见
+    // 平面：对于矩形平面和圆形平面默认只有正面可见
     // side: THREE.FrontSide,
-    // 两面可见
+    // 平面：两面可见
     side: THREE.DoubleSide,
 
-    // 高光部分的亮度，默认 30
+    // 高光材质：高光部分的亮度，默认 30
     shininess: 20,
-    // 高光部分的颜色
+    // 高光材质：高光部分的颜色
     specular: 0xff0000,
 
     // 设置纹理贴图：map 表示材质的颜色贴图属性，Texture 对象作为材质 map 属性的属性值
     map: texture,
 
     // 金属度属性：表示材质像金属的程度，非金属材料使用 0，金属使用 1，默认 0.5
-    metalness: 1.0,
+    metalness: 0,
     // 表面粗糙度：0 表示平滑的镜面反射，1 表示完全漫反射，默认 0.5
     roughness: 0,
 });
@@ -257,8 +268,8 @@ function animate() {
     renderer.render(scene, camera);
 
     // 设置网格模型动画：每次绕 x,y,z 轴旋转 0.01 弧度
-    mesh.rotateX(0.01);
-    mesh.rotateY(0.01);
+    // mesh.rotateX(0.01);
+    // mesh.rotateY(0.01);
     // mesh.rotateZ(0.01);
 
     // 设置纹理动画
@@ -287,28 +298,11 @@ controls.addEventListener('change', function () {
 });
 
 /**
- ** 窗口大小调整
- *********************************************************
- */
-window.onresize = function () {
-    // 重置渲染器输出画布 canvas 尺寸
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    // 全屏情况下：设置观察范围长宽比 aspect 为窗口宽高比
-    camera.aspect = window.innerWidth / window.innerHeight;
-
-    // 渲染器执行 render 方法的时候会读取相机对象的投影矩阵属性 projectionMatrix
-    // 但是不会每渲染一帧，就通过相机的属性计算投影矩阵(节约计算资源)
-    // 如果相机的一些属性发生了变化，需要执行 updateProjectionMatrix() 方法更新相机的投影矩阵
-    camera.updateProjectionMatrix();
-};
-
-/**
  ** 辅助观察
  *********************************************************
  */
 // 网格地面辅助观察
-const gridHelper = new THREE.GridHelper(5, 20, 0x004444, 0x004444);
+const gridHelper = new THREE.GridHelper(5, 20, 0x838383, 0x838383);
 scene.add(gridHelper);
 
 // 坐标系辅助观察：AxesHelper(n) => 设置坐标系坐标轴线段尺寸大小
@@ -358,6 +352,69 @@ dirLightFolder
     .onChange(function (value) {
         console.log('强度', value);
     });
+
+/**
+ ** 窗口大小调整
+ *********************************************************
+ */
+window.onresize = function () {
+    // 重置渲染器输出画布 canvas 尺寸
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    // 全屏情况下：设置观察范围长宽比 aspect 为窗口宽高比
+    camera.aspect = window.innerWidth / window.innerHeight;
+
+    // 渲染器执行 render 方法的时候会读取相机对象的投影矩阵属性 projectionMatrix
+    // 但是不会每渲染一帧，就通过相机的属性计算投影矩阵(节约计算资源)
+    // 如果相机的一些属性发生了变化，需要执行 updateProjectionMatrix() 方法更新相机的投影矩阵
+    camera.updateProjectionMatrix();
+};
+
+/**
+ ** loader
+ * gltfLoader.load() => 就可以加载外部的 gltf 模型，会返回一个 gltf 对象
+ *  - 参数一：模型路径
+ *  - 参数二：加载完成函数
+ *  - 参数三：加载过程函数
+ *********************************************************
+ */
+// 加载进度
+const percent = document.getElementById('per');
+percent.style.width = 0.5 * 400 + 'px';
+percent.style.textIndent = 0.5 * 400 + 5 + 'px';
+percent.innerHTML = '50%';
+
+// gltfLoader.load(
+//     '../工厂.glb',
+//     function (gltf) {
+//         model.add(gltf.scene);
+//         // 加载完成，隐藏进度条即可
+//         // document.getElementById("container").style.visibility ='hidden';
+//         document.getElementById('container').style.display = 'none';
+//     },
+//     function (xhr) {
+//         const percent = xhr.loaded / xhr.total;
+
+//         percent.style.width = percent * 400 + 'px';
+//         percent.style.textIndent = percent * 400 + 5 + 'px';
+//         percent.innerHTML = Math.floor(percent * 100) + '%';
+//     },
+// );
+
+/**
+ ** download
+ *********************************************************
+ * threejs 渲染结果以图片形式下载到本地
+ */
+// 下载方法
+document.getElementById('download').addEventListener('click', function () {
+    const link = document.createElement('a');
+    const canvas = renderer.domElement;
+
+    link.href = canvas.toDataURL('image/png');
+    link.download = 'threejs.png';
+    link.click();
+});
 
 /**
  ** log

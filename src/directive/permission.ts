@@ -6,7 +6,7 @@ import type { App } from 'vue';
  * @param permission
  */
 function hasPermission(permission: string) {
-    const permissions: string[] = getPermission() ?? [];
+    const permissions: string[] = getPermission() || [];
     return permissions.includes(permission);
 }
 

@@ -151,9 +151,9 @@ export function importTemplate(
  * @param fileName 文件名
  * @returns { boolean }
  */
-export async function downloadFileFromURL(url: string, fileName = ''): Promise<boolean> {
+export async function downloadFileFromURL(url: string, fileName = '') {
     if (!url) {
-        return false;
+        return;
     }
 
     const a = document.createElement('a');
@@ -161,5 +161,4 @@ export async function downloadFileFromURL(url: string, fileName = ''): Promise<b
     a.download = fileName;
 
     a.click();
-    return true;
 }
