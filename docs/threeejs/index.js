@@ -1,5 +1,5 @@
 /**
- * @description three.js-demo
+ * @description threejs-demo
  * @link http://www.webgl3d.cn/
  */
 import * as THREE from 'three';
@@ -39,7 +39,7 @@ const scene = new THREE.Scene();
  *  - window.innerWidth / window.innerHeight：相机视锥体水平方向和竖直方向长度比
  *  - 1：相机视锥体近裁截面相对相机距离
  *  - 100：相机视锥体远裁截面相对相机距离
- * camera.position => 相机位置 xyz 坐标
+ * camera.position => 设置相机位置 xyz 坐标
  * camera.lookAt(x,y,z) => 相机观察目标指向 Threejs 3D 空间中某个位置，默认的位置是（0,0,0）
  */
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100);
@@ -50,7 +50,7 @@ camera.lookAt(0, 0, 0);
  ** 渲染器
  *********************************************************
  * 可以通过类（构造函数）的参数设置属性或者访问对象属性改变属性的值
- * setSize(m,n) => 设置 three.js 输出画布的尺寸（单位: 像素 px）
+ * setSize(m,n) => 设置 threejs 输出画布的尺寸（单位: 像素 px）
  * setPixelRatio(n) => 设置屏幕设备像素比告诉 threejs，以免渲染模糊问题
  * setClearAlpha(n) => 设置背景透明度值，0 完全透明，1 不透明
  * setClearColor(m,n) => 设置背景颜色和透明度
@@ -93,8 +93,8 @@ document.getElementById('webgl').appendChild(renderer.domElement);
  * geometry.center() => 居中
  * geometry.rotateX(n) => 绕 x 轴旋转 n 度
  */
-// const geometry = new THREE.BoxGeometry(1, 1, 1);
-const geometry = new THREE.SphereGeometry(1, 48, 24);
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+// const geometry = new THREE.SphereGeometry(1, 48, 24);
 // const geometry = new THREE.CylinderGeometry(1, 1, 1);
 // const geometry = new THREE.ConeGeometry(1,1,1);
 // const geometry = new THREE.PlaneGeometry(2, 2);
@@ -115,6 +115,7 @@ const texture = texLoader.load('../../public/logo.png');
 texture.wrapS = THREE.RepeatWrapping;
 texture.wrapT = THREE.RepeatWrapping;
 texture.repeat.set(5, 5);
+// scene.background = texture;
 
 /**
  ** 材质
@@ -142,8 +143,8 @@ const lineMaterial = new THREE.LineBasicMaterial({
  * 网格材质
  * 可以通过类（构造函数）的参数设置属性或者访问对象属性改变属性的值
  *  - MeshBasicMaterial：基础材质（不受光源影响）
- *  - MeshLambertMaterial：漫反射材质
- *  - MeshPhongMaterial：高光材质
+ *  - MeshLambertMaterial：漫反射材质（受光源影响，无光源则不显示）
+ *  - MeshPhongMaterial：高光材质（受光源影响，无光源则不显示）
  *  - MeshStandardMaterial：物理材质
  *  - MeshPhysicalMaterial：物理材质
  *
@@ -166,7 +167,7 @@ const meshMaterial = new THREE.MeshPhongMaterial({
     side: THREE.DoubleSide,
 
     // 高光材质：高光部分的亮度，默认 30
-    shininess: 20,
+    shininess: 30,
     // 高光材质：高光部分的颜色
     specular: 0xff0000,
 
@@ -231,22 +232,22 @@ scene.add(group);
  *********************************************************
  */
 /**
+ * 环境光
+ * 没有特定方向，整体改变场景的光照明暗
+ */
+const ambient = new THREE.AmbientLight(0xffffff, 1);
+// scene.add(ambient);
+
+/**
  * 点光源
  * PointLight()
  *  - 0xffffff：光源颜色
  *  - 1：光照强度
  * pointLight.position.set() => 设置光源的方向
  */
-const pointLight = new THREE.PointLight(0xffffff, 1, 0, 0);
+const pointLight = new THREE.PointLight(0xffffff, 1);
 pointLight.position.set(50, 50, 50);
 // scene.add(pointLight);
-
-/**
- * 环境光
- * 没有特定方向，整体改变场景的光照明暗
- */
-const ambient = new THREE.AmbientLight(0xffffff, 1);
-// scene.add(ambient);
 
 /**
  * 平行光
@@ -268,9 +269,9 @@ function animate() {
     renderer.render(scene, camera);
 
     // 设置网格模型动画：每次绕 x,y,z 轴旋转 0.01 弧度
-    // mesh.rotateX(0.01);
-    // mesh.rotateY(0.01);
-    // mesh.rotateZ(0.01);
+    mesh.rotateX(0.01);
+    mesh.rotateY(0.01);
+    mesh.rotateZ(0.01);
 
     // 设置纹理动画
     // texture.offset.x += 0.01;
@@ -294,7 +295,7 @@ controls.target.set(0, 0, 0);
 controls.update();
 controls.addEventListener('change', function () {
     renderer.render(scene, camera);
-    console.log('相机位置', camera.position);
+    // console.log('相机位置', camera.position);
 });
 
 /**
@@ -323,35 +324,32 @@ scene.add(dirLightHelper);
  *    - .name() 改变 gui 生成交互界面显示的内容
  *    - .step() 可以设置交互界面每次改变属性值间隔是多少
  */
-// 网格材质子菜单
-const meshMaterialFolder = gui.addFolder('网格材质');
-meshMaterialFolder.addColor(meshMaterial, 'color').name('颜色');
-meshMaterialFolder.addColor(meshMaterial, 'specular').name('高光颜色');
-meshMaterialFolder
-    .add(meshMaterial, 'opacity', {
-        全透明: 0,
-        半透明: 0.5,
-        不透明: 1,
-    })
-    .name('透明度');
+// // 网格材质子菜单
+// const meshMaterialFolder = gui.addFolder('网格材质');
+// meshMaterialFolder.addColor(meshMaterial, 'color').name('颜色');
+// meshMaterialFolder.addColor(meshMaterial, 'specular').name('高光颜色');
+// meshMaterialFolder
+//     .add(meshMaterial, 'opacity', {
+//         全透明: 0,
+//         半透明: 0.5,
+//         不透明: 1,
+//     })
+//     .name('透明度');
 
-// 网格模型子菜单
-const meshFolder = gui.addFolder('网格模型');
-meshFolder.add(mesh.position, 'x', -5, 5).name('x 坐标').step(0.5);
-meshFolder.add(mesh.position, 'y', -5, 5).name('y 坐标').step(0.5);
-meshFolder.add(mesh.position, 'z', -5, 5).name('z 坐标').step(0.5);
+// // 网格模型子菜单
+// const meshFolder = gui.addFolder('网格模型');
+// meshFolder.add(mesh.position, 'x', -5, 5).name('x 坐标').step(0.5);
+// meshFolder.add(mesh.position, 'y', -5, 5).name('y 坐标').step(0.5);
+// meshFolder.add(mesh.position, 'z', -5, 5).name('z 坐标').step(0.5);
 
-// 平行光子菜单
-const dirLightFolder = gui.addFolder('平行光');
-dirLightFolder.add(directionalLight.position, 'x', 0, 100).name('x 坐标').step(5);
-dirLightFolder.add(directionalLight.position, 'y', 0, 100).name('y 坐标').step(5);
-dirLightFolder.add(directionalLight.position, 'z', 0, 100).name('z 坐标').step(5);
-dirLightFolder
-    .add(directionalLight, 'intensity', [0, 0.5, 1])
-    .name('强度')
-    .onChange(function (value) {
-        console.log('强度', value);
-    });
+// // 平行光子菜单
+// const dirLightFolder = gui.addFolder('平行光');
+// dirLightFolder
+//     .add(directionalLight, 'intensity', [0, 0.5, 1])
+//     .name('强度')
+//     .onChange(function (value) {
+//         console.log('强度', value);
+//     });
 
 /**
  ** 窗口大小调整
@@ -379,15 +377,15 @@ window.onresize = function () {
  *********************************************************
  */
 // 加载进度
-const percent = document.getElementById('per');
-percent.style.width = 0.5 * 400 + 'px';
-percent.style.textIndent = 0.5 * 400 + 5 + 'px';
-percent.innerHTML = '50%';
+// const percentDiv = document.getElementById('per');
+// percentDiv.style.width = 0.5 * 400 + 'px';
+// percentDiv.style.textIndent = 0.5 * 400 + 5 + 'px';
+// percentDiv.innerHTML = '50%';
 
 // gltfLoader.load(
-//     '../工厂.glb',
+//     '../../public/gltf/911/scene.gltf',
 //     function (gltf) {
-//         model.add(gltf.scene);
+//         scene.add(gltf.scene);
 //         // 加载完成，隐藏进度条即可
 //         // document.getElementById("container").style.visibility ='hidden';
 //         document.getElementById('container').style.display = 'none';
@@ -395,9 +393,9 @@ percent.innerHTML = '50%';
 //     function (xhr) {
 //         const percent = xhr.loaded / xhr.total;
 
-//         percent.style.width = percent * 400 + 'px';
-//         percent.style.textIndent = percent * 400 + 5 + 'px';
-//         percent.innerHTML = Math.floor(percent * 100) + '%';
+//         percentDiv.style.width = percent * 400 + 'px';
+//         percentDiv.style.textIndent = percent * 400 + 5 + 'px';
+//         percentDiv.innerHTML = Math.floor(percent * 100) + '%';
 //     },
 // );
 
