@@ -38,6 +38,7 @@ import { usePermissionStore } from '@/store/permission';
 import dropdownAPI from '@/api/dropdown';
 import RequestAPI from '@/api/login';
 import { getBaseUrl, saveBaseUrl, saveUserToken, saveUserInfo } from '@/utils/storage';
+import { ENV } from '@/constant/global';
 
 const router = useRouter();
 const { setPermission, setActiveRouteList } = usePermissionStore();

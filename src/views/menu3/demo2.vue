@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div class="wrap">
         <div id="webgl"></div>
 
         <!-- 渲染文字 -->
-        <div class="text">My first three.js app</div>
+        <div class="text">My first threejs app</div>
 
         <!-- 下载按钮 -->
         <el-button class="button" @click="download">download</el-button>
@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 /**
- * @description three.js-demo
+ * @description threejs-demo
  * @link http://www.webgl3d.cn/
  */
 import * as THREE from 'three';
@@ -68,7 +68,7 @@ camera.lookAt(0, 0, 0);
  ** 渲染器
  *********************************************************
  * 可以通过类（构造函数）的参数设置属性或者访问对象属性改变属性的值
- * setSize(m,n) => 设置 three.js 输出画布的尺寸（单位: 像素 px）
+ * setSize(m,n) => 设置 threejs 输出画布的尺寸（单位: 像素 px）
  * setPixelRatio(n) => 设置屏幕设备像素比告诉 threejs，以免渲染模糊问题
  * setClearAlpha(n) => 设置背景透明度值，0 完全透明，1 不透明
  * setClearColor(m,n) => 设置背景颜色和透明度
@@ -417,7 +417,7 @@ window.onresize = function () {
 /**
  ** download
  *********************************************************
- * three.js 渲染结果以图片形式下载到本地
+ * threejs 渲染结果以图片形式下载到本地
  */
 function download() {
     const link = document.createElement('a');

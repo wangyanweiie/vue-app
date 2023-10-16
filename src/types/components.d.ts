@@ -48,6 +48,7 @@ declare module 'vue' {
         ElTableV2: (typeof import('element-plus/es'))['ElTableV2'];
         ElTag: (typeof import('element-plus/es'))['ElTag'];
         ElTooltip: (typeof import('element-plus/es'))['ElTooltip'];
+        ElWatermark: (typeof import('element-plus/es'))['ElWatermark'];
         FilePreview: (typeof import('./../components/FilePreview/index.vue'))['default'];
         HistoryTabs: (typeof import('./../components/Layout/HistoryTabs.vue'))['default'];
         ParentMenuView: (typeof import('./../components/Layout/ParentMenuView.vue'))['default'];
