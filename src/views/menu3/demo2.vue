@@ -1,14 +1,7 @@
 <template>
-    <div class="wrap">
+    <div>
         <div id="webgl"></div>
-
-        <!-- 下载按钮 -->
         <el-button class="button" @click="download">download</el-button>
-
-        <!-- 加载进度 -->
-        <!-- <div id="container">
-            <div id="per"></div>
-        </div> -->
     </div>
 </template>
 
@@ -20,7 +13,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { render } from 'vue';
 
 /**
  ** gltf
@@ -71,10 +63,9 @@ const renderer = new THREE.WebGLRenderer({
     preserveDrawingBuffer: true,
     // 设置对数深度缓冲区，优化深度冲突问题，就是当两个面间距较小时，让 threejs 更容易区分两个面，谁在前，谁在后
     logarithmicDepthBuffer: true,
-    // 默认情况下 threejs 会使用线性编码（LinearEncoding）的方式渲染材质，因此会丢失真实颜色，需要改用 RGB 模式编码（sRGBEncoding）进行对材质进行渲染
-    encoding: THREE.sRGBEncoding,
 });
-renderer.setSize(800, 500);
+
+renderer.setSize(800, 400);
 // renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 // renderer.setClearColor(0x262626, 1);
@@ -83,10 +74,10 @@ renderer.setPixelRatio(window.devicePixelRatio);
 /**
  ** 光源
  *********************************************************
- * 平行光
  */
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-scene.add(directionalLight);
+const light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(50, 50, 50);
+scene.add(light);
 
 /**
  ** 动画渲染
@@ -126,11 +117,12 @@ controls.addEventListener('change', function () {
  *********************************************************
  */
 gltfLoader.load(
-    '../../../public/gltf/911/scene.gltf',
+    '/gltf/911/scene.gltf',
     function (gltf: any) {
         gltf.scene.traverse(function (item: any) {
             if (item.isMesh) {
                 // 模型自发光
+                // item.material.emissive = item.material.color;
                 item.material.emissiveMap = item.material.map;
             }
         });
@@ -171,25 +163,5 @@ onMounted(() => {
     position: absolute;
     top: 20px;
     left: 20px;
-}
-
-#container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    height: 16px;
-    border-radius: 8px;
-    border: 1px solid #8e71c7;
-    overflow: hidden;
-}
-
-#per {
-    height: 100%;
-    width: 0px;
-    background: #8e71c7;
-    color: #8e71c7;
-    line-height: 15px;
 }
 </style>

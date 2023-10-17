@@ -108,21 +108,22 @@ export function importTemplate(
     api: (data: Record<string, unknown>) => Promise<unknown>,
     apiParams?: Record<string, string | number>,
 ) {
-    return new Promise(() => {
+    return new Promise(resolve => {
         const suffix = options.file.name.split('.').pop() ?? '';
 
         if (!['xlsx', 'xls'].includes(suffix)) {
             ElMessage.warning(OPERATION_NOTICE.IMPORT_FILE_TYPE_ERROR);
-            Promise.resolve(false);
+            resolve(false);
         }
 
         const data = new FormData();
         data.append('file', options.file);
 
         const url = FileAPI.upload(data);
+
         if (!url) {
             ElMessage.error(OPERATION_NOTICE.UPLOAD_ERROR);
-            Promise.resolve(false);
+            resolve(false);
         }
 
         const res = api({
@@ -132,15 +133,15 @@ export function importTemplate(
 
         if (!res) {
             ElMessage.error(OPERATION_NOTICE.IMPORT_ERROR);
-            Promise.resolve(false);
+            resolve(false);
         }
 
         if (isBoolean(res)) {
             ElMessage.success(OPERATION_NOTICE.IMPORT_SUCCESS);
-            Promise.resolve(true);
+            resolve(true);
         } else {
             ElMessage.error(OPERATION_NOTICE.IMPORT_ERROR);
-            Promise.resolve(res);
+            resolve(res);
         }
     });
 }

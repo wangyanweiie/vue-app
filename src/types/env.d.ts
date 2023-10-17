@@ -10,3 +10,5 @@ declare module 'three';
 declare module 'three/addons/controls/OrbitControls.js';
 declare module 'three/addons/libs/lil-gui.module.min.js';
 declare module 'three/addons/loaders/GLTFLoader.js';
+
+declare module 'archiver';

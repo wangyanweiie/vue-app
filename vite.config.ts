@@ -50,8 +50,13 @@ export default defineConfig({
         },
 
         /**
+         * chunk 大小警告的限制，默认 500 kbs
+         */
+        chunkSizeWarningLimit: 1500,
+
+        /**
          * rollup 打包后的静态资源名称格式
-         * vite 基于 rollup打包，打包后的 chunk（代码块）后静态资源名称比较简单，
+         * vite 基于 rollup 打包，打包后的 chunk（代码块）后静态资源名称比较简单，
          * 使用命名规则可以确保在每次构建应用程序时，文件的名称都会随着内容的更改而变化，
          * 可以避免浏览器缓存旧版本文件的问题，并确保每次部署新的构建版本时，浏览器可以正确加载更新的文件
          */
@@ -60,6 +65,19 @@ export default defineConfig({
                 chunkFileNames: 'static/js/[name]-[hash].js',
                 entryFileNames: 'static/js/[name]-[hash].js',
                 assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+
+                // 通过 () => import() 形式加载的组件会自动分包，第三方插件需手动分包
+                manualChunks: {
+                    vue: ['vue', 'vue-router', 'pinia'],
+                    elementPlusIcons: ['@element-plus/icons-vue'],
+                    elementPlus: ['element-plus'],
+                    html2canvas: ['html2canvas'],
+                    luckyexcel: ['luckyexcel'],
+                    exceljs: ['exceljs'],
+                    vuePdfEmbed: ['vue-pdf-embed'],
+                    vue3Pdfjs: ['vue3-pdfjs'],
+                    three: ['three'],
+                },
             },
         },
     },
