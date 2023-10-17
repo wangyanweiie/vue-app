@@ -31,9 +31,9 @@ export default defineConfig({
     build: {
         /**
          * 混淆器
-         *  - boolean
-         *  - terser
-         *  - esbuild
+         *  - boolean：设置为 false 可以禁用最小化混淆
+         *  - esbuild：默认为 Esbuild，它比 terser 快 20-40 倍，压缩率只差 1%-2%
+         *  - terser：当设置为 'terser' 时必须先安装 Terser
          */
         minify: 'terser',
 
@@ -50,7 +50,7 @@ export default defineConfig({
         },
 
         /**
-         * chunk 大小警告的限制，默认 500 kbs
+         * chunk 大小警告的限制，默认 500（单位：kbs）
          */
         chunkSizeWarningLimit: 1500,
 

@@ -43,7 +43,6 @@ import { ENV, APP_NAME } from '@/constant/global';
 import useIndex from './useIndex';
 
 const { showMenus } = usePermissionStore();
-
 const { baseUrl, userInfo, dropdownItems, schemas, visible, formRef, loading, form, handleBlur, changePassword } =
     useIndex();
 </script>
