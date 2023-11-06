@@ -22,6 +22,7 @@
 
 <script setup lang="ts">
 import type { RadioValueType, SelectValueType } from '@/components/Form/interface';
+import type { CheckboxGroupValueType } from 'element-plus';
 
 /**
  * radio
@@ -45,7 +46,7 @@ const radioOptions = [
 /**
  * checkbox
  */
-const checkboxValue = ref<any>();
+const checkboxValue = ref<CheckboxGroupValueType>();
 const checkboxOptions = [
     {
         labelName: '北京',

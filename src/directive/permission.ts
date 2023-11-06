@@ -41,9 +41,6 @@ const permission = {
                 }
             },
 
-            /**
-             * FIXME: 性能不是很好，最好应该是侦听指令值的变化修改样式
-             */
             updated(el, binding) {
                 if (!binding.value || binding.value.length === 0) {
                     return;
