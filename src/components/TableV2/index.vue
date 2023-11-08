@@ -202,7 +202,6 @@ const {
     pagination,
     handleMouseOver,
     handleMouseLeave,
-    searchData,
     loadData,
     handleCurrentChange,
     handleSizeChange,

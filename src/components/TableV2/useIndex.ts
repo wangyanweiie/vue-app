@@ -323,7 +323,6 @@ export default function useIndex(props: XTableV2Prop) {
         pagination,
         handleMouseOver,
         handleMouseLeave,
-        searchData,
         loadData,
         handleSizeChange,
         handleCurrentChange,
