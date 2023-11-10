@@ -1,6 +1,6 @@
 import router from '@/router/index';
-import { clearStorage } from '@/utils/local-storage';
 import useAxiosInterceptors from '@/utils/use-axios';
+import { clearStorage } from '@/utils/local-storage';
 
 const { get, post } = useAxiosInterceptors({
     url: import.meta.env.VITE_API_URL as string,

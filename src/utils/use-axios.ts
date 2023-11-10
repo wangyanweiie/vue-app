@@ -2,7 +2,7 @@ import axios, { type AxiosError, type AxiosResponse } from 'axios';
 import { ElNotification } from 'element-plus';
 import { throttle } from 'lodash-es';
 import { HTTP_ERROR_NOTICE } from '@/constant/base';
-import { getStorage } from '@/utils/local-storage';
+import { getUserToken, getBaseUrl } from '@/utils/storage';
 
 /**
  * 后端返回数据格式
@@ -65,8 +65,8 @@ export default function useAxiosInterceptors(options: Options) {
      */
     service.interceptors.request.use(
         (config: any) => {
-            const token = getStorage(options.storageTokenKey || 'token') as string;
-            const baseUrl = getStorage(options.storageUrlKey || 'baseUrl') as string;
+            const token = getUserToken();
+            const baseUrl = getBaseUrl();
 
             // 设置 token
             if (token && config.headers) {

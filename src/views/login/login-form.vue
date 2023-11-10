@@ -154,10 +154,7 @@ async function login(): Promise<void> {
  * 页面渲染
  */
 onMounted(async () => {
-    if (!getBaseUrl()) {
-        saveBaseUrl(import.meta.env.VITE_API_URL);
-    }
-
+    saveBaseUrl(import.meta.env.VITE_API_URL);
     getCompanyList();
 });
 </script>
