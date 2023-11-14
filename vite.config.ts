@@ -32,25 +32,28 @@ export default defineConfig({
         /**
          * 混淆器
          *  - boolean：设置为 false 可以禁用最小化混淆
-         *  - esbuild：默认为 Esbuild，它比 terser 快 20-40 倍，压缩率只差 1%-2%
-         *  - terser：当设置为 'terser' 时必须先安装 Terser
+         *  - esbuild：默认为 Esbuild，它比 terser 快 20-40 倍，压缩率只差 1%-2%（打包速度最快）
+         *  - terser：当设置为 'terser' 时必须先安装 Terser（打包体积最小）
          */
-        minify: 'terser',
+        minify: 'esbuild',
+        // minify: 'terser',
 
         /**
          * 混淆选项
          */
-        terserOptions: {
-            // 压缩选项
-            compress: {
-                // 打包后删除 console 与 debugger
-                drop_console: true,
-                drop_debugger: true,
-            },
-        },
+        // terserOptions: {
+        //     compress: {
+        //         drop_console: true,
+        //         drop_debugger: true,
+        //     },
+        //     format: {
+        //         comments: false,
+        //     },
+        // },
 
         /**
-         * chunk 大小警告的限制，默认 500（单位：kbs）
+         * chunk 大小警告的限制
+         * 默认 500（单位：kbs）
          */
         chunkSizeWarningLimit: 1500,
 
@@ -62,11 +65,14 @@ export default defineConfig({
          */
         rollupOptions: {
             output: {
-                chunkFileNames: 'static/js/[name]-[hash].js',
-                entryFileNames: 'static/js/[name]-[hash].js',
-                assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+                chunkFileNames: 'static/js/[name]-[hash].js', // 引入文件
+                entryFileNames: 'static/js/[name]-[hash].js', // 包的入口文件
+                assetFileNames: 'static/[ext]/[name]-[hash].[ext]', // 资源文件
 
-                // 通过 () => import() 形式加载的组件会自动分包，第三方插件需手动分包
+                // 自动合并小 chunk（单位：b）
+                experimentalMinChunkSize: 1024 * 10,
+
+                // 通过 () => import() 形式加载的组件会自动分包，部分第三方插件手动分包
                 manualChunks: {
                     vue: ['vue', 'vue-router', 'pinia'],
                     elementPlusIcons: ['@element-plus/icons-vue'],
@@ -78,8 +84,20 @@ export default defineConfig({
                     vue3Pdfjs: ['vue3-pdfjs'],
                     three: ['three'],
                 },
+
+                // 直接让每个插件都打包成独立的文件
+                // manualChunks(id) {
+                //     if (id.includes('node_modules')) {
+                //         return id.toString().split('node_modules/')[1].split('/')[0].toString();
+                //     }
+                // },
             },
         },
+    },
+
+    esbuild: {
+        // minify: 'esbuild' 模式下删除 console & debugger
+        drop: ['console', 'debugger'],
     },
 
     plugins: [
@@ -165,14 +183,55 @@ export default defineConfig({
         }),
 
         /**
-         * gzip 压缩 => Nginx 要开启 gzip 才有作用
+         * 方式一.打包时进行 gzip 压缩
+         * 1.visualizer()
+         * 2.服务器安装 nginx 时需要安装 'http_gzip_static_module'
+         *   - ./configure --prefix=/usr/local/nginx --with-http_gzip_static_module
+         *   - make && make install
+         * 3.配置 nginx.conf
+         *   - server {
+         *   -     listen       3000;
+         *   -     server_name  localhost;
+         *   -     location / {
+         *   -         root   /home/static/demo/dist;
+         *   -         index  index.html index.htm;
+         *   -         try_files $uri $uri/ /index.html;
+         *   -         gzip_static on; # 静态压缩
+         *   -     }
+         *   - }
+         *
+         * 方式二.Nginx 直接配置开启 gzip 压缩
+         * 1.服务器安装 nginx 时需要安装 'http_gzip_static_module'
+         *   - ./configure --prefix=/usr/local/nginx --with-http_gzip_static_module
+         *   - make && make install
+         * 2.配置 nginx.conf
+         *   - http {
+         *   -    gzip_static on; # 开启 gzip 压缩
+         *   -    gzip_comp_level 2; # 压缩级别，1-9，数字越大压缩效果越好，也越占用 cpu
+         *   -    gzip_min_length 10k; # 压缩阈值，文件大于 10k 才进行压缩
+         *   -    gzip_vary on; # 是否在 http header 中添加 Vary: Accept-Encoding，建议开启
+         *   -    ...
+         *   - }
          */
-        ViteCompression(),
+        ViteCompression({
+            verbose: true, // 是否在控制台中输出压缩结果
+            disable: false,
+            threshold: 1024 * 10, // 如果体积大于阈值，将被压缩（单位：b）；体积过小时不要压缩，以免适得其反
+            algorithm: 'gzip', // 压缩算法
+            ext: '.gz',
+            deleteOriginFile: true, // 压缩后是否删除源文件
+        }),
 
         /**
          * 可以展示构建时长、chunk 数量及大小
          * PS：需要将 visualizer 插件放到最后的位置
          */
-        visualizer(),
+        visualizer({
+            gzipSize: true,
+            brotliSize: true,
+            emitFile: false,
+            filename: 'stats.html', // 分析图生成的文件名
+            open: false, // 如果存在本地服务端口，将在打包后自动展示
+        }),
     ],
 });
