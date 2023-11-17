@@ -1,6 +1,6 @@
 <template>
     <el-config-provider :locale="zhCn">
-        <x-layout :routes="showMenus" :include-list="[]">
+        <x-layout :routes="showMenus" :include-list="cacheList">
             <template #logo="{ collapsed }">
                 <x-logo logo="/logo.png" :title="APP_NAME" :collapsed="collapsed"></x-logo>
             </template>
@@ -42,7 +42,7 @@ import { usePermissionStore } from '@/store/permission';
 import { ENV, APP_NAME } from '@/constant/global';
 import useIndex from './useIndex';
 
-const { showMenus } = usePermissionStore();
+const { showMenus, cacheList } = usePermissionStore();
 const { baseUrl, userInfo, dropdownItems, schemas, visible, formRef, loading, form, handleBlur, changePassword } =
     useIndex();
 </script>

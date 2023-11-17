@@ -2,9 +2,9 @@
     <div class="view">
         <router-view v-slot="{ Component }">
             <transition name="el-fade-in-linear" mode="out-in">
-                <!-- <keep-alive :include="cacheList" :exclude="excludeList"> -->
-                <component :is="Component" :key="componentKey"></component>
-                <!-- </keep-alive> -->
+                <keep-alive :include="cacheList" :exclude="excludeList">
+                    <component :is="Component" :key="componentKey"></component>
+                </keep-alive>
             </transition>
         </router-view>
     </div>

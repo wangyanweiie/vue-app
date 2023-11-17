@@ -1,14 +1,16 @@
 import type { RouteRecordRaw } from 'vue-router';
 import { subRoutes } from './sub';
-import ParentMenuView from '@/components/Layout/ParentMenuView.vue';
-import ParentView from '@/components/Layout/ParentView.vue';
+// import ParentMenuView from '@/components/Layout/ParentMenuView.vue';
+// import ParentView from '@/components/Layout/ParentView.vue';
 
 export const menu1Routes: RouteRecordRaw = {
     path: '/menu1',
     name: 'menu1',
-    // FIXME: 等价写法
-    // component: () => import('@dev/views/menu1/index.vue'),
-    component: h(ParentView, { matchedIndex: 2 }),
+    // 等价写法
+    component: () => import('@/views/menu1/index.vue'),
+    // component: h(ParentView, {
+    //     matchedIndex: 2,
+    // }),
     redirect: '/menu1/sub',
     meta: {
         title: 'menu1',
@@ -19,12 +21,12 @@ export const menu1Routes: RouteRecordRaw = {
             path: '/menu1/sub',
             name: 'menu1-sub',
             redirect: '/menu/sub/sub1',
-            // FIXME: 等价写法
-            // component: () => import('@dev/views/menu1/sub/index.vue'),
-            component: h(ParentMenuView, {
-                menus: subRoutes,
-                // matchedIndex: 3,
-            }),
+            // 等价写法
+            component: () => import('@/views/menu1/sub/index.vue'),
+            // component: h(ParentMenuView, {
+            //     matchedIndex: 3,
+            //     menus: subRoutes,
+            // }),
             meta: {
                 title: 'menu1-sub',
                 icon: '',
@@ -39,7 +41,6 @@ export const menu1Routes: RouteRecordRaw = {
             meta: {
                 title: 'menu1-demo1',
                 icon: '',
-                keepAlive: true,
             },
         },
         {
@@ -49,7 +50,6 @@ export const menu1Routes: RouteRecordRaw = {
             meta: {
                 title: 'menu1-demo2',
                 icon: '',
-                keepAlive: true,
             },
         },
     ],

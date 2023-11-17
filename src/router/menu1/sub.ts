@@ -7,7 +7,7 @@ export const subRoutes: RouteRecordRaw[] = [
         component: () => import('@/views/menu1/sub/sub1.vue'),
         meta: {
             title: 'menu1-sub1',
-            icon: 'Setting',
+            icon: '',
             hidden: true,
             keepAlive: true,
         },
@@ -18,9 +18,9 @@ export const subRoutes: RouteRecordRaw[] = [
         component: () => import('@/views/menu1/sub/sub2.vue'),
         meta: {
             title: 'menu1-sub2',
-            icon: 'Setting',
+            icon: '',
             hidden: true,
-            keepAlive: false,
+            keepAlive: true,
         },
     },
 ];

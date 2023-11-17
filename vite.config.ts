@@ -14,6 +14,7 @@ import VueDevTools from 'vite-plugin-vue-devtools';
 import Legacy from '@vitejs/plugin-legacy';
 import ViteCompression from 'vite-plugin-compression';
 import { visualizer } from 'rollup-plugin-visualizer';
+import { ENV } from '@/constant/global';
 
 const pathSrc = path.resolve(__dirname, 'src');
 
@@ -92,8 +93,8 @@ export default defineConfig({
     },
 
     esbuild: {
-        // minify: 'esbuild' 模式下删除 console & debugger
-        drop: ['console', 'debugger'],
+        // minify: 'esbuild' 模式下，生产环境删除 console & debugger
+        drop: ENV === 'production' ? ['console', 'debugger'] : [],
     },
 
     plugins: [
