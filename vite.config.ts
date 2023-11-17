@@ -55,7 +55,7 @@ export default defineConfig({
          * chunk 大小警告的限制
          * 默认 500（单位：kbs）
          */
-        chunkSizeWarningLimit: 1500,
+        chunkSizeWarningLimit: 1000,
 
         /**
          * rollup 打包后的静态资源名称格式
@@ -75,22 +75,18 @@ export default defineConfig({
                 // 通过 () => import() 形式加载的组件会自动分包，部分第三方插件手动分包
                 manualChunks: {
                     vue: ['vue', 'vue-router', 'pinia'],
-                    elementPlusIcons: ['@element-plus/icons-vue'],
-                    elementPlus: ['element-plus'],
+                    'element-plus-icons': ['@element-plus/icons-vue'],
+                    'element-plus': ['element-plus'],
+                    'lodash-es': ['lodash-es'],
+                    'docx-preview': ['docx-preview'],
+                    'vue-pdf-embed': ['vue-pdf-embed'],
+                    'vue3-pdfjs': ['vue3-pdfjs'],
                     html2canvas: ['html2canvas'],
                     luckyexcel: ['luckyexcel'],
                     exceljs: ['exceljs'],
-                    vuePdfEmbed: ['vue-pdf-embed'],
-                    vue3Pdfjs: ['vue3-pdfjs'],
+                    jspdf: ['jspdf'],
                     three: ['three'],
                 },
-
-                // 直接让每个插件都打包成独立的文件
-                // manualChunks(id) {
-                //     if (id.includes('node_modules')) {
-                //         return id.toString().split('node_modules/')[1].split('/')[0].toString();
-                //     }
-                // },
             },
         },
     },
@@ -219,7 +215,7 @@ export default defineConfig({
             threshold: 1024 * 10, // 如果体积大于阈值，将被压缩（单位：b）；体积过小时不要压缩，以免适得其反
             algorithm: 'gzip', // 压缩算法
             ext: '.gz',
-            deleteOriginFile: true, // 压缩后是否删除源文件
+            deleteOriginFile: false, // 压缩后是否删除源文件
         }),
 
         /**

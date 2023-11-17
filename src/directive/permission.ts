@@ -10,13 +10,10 @@ function hasPermission(permission: string) {
     return permissions.includes(permission);
 }
 
-/**
- * 注册权限指令
- */
 const permission = {
     install(app: App) {
         /**
-         * @description 注册全局指令
+         * @description 注册权限指令
          * @params { string } name 指令名
          * @params { Function | Object } definition 具有7个生命周期
          */

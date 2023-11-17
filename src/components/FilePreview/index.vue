@@ -25,6 +25,9 @@
                 </el-button>
                 <el-button size="small" disabled>{{ `${pdfState.currentPage} / ${pdfState.totalPages}` }}</el-button>
             </div>
+
+            <!-- 使用 pdfjs + iframe 可以直接渲染 PDF -->
+            <!-- <iframe class="iframe-style" :src="`/pdfjs/web/viewer.html?file=${url}`"></iframe> -->
         </div>
     </el-dialog>
 </template>
@@ -93,5 +96,10 @@ const { FileType, fileType, dialogVisible, wordRef, pdfState, prePage, nextPage,
         padding: 15px;
         text-align: center;
     }
+}
+
+.iframe-style {
+    width: 100%;
+    height: 100%;
 }
 </style>

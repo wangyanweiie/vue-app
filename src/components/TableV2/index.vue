@@ -59,18 +59,17 @@
 
                     <!-- 底部区域 -->
                     <div v-if="tableData.length" class="table__bottom">
-                        <div v-if="pagination.pageSize !== -1" class="table__bottom__pagination">
+                        <div v-if="dividePage" class="table__bottom__pagination">
                             <el-pagination
                                 v-model:current-page="pagination.currentPage"
                                 v-model:page-size="pagination.pageSize"
                                 :page-sizes="[10, 20, 50, 100]"
                                 :total="pagination.total"
                                 :background="true"
-                                layout=" ->, slot,total, sizes, prev, pager, next, jumper"
+                                layout=" ->, slot, total, sizes, prev, pager, next, jumper"
                                 @current-change="handleCurrentChange"
                                 @size-change="handleSizeChange"
                             >
-                                <template #default> 已选中 {{ selectedCount }} 条数据 </template>
                             </el-pagination>
                         </div>
 

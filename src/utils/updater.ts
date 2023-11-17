@@ -68,7 +68,7 @@ export default class Updater {
         }
     }
 
-    timing(time = 10000) {
+    timing(time = 1000 * 60) {
         // 轮询
         setInterval(async () => {
             const html = await this.getHtml();

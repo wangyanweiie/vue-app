@@ -31,14 +31,17 @@ const getAppendToElement = (props: Options): HTMLElement => {
     let appendTo: HTMLElement | null = document.body;
 
     if (props.appendTo) {
+        // 若 props.appendTo 为选择器时，通过 querySelector 获取到该元素
         if (typeof props.appendTo === 'string') {
             appendTo = document.querySelector<HTMLElement>(props.appendTo);
         }
 
+        // 若 props.appendTo 为 html 元素，直接赋值
         if (props.appendTo instanceof HTMLElement) {
             appendTo = props.appendTo;
         }
 
+        // 否则赋值为 body
         if (!(appendTo instanceof HTMLElement)) {
             appendTo = document.body;
         }
