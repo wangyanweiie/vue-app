@@ -41,7 +41,13 @@ function generateCacheList(routes: RouteRecordRaw[], permissions?: string[]): st
         }
     }
 
-    return cacheList;
+    // return cacheList;
+    // 将缓存路由数组的子项格式转为大驼峰，方便与组件名称相匹配
+    return cacheList.map(routeName => {
+        const arr = routeName.split('-');
+        const res = arr.map(item => `${item[0].toUpperCase()}${item.slice(1, item.length)}`).join('');
+        return res;
+    });
 }
 
 /**

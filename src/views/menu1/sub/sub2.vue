@@ -4,8 +4,12 @@
     </div>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue';
+<script lang="ts">
+export default defineComponent({
+    name: 'Menu1Sub2',
+});
+</script>
 
+<script setup lang="ts">
 const str = ref<string>('');
 </script>
