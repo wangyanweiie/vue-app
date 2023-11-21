@@ -8,12 +8,12 @@
             :extra="extra"
             :direction="direction"
         >
-            <el-descriptions-item v-for="(item, index) in columns" :key="index" v-bind="item">
-                <!-- 具名插槽 -->
-                <slot v-if="item?.type === 'slot' && data[item.prop]" :name="`${item.prop}`" />
-
-                <!-- 默认渲染文字 -->
-                <span v-else>{{ data[item.prop] }}</span>
+            <el-descriptions-item v-for="(col, index) in columns" :key="index" v-bind="col">
+                <slot :name="`${col.prop}Slot`" :data="data" :column="col" :cell-value="data[col.prop]">
+                    <span>
+                        {{ col?.formatter?.(data, col, data[col.prop]) ?? data[col.prop] }}
+                    </span>
+                </slot>
             </el-descriptions-item>
         </el-descriptions>
     </el-card>
