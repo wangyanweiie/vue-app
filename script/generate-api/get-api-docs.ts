@@ -92,7 +92,7 @@ async function writeAPI() {
 writeAPI();
 
 /**
- * 对象数组去重，根据key值
+ * 对象数组去重，根据 key 值
  * @param arr 需要去重的对象数组
  * @returns hashList 返回去重后的列表
  */

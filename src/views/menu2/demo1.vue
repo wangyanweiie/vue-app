@@ -15,7 +15,7 @@
         <el-card shadow="hover" class="component">
             <el-button @click="handleDefault"> DEFAULT </el-button>
             <el-button @click="handleRest"> REST </el-button>
-            <el-button type="primary" @click="handleTest"> TEST </el-button>
+            <el-button v-throttle type="primary" @click="handleTest"> TEST </el-button>
         </el-card>
     </div>
 </template>

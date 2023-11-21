@@ -3,10 +3,10 @@ import mitt from 'mitt';
 import { createPinia } from 'pinia';
 import App from '@/App.vue';
 import router from '@/router/index';
+import directivePlugin from '@/plugins/directive';
+import { registerComponents } from '@/components/register';
 import { setupRouterGuard } from '@/router/route-guard';
 import { setPermissionRoute } from '@/store/permission';
-import permission from '@/directive/permission';
-import { registerComponents } from '@/components/register';
 
 // 引入组件样式
 import 'element-plus/dist/index.css';
@@ -22,11 +22,11 @@ import '@wangeditor/editor/dist/css/style.css';
     // 注册路由
     app.use(router);
 
-    // 注册权限指令
-    app.use(permission);
-
     // 全局引入 ==> 按需引入
     // app.use(ElementPlus);
+
+    // 安装指令插件
+    app.use(directivePlugin);
 
     // 统一注册组件
     registerComponents(app);

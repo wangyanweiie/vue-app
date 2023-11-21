@@ -73,12 +73,12 @@ export default function useAxiosInterceptors(options: Options) {
                 config.headers[options.requestHeaderTokenKey || 'v-token'] = token;
             }
 
-            // 更新 base-url
+            // 设置 url
             if (baseUrl) {
                 config.url = baseUrl + config.url;
             }
 
-            // 将配置的全局参数更新到请求参数
+            // get 请求参数
             if (options.getMethodsParams && config.params) {
                 config.params = {
                     ...options.getMethodsParams,
@@ -86,6 +86,7 @@ export default function useAxiosInterceptors(options: Options) {
                 };
             }
 
+            // post 请求参数
             if (options.postMethodsParams && config.data) {
                 config.data = {
                     ...options.postMethodsParams,
@@ -140,7 +141,7 @@ export default function useAxiosInterceptors(options: Options) {
         (response: AxiosResponse): any => {
             const responsedata = response.data;
 
-            // 是否响应成功
+            // 处理接口响应状态码
             const successStatus = options.successValidate
                 ? options.successValidate(responsedata)
                 : Math.floor(responsedata.code / 100) === 1;
