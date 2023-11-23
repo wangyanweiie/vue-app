@@ -16,19 +16,19 @@ import '@wangeditor/editor/dist/css/style.css';
 (() => {
     const app = createApp(App);
 
+    // 全局引入 ==> 按需引入
+    // app.use(ElementPlus);
+
     // 注册状态管理器
     app.use(createPinia());
 
     // 注册路由
     app.use(router);
 
-    // 全局引入 ==> 按需引入
-    // app.use(ElementPlus);
-
-    // 安装指令插件
+    // 注册指令
     app.use(directivePlugin);
 
-    // 统一注册组件
+    // 注册组件
     registerComponents(app);
 
     // 赋值路由数组并动态加载路由

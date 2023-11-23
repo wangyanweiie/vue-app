@@ -13,9 +13,9 @@ export function setupRouterGuard(router: Router) {
         // 没有 token 回到登录页
         if (!token) {
             next({ path: `/login?redirect=${router.currentRoute.value.path}` });
+            return;
         }
 
         next();
-        return;
     });
 }

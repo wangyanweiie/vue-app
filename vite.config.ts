@@ -113,7 +113,7 @@ export default defineConfig({
          * 自动引入 vue 等插件 hooks
          */
         AutoImport({
-            imports: ['vue', 'vue-router'],
+            imports: ['vue', 'vue-router', 'vitest'],
 
             // 自定义组件解析器
             resolvers: [ElementPlusResolver(), IconsResolver()],

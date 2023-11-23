@@ -28,7 +28,7 @@ export const columns: XDescriptionColumn[] = [
         label: '家乡',
         prop: 'home',
         formatter: (data: Record<string, any>, column: XDescriptionColumn, cellValue: any) => {
-            return cellValue ?? '/';
+            return cellValue || '/';
         },
     },
 ];
