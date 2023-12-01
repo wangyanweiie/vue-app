@@ -1,3 +1,4 @@
+// https://github.com/leoforfree/cz-customizable
 module.exports = {
     /**
      * 可选类型，与 commitlint.config.js 配置的规则对应
