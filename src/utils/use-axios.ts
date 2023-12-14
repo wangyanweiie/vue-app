@@ -1,4 +1,4 @@
-import axios, { type AxiosError, type AxiosResponse } from 'axios';
+import axios, { type AxiosError, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
 import { ElNotification } from 'element-plus';
 import { throttle } from 'lodash-es';
 import { HTTP_ERROR_NOTICE } from '@/constant/base';
@@ -7,7 +7,7 @@ import { getUserToken, getBaseUrl } from '@/utils/storage';
 /**
  * 后端返回数据格式
  */
-interface responseData {
+interface Responsedata {
     code: number;
     message: string | null;
     data: any;
@@ -21,10 +21,6 @@ interface Options {
     url?: string;
     /** 超时时间 ms */
     timeout?: number;
-    /** 保存在 local storage 里的 token 的 key 值 */
-    storageTokenKey?: string;
-    /** 保存在 local storage 里的 baseUrl 的 key 值 */
-    storageUrlKey?: string;
     /** 请求头携带 token 的 key 值 */
     requestHeaderTokenKey?: string;
     /** 过期码 */
@@ -36,7 +32,7 @@ interface Options {
     /** post 请求携带的参数 */
     postMethodsParams?: Record<string, any>;
     /** 成功响函数 */
-    successValidate?: (responseData: responseData) => boolean;
+    successValidate?: (responsedata: Responsedata) => boolean;
 }
 
 /**
@@ -64,7 +60,7 @@ export default function useAxiosInterceptors(options: Options) {
      * 请求拦截
      */
     service.interceptors.request.use(
-        (config: any) => {
+        (config: InternalAxiosRequestConfig) => {
             const token = getUserToken();
             const baseUrl = getBaseUrl();
 
@@ -106,12 +102,14 @@ export default function useAxiosInterceptors(options: Options) {
      * 节流处理响应错误信息
      */
     const handleResponseError = throttle(
-        (options: any) => {
+        options => {
             ElNotification(options);
         },
         500,
         {
+            // 指定在延迟开始前调用
             leading: false,
+            // 指定在延迟结束后调用
             trailing: true,
         },
     );
@@ -138,19 +136,19 @@ export default function useAxiosInterceptors(options: Options) {
      * 响应拦截
      */
     service.interceptors.response.use(
-        (response: AxiosResponse): any => {
+        (response: AxiosResponse) => {
             const responsedata = response.data;
+            const { code, data = true, message = HTTP_ERROR_NOTICE.UNKNOWN } = response.data;
 
             // 处理接口响应状态码
             const successStatus = options.successValidate
                 ? options.successValidate(responsedata)
-                : Math.floor(responsedata.code / 100) === 1;
+                : Math.floor(code / 100) === 1;
 
             if (successStatus) {
-                const { data } = response.data;
-                return Promise.resolve(data || true);
+                return Promise.resolve(data);
             } else {
-                switch (responsedata.code) {
+                switch (code) {
                     case options.expireCode || -997: {
                         handleResponseError({
                             type: 'warning',
@@ -166,11 +164,9 @@ export default function useAxiosInterceptors(options: Options) {
                     }
 
                     default: {
-                        const { message } = response.data as { message: string };
-
-                        ElNotification({
+                        handleResponseError({
                             type: 'error',
-                            message: message || HTTP_ERROR_NOTICE.UNKNOWN,
+                            message: message,
                             zIndex: 9999,
                         });
 
@@ -181,14 +177,15 @@ export default function useAxiosInterceptors(options: Options) {
         },
         (error: AxiosError) => {
             const statusCode = error.response?.status;
+            const errorMessage = error.message;
 
             // 响应错误
             if (!statusCode) {
                 console.log('response error', error.toJSON());
 
-                if (error.message.indexOf('timeout') !== -1) {
+                if (errorMessage.indexOf('timeout') !== -1) {
                     handleNetworkError(HTTP_ERROR_NOTICE.TIME_OUT);
-                } else if (error.message.indexOf('Network Error') !== -1) {
+                } else if (errorMessage.indexOf('Network Error') !== -1) {
                     handleNetworkError(HTTP_ERROR_NOTICE.NETWORK_ERROR);
                 } else {
                     handleNetworkError(HTTP_ERROR_NOTICE.UNKNOWN);
