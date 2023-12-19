@@ -3,9 +3,9 @@ import { OPERATION_NOTICE } from '@/constant/base';
 import type { XFormItemSchema, XFormInstance } from '@/components/Form/interface';
 import { getBaseUrl, getUserToken, getUserInfo, saveBaseUrl } from '@/utils/storage';
 import { confirmExitMessage } from '@/utils/confirm-message';
+import { clearStorage } from '@/utils/local-storage';
 import router from '@/router';
 import RequestAPI from '@/api/login';
-import { clearStorage } from '@/utils/local-storage';
 
 export default function useIndex() {
     const baseUrl = ref<string>(getBaseUrl());

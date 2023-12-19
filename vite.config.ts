@@ -36,20 +36,6 @@ export default defineConfig({
          *  - terser：当设置为 'terser' 时必须先安装 Terser（打包体积最小）
          */
         minify: 'esbuild',
-        // minify: 'terser',
-
-        /**
-         * 混淆选项
-         */
-        // terserOptions: {
-        //     compress: {
-        //         drop_console: true,
-        //         drop_debugger: true,
-        //     },
-        //     format: {
-        //         comments: false,
-        //     },
-        // },
 
         /**
          * chunk 大小警告的限制
@@ -81,11 +67,14 @@ export default defineConfig({
                     'docx-preview': ['docx-preview'],
                     'vue-pdf-embed': ['vue-pdf-embed'],
                     'vue3-pdfjs': ['vue3-pdfjs'],
+                    'amap-jsapi-loader': ['@amap/amap-jsapi-loader'],
+                    'datav-vue3': ['@dataview/datav-vue3'],
                     html2canvas: ['html2canvas'],
                     luckyexcel: ['luckyexcel'],
                     exceljs: ['exceljs'],
                     jspdf: ['jspdf'],
                     three: ['three'],
+                    sortablejs: ['sortablejs'],
                 },
             },
         },

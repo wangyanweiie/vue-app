@@ -4,7 +4,7 @@ import { createPinia } from 'pinia';
 import App from '@/App.vue';
 import router from '@/router/index';
 import dataV from '@dataview/datav-vue3';
-import registerDirective from '@/directive/index';
+import registerDirective from '@/directive/register';
 import registerComponents from '@/components/register';
 import { setPermissionRoute } from '@/store/permission';
 import { setupRouterGuard } from '@/router/route-guard';

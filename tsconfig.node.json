@@ -21,6 +21,8 @@
         // 决定如何处理模块 'Classic' | 'Node' | 'bundler'
         "moduleResolution": "bundler",
         // 默认所有可见的 "@types" 包会在编译过程中被包含进来，若指定了 types，只有被列出来的包才会被包含进来
-        "types": ["node"]
+        "types": ["node"],
+        // TS代码错误不生成编译文件
+        "noEmit": false
     }
 }

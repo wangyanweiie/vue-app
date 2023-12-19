@@ -11,6 +11,8 @@
             "node",
             "jsdom",
             "vitest/globals"
-        ]
+        ],
+        // TS代码错误不生成编译文件
+        "noEmit": false
     }
 }

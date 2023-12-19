@@ -8,7 +8,6 @@ export {}
 declare module 'vue' {
     export interface GlobalComponents {
         Breadcrumb: (typeof import('./../components/Layout/Breadcrumb.vue'))['default'];
-        Chart: (typeof import('./../components/Charts/chart.vue'))['default'];
         Charts: (typeof import('./../components/Charts/index.vue'))['default'];
         Description: (typeof import('./../components/Description/index.vue'))['default'];
         ElAside: (typeof import('element-plus/es'))['ElAside'];

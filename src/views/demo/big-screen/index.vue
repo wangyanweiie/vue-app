@@ -30,8 +30,8 @@ const { containerRef } = useSortable(components);
 }
 
 .map-contain {
-    width: 1000px;
-    height: 700px;
+    width: 500px;
+    height: 350px;
     padding: 10px;
     margin: 10px;
     border: 1px solid #fefefe;
