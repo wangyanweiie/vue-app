@@ -5,9 +5,6 @@ import { clearStorage } from '@/utils/local-storage';
 const { get, post } = useAxiosInterceptors({
     url: import.meta.env.VITE_API_URL as string,
 
-    storageUrlKey: 'baseUrl',
-    storageTokenKey: 'token',
-
     // 退出登录
     expireCallback: () => {
         clearStorage();

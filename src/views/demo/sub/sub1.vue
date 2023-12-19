@@ -1,12 +1,12 @@
 <template>
     <div>
-        <el-input v-model="str" placeholder="menu1-sub2"></el-input>
+        <el-input v-model="str" v-copy="str" placeholder="demo-sub1"></el-input>
     </div>
 </template>
 
 <script lang="ts">
 export default defineComponent({
-    name: 'Menu1Sub2',
+    name: 'DemoSub1',
 });
 </script>
 

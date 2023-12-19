@@ -20,6 +20,7 @@
         "env.d.ts",
         "src/**/*",
         "src/**/*.vue",
+        "src/**/*.json",
         "vite.config.ts"
     ],
 

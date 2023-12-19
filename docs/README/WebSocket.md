@@ -1,6 +1,6 @@
 # WebSocket
 
-## WebSocket 简述
+## 一、简述
 
 WebSocket 是 HTML5 开始提供的一种在单个 TCP 连接上进行全双工通讯的协议。  
 WebSocket 使得客户端和服务器之间的数据交换变得更加简单，允许服务端主动向客户端推送数据。在 WebSocket API 中，浏览器和服务器只需要完成一次握手，两者之间就直接可以创建持久性的连接，并进行双向数据传输。  
@@ -9,14 +9,14 @@ WebSocket 使得客户端和服务器之间的数据交换变得更加简单，�
 
 HTML5 定义的 WebSocket 协议，能更好的节省服务器资源和带宽，并且能够更实时地进行通讯。
 
-## WebSocket 属性
+### 1. 属性
 
 | 属性 | 描述 |
 |------|------|
 | Socket.readyState | 只读属性 readyState 表示连接状态，可以是以下值：  0 - 表示连接尚未建立；1 - 表示连接已建立，可以进行通信；2 - 表示连接正在进行关闭；3 - 表示连接已经关闭或者连接不能打开。 |
 | Socket.bufferedAmount | 只读属性 bufferedAmount 已被 send() 放入正在队列中等待传输，但是还没有发出的 UTF-8 文本字节数 |
 
-## WebSocket 事件
+### 2. 事件
 
 | 属性 | 描述 |
 |------|------|
@@ -25,14 +25,14 @@ HTML5 定义的 WebSocket 协议，能更好的节省服务器资源和带宽，
 | onerror | 通信发生错误时触发 |
 | onclose | 连接关闭时触发 |
 
-## WebSocket 方法
+### 3. 方法
 
 | 属性 | 描述 |
 |------|------|
 | send | 使用连接发送数据 |
 | close | 关闭连接 |
 
-## WebSocket 实例
+## 二、应用
 
 - `useWebSocket.ts`
 

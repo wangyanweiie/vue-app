@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 import appLayout from '@/layout/index.vue';
-import { menu1Routes } from './menu1';
-import { menu2Routes } from './menu2';
-import { menu3Routes } from './menu3';
+import { demoRoutes } from './demo';
 
 /**
  * menu-routes
@@ -17,9 +15,7 @@ const menuRoutes: RouteRecordRaw[] = [
             icon: 'Folder',
         },
     },
-    menu1Routes,
-    menu2Routes,
-    menu3Routes,
+    demoRoutes,
 ];
 
 /**

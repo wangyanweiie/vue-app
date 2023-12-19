@@ -7,8 +7,9 @@
 </template>
 
 <script setup lang="ts">
-import { subRoutes } from '@/router/menu1/sub';
+import { subRoutes } from '@/router/demo/sub';
 import { usePermissionStore } from '@/store/permission';
 
 const { cacheList, getPermissionMenus } = usePermissionStore();
 </script>
+@/router/demo/sub
