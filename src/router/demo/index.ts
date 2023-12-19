@@ -89,11 +89,11 @@ export const demoRoutes: RouteRecordRaw = {
             },
         },
         {
-            path: '/demo/echarts',
-            name: 'demo-echarts',
-            component: () => import('@/views/demo/echarts.vue'),
+            path: '/demo/big-screen',
+            name: 'demo-big-screen',
+            component: () => import('@/views/demo/big-screen/index.vue'),
             meta: {
-                title: 'echarts',
+                title: 'big-screen',
                 icon: '',
             },
         },

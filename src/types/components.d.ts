@@ -8,6 +8,8 @@ export {}
 declare module 'vue' {
     export interface GlobalComponents {
         Breadcrumb: (typeof import('./../components/Layout/Breadcrumb.vue'))['default'];
+        Chart: (typeof import('./../components/Charts/chart.vue'))['default'];
+        Charts: (typeof import('./../components/Charts/index.vue'))['default'];
         Description: (typeof import('./../components/Description/index.vue'))['default'];
         ElAside: (typeof import('element-plus/es'))['ElAside'];
         ElAutoResizer: (typeof import('element-plus/es'))['ElAutoResizer'];
@@ -50,6 +52,7 @@ declare module 'vue' {
         ElTooltip: (typeof import('element-plus/es'))['ElTooltip'];
         FilePreview: (typeof import('./../components/FilePreview/index.vue'))['default'];
         HistoryTabs: (typeof import('./../components/Layout/HistoryTabs.vue'))['default'];
+        Map: (typeof import('./../components/Map/index.vue'))['default'];
         ParentMenuView: (typeof import('./../components/Layout/ParentMenuView.vue'))['default'];
         ParentView: (typeof import('./../components/Layout/ParentView.vue'))['default'];
         RichTextEditor: (typeof import('./../components/RichTextEditor/index.vue'))['default'];

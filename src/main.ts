@@ -3,10 +3,11 @@ import mitt from 'mitt';
 import { createPinia } from 'pinia';
 import App from '@/App.vue';
 import router from '@/router/index';
-import directivePlugin from '@/plugins/directive';
-import { registerComponents } from '@/components/register';
-import { setupRouterGuard } from '@/router/route-guard';
+import dataV from '@dataview/datav-vue3';
+import registerDirective from '@/directive/index';
+import registerComponents from '@/components/register';
 import { setPermissionRoute } from '@/store/permission';
+import { setupRouterGuard } from '@/router/route-guard';
 
 // 引入组件样式
 import 'element-plus/dist/index.css';
@@ -25,11 +26,14 @@ import '@wangeditor/editor/dist/css/style.css';
     // 注册路由
     app.use(router);
 
+    // 注册 dataV
+    app.use(dataV);
+
     // 注册指令
-    app.use(directivePlugin);
+    app.use(registerDirective);
 
     // 注册组件
-    registerComponents(app);
+    app.use(registerComponents);
 
     // 赋值路由数组并动态加载路由
     setPermissionRoute();

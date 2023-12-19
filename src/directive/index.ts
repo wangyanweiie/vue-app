@@ -1,7 +1,7 @@
 import type { App } from 'vue';
-import permission from '@/directive/v-permission';
-import throttle from '@/directive/v-throttle';
-import copy from '@/directive/v-copy';
+import permission from './v-permission';
+import throttle from './v-throttle';
+import copy from './v-copy';
 
 /**
  * 自定义指令

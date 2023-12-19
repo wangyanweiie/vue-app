@@ -17,6 +17,8 @@ import XSelect from './Form/components/XSelect.vue';
 import XDescription from './Description/index.vue';
 import XFilePreview from './FilePreview/index.vue';
 import XRichTextEditor from './RichTextEditor/index.vue';
+import XChart from './Charts/index.vue';
+import XMap from './Map/index.vue';
 
 interface ComponentItem {
     name: string;
@@ -99,14 +101,24 @@ const componentList: ComponentItem[] = [
         name: 'XRichTextEditor',
         component: XRichTextEditor,
     },
+    {
+        name: 'XChart',
+        component: XChart,
+    },
+    {
+        name: 'XMap',
+        component: XMap,
+    },
 ];
 
 /**
  * 收集组件后统一注册组件
  * @param app 实例
  */
-export function registerComponents(app: App) {
-    componentList.forEach(({ name, component }) => {
-        app.component(name, component);
-    });
-}
+export default {
+    install: (app: App) => {
+        componentList.forEach(({ name, component }) => {
+            app.component(name, component);
+        });
+    },
+};

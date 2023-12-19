@@ -41,9 +41,9 @@ const preview = useCommandComponent(XFilePreview);
 /**
  * file-url
  */
-const wordUrl = ref<string>('http://192.168.3.38:9000/lvling/1694743570966电脑添加打印机.docx');
-const excelUrl = ref<string>('http://192.168.3.38:9000/lvling/1694743598502绿菱条码模板.xlsx');
-const pdfUrl = ref<string>('http://192.168.3.38:9000/lvling/1694770849198掼蛋.pdf');
+const wordUrl = ref<string>('http://192.168.3.200:9000/lvling/1694743570966电脑添加打印机.docx');
+const excelUrl = ref<string>('http://192.168.3.200:9000/lvling/1694743598502绿菱条码模板.xlsx');
+const pdfUrl = ref<string>('http://192.168.3.200:9000/lvling/1694770849198掼蛋.pdf');
 
 /**
  * 编辑器实例
