@@ -97,14 +97,5 @@ export const demoRoutes: RouteRecordRaw = {
                 icon: '',
             },
         },
-        {
-            path: '/demo/big-screen',
-            name: 'demo-big-screen',
-            component: () => import('@/views/demo/big-screen/index.vue'),
-            meta: {
-                title: 'big-screen',
-                icon: '',
-            },
-        },
     ],
 };

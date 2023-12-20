@@ -8,7 +8,8 @@ import * as echarts from 'echarts';
 import type { ECharts, EChartsCoreOption } from 'echarts';
 
 /**
- * 定义组件选项
+ * @description 定义组件
+ * @param name 组件名称
  */
 defineOptions({
     name: 'XChart',
@@ -37,7 +38,7 @@ const chart = shallowRef<ECharts | null>(null);
 const chartRef = shallowRef<HTMLElement | null>(null);
 
 /**
- * e-charts 初始化
+ * @description 初始化
  */
 function init() {
     chart.value = echarts.init(chartRef.value);
@@ -66,7 +67,7 @@ function setOption(option: EChartsCoreOption, notMerge?: boolean, lazyUpdate?: b
 }
 
 /**
- * 更新 e-charts 尺寸
+ * @description 重新渲染
  */
 function resize() {
     chart.value!.resize();

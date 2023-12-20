@@ -3,10 +3,7 @@ import permission from './v-permission';
 import throttle from './v-throttle';
 import copy from './v-copy';
 
-/**
- * 自定义指令
- */
-const directives: any = {
+const directives: Record<string, any> = {
     permission,
     throttle,
     copy,

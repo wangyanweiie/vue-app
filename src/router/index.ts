@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 import appLayout from '@/layout/index.vue';
 import { demoRoutes } from './demo';
+import { screenRoutes } from './screen';
 
 /**
  * menu-routes
@@ -16,6 +17,7 @@ const menuRoutes: RouteRecordRaw[] = [
         },
     },
     demoRoutes,
+    screenRoutes,
 ];
 
 /**
