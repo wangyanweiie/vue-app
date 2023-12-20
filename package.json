@@ -60,6 +60,7 @@
         "vuedraggable": "^4.1.0"
     },
     "devDependencies": {
+        "@amap/amap-jsapi-types": "^0.0.13",
         "@commitlint/cli": "^18.4.3",
         "@commitlint/config-conventional": "^18.4.3",
         "@tsconfig/node18": "^18.2.2",

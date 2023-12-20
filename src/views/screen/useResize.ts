@@ -27,10 +27,19 @@ export function useResize(options: ResizeType = {}) {
     const screenRef = ref();
 
     function resize() {
+        // 浏览器宽高
+        // const clientWidth = document.body.clientWidth;
+        // const clientHeight = document.body.clientHeight;
+
+        // 计算宽高缩放比例
+        // const scaleW = clientWidth / w;
+        // const scaleH = clientHeight / h;
+
         // 基于视口的宽高比计算缩放比例
         const scaleW = window.innerWidth / w;
         const scaleH = window.innerHeight / h;
 
+        // if (clientWidth / clientHeight > w / h) {
         if (window.innerWidth / window.innerHeight > w / h) {
             // 如果浏览器的宽高比大于设计稿的宽高比，就取浏览器高度和设计稿高度之比
             scale.value = scaleH;

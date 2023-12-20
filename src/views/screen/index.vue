@@ -1,51 +1,61 @@
 <template>
-    <div ref="screenRef" class="wrap">
-        <!-- <div class="map-contain">
-            <x-map></x-map>
-        </div> -->
-
-        <div ref="containerRef">
-            <div v-for="item in components" :key="item.name" class="chart-contain">
-                <component :is="item.component">
-                    {{ item.name }}
-                </component>
-            </div>
+    <div :class="['container', store.theme]">
+        <div ref="screenRef" class="screen">
+            <screen-header class="screen-header"></screen-header>
+            <screen-main class="screen-main"></screen-main>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import Chart from './components/chart.vue';
-import GeoChart from './components/geoChart.vue';
-import { useResize } from './utils/useResize';
-import { useSortable } from './utils/useSortable';
+import ScreenHeader from './components/header/index.vue';
+import ScreenMain from './components/main/index.vue';
+import { useResize } from './useResize';
+import { useScreenStore } from '@/store/screen';
 
-const components = shallowRef([
-    { name: 'chart', component: Chart },
-    { name: 'geoChart', component: GeoChart },
-]);
-
+const store = useScreenStore();
 const { screenRef } = useResize();
-const { containerRef } = useSortable(components);
 </script>
+
 <style lang="scss" scoped>
-.warp {
-    display: flex;
+.container {
+    --container-bg: rgb(22, 21, 34);
+    --container-color: #fff;
+
+    --screen-width: 1920px;
+    --screen-height: 1080px;
+    --screen-pd: 10px;
+
+    --header-height: 75px;
+    --block-bg: #222733;
+    --block-mg: 10px;
+    --block-pd: 10px;
+
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    overflow: hidden;
+    background: var(--container-bg);
+    color: var(--container-color);
 }
 
-.map-contain {
-    width: 500px;
-    height: 350px;
-    padding: 10px;
-    margin: 10px;
-    border: 1px solid #fefefe;
+.screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--screen-width);
+    height: var(--screen-height);
+    margin-left: calc(var(--screen-width) * 0.5 - var(--screen-width));
+    margin-top: calc(var(--screen-height) * 0.5 - var(--screen-height));
+    padding: var(--screen-pd);
+    background-size: 100% 100%;
 }
 
-.chart-contain {
-    width: 500px;
-    height: 350px;
-    padding: 10px;
-    margin: 10px;
-    border: 1px solid #fefefe;
+.light {
+    --container-bg: rgb(238, 238, 238);
+    --container-color: rgb(22, 21, 34);
+
+    --block-bg: #fff;
 }
 </style>

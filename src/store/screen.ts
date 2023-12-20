@@ -9,7 +9,7 @@ export const useScreenStore = defineStore({
     id: 'screen',
     state: (): ScreenState => {
         return {
-            title: '大屏可视化',
+            title: '可视化',
             theme: 'dark',
         };
     },

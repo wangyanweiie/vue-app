@@ -7,6 +7,8 @@
 
             <template #header-right>
                 <div class="header-right">
+                    <el-button @click="handleJudge">screen</el-button>
+
                     <el-input
                         v-if="ENV !== 'production'"
                         v-model="baseUrl"
@@ -43,8 +45,19 @@ import { ENV, APP_NAME } from '@/constant/global';
 import useIndex from './useIndex';
 
 const { showMenus, cacheList } = usePermissionStore();
-const { baseUrl, userInfo, dropdownItems, schemas, visible, formRef, loading, form, handleBlur, changePassword } =
-    useIndex();
+const {
+    baseUrl,
+    userInfo,
+    dropdownItems,
+    schemas,
+    visible,
+    formRef,
+    loading,
+    form,
+    handleJudge,
+    handleBlur,
+    changePassword,
+} = useIndex();
 </script>
 <style lang="scss" scoped>
 .header-right {

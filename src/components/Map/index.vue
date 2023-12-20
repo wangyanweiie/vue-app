@@ -4,6 +4,7 @@
 
 <script setup lang="ts">
 import { onMounted, shallowRef } from 'vue';
+import '@amap/amap-jsapi-types';
 import AMapLoader from '@amap/amap-jsapi-loader';
 
 /**
@@ -13,7 +14,7 @@ defineOptions({
     name: 'XMap',
 });
 
-const map = shallowRef<any>(null);
+const map = shallowRef<AMap.Map | null>(null);
 
 function init() {
     AMapLoader.load({
@@ -24,7 +25,7 @@ function init() {
         // 需要使用的的插件列表
         plugins: ['AMap.ToolBar', 'AMap.Scale'],
     })
-        .then((MyAMap: any) => {
+        .then((MyAMap: typeof AMap) => {
             map.value = new MyAMap.Map('mapContainer', {
                 // 设置地图的显示样式
                 mapStyle: 'amap://styles/darkblue',

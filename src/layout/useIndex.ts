@@ -13,6 +13,13 @@ export default function useIndex() {
     const userInfo = getUserInfo();
 
     /**
+     * 跳转页面
+     */
+    function handleJudge() {
+        window.open(`${window.location.protocol}//${window.location.host}/screen`, '_blank');
+    }
+
+    /**
      * 改变 base-url
      */
     function handleBlur(e: any): void {
@@ -151,6 +158,7 @@ export default function useIndex() {
         formRef,
         loading,
         form,
+        handleJudge,
         handleBlur,
         changePassword,
     };

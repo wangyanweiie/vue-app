@@ -1,24 +1,12 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 import appLayout from '@/layout/index.vue';
 import { demoRoutes } from './demo';
-import { screenRoutes } from './screen';
+import { HOME_ROUTE, LOGIN_ROUTE, FORBIDDEN_ROUTE, SCREEN_ROUTE } from './base';
 
 /**
  * menu-routes
  */
-const menuRoutes: RouteRecordRaw[] = [
-    {
-        path: '/home',
-        name: 'home',
-        component: () => import('@/views/home/index.vue'),
-        meta: {
-            title: '首页',
-            icon: 'Folder',
-        },
-    },
-    demoRoutes,
-    screenRoutes,
-];
+const menuRoutes: RouteRecordRaw[] = [HOME_ROUTE, demoRoutes];
 
 /**
  * routers
@@ -35,27 +23,16 @@ const routes: RouteRecordRaw[] = [
         },
         children: menuRoutes,
     },
-    {
-        path: '/login',
-        component: () => import('@/views/login/index.vue'),
-        meta: {
-            title: '登录',
-        },
-    },
-    {
-        path: '/:pathMatch(.*)*',
-        component: () => import('@/views/not-found/404.vue'),
-        meta: {
-            title: '404',
-        },
-    },
+
+    LOGIN_ROUTE,
+    FORBIDDEN_ROUTE,
+    SCREEN_ROUTE,
 ];
 
 /**
  * router
  */
 const router = createRouter({
-    // 历史模式
     history: createWebHistory(),
     routes,
 });
