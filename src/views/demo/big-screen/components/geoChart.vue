@@ -1,12 +1,11 @@
 <template>
-    <x-chart ref="chartRef" :json="jeoJson" :option="option" />
+    <x-chart :json="jeoJson" :option="option" />
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 import jeoJson from '../json/jeoJson.json';
 
-const chartRef = ref();
 const option = ref({
     tooltip: {
         trigger: 'item',

@@ -1,8 +1,8 @@
 <template>
     <div ref="screenRef" class="wrap">
-        <div class="map-contain">
+        <!-- <div class="map-contain">
             <x-map></x-map>
-        </div>
+        </div> -->
 
         <div ref="containerRef">
             <div v-for="item in components" :key="item.name" class="chart-contain">
@@ -15,11 +15,15 @@
 </template>
 
 <script setup lang="ts">
+import Chart from './components/chart.vue';
 import GeoChart from './components/geoChart.vue';
 import { useResize } from './utils/useResize';
 import { useSortable } from './utils/useSortable';
 
-const components = shallowRef([{ name: 'geoChart', component: GeoChart }]);
+const components = shallowRef([
+    { name: 'chart', component: Chart },
+    { name: 'geoChart', component: GeoChart },
+]);
 
 const { screenRef } = useResize();
 const { containerRef } = useSortable(components);

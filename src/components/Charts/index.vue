@@ -1,5 +1,5 @@
 <template>
-    <div id="chart"></div>
+    <div ref="chartRef" class="chart"></div>
 </template>
 
 <script setup lang="ts">
@@ -19,10 +19,10 @@ defineOptions({
  */
 const props = withDefaults(
     defineProps<{
-        /** map-json */
-        json: string;
         /** e-charts-option */
         option: EChartsCoreOption;
+        /** map-json */
+        json?: string;
         /** loading */
         loading?: boolean;
     }>(),
@@ -34,29 +34,32 @@ const props = withDefaults(
 );
 
 const chart = shallowRef<ECharts | null>(null);
+const chartRef = shallowRef<HTMLElement | null>(null);
 
 /**
  * e-charts 初始化
  */
 function init() {
-    chart.value = echarts.init(document.getElementById('chart'));
+    chart.value = echarts.init(chartRef.value);
 
     props.json && registerMap('mapName', props.json);
     props.option && setOption(props.option);
 }
 
 /**
- * 注册地图
+ * @description 注册地图
+ * @param name 地图名称
+ * @param json 地图 json
  */
 function registerMap(name: string, json: string) {
     echarts.registerMap(name, json);
 }
 
 /**
- * 更新 e-charts-option
- * @param option
- * @param notMerge
- * @param lazyUpdate
+ * @description 设置 e-charts 配置
+ * @param option e-charts 配置
+ * @param notMerge 是否合并配置
+ * @param lazyUpdate 是否懒加载
  */
 function setOption(option: EChartsCoreOption, notMerge?: boolean, lazyUpdate?: boolean) {
     chart.value!.setOption(option, notMerge, lazyUpdate);
@@ -111,7 +114,7 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-#chart {
+.chart {
     width: 100%;
     height: 100%;
 }

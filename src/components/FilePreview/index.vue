@@ -1,40 +1,20 @@
 <template>
-    <el-dialog v-model="dialogVisible" :title="title" fullscreen :show-close="false" destroy-on-close>
-        <template #header="{ close }">
+    <el-dialog v-model="dialogVisible" :title="title" fullscreen :show-close="true" destroy-on-close>
+        <!-- <template #header="{ close }">
             <div class="dialog-header">
                 <el-button type="success" @click="download()">下载</el-button>
                 <el-button @click="close"> 关闭 </el-button>
             </div>
-        </template>
+        </template> -->
 
-        <!-- 容器 -->
-        <div v-if="fileType === FileType['word']" ref="wordRef"></div>
-        <div v-if="fileType === FileType['excel']" id="luckysheetId" class="luckysheet"></div>
-        <div v-if="fileType === FileType['pdf']" class="pdf-style">
-            <vue-pdf-embed
-                :source="pdfState.source"
-                :page="pdfState.currentPage"
-                :style="pdfState.scale"
-                :rotate="pdfState.rotate"
-            />
-
-            <div class="pdf-style__operate">
-                <el-button size="small" :disabled="pdfState.currentPage === 1" @click="prePage()">上一页</el-button>
-                <el-button size="small" :disabled="pdfState.currentPage === pdfState.totalPages" @click="nextPage()">
-                    下一页
-                </el-button>
-                <el-button size="small" disabled>{{ `${pdfState.currentPage} / ${pdfState.totalPages}` }}</el-button>
-            </div>
-
-            <!-- 使用 pdfjs + iframe 可以直接渲染 PDF -->
-            <!-- <iframe class="iframe-style" :src="`/pdfjs/web/viewer.html?file=${url}`"></iframe> -->
-        </div>
+        <component :is="currentComponent" :ref="componentRef" :url="url"></component>
     </el-dialog>
 </template>
 
 <script lang="ts" setup>
-import VuePdfEmbed from 'vue-pdf-embed';
-import useIndex from './useIndex';
+import word from './components/word.vue';
+import excel from './components/excel.vue';
+import pdf from './components/pdf.vue';
 
 /**
  * 定义组件选项
@@ -71,9 +51,34 @@ const emits = defineEmits<{
 }>();
 
 /**
- * use-index
+ * 是否展示弹窗
  */
-const { FileType, fileType, dialogVisible, wordRef, pdfState, prePage, nextPage, download } = useIndex(props, emits);
+const dialogVisible = computed<boolean>({
+    get: () => props.visible,
+    set: visible => {
+        emits('update:visible', visible);
+
+        if (!visible) {
+            emits('close');
+        }
+    },
+});
+
+/**
+ * 组件类型
+ */
+const componentRef = ref();
+const currentComponent = computed(() => {
+    if (props.url.indexOf('.docx') !== -1) {
+        return word;
+    } else if (props.url.indexOf('.xlsx') !== -1) {
+        return excel;
+    } else if (props.url.indexOf('.pdf') !== -1) {
+        return pdf;
+    } else {
+        return word;
+    }
+});
 </script>
 <style lang="scss" scoped>
 .dialog-header {

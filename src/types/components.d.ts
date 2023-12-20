@@ -49,11 +49,13 @@ declare module 'vue' {
         ElTableV2: (typeof import('element-plus/es'))['ElTableV2'];
         ElTag: (typeof import('element-plus/es'))['ElTag'];
         ElTooltip: (typeof import('element-plus/es'))['ElTooltip'];
+        Excel: (typeof import('./../components/FilePreview/components/excel.vue'))['default'];
         FilePreview: (typeof import('./../components/FilePreview/index.vue'))['default'];
         HistoryTabs: (typeof import('./../components/Layout/HistoryTabs.vue'))['default'];
         Map: (typeof import('./../components/Map/index.vue'))['default'];
         ParentMenuView: (typeof import('./../components/Layout/ParentMenuView.vue'))['default'];
         ParentView: (typeof import('./../components/Layout/ParentView.vue'))['default'];
+        Pdf: (typeof import('./../components/FilePreview/components/pdf.vue'))['default'];
         RichTextEditor: (typeof import('./../components/RichTextEditor/index.vue'))['default'];
         RouterLink: (typeof import('vue-router'))['RouterLink'];
         RouterView: (typeof import('vue-router'))['RouterView'];
@@ -62,6 +64,7 @@ declare module 'vue' {
         TableSetting: (typeof import('./../components/Table/components/TableSetting.vue'))['default'];
         TableV2: (typeof import('./../components/TableV2/index.vue'))['default'];
         Upload: (typeof import('./../components/Upload/index.vue'))['default'];
+        Word: (typeof import('./../components/FilePreview/components/word.vue'))['default'];
         XCheckbox: (typeof import('./../components/Form/components/XCheckbox.vue'))['default'];
         XDialogForm: (typeof import('./../components/Form/XDialogForm.vue'))['default'];
         XEditTable: (typeof import('./../components/EditTable/XEditTable.vue'))['default'];

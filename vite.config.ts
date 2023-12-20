@@ -67,7 +67,6 @@ export default defineConfig({
                     'docx-preview': ['docx-preview'],
                     'vue-pdf-embed': ['vue-pdf-embed'],
                     'vue3-pdfjs': ['vue3-pdfjs'],
-                    'amap-jsapi-loader': ['@amap/amap-jsapi-loader'],
                     'datav-vue3': ['@dataview/datav-vue3'],
                     html2canvas: ['html2canvas'],
                     luckyexcel: ['luckyexcel'],

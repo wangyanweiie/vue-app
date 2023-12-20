@@ -21,7 +21,7 @@ interface CommandComponent {
 }
 
 /**
- * 选择要挂载的位置
+ * @description 获取挂载位置
  * @param props 自定义选项
  * @returns 挂载位置
  */
@@ -51,11 +51,11 @@ const getAppendToElement = (props: Options): HTMLElement => {
 };
 
 /**
- * 渲染虚拟节点
+ * @description 渲染虚拟节点
  * @param Component 要传入的组件
  * @param props 自定义选项
- * @param container 容器
- * @param appContext 组件实例、上下文
+ * @param container 挂载位置
+ * @param appContext 上下文
  * @returns 虚拟节点
  */
 const handleInitInstance = <T extends Component>(
@@ -77,7 +77,7 @@ const handleInitInstance = <T extends Component>(
 };
 
 /**
- * 处理组件的挂载和卸载
+ * @description 命令式组件
  * @param Component 要传入的组件
  * @returns 命令式组件实例
  */

@@ -71,11 +71,20 @@ export const demoRoutes: RouteRecordRaw = {
             },
         },
         {
-            path: '/demo/richText',
-            name: 'demo-richText',
-            component: () => import('@/views/demo/richText.vue'),
+            path: '/demo/textEditor',
+            name: 'demo-text-editor',
+            component: () => import('@/views/demo/textEditor.vue'),
             meta: {
-                title: 'richText',
+                title: 'textEditor',
+                icon: '',
+            },
+        },
+        {
+            path: '/demo/filePreview',
+            name: 'demo-file-preview',
+            component: () => import('@/views/demo/filePreview.vue'),
+            meta: {
+                title: 'filePreview',
                 icon: '',
             },
         },
