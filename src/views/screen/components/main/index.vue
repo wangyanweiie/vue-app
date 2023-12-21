@@ -1,21 +1,21 @@
 <template>
     <div class="main">
         <div class="main-left">
-            <screen-left />
+            <main-left />
         </div>
         <div class="main-center">
-            <screen-center />
+            <main-center />
         </div>
         <div class="main-right">
-            <screen-right />
+            <main-right />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import ScreenLeft from '../../components/main/left/index.vue';
-import ScreenRight from '../../components/main/right/index.vue';
-import ScreenCenter from '../../components/main/center/index.vue';
+import MainLeft from '../../components/main/left/index.vue';
+import MainRight from '../../components/main/right/index.vue';
+import MainCenter from '../../components/main/center/index.vue';
 </script>
 
 <style lang="scss" scoped>

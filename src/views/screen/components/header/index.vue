@@ -64,7 +64,7 @@ updateTime();
     background-image: url('@/assets/images/screen/header_border_dark.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    animation: fade 3s;
+    animation: header-fade 3s;
 
     &-left {
         display: flex;
@@ -107,7 +107,7 @@ updateTime();
     }
 }
 
-@keyframes fade {
+@keyframes header-fade {
     from {
         opacity: 0;
     }
