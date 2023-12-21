@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import jeoJson from './json/jeoJson.json';
+import jeoJson from '@/views/screen/json/jeoJson.json';
 
 const option = ref({
     tooltip: {

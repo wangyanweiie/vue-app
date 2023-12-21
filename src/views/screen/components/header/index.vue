@@ -1,7 +1,7 @@
 <template>
     <div class="header">
         <div class="header-left">
-            <h2>Big Screen</h2>
+            <h2>Lemon</h2>
         </div>
 
         <div class="header-center">{{ store.title }}</div>

@@ -21,20 +21,19 @@ import MainCenter from '../../components/main/center/index.vue';
 <style lang="scss" scoped>
 .main {
     width: 100%;
-    height: calc(var(--screen-height) - var(--header-height));
+    height: calc(var(--screen-height) - var(--screen-pd) * 2 - var(--header-height));
     display: flex;
 
     &-center {
         width: 1000px;
         height: 100%;
-        margin: var(--block-mg);
+        // margin: 0 var(--block-mg);
     }
 
     &-left,
     &-right {
         width: calc((var(--screen-width) - 1000px - var(--screen-pd) * 2) / 2);
         height: 100%;
-        margin: var(--block-mg);
     }
 }
 </style>

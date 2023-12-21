@@ -10,8 +10,8 @@
 <script setup lang="ts">
 import ScreenHeader from './components/header/index.vue';
 import ScreenMain from './components/main/index.vue';
-import { useResize } from './useResize';
 import { useScreenStore } from '@/store/screen';
+import { useResize } from '@/views/screen/hooks/useResize';
 
 const store = useScreenStore();
 const { screenRef } = useResize();

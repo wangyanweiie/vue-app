@@ -1,17 +1,11 @@
 <template>
-    <div class="warp"></div>
+    <div class="left"></div>
 </template>
 
 <script setup lang="ts"></script>
 <style lang="scss" scoped>
-.warp {
-    display: flex;
-}
-
-.container {
-    width: 500px;
-    height: 350px;
-    padding: 10px;
-    margin: 10px;
+.left {
+    width: calc((var(--screen-width) - 1000px - var(--screen-pd) * 2) / 2);
+    height: 100%;
 }
 </style>
