@@ -22,15 +22,21 @@ const props = withDefaults(
     defineProps<{
         /** e-charts-option */
         option: EChartsCoreOption;
+        /** map-name */
+        mapName?: string;
         /** map-json */
-        json?: string;
+        mapJson?: string;
         /** loading */
         loading?: boolean;
+        /** click */
+        callback?: (params: any) => void;
     }>(),
     {
-        json: '',
+        mapName: 'mapName',
+        mapJson: '',
         option: () => ({}),
         loading: false,
+        callback: () => {},
     },
 );
 
@@ -43,8 +49,13 @@ const chartRef = shallowRef<HTMLElement | null>(null);
 function init() {
     chart.value = echarts.init(chartRef.value);
 
-    props.json && registerMap('mapName', props.json);
+    props.mapJson && registerMap(props.mapName, props.mapJson);
     props.option && setOption(props.option);
+    props.callback &&
+        chart.value.on('click', function (params) {
+            console.log(params.data);
+            props.callback(params.data);
+        });
 }
 
 /**
@@ -54,6 +65,7 @@ function init() {
  */
 function registerMap(name: string, json: string) {
     echarts.registerMap(name, json);
+    console.log(name, json);
 }
 
 /**
@@ -74,9 +86,9 @@ function resize() {
 }
 
 watch(
-    () => props.json,
+    () => props.mapJson,
     () => {
-        registerMap('mapName', props.json);
+        registerMap('mapName', props.mapJson);
     },
 );
 
