@@ -1,5 +1,5 @@
 <template>
-    <div class="scroll">
+    <div class="scroll" @mouseover="handleMouseOver" @mouseout="handleMouseOut">
         <div ref="listRef">
             <div v-for="(item, index) in actions" :key="index" class="scroll-item">
                 <el-icon size="32" :color="item.color">
@@ -17,7 +17,7 @@ import { KnifeFork, IceTea, Coffee, IceCream, Dessert, GobletFull } from '@eleme
 import { useSeamlessScroll } from '@/views/screen/hooks/useSeamlessScroll';
 
 const listRef = ref();
-useSeamlessScroll(listRef);
+const { pause, play } = useSeamlessScroll(listRef);
 
 const iconobj: Component = { KnifeFork, IceTea, Coffee, IceCream, Dessert, GobletFull };
 const actions = ref([
@@ -33,6 +33,14 @@ const actions = ref([
     { color: 'rgb(179, 127, 235)', icon: 'IceCream' },
     { color: 'rgb(255, 133, 192)', icon: 'Dessert' },
 ]);
+
+function handleMouseOver() {
+    pause();
+}
+
+function handleMouseOut() {
+    play();
+}
 </script>
 
 <style lang="scss" scoped>

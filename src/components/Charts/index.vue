@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, shallowRef, watch } from 'vue';
+import { onMounted, shallowRef } from 'vue';
 import * as echarts from 'echarts';
 import type { ECharts, EChartsCoreOption } from 'echarts';
 
@@ -20,15 +20,15 @@ defineOptions({
  */
 const props = withDefaults(
     defineProps<{
-        /** e-charts-option */
-        option: EChartsCoreOption;
-        /** map-name */
+        /** 地图名称 */
         mapName?: string;
-        /** map-json */
+        /** 地图 json */
         mapJson?: string;
-        /** loading */
+        /** 图表配置 */
+        option: EChartsCoreOption;
+        /** 加载状态 */
         loading?: boolean;
-        /** click */
+        /** 回调函数 */
         callback?: (params: any) => void;
     }>(),
     {
@@ -45,17 +45,28 @@ const chartRef = shallowRef<HTMLElement | null>(null);
 
 /**
  * @description 初始化
+ * @param mapName 地图名称
+ * @param mapJson 地图 json
+ * @param option 图表配置
+ * @param loading 加载状态
+ * @param callback 点击回调
  */
-function init() {
+function init(
+    mapName: string = 'mapName',
+    mapJson?: string,
+    option?: EChartsCoreOption,
+    loading?: boolean,
+    callback?: (params: any) => void,
+) {
     chart.value = echarts.init(chartRef.value);
 
-    props.mapJson && registerMap(props.mapName, props.mapJson);
-    props.option && setOption(props.option);
-    props.callback &&
-        chart.value.on('click', function (params) {
-            console.log(params.data);
-            props.callback(params.data);
-        });
+    mapJson && registerMap(mapName, mapJson);
+    option && setOption(option, true);
+    loading && setLoading(loading);
+
+    chart.value.on('click', function (params) {
+        callback && callback(params.data);
+    });
 }
 
 /**
@@ -65,7 +76,6 @@ function init() {
  */
 function registerMap(name: string, json: string) {
     echarts.registerMap(name, json);
-    console.log(name, json);
 }
 
 /**
@@ -79,49 +89,62 @@ function setOption(option: EChartsCoreOption, notMerge?: boolean, lazyUpdate?: b
 }
 
 /**
+ * @description 显示加载动画
+ * @param loading 是否显示加载动画
+ */
+function setLoading(loading: boolean) {
+    if (!chart.value) {
+        return;
+    }
+
+    if (loading) {
+        chart.value!.showLoading();
+    } else {
+        chart.value!.hideLoading();
+    }
+}
+
+/**
+ * @description 清空图表
+ */
+function clear() {
+    if (!chart.value) {
+        return;
+    }
+
+    chart.value!.clear();
+}
+
+/**
+ * @description 销毁图表
+ */
+function destroy() {
+    if (!chart.value) {
+        return;
+    }
+
+    chart.value.dispose();
+    chart.value = null;
+}
+
+/**
  * @description 重新渲染
  */
 function resize() {
     chart.value!.resize();
 }
 
-watch(
-    () => props.mapJson,
-    () => {
-        registerMap('mapName', props.mapJson);
-    },
-);
-
-watch(
-    () => props.option,
-    () => {
-        setOption(props.option);
-    },
-);
-
-watch(
-    () => props.loading,
-    newValue => {
-        if (!chart.value) {
-            return;
-        }
-
-        if (newValue) {
-            chart.value!.showLoading();
-        } else {
-            chart.value!.hideLoading();
-        }
-    },
-);
-
 onMounted(() => {
-    init();
+    init(props.mapName, props.mapJson, props.option, props.loading, props.callback);
 });
 
 defineExpose({
     chart,
+    init,
     registerMap,
     setOption,
+    clear,
+    destroy,
     resize,
 });
 </script>

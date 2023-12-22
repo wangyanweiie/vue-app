@@ -34,8 +34,8 @@ import guangXi from '@/views/screen/json/广西壮族自治区.json';
 import xiangGang from '@/views/screen/json/香港特别行政区.json';
 import aoMeng from '@/views/screen/json/澳门特别行政区.json';
 
-export const dataList = ref<Record<string, string | number>[]>([
-    { name: '中华人民共和国', code: 100000, json: china },
+export const mapDataList = ref<Record<string, any>[]>([
+    // { name: '中华人民共和国', code: 100000, json: china },
     { name: '北京市', code: 110000, json: beiJing },
     { name: '天津市', code: 120000, json: tianJin },
     { name: '上海市', code: 310000, json: shangHai },

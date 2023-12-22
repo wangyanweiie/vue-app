@@ -27,12 +27,13 @@ import MainCenter from '../../components/main/center/index.vue';
     &-center {
         width: 1000px;
         height: 100%;
-        // margin: 0 var(--block-mg);
+        margin: 0 var(--block-mg);
     }
 
     &-left,
     &-right {
-        width: calc((var(--screen-width) - 1000px - var(--screen-pd) * 2) / 2);
+        // 为什么需要减 2 倍的 margin => - var(--block-mg) * 2
+        width: calc((var(--screen-width) - 1000px - var(--screen-pd) * 2) / 2 - var(--block-mg) * 2);
         height: 100%;
     }
 }

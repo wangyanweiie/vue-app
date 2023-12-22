@@ -9,15 +9,15 @@
 </template>
 
 <script setup lang="ts">
-import BarChart from './components/barChart.vue';
-import LineChart from './components/lineChart.vue';
 import PieChart from './components/pieChart.vue';
+import LineChart from './components/lineChart.vue';
+import BarChart from './components/barChart.vue';
 import { useSortable } from '@/views/screen/hooks/useSortable';
 
 const components = shallowRef([
-    { name: 'BarChart', component: BarChart },
-    { name: 'LineChart', component: LineChart },
     { name: 'PieChart', component: PieChart },
+    { name: 'LineChart', component: LineChart },
+    { name: 'BarChart', component: BarChart },
 ]);
 const { containerRef } = useSortable(components);
 </script>
