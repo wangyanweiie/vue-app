@@ -4,6 +4,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useScreenStore } from '@/store/screen';
+
+const store = useScreenStore();
 
 const option = ref({
     tooltip: {
@@ -11,6 +14,9 @@ const option = ref({
     },
     legend: {
         data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine'],
+        textStyle: {
+            color: store.theme === 'dark' ? '#eee' : '#161522',
+        },
     },
     grid: {
         left: '3%',

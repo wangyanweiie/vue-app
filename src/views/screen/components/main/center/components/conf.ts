@@ -1,41 +1,43 @@
 import china from '@/views/screen/json/中华人民共和国.json';
-import beiJing from '@/views/screen/json/北京市.json';
-import tianJin from '@/views/screen/json/天津市.json';
-import shangHai from '@/views/screen/json/上海市.json';
-import chongQing from '@/views/screen/json/重庆市.json';
-import heBei from '@/views/screen/json/河北省.json';
-import heNan from '@/views/screen/json/河南省.json';
-import yunNan from '@/views/screen/json/云南省.json';
-import liaoNing from '@/views/screen/json/辽宁省.json';
-import heiLongJiang from '@/views/screen/json/黑龙江省.json';
-import huNan from '@/views/screen/json/湖南省.json';
-import anHui from '@/views/screen/json/安徽省.json';
-import shanDong from '@/views/screen/json/山东省.json';
-import jiangSu from '@/views/screen/json/江苏省.json';
-import zheJiang from '@/views/screen/json/浙江省.json';
-import jiangXi from '@/views/screen/json/江西省.json';
-import huBei from '@/views/screen/json/湖北省.json';
-import ganSu from '@/views/screen/json/甘肃省.json';
-import shanXi from '@/views/screen/json/山西省.json';
-import shanXi1 from '@/views/screen/json/陕西省.json';
-import jiLin from '@/views/screen/json/吉林省.json';
-import fuJian from '@/views/screen/json/福建省.json';
-import guiZhou from '@/views/screen/json/贵州省.json';
-import guangDong from '@/views/screen/json/广东省.json';
-import qingHai from '@/views/screen/json/青海省.json';
-import siChuan from '@/views/screen/json/四川省.json';
-import haiNan from '@/views/screen/json/海南省.json';
-import taiWan from '@/views/screen/json/台湾省.json';
-import xinJiang from '@/views/screen/json/新疆维吾尔自治区.json';
-import xiZang from '@/views/screen/json/西藏自治区.json';
-import neiMengGu from '@/views/screen/json/内蒙古自治区.json';
-import ningXia from '@/views/screen/json/宁夏回族自治区.json';
-import guangXi from '@/views/screen/json/广西壮族自治区.json';
-import xiangGang from '@/views/screen/json/香港特别行政区.json';
-import aoMeng from '@/views/screen/json/澳门特别行政区.json';
+import beiJing from '@/views/screen/json/北京市/北京市.json';
+import tianJin from '@/views/screen/json/天津市/天津市.json';
+import shangHai from '@/views/screen/json/上海市/上海市.json';
+import chongQing from '@/views/screen/json/重庆市/重庆市.json';
+import heBei from '@/views/screen/json/河北省/河北省.json';
+import heNan from '@/views/screen/json//河南省/河南省.json';
+import yunNan from '@/views/screen/json/云南省/云南省.json';
+import liaoNing from '@/views/screen/json/辽宁省/辽宁省.json';
+import heiLongJiang from '@/views/screen/json/黑龙江省/黑龙江省.json';
+import huNan from '@/views/screen/json/湖南省/湖南省.json';
+import anHui from '@/views/screen/json/安徽省/安徽省.json';
+import shanDong from '@/views/screen/json/山东省/山东省.json';
+import jiangSu from '@/views/screen/json/江苏省/江苏省.json';
+import zheJiang from '@/views/screen/json/浙江省/浙江省.json';
+import jiangXi from '@/views/screen/json/江西省/江西省.json';
+import huBei from '@/views/screen/json/湖北省/湖北省.json';
+import ganSu from '@/views/screen/json/甘肃省/甘肃省.json';
+import shanXi from '@/views/screen/json/山西省/山西省.json';
+import shanXi1 from '@/views/screen/json/陕西省/陕西省.json';
+import jiLin from '@/views/screen/json/吉林省/吉林省.json';
+import fuJian from '@/views/screen/json/福建省/福建省.json';
+import guiZhou from '@/views/screen/json/贵州省/贵州省.json';
+import guangDong from '@/views/screen/json/广东省/广东省.json';
+import qingHai from '@/views/screen/json/青海省/青海省.json';
+import siChuan from '@/views/screen/json/四川省/四川省.json';
+import haiNan from '@/views/screen/json/海南省/海南省.json';
+import taiWan from '@/views/screen/json/台湾省/台湾省.json';
+import xinJiang from '@/views/screen/json/新疆维吾尔自治区/新疆维吾尔自治区.json';
+import xiZang from '@/views/screen/json/西藏自治区/西藏自治区.json';
+import neiMengGu from '@/views/screen/json/内蒙古自治区/内蒙古自治区.json';
+import ningXia from '@/views/screen/json/宁夏回族自治区/宁夏回族自治区.json';
+import guangXi from '@/views/screen/json/广西壮族自治区/广西壮族自治区.json';
+import xiangGang from '@/views/screen/json/香港特别行政区/香港特别行政区.json';
+import aoMen from '@/views/screen/json/澳门特别行政区/澳门特别行政区.json';
+
+import xuZhou from '@/views/screen/json/江苏省/徐州市.json';
 
 export const mapDataList = ref<Record<string, any>[]>([
-    // { name: '中华人民共和国', code: 100000, json: china },
+    { name: '中华人民共和国', code: 100000, json: china },
     { name: '北京市', code: 110000, json: beiJing },
     { name: '天津市', code: 120000, json: tianJin },
     { name: '上海市', code: 310000, json: shangHai },
@@ -69,5 +71,7 @@ export const mapDataList = ref<Record<string, any>[]>([
     { name: '宁夏回族自治区', code: 640000, json: ningXia },
     { name: '广西壮族自治区', code: 450000, json: guangXi },
     { name: '香港特别行政区', code: 810000, json: xiangGang },
-    { name: '澳门特别行政区', code: 820000, json: aoMeng },
+    { name: '澳门特别行政区', code: 820000, json: aoMen },
+
+    { name: '徐州市', code: 320300, json: xuZhou },
 ]);

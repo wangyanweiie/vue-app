@@ -19,8 +19,8 @@ const { screenRef } = useResize();
 
 <style lang="scss" scoped>
 .container {
-    --container-bg: rgb(22, 21, 34);
-    --container-color: #fff;
+    --container-bg: #161522;
+    --container-color: #eee;
 
     --screen-width: 1920px;
     --screen-height: 1080px;
@@ -53,9 +53,8 @@ const { screenRef } = useResize();
 }
 
 .light {
-    --container-bg: rgb(238, 238, 238);
-    --container-color: rgb(22, 21, 34);
-
+    --container-bg: #eee;
+    --container-color: #161522;
     --block-bg: #fff;
 }
 </style>

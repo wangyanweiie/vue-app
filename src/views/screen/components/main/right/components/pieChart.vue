@@ -4,6 +4,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useScreenStore } from '@/store/screen';
+
+const store = useScreenStore();
 
 const option = ref({
     tooltip: {
@@ -12,6 +15,9 @@ const option = ref({
     legend: {
         orient: 'vertical',
         left: 'left',
+        textStyle: {
+            color: store.theme === 'dark' ? '#eee' : '#161522',
+        },
     },
     series: [
         {

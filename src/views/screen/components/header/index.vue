@@ -1,13 +1,13 @@
 <template>
     <div class="header">
         <div class="header-left">
-            <h2>Lemon</h2>
+            <h2>{{ store.tip }}</h2>
         </div>
 
         <div class="header-center">{{ store.title }}</div>
 
         <div class="header-right">
-            <img :src="githubIcon" />
+            <img :src="githubIcon" @click="handleGithub" />
             <img :src="icon" @click="handleChangeTheme" />
             <span>{{ currentTime }}</span>
         </div>
@@ -28,6 +28,13 @@ const icon = computed(() => (store.theme === 'dark' ? darkIcon : lightIcon));
 const githubIcon = computed(() => (store.theme === 'dark' ? githubIconDark : githubIconLight));
 
 /**
+ * @description github
+ */
+function handleGithub() {
+    window.open('https://github.com/wangyanweiie/vue-app', '_blank');
+}
+
+/**
  * @description 切换主题
  */
 function handleChangeTheme() {
@@ -37,20 +44,20 @@ function handleChangeTheme() {
 }
 
 const currentTime = ref<string>('');
-const timeId = ref();
+const timer = ref();
 
 /**
  * @description 更新时间
  */
 function updateTime() {
-    timeId.value = setTimeout(() => {
+    timer.value = setTimeout(() => {
         currentTime.value = dayjs().format('YYYY-MM-DD HH:mm:ss');
         updateTime();
     }, 1000);
 }
 
 onBeforeUnmount(() => {
-    clearTimeout(timeId.value);
+    clearTimeout(timer.value);
 });
 
 updateTime();

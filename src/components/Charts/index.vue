@@ -21,15 +21,15 @@ defineOptions({
 const props = withDefaults(
     defineProps<{
         /** 地图名称 */
-        mapName?: string;
+        mapName: string | undefined;
         /** 地图 json */
-        mapJson?: string;
+        mapJson: string | undefined;
         /** 图表配置 */
         option: EChartsCoreOption;
         /** 加载状态 */
         loading?: boolean;
         /** 回调函数 */
-        callback?: (params: any) => void;
+        callback?: (data: any, mapName: string, mapJson: string, option: EChartsCoreOption) => void;
     }>(),
     {
         mapName: 'mapName',
@@ -53,10 +53,10 @@ const chartRef = shallowRef<HTMLElement | null>(null);
  */
 function init(
     mapName: string = 'mapName',
-    mapJson?: string,
-    option?: EChartsCoreOption,
+    mapJson: string,
+    option: EChartsCoreOption,
     loading?: boolean,
-    callback?: (params: any) => void,
+    callback?: (data: any, mapName: string, mapJson: string, option: EChartsCoreOption) => void,
 ) {
     chart.value = echarts.init(chartRef.value);
 
@@ -65,7 +65,8 @@ function init(
     loading && setLoading(loading);
 
     chart.value.on('click', function (params) {
-        callback && callback(params.data);
+        console.log(params.data);
+        callback && callback(params.data, mapName, mapJson, option);
     });
 }
 
