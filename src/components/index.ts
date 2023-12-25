@@ -4,8 +4,8 @@ import XLogo from './Layout/XLogo.vue';
 import XUser from './Layout/XUser.vue';
 import ParentView from './Layout/ParentView.vue';
 import ParentMenuView from './Layout/ParentMenuView.vue';
-import XTable from './Table/index.vue';
-import XTableV2 from './TableV2/index.vue';
+import XTable from './Table/XTable.vue';
+import XTableV2 from './TableV2/XTableV2.vue';
 import XEditTable from './EditTable/XEditTable.vue';
 import XEditTableItem from './EditTable/XEditTableItem.vue';
 import XSearchForm from './Form/XSearchForm.vue';
@@ -14,11 +14,11 @@ import XForm from './Form/XForm.vue';
 import XRadio from './Form/components/XRadio.vue';
 import XCheckbox from './Form/components/XCheckbox.vue';
 import XSelect from './Form/components/XSelect.vue';
-import XDescription from './Description/index.vue';
-import XFilePreview from './FilePreview/index.vue';
-import XRichTextEditor from './RichTextEditor/index.vue';
-import XChart from './Charts/index.vue';
-import XMap from './Map/index.vue';
+import XDescription from './Description/XDescription.vue';
+import XFilePreview from './FilePreview/XFilePreview.vue';
+import XRichTextEditor from './RichTextEditor/XRichTextEditor.vue';
+import XChart from './Chart/XChart.vue';
+import XMap from './Map/XMap.vue';
 
 interface ComponentItem {
     name: string;

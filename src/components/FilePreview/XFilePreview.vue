@@ -17,13 +17,6 @@ import excel from './components/excel.vue';
 import pdf from './components/pdf.vue';
 
 /**
- * 定义组件选项
- */
-defineOptions({
-    name: 'XFilePreview',
-});
-
-/**
  * props
  */
 const props = withDefaults(

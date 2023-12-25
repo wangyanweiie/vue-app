@@ -17,13 +17,6 @@ import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 import useIndex from './useIndex';
 
 /**
- * 定义组件选项
- */
-defineOptions({
-    name: 'XRichTextEditor',
-});
-
-/**
  * props
  */
 const props = withDefaults(

@@ -124,13 +124,6 @@ import useIndex from './useIndex';
 import TableSetting from './components/TableSetting.vue';
 
 /**
- * 定义组件选项
- */
-defineOptions({
-    name: 'XTable',
-});
-
-/**
  * Props
  */
 const props = withDefaults(

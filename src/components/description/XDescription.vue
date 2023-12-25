@@ -22,13 +22,6 @@
 import type { XDescriptionColumn } from './interface';
 
 /**
- * 定义组件选项
- */
-defineOptions({
-    name: 'XDescription',
-});
-
-/**
  * props
  */
 withDefaults(

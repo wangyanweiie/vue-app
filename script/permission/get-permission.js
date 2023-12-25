@@ -14,7 +14,7 @@ async function getPermissionListAndWrite() {
     // 转换
     const transformData = Object.fromEntries(createEntries(allPermissions));
 
-    fs.writeFileSync('./src/json/permission.json', JSON.stringify(transformData));
+    fs.writeFileSync('../../public/json/permission.json', JSON.stringify(transformData));
 }
 
 /**

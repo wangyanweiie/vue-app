@@ -8,8 +8,6 @@ export {}
 declare module 'vue' {
     export interface GlobalComponents {
         Breadcrumb: (typeof import('./../components/Layout/Breadcrumb.vue'))['default'];
-        Charts: (typeof import('./../components/Charts/index.vue'))['default'];
-        Description: (typeof import('./../components/Description/index.vue'))['default'];
         ElAside: (typeof import('element-plus/es'))['ElAside'];
         ElAutoResizer: (typeof import('element-plus/es'))['ElAutoResizer'];
         ElBreadcrumb: (typeof import('element-plus/es'))['ElBreadcrumb'];
@@ -50,32 +48,35 @@ declare module 'vue' {
         ElTag: (typeof import('element-plus/es'))['ElTag'];
         ElTooltip: (typeof import('element-plus/es'))['ElTooltip'];
         Excel: (typeof import('./../components/FilePreview/components/excel.vue'))['default'];
-        FilePreview: (typeof import('./../components/FilePreview/index.vue'))['default'];
+        HandleCache: (typeof import('./../components/Layout/HandleCache.vue'))['default'];
         HistoryTabs: (typeof import('./../components/Layout/HistoryTabs.vue'))['default'];
-        Map: (typeof import('./../components/Map/index.vue'))['default'];
         ParentMenuView: (typeof import('./../components/Layout/ParentMenuView.vue'))['default'];
         ParentView: (typeof import('./../components/Layout/ParentView.vue'))['default'];
         Pdf: (typeof import('./../components/FilePreview/components/pdf.vue'))['default'];
-        RichTextEditor: (typeof import('./../components/RichTextEditor/index.vue'))['default'];
         RouterLink: (typeof import('vue-router'))['RouterLink'];
         RouterView: (typeof import('vue-router'))['RouterView'];
         SubMenu: (typeof import('./../components/Layout/SubMenu.vue'))['default'];
-        Table: (typeof import('./../components/Table/index.vue'))['default'];
         TableSetting: (typeof import('./../components/Table/components/TableSetting.vue'))['default'];
-        TableV2: (typeof import('./../components/TableV2/index.vue'))['default'];
-        Upload: (typeof import('./../components/Upload/index.vue'))['default'];
         Word: (typeof import('./../components/FilePreview/components/word.vue'))['default'];
+        XChart: (typeof import('./../components/Chart/XChart.vue'))['default'];
         XCheckbox: (typeof import('./../components/Form/components/XCheckbox.vue'))['default'];
+        XDescription: (typeof import('./../components/Description/XDescription.vue'))['default'];
         XDialogForm: (typeof import('./../components/Form/XDialogForm.vue'))['default'];
         XEditTable: (typeof import('./../components/EditTable/XEditTable.vue'))['default'];
         XEditTableItem: (typeof import('./../components/EditTable/XEditTableItem.vue'))['default'];
+        XFilePreview: (typeof import('./../components/FilePreview/XFilePreview.vue'))['default'];
         XForm: (typeof import('./../components/Form/XForm.vue'))['default'];
         XFormItem: (typeof import('./../components/Form/XFormItem.vue'))['default'];
         XLayout: (typeof import('./../components/Layout/XLayout.vue'))['default'];
         XLogo: (typeof import('./../components/Layout/XLogo.vue'))['default'];
+        XMap: (typeof import('./../components/Map/XMap.vue'))['default'];
         XRadio: (typeof import('./../components/Form/components/XRadio.vue'))['default'];
+        XRichTextEditor: (typeof import('./../components/RichTextEditor/XRichTextEditor.vue'))['default'];
         XSearchForm: (typeof import('./../components/Form/XSearchForm.vue'))['default'];
         XSelect: (typeof import('./../components/Form/components/XSelect.vue'))['default'];
+        XTable: (typeof import('./../components/Table/XTable.vue'))['default'];
+        XTableV2: (typeof import('./../components/TableV2/XTableV2.vue'))['default'];
+        XUpload: (typeof import('./../components/Upload/XUpload.vue'))['default'];
         XUser: (typeof import('./../components/Layout/XUser.vue'))['default'];
     }
     export interface ComponentCustomProperties {

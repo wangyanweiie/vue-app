@@ -7,7 +7,7 @@
 
             <template #header-right>
                 <div class="header-right">
-                    <el-button @click="handleJudge">screen</el-button>
+                    <el-button type="primary" text bg @click="handleJudge">screen</el-button>
 
                     <el-input
                         v-if="ENV !== 'production'"

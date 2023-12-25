@@ -109,15 +109,18 @@ async function mapDrillDown(data: any, mapName: string, mapJson: string, option:
                     fill: store.theme === 'dark' ? '#eee' : '#161522',
                 },
                 onclick: () => {
-                    // 重新渲染当前（上级）地图
+                    // 销毁当前渲染的图表
+                    chartRef.value.destroy();
+                    // 渲染上级地图
                     chartRef.value.init(mapName, mapJson, option, false, mapDrillDown);
                 },
             },
         ],
     };
 
-    // 销毁当前渲染的图表并重新渲染
+    // 销毁当前渲染的图表
     chartRef.value.destroy();
+    // 渲染子级地图
     chartRef.value.init(data.name, childJson, childOption, false, mapDrillDown);
 }
 </script>

@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { useCommandComponent } from '@/components/hooks/command-dialog-helper';
 import { previewImage } from '@/components/hooks/image-preview-helper';
-import XFilePreview from '@/components/FilePreview/index.vue';
+import XFilePreview from '@/components/FilePreview/XFilePreview.vue';
 import useJsPDF from '@/utils/use-jspdf';
 
 /**

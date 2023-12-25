@@ -7,13 +7,6 @@ import { onMounted, shallowRef } from 'vue';
 import '@amap/amap-jsapi-types';
 import AMapLoader from '@amap/amap-jsapi-loader';
 
-/**
- * 定义组件选项
- */
-defineOptions({
-    name: 'XMap',
-});
-
 const map = shallowRef<AMap.Map | null>(null);
 
 function init() {

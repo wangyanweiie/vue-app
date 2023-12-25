@@ -19,13 +19,6 @@ import { guid } from '@/utils/hooks';
 import { UPLOAD_URL } from '@/constant/global';
 
 /**
- * 定义组件选项
- */
-defineOptions({
-    name: 'XUpload',
-});
-
-/**
  * props
  */
 const props = withDefaults(

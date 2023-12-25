@@ -1,5 +1,5 @@
 import { onMounted, shallowRef, type Ref } from 'vue';
-import anime from 'animejs/lib/anime.es.js';
+import animejs from 'animejs/lib/anime.es.js';
 
 export type OptionsType = {
     direction?: 'horizontal' | 'vertical';
@@ -16,7 +16,7 @@ export type OptionsType = {
  */
 export function useSeamlessScroll(listRef: Ref<HTMLElement | null>, options: OptionsType = {}) {
     const { direction = 'horizontal', gap = 10, duration = 20000 } = options;
-    const animation = shallowRef<ReturnType<typeof anime> | null>(null);
+    const animation = shallowRef<ReturnType<typeof animejs> | null>(null);
 
     /**
      * @description 初始化
@@ -26,22 +26,26 @@ export function useSeamlessScroll(listRef: Ref<HTMLElement | null>, options: Opt
         const translateKey = isHorizontal ? 'translateX' : 'translateY';
         const transKey = isHorizontal ? 'x' : 'y';
 
+        // 获取 list 元素的子元素
         const children = listRef.value?.children || [];
+
         if (!children.length) {
             return;
         }
 
+        // 获取首个元素的宽度或者高度
         const firstEl = children[0] as HTMLElement;
         const firstDiff = (isHorizontal ? firstEl.offsetWidth : firstEl.offsetHeight) + gap;
 
         // 默认将 list 元素向左或向上移动一个 item 的距离
         listRef.value!.style.transform = `${translateKey}(-${firstDiff}px)`;
 
-        let total = 0; // 总宽或总高
+        // 总宽或总高
+        let total = 0;
         const transList: Record<string, number>[] = [];
 
-        // 设置初始位置
-        anime.set(children, {
+        // 计算每个元素的初始位置
+        animejs.set(children, {
             [translateKey]: (el: HTMLElement, i: number) => {
                 const distance = (isHorizontal ? el.offsetWidth : el.offsetHeight) + gap;
                 total += distance;
@@ -50,19 +54,25 @@ export function useSeamlessScroll(listRef: Ref<HTMLElement | null>, options: Opt
             },
         });
 
-        // 设置 list 容器的宽或高
+        // 如果是水平滚动，则设置容器宽度；如果是垂直滚动，则设置容器高度
         listRef.value!.style[isHorizontal ? 'width' : 'height'] = total + 'px';
 
         // 添加动画
-        animation.value = anime({
+        animation.value = animejs({
+            // 动画目标
             targets: transList,
+            // 动画持续时间
             duration,
+            // 动画缓动
             easing: 'linear',
+            // 动画方向
             direction: isHorizontal ? undefined : 'reverse',
-            [transKey]: `+=${total}`,
+            // 动画循环
             loop: true,
+            [transKey]: `+=${total}`,
             update: () => {
-                anime.set(children, {
+                // 更新每个元素的位置
+                animejs.set(children, {
                     [translateKey]: (el: HTMLElement, i: number) => {
                         return transList[i][transKey] % total;
                     },
@@ -72,17 +82,17 @@ export function useSeamlessScroll(listRef: Ref<HTMLElement | null>, options: Opt
     }
 
     /**
+     * @description 开始动画
+     */
+    function play() {
+        animation.value!.play();
+    }
+
+    /**
      * @description 暂停动画
      */
     function pause() {
         animation.value!.pause();
-    }
-
-    /**
-     * @description 播放
-     */
-    function play() {
-        animation.value!.play();
     }
 
     onMounted(() => {
@@ -92,7 +102,7 @@ export function useSeamlessScroll(listRef: Ref<HTMLElement | null>, options: Opt
     return {
         listRef,
         animation,
-        pause,
         play,
+        pause,
     };
 }

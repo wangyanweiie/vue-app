@@ -88,13 +88,6 @@ import { Loading as LoadingIcon, InfoFilled } from '@element-plus/icons-vue';
 import useIndex from './useIndex';
 
 /**
- * 定义组件选项
- */
-defineOptions({
-    name: 'XTableV2',
-});
-
-/**
  * props
  */
 const props = withDefaults(

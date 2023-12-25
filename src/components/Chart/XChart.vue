@@ -8,14 +8,6 @@ import * as echarts from 'echarts';
 import type { ECharts, EChartsCoreOption } from 'echarts';
 
 /**
- * @description 定义组件
- * @param name 组件名称
- */
-defineOptions({
-    name: 'XChart',
-});
-
-/**
  * props
  */
 const props = withDefaults(
