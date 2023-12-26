@@ -228,7 +228,6 @@ const {
     pagination,
     treeProps,
     selectedRows,
-    selectedCount,
     handleSelectChange,
     handleIndex,
     selectableValue,

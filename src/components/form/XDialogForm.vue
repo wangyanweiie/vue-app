@@ -1,8 +1,10 @@
 <template>
-    <el-dialog
+    <component
+        :is="handleElType"
         v-model="visible"
         :title="title"
         :width="width"
+        :size="size"
         append-to-body
         destroy-on-close
         @opened="handleOpen"
@@ -31,20 +33,26 @@
                     </x-form-item>
                 </el-col>
             </el-row>
+
+            <slot name="form-append"></slot>
         </el-form> -->
 
         <template #footer>
-            <slot name="action" :form="modelForm" :form-ref="formRef"></slot>
+            <div class="actions">
+                <slot name="action" :form="modelForm" :form-ref="formRef"></slot>
 
-            <el-button v-if="isShowConfirm" type="primary" :loading="loading" @click="handleSubmit"> 确认 </el-button>
-            <el-button @click="handleCancel"> 取消 </el-button>
+                <el-button v-if="isShowConfirm" type="primary" :loading="loading" @click="handleSubmit">
+                    确认
+                </el-button>
+                <el-button @click="handleCancel"> 取消 </el-button>
+            </div>
         </template>
-    </el-dialog>
+    </component>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import type { FormProps } from 'element-plus';
+import { ElDialog, ElDrawer, type FormProps } from 'element-plus';
 import type { XFormInstance, XFormItemSchema } from './interface';
 import XForm from './XForm.vue';
 // import XFormItem from './XFormItem.vue';
@@ -56,10 +64,14 @@ const props = withDefaults(
     defineProps<{
         /** 双向绑定：是否打开弹窗 */
         modelValue: boolean;
+        /** 组件类型 */
+        elType?: 'el-dialog' | 'el-drawer';
         /** 弹窗标题 */
         title?: string;
         /** 弹窗宽度 */
         width?: number | string;
+        /** 抽屉尺寸 */
+        size?: number | string;
         /** 双向绑定：form 表单 */
         data?: any;
         /** 表单配置 */
@@ -73,8 +85,10 @@ const props = withDefaults(
     }>(),
     {
         modelValue: false,
+        elType: 'el-dialog',
         title: '新增',
         width: '40%',
+        size: '40%',
         data: () => ({}),
         schemas: () => [],
         elFormProps: () => ({ labelWidth: '120px' }),
@@ -105,6 +119,17 @@ const emits = defineEmits<{
 // function customSlotName(schema: XFormItemSchema): string {
 //     return schema.components === 'custom' ? schema.slotName : '';
 // }
+
+/**
+ * 弹窗组件
+ */
+const handleElType = computed(() => {
+    if (props.elType === 'el-drawer') {
+        return ElDrawer;
+    } else {
+        return ElDialog;
+    }
+});
 
 /**
  * 是否展示弹窗
@@ -195,3 +220,11 @@ defineExpose({
     resetFields,
 });
 </script>
+
+<style lang="scss" scoped>
+.actions {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+</style>
