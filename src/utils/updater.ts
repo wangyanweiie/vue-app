@@ -5,6 +5,9 @@ interface Options {
     timer?: number;
 }
 
+/**
+ * 更新器
+ */
 export default class Updater {
     oldScript: string[]; // 存储第一次值也就是 script 的 hash 信息
     newScript: string[]; // 获取新的值 也就是新的 script 的 hash 信息
@@ -48,8 +51,8 @@ export default class Updater {
 
     /**
      * 新旧 stript 对比
-     * @param oldArr
-     * @param newArr
+     * @param oldArr 旧的
+     * @param newArr 新的
      */
     handleCompare(oldArr: string[], newArr: string[]) {
         const lastLength = oldArr.length;
@@ -80,9 +83,9 @@ export default class Updater {
 
     /**
      * 发布订阅通知
-     * @param key
-     * @param fn
-     * @returns
+     * @param key 'no-update' | 'update'
+     * @param fn 回调
+     * @returns this
      */
     on(key: 'no-update' | 'update', fn: any) {
         (this.dispatch[key] || (this.dispatch[key] = [])).push(fn);

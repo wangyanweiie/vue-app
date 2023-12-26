@@ -4,7 +4,8 @@ import to from '@/utils/await-to';
 
 /**
  * 确认删除弹出提示
- * @returns 是否删除
+ * @param message 提示信息
+ * @returns { Promise<boolean> }
  */
 export async function confirmDeleteMessage(message?: string): Promise<boolean> {
     const [err] = await to(
@@ -24,7 +25,8 @@ export async function confirmDeleteMessage(message?: string): Promise<boolean> {
 
 /**
  * 确认重置弹出提示
- * @returns 是否重置
+ * @param message 提示信息
+ * @returns { Promise<boolean> }
  */
 export async function confirmResetMessage(message?: string): Promise<boolean> {
     const [err] = await to(
@@ -44,7 +46,8 @@ export async function confirmResetMessage(message?: string): Promise<boolean> {
 
 /**
  * 确认退出弹出提示
- * @returns 是否退出
+ * @param message 提示信息
+ * @returns { Promise<boolean> }
  */
 export async function confirmExitMessage(message?: string): Promise<boolean> {
     const [err] = await to(
@@ -68,7 +71,7 @@ export async function confirmExitMessage(message?: string): Promise<boolean> {
  * @param confirmButtonText: 确定按钮文本
  * @param cancelButtonText: 取消按钮文本
  * @param type: 消息提醒类型
- * @returns { boolean }
+ * @returns { Promise<boolean> }
  */
 export async function confirmMessage(options: {
     message?: string;

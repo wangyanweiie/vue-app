@@ -30,16 +30,16 @@ export default function useIndex(props: XTableV2Prop) {
      * 选中的行数据
      */
     const selectedRows = computed(() => {
-        return tableData.value?.filter((row: Record<string, any>) => row.checked);
+        return tableData.value.filter((row: Record<string, any>) => row.checked);
     });
 
     /**
      * 选中的行数据数量
      */
-    const selectedCount = computed<number>(() => selectedRows.value.length ?? 0);
+    const selectedCount = computed<number>(() => selectedRows.value.length);
 
     /**
-     * @description 初始化表格数据
+     * 初始化表格数据
      * @param query 查询条件
      */
     async function loadData(query: Record<string, string | number> = {}): Promise<void> {
@@ -47,15 +47,15 @@ export default function useIndex(props: XTableV2Prop) {
         searchData.value = query;
 
         // 更新每页渲染数量
-        pagination.value.pageSize = props.paginationProp?.pageSize ?? 10;
+        pagination.value.pageSize = props.paginationProp?.pageSize || 10;
 
         // 1.动态赋值，分页接口
         if (props.api && props.dividePage) {
             const params = {
                 ...props.apiParams,
                 ...query,
-                [props.apiKeyMap?.queryCurrentPageKey ?? 'page']: pagination.value.currentPage,
-                [props.apiKeyMap?.queryPageSizeKey ?? 'limit']: pagination.value.pageSize,
+                [props.apiKeyMap?.queryCurrentPageKey || 'page']: pagination.value.currentPage,
+                [props.apiKeyMap?.queryPageSizeKey || 'limit']: pagination.value.pageSize,
             };
 
             const res = await props.api(params);
@@ -64,10 +64,10 @@ export default function useIndex(props: XTableV2Prop) {
                 return;
             }
 
-            tableData.value = res.data[props.apiKeyMap?.returnRecordKey ?? 'records'] ?? [];
-            pagination.value.currentPage = res.data[props.apiKeyMap?.returnCurrentPageKey ?? 'current'];
-            pagination.value.pageSize = res.data[props.apiKeyMap?.returnCurrentSizeKey ?? 'limit'];
-            pagination.value.total = res.data[props.apiKeyMap?.returnTotalKey ?? 'total'];
+            tableData.value = res.data[props.apiKeyMap?.returnRecordKey || 'records'] || [];
+            pagination.value.currentPage = res.data[props.apiKeyMap?.returnCurrentPageKey || 'current'];
+            pagination.value.pageSize = res.data[props.apiKeyMap?.returnCurrentSizeKey || 'limit'];
+            pagination.value.total = res.data[props.apiKeyMap?.returnTotalKey || 'total'];
         }
 
         // 2.动态赋值，非分页接口，不渲染分页
@@ -85,7 +85,7 @@ export default function useIndex(props: XTableV2Prop) {
                 return;
             }
 
-            tableData.value = res.data ?? [];
+            tableData.value = res.data || [];
         }
 
         // 3.静态赋值，假分页
@@ -152,6 +152,9 @@ export default function useIndex(props: XTableV2Prop) {
 
     /**
      * 渲染复选框
+     * @param param.value 选中状态
+     * @param param.intermediate 半选状态
+     * @param param.onChange 改变事件
      */
     function SelectionCell({ value, intermediate = false, onChange }: any) {
         return h(ElCheckbox, {
@@ -163,6 +166,7 @@ export default function useIndex(props: XTableV2Prop) {
 
     /**
      * 渲染表格选择列
+     * @param param.rowData 行数据
      */
     function selectCellRenderer({ rowData }: any) {
         // change 事件
@@ -209,8 +213,8 @@ export default function useIndex(props: XTableV2Prop) {
         const columns: Column<any>[] = cloneDeep(props.columns).map(item => {
             return {
                 ...item,
-                width: item.width ?? 150,
-                align: item.align ?? 'center',
+                width: item.width || 150,
+                align: item.align || 'center',
             };
         });
 
@@ -259,7 +263,7 @@ export default function useIndex(props: XTableV2Prop) {
         tableRef.value?.scrollToLeft(0);
 
         // 滚动触底回到第一条
-        if (scrollRows.value >= tableData.value?.length) {
+        if (scrollRows.value >= tableData.value.length) {
             scrollRows.value = 0;
         }
     }

@@ -100,6 +100,7 @@ export default function useAxiosInterceptors(options: Options) {
 
     /**
      * 节流处理响应错误信息
+     * @param {Options} options 配置项
      */
     const handleResponseError = throttle(
         options => {
@@ -116,6 +117,7 @@ export default function useAxiosInterceptors(options: Options) {
 
     /**
      * 节流处理错误信息
+     * @param {string} message 错误信息
      */
     const handleNetworkError = throttle(
         (message: string) => {
@@ -138,15 +140,23 @@ export default function useAxiosInterceptors(options: Options) {
     service.interceptors.response.use(
         (response: AxiosResponse) => {
             const responsedata = response.data;
-            const { code, data = true, message = HTTP_ERROR_NOTICE.UNKNOWN } = response.data;
+            const {
+                code,
+                message = HTTP_ERROR_NOTICE.UNKNOWN,
+                data,
+            } = response.data as {
+                code: number;
+                message: string;
+                data: any;
+            };
 
-            // 处理接口响应状态码
+            // 是否响应成功
             const successStatus = options.successValidate
                 ? options.successValidate(responsedata)
                 : Math.floor(code / 100) === 1;
 
             if (successStatus) {
-                return Promise.resolve(data);
+                return Promise.resolve(data || true);
             } else {
                 switch (code) {
                     case options.expireCode || -997: {

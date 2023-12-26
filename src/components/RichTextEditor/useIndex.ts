@@ -74,6 +74,7 @@ export default function useIndex(props: XRichTextEditorProps, emits: any) {
 
     /**
      * 编辑器创建完毕的回调
+     * @param editor 编辑器实例
      */
     function handleCreated(editor: any) {
         editorRef.value = editor;
@@ -81,6 +82,7 @@ export default function useIndex(props: XRichTextEditorProps, emits: any) {
 
     /**
      * 编辑器内容、选区变化的回调
+     * @param editor 编辑器实例
      */
     function handleChange(editor: any) {
         emits('change', editor.children);

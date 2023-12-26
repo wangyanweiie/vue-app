@@ -3,6 +3,7 @@ import { LOCAL_BASE_URL_KEY, LOCAL_PERMISSION_KEY, LOCAL_TOKEN_KEY, LOCAL_USER_I
 
 /**
  * 保存后端地址
+ * @param url 后端地址
  */
 export function saveBaseUrl(url: string): void {
     store.local.set(LOCAL_BASE_URL_KEY, url);
@@ -10,6 +11,7 @@ export function saveBaseUrl(url: string): void {
 
 /**
  * 获取后端地址
+ * @returns 后端地址
  */
 export function getBaseUrl(): string {
     return store.local.get(LOCAL_BASE_URL_KEY) as string;
@@ -17,6 +19,7 @@ export function getBaseUrl(): string {
 
 /**
  * 保存用户 token
+ * @param token 用户 token
  */
 export function saveUserToken(token: string): void {
     store.local.set(LOCAL_TOKEN_KEY, token);
@@ -24,6 +27,7 @@ export function saveUserToken(token: string): void {
 
 /**
  * 获取用户 token
+ * @returns 用户 token
  */
 export function getUserToken(): string {
     return store.local.get(LOCAL_TOKEN_KEY) as string;
@@ -31,6 +35,7 @@ export function getUserToken(): string {
 
 /**
  * 保存用户信息
+ * @param userInfo 用户信息
  */
 export function saveUserInfo(userInfo: any): void {
     store.local.set(LOCAL_USER_INFO_KEY, userInfo);
@@ -38,6 +43,7 @@ export function saveUserInfo(userInfo: any): void {
 
 /**
  * 获取用户信息
+ * @returns 用户信息
  */
 export function getUserInfo(): any {
     return store.local.get(LOCAL_USER_INFO_KEY) as any;
@@ -45,6 +51,7 @@ export function getUserInfo(): any {
 
 /**
  * 保存权限信息
+ * @param permission 权限信息
  */
 export function savePermission(permission: string[]): void {
     store.local.set(LOCAL_PERMISSION_KEY, permission);
@@ -52,6 +59,7 @@ export function savePermission(permission: string[]): void {
 
 /**
  * 获取权限信息
+ * @returns 权限信息
  */
 export function getPermission(): string[] {
     return store.local.get(LOCAL_PERMISSION_KEY) as string[];

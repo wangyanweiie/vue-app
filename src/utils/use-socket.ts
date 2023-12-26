@@ -12,7 +12,10 @@ enum READY_STATUS {
 
 /**
  * @description use websocket
- * @param handleReceive 服务端信息的处理方法
+ * @param url 连接地址
+ * @param openCallback 连接建立时触发
+ * @param messageCallback 客户端接收服务端数据时触发
+ * @param closeCallback 连接关闭时触发
  */
 export default function useWebSocket(
     url: string,
@@ -54,6 +57,7 @@ export default function useWebSocket(
 
     /**
      * 客户端接收服务端数据时触发
+     * @param event 服务端数据
      */
     function onmessage(event: any) {
         const res = JSON.parse(event.data);

@@ -8,8 +8,8 @@ const pipe = promisify(pipeline);
 
 /**
  * 压缩
- * @param input
- * @param output
+ * @param input 输入文件
+ * @param output 输出文件
  */
 async function do_gzip(input: string, output: string) {
     const source = createReadStream(input);
@@ -20,8 +20,8 @@ async function do_gzip(input: string, output: string) {
 
 /**
  * 解压
- * @param input
- * @param output
+ * @param input 输入文件
+ * @param output 输出文件
  */
 async function do_unzip(input: string, output: string) {
     const source = createReadStream(input);
@@ -32,9 +32,9 @@ async function do_unzip(input: string, output: string) {
 
 /**
  * 把目录归档成一个 .tar 文件
- * @param source
- * @param target
- * @param success
+ * @param source 输入目录
+ * @param target 输出文件
+ * @param success 回调
  */
 function tar(source: string, target: string, success: any) {
     // 创建一个文件以将存档数据流式传输到其中
@@ -79,7 +79,7 @@ function tar(source: string, target: string, success: any) {
 
 /**
  * 压缩打包目录
- * @param source
+ * @param source 输入目录
  */
 export function compress(source: string) {
     // 压缩文件

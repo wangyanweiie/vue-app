@@ -23,7 +23,7 @@ export function handleFormatAxis(param: Date): string {
 /**
  * 校验是否为数字格式（正数/负数/整数/小数）
  * @param value 字符串
- * @return { number | null }
+ * @return { number | null } 返回数字，否则返回 null
  */
 export function checkNumberFormat(value: string) {
     if (!value) {
@@ -45,7 +45,7 @@ export function checkNumberFormat(value: string) {
  * 强制保留小数位方法
  * @param value 要处理的数据
  * @param precision 小数位数
- * @return { string }
+ * @return { string } 处理后的字符串
  */
 export function keepDecimalPrecision(value: number | string, precision: number) {
     if (!value) {
@@ -76,7 +76,7 @@ export function keepDecimalPrecision(value: number | string, precision: number) 
  * 将 '-' 拼接字符串改为驼峰格式
  * @param str 要转换的字符串
  * @param type 要转换的驼峰格式
- * @return { string }
+ * @return { string } 转换后的字符串
  */
 export function handleToHumpFormat(str: string, type: 'min' | 'max') {
     switch (type) {
@@ -100,7 +100,7 @@ export function handleToHumpFormat(str: string, type: 'min' | 'max') {
 /**
  * 将枚举转换为 options
  * @param enumeration 枚举
- * @return { Options[] }
+ * @return { Options[] } 转换后的数组
  */
 export function transformEnumToOptions(enumeration: Record<string, string | number>): Options[] {
     // Object.entries 返回给定对象自身可枚举属性的键值对数组
@@ -119,7 +119,7 @@ export function transformEnumToOptions(enumeration: Record<string, string | numb
 
 /**
  * 生成 uuid
- * @return { string }
+ * @return { string } uuid
  */
 export function guid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

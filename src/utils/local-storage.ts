@@ -1,5 +1,7 @@
 /**
  * 字符串是否为 JSON 字符串
+ * @param params 字符串
+ * @returns 是否为 JSON 字符串
  */
 function judgeIsJSON(params?: string): boolean {
     if (!params) {
@@ -17,6 +19,7 @@ function judgeIsJSON(params?: string): boolean {
 
 /**
  * local storage 是否可用
+ * @returns 是否可用
  */
 function judgeStorageUseful(): boolean {
     if (window && window.localStorage) {
@@ -40,6 +43,7 @@ export function saveStorage(key: string, value: unknown): void {
 /**
  * 获取存储字段的值
  * @param key 存储字段
+ * @returns 存储值
  */
 export function getStorage(key: string): any {
     if (!judgeStorageUseful()) {

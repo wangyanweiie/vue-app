@@ -3,7 +3,11 @@ import { h, type VNode } from 'vue';
 import { isString } from 'lodash-es';
 
 /**
- * 表格图片渲染函数 - 单张
+ * 表格图片渲染函数（单张）
+ * @param row 行数据
+ * @param column 列配置
+ * @param cellValue 单元格值
+ * @returns 图片组件
  */
 export function tableImageFormatter(
     row: Record<string, string>,
@@ -30,7 +34,11 @@ export function tableImageFormatter(
 }
 
 /**
- * 表格图片渲染函数 - 多张
+ * 表格图片渲染函数（多张）
+ * @param row 行数据
+ * @param column 列配置
+ * @param cellValue 单元格值
+ * @returns 图片组件
  */
 export function tableImagesFormatter(
     row: Record<string, string>,
@@ -72,8 +80,12 @@ export function tableImagesFormatter(
 }
 
 /**
- * 表格图片渲染函数 - map
- * format => "{ name: 'xx', value: 'http://...'}"
+ * 表格图片渲染函数（map）
+ * @param row 行数据
+ * @param column 列配置
+ * @param cellValue 单元格值
+ * @returns 图片组件
+ * @example format => "{ name: 'xx', value: 'http://...'}"
  */
 export function tableImagesMapFormatter(
     row: Record<string, string>,
@@ -110,6 +122,10 @@ export function tableImagesMapFormatter(
 
 /**
  * 点击查看附件，显示全部上传的文件名
+ * @param row 行数据
+ * @param column 列配置
+ * @param cellValue 单元格值
+ * @returns link 组件
  */
 export function tableLinksFormatter(
     row: Record<string, string>,
