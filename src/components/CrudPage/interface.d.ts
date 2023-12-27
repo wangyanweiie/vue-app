@@ -2,33 +2,15 @@ import type { Component, Ref } from 'vue';
 import type { XTableActionButton } from '@/components/Table/interface';
 
 export type CrudAction = ('编辑' | '删除' | XTableActionButton)[];
+export type FormOperationType = '新增' | '编辑';
 export type genericActionType = '编辑' | '删除';
 export type genericOperationType = '新增' | '下载模板' | '导入' | '导出' | '批量删除';
-export type OperationButton = '新增' | '下载模板' | '导入' | '导出' | '批量删除' | ButtonOption;
-export type FormOperationType = '新增' | '编辑';
-
-/**
- * CRUD 实例
- */
-export interface CrudInstance {
-    /** 获取表格数据 */
-    getTableData: () => Record<string, any>[];
-    /** 清空表格选中 */
-    clearSelection: () => void;
-    /** 刷新表格 */
-    reload: () => void;
-    /** 获取表单数据 */
-    getFormData: () => Record<string, any>;
-    /** 设置表单数据 */
-    setFormData: (formData: Record<string, any>) => void;
-    /** 清空表单校验 */
-    clearValidate: () => void;
-}
+export type XTableOperationButton = '新增' | '下载模板' | '导入' | '导出' | '批量删除' | XTableOperationButtonOption;
 
 /**
  * 按钮选项
  */
-export interface ButtonOption {
+export interface XTableOperationButtonOption {
     /** 按钮名称 */
     label: string;
     /** 按钮状态 */
@@ -46,17 +28,48 @@ export interface ButtonOption {
 }
 
 /**
- * CRUD 配置
+ * props
  */
-export interface CrudOption {
+export interface Props {
+    /** 是否显示查询表单 */
+    showSearch?: boolean;
+    /** 查询表单 props */
+    searchFormProps?: Partial<FormProps>;
+    /** 查询表单配置 */
+    searchFormSchemas?: XFormItemSchema[];
+
+    /** 表格标题 */
+    tableTitle?: string;
     /** 表格行 key */
     rowKey?: string;
+    /** 表格配置 */
+    columns?: XTableColumn[];
+    /** 表格静态数据 */
+    data?: Record<string, any>[];
+    /** 表格是否显示索引列 */
+    showIndex?: boolean;
+    /** 表格是否可选 */
+    selectable?: boolean;
+    /** 表格是否分页 */
+    dividePage?: boolean;
+    /** 表格是否懒加载 */
+    lazy?: boolean;
+    /** 表格 props */
+    elTableProps?: Partial<TableProps<any>>;
+    /** 上传路径 */
+    uploadUrl?: string;
     /** 下载模版 URL */
     templateUrl?: string;
-    /** 表格 API 入参 */
+    /** 表格操作区按钮 */
+    operations?: XTableOperationButton[] | ((rows?: Record<string, any>[]) => XTableOperationButton[]);
+    /** 操作列配置 */
+    actions?: CrudAction | ((row?: any, index?: number) => CrudAction);
+    /** 表格查询 API */
+    api?: (data?: any) => Promise<any>;
+    /** 表格查询 API 入参 */
     params?: Record<string, string | number>;
     /** 表格 API 查询前数据预处理 */
-    preQuery?: (data: any) => any;
+    preQuery?: (params: Record<string, string | number>) => Record<string, string | number>;
     /** 导入 API */
     importApi?: (data?: any) => Promise<any>;
     /** 导出 API */
@@ -64,6 +77,10 @@ export interface CrudOption {
     /** 删除 API */
     deleteApi?: (data?: any) => Promise<any>;
 
+    /** 新增弹窗标题 */
+    createTitle?: string;
+    /** 新增表单配置 */
+    createSchemas?: XFormItemSchema[];
     /** 新增表单默认值 */
     createDefaultData?: Record<string, any>;
     /** 新增 API */
@@ -71,6 +88,10 @@ export interface CrudOption {
     /** 新增保存 API */
     createSaveApi?: (data?: any) => Promise<any>;
 
+    /** 编辑弹窗标题 */
+    editTitle?: string;
+    /** 编辑表单配置 */
+    editSchemas?: XFormItemSchema[];
     /** 编辑表单默认值 */
     editDefaultData?: Record<string, any>;
     /** 编辑 API */
@@ -78,76 +99,83 @@ export interface CrudOption {
     /** 编辑保存 API */
     editSaveApi?: (data?: any) => Promise<any>;
 
+    /** 弹窗类型 */
+    formType?: 'el-dialog' | 'el-drawer';
+    /** 表单 props */
+    elFormProps?: Partial<FormProps>;
+    /** 是否显示确认按钮 */
+    showConfirm?: boolean;
     /** 表单校验 */
     validate?: () => Promise<boolean>;
     /** 新增/编辑前参数处理 */
-    formatFormData?: (data: Record<string, any>, isSave?: boolean) => Record<string, any>;
+    formatFormData?: (form: Record<string, any>, isSave?: boolean) => Record<string, any>;
     /** 新增/编辑提交后处理 */
-    afterSubmit?: (data: Record<string, any>, operationType: FormOperationType) => Record<string, any>;
+    afterSubmit?: (form: Record<string, any>, operationType: FormOperationType) => any;
 
+    /** 权限 */
+    permission?: Record<string, string[]>;
     /** 弹窗打开后处理 */
-    afterOpen?: (data?: Record<string, any>) => Record<string, any>;
+    afterOpen?: (data?: any) => any;
     /** 重置 */
     reset?: () => void;
 }
 
 /**
- * CRUD 返回值
+ * useIndex 返回值
  */
-export interface CrudReturn<T = any> {
+export interface UseIndexReturn {
     /** 查询表单 ref */
-    searchFormRef: Ref<XFormInstance | undefined>;
+    searchFormRef: XFormInstance | undefined;
     /** 查询表单数据 */
     searchData: any;
     /** 查询表单加载状态 */
-    searchLoading: Ref<boolean>;
+    searchLoading: boolean;
     /** 查询 */
     handleSearch: () => Promise<void>;
     /** 重置 */
     handleReset: () => void;
 
     /** 表格 ref */
-    tableRef: Ref<XTableInstance | undefined>;
+    tableRef: XTableInstance | undefined;
+    /** 上传按钮样式 */
+    uploadClass: (isUpload: boolean) => 'upload-button' | '';
+    /** 操作区域按钮配置 */
+    operationConfig: (rows: Record<string, any>[]) => XTableOperationButtonOption[];
+    /** 操作列按钮配置 */
+    actionConfig: (row: Record<string, any>, index: number) => XTableActionButton[];
+    /** 获取权限 */
+    getPermission: (label: string) => string[] | undefined;
+    /** 获取表格数据 */
+    getTableData: () => Record<string, any>[];
+    /** 清空表格选中 */
+    clearSelection: () => void;
+    /** 刷新表格 */
+    reload: () => void;
+
     /** 文件列表 */
-    fileList: Ref<any[]>;
-    /** 导入加载状态 */
-    importLoading: Ref<boolean>;
-    /** 导出加载状态 */
-    exportLoading: Ref<boolean>;
-    /** 下载模版 */
-    handleDownloadTemplate: () => Promise<void>;
+    fileList: any[];
     /** 上传 */
     handleUpload: (file?: any) => Promise<void>;
-    /** 导出 */
-    handleExport: (rows: Record<string, any>[]) => Promise<void>;
-    /** 删除 */
-    handleDelete: (ids: string[]) => Promise<void>;
-    /** 批量删除 */
-    handleMultiDelete: (rows: Record<string, any>[], key?: string) => void;
 
     /** 新增表单 ref */
     createRef: any;
     /** 新增弹窗是否展示 */
-    createVisible: Ref<boolean>;
+    createVisible: boolean;
     /** 新增表单数据 */
-    createData: Ref<Record<string, any>>;
+    createData: Record<string, any>;
     /** 新增表单加载状态 */
-    createLoading: Ref<boolean>;
-    /** 打开新增 */
-    openCreate: () => Promise<void>;
+    createLoading: boolean;
     /** 新增 */
     handleCreate: () => Promise<void>;
 
     /** 编辑表单 ref */
-    editRef: Ref<XFormInstance | undefined>;
+    editRef: XFormInstance | undefined;
     /** 编辑弹窗是否展示 */
-    editVisible: Ref<boolean>;
+    editVisible: boolean;
     /** 编辑表单数据 */
-    editData: Ref<Record<string, any>>;
+    editData: Record<string, any>;
     /** 编辑表单加载状态 */
-    editLoading: Ref<boolean>;
-    /** 打开编辑 */
-    openEdit: (row?: Record<string, any>) => Promise<void>;
+    editLoading: boolean;
     /** 编辑 */
     handleEdit: () => Promise<void>;
     /** 保存 */
@@ -157,4 +185,24 @@ export interface CrudReturn<T = any> {
     setFormData: (formData: Record<string, any>) => void;
     /** 获取表单数据 */
     getFormData: () => Record<string, any>;
+    /** 设置表单数据 */
+    clearValidate: () => Promise<void>;
+}
+
+/**
+ * CRUD 实例
+ */
+export interface CrudInstance {
+    /** 获取表格数据 */
+    getTableData: () => Record<string, any>[];
+    /** 清空表格选中 */
+    clearSelection: () => void;
+    /** 刷新表格 */
+    reload: () => void;
+    /** 获取表单数据 */
+    getFormData: () => Record<string, any>;
+    /** 设置表单数据 */
+    setFormData: (formData: Record<string, any>) => void;
+    /** 清空表单校验 */
+    clearValidate: () => void;
 }

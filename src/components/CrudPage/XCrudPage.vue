@@ -25,34 +25,34 @@
             :el-table-props="elTableProps"
             :api="api"
             :default-params="params"
-            :actions="actionConf"
+            :actions="actionConfig"
         >
             <template #operation="{ checkedRows }">
-                <template v-for="(btn, index) in operationConf(checkedRows)" :key="index">
+                <template v-for="(button, index) in operationConfig(checkedRows)" :key="index">
                     <component
-                        :is="btn.isUpload ? 'el-upload' : 'el-button'"
-                        v-permission="getPermission(btn.label)"
-                        :type="btn.type"
-                        :icon="btn.icon"
-                        :loading="btn.loading"
-                        :disabled="btn.disabled"
+                        :is="button.isUpload ? 'el-upload' : 'el-button'"
+                        v-permission="getPermission(button.label)"
+                        :type="button.type"
+                        :icon="button.icon"
+                        :loading="button.loading"
+                        :disabled="button.disabled"
                         :action="uploadUrl"
                         :file-list="fileList"
                         :show-file-list="false"
-                        :class="uploadClass(!!btn.isUpload)"
+                        :class="uploadClass(!!button.isUpload)"
                         @change="handleUpload"
-                        @click="btn.onClick.call(undefined, checkedRows)"
+                        @click="button.onClick.call(undefined, checkedRows)"
                     >
                         <el-button
-                            v-if="btn.isUpload"
-                            :type="btn.type"
-                            :icon="btn.icon"
-                            :disabled="btn.disabled || btn.loading"
-                            @click="btn.onClick"
+                            v-if="button.isUpload"
+                            :type="button.type"
+                            :icon="button.icon"
+                            :disabled="button.disabled || button.loading"
+                            @click="button.onClick"
                         >
-                            {{ btn.label }}
+                            {{ button.label }}
                         </el-button>
-                        {{ btn.isUpload ? undefined : btn.label }}
+                        {{ button.isUpload ? undefined : button.label }}
                     </component>
                 </template>
             </template>
@@ -71,6 +71,7 @@
             :show-confirm="showConfirm"
             @submit="handleCreate"
         >
+            <!-- 表单附加区域插槽 -->
             <template #form-append>
                 <slot name="create-append" :form="createData"></slot>
             </template>
@@ -100,7 +101,6 @@
                 <slot name="edit-append" :form="editData"></slot>
             </template>
 
-            <!-- 操作区域插槽 -->
             <template #action>
                 <el-button v-if="editSaveApi" :loading="editLoading" type="primary" @click="handleSave">
                     保存
@@ -108,6 +108,7 @@
             </template>
         </x-dialog-form>
 
+        <!-- 插槽，用于新增/编辑时触发其他联动操作，比如再打开一个弹窗进行选择所需信息 -->
         <slot name="create" :form="createData"></slot>
         <slot name="edit" :form="editData"></slot>
     </div>
@@ -115,20 +116,11 @@
 
 <script lang="ts" setup>
 import type { FormProps, TableProps } from 'element-plus';
-import { Delete, Download, Plus, Upload } from '@element-plus/icons-vue';
-import type { XTableActionButton, XTableColumn } from '@/components/Table/interface';
+import type { XTableColumn } from '@/components/Table/interface';
 import type { XFormItemSchema } from '@/components/Form/interface';
 import { UPLOAD_URL } from '@/constant/global';
-import { useCrud, genericAction, genericOperationAction } from './useIndex';
-import type {
-    genericOperationType,
-    genericActionType,
-    CrudAction,
-    CrudInstance,
-    OperationButton,
-    ButtonOption,
-    FormOperationType,
-} from './interface';
+import type { CrudAction, CrudInstance, FormOperationType, XTableOperationButton } from './interface';
+import useIndex from './useIndex';
 
 /**
  * props
@@ -165,15 +157,15 @@ const props = withDefaults(
         /** 下载模版 URL */
         templateUrl?: string;
         /** 表格操作区按钮 */
-        operations?: OperationButton[] | ((rows?: Record<string, any>[]) => OperationButton[]);
+        operations?: XTableOperationButton[] | ((rows?: Record<string, any>[]) => XTableOperationButton[]);
         /** 操作列配置 */
-        actions?: CrudAction | ((data?: any, index?: number) => CrudAction);
+        actions?: CrudAction | ((row?: any, index?: number) => CrudAction);
         /** 表格查询 API */
         api?: (data?: any) => Promise<any>;
         /** 表格查询 API 入参 */
         params?: Record<string, string | number>;
         /** 表格 API 查询前数据预处理 */
-        preQuery?: (data: Record<string, string | number>) => Record<string, string | number>;
+        preQuery?: (params: Record<string, string | number>) => Record<string, string | number>;
         /** 导入 API */
         importApi?: (data?: any) => Promise<any>;
         /** 导出 API */
@@ -212,9 +204,9 @@ const props = withDefaults(
         /** 表单校验 */
         validate?: () => Promise<boolean>;
         /** 新增/编辑前参数处理 */
-        formatFormData?: (data: any, isSave?: boolean) => any;
+        formatFormData?: (form: Record<string, any>, isSave?: boolean) => Record<string, any>;
         /** 新增/编辑提交后处理 */
-        afterSubmit?: (data: any, operationType: FormOperationType) => any;
+        afterSubmit?: (form: Record<string, any>, operationType: FormOperationType) => any;
 
         /** 权限 */
         permission?: Record<string, string[]>;
@@ -241,7 +233,7 @@ const props = withDefaults(
         elTableProps: () => ({}),
         uploadUrl: UPLOAD_URL,
         templateUrl: '',
-        operations: () => ['新增', '下载模板', '导入', '导出', '批量删除'] as OperationButton[],
+        operations: () => ['新增', '下载模板', '导入', '导出', '批量删除'] as XTableOperationButton[],
         actions: () => ['编辑', '删除'] as CrudAction,
         api: undefined,
         params: () => ({}),
@@ -288,165 +280,8 @@ defineSlots<{
 }>();
 
 /**
- * 上传按钮样式
- * @param isUpload 是否上传按钮
- * @returns 样式
+ * useIndex
  */
-function uploadClass(isUpload: boolean): 'upload-btn' | '' {
-    if (isUpload) {
-        return 'upload-btn';
-    }
-
-    return '';
-}
-
-/**
- * @description 操作按钮配置
- *  @param rows 表格行数据
- *  @returns 表格操作按钮配置
- */
-function operationConf(rows: Record<string, any>[]): ButtonOption[] {
-    let buttons = [];
-
-    if (!props.operations) {
-        return [];
-    }
-
-    if (typeof props.operations === 'function') {
-        buttons = props.operations(rows);
-    } else {
-        buttons = props.operations;
-    }
-
-    return buttons.map(item => getOperationConfItem(item));
-}
-
-/**
- * @description 获取操作按钮配置
- * @param item 操作项配置
- * @returns 按钮配置
- */
-function getOperationConfItem(item: OperationButton | genericOperationType): ButtonOption {
-    const obj: { [key in genericOperationType]: ButtonOption } = {
-        新增: {
-            label: '新增',
-            icon: Plus,
-            type: 'primary',
-            isUpload: false,
-            onClick: openCreate,
-        },
-        下载模板: {
-            label: '下载模板',
-            onClick: handleDownloadTemplate,
-            icon: Download,
-            type: '',
-        },
-        导入: {
-            label: '导入',
-            onClick: handleUpload,
-            icon: Upload,
-            type: '',
-            isUpload: true,
-            loading: importLoading.value,
-        },
-        导出: {
-            label: '导出',
-            onClick: handleExport,
-            icon: Download,
-            type: '',
-            loading: exportLoading.value,
-        },
-        批量删除: {
-            label: '批量删除',
-            onClick: handleMultiDelete,
-            icon: Delete,
-            type: 'danger',
-        },
-    };
-
-    if (typeof item === 'string') {
-        return obj[item];
-    }
-
-    if (genericOperationAction.includes(item.label)) {
-        return {
-            ...obj[item.label as genericOperationType],
-            ...item,
-        };
-    }
-
-    return item;
-}
-
-/**
- * @description 行操作按钮配置
- * @param row 表格行数据
- * @returns 表格操作按钮配置
- */
-function actionConf(row: Record<string, any>, index: number): XTableActionButton[] {
-    let buttons = [];
-
-    if (!props.actions) {
-        return [];
-    }
-
-    if (typeof props.actions === 'function') {
-        buttons = props.actions(row, index);
-    } else {
-        buttons = props.actions;
-    }
-
-    return buttons.map(item => getActionConfItem(row, item)) ?? [];
-}
-
-/**
- * @description 获取行操作按钮配置
- * @param row 行数据
- * @param item 操作项配置
- * @returns 按钮配置
- */
-function getActionConfItem(row: any, item: XTableActionButton | genericActionType): XTableActionButton {
-    const obj: { [key in genericActionType | string]: XTableActionButton } = {
-        编辑: {
-            label: '编辑',
-            onClick: (item as XTableActionButton).onClick
-                ? (item as XTableActionButton).onClick
-                : openEdit.bind(null, row),
-        },
-        删除: {
-            label: '删除',
-            type: 'danger',
-            onClick: handleDelete.bind(null, [row.id ?? '']),
-        },
-    };
-
-    if (typeof item === 'string') {
-        return obj[item];
-    }
-
-    if (genericAction.includes(item.label)) {
-        return {
-            ...obj[item.label],
-            ...item,
-        };
-    }
-
-    return item;
-}
-
-/**
- * @description 获取权限
- * @param label 权限名称
- * @returns 权限
- */
-function getPermission(label: string): string[] | undefined {
-    if (!props.permission) {
-        return undefined;
-    }
-
-    return props.permission[label];
-}
-
 const {
     searchFormRef,
     searchData,
@@ -454,106 +289,43 @@ const {
     handleSearch,
     handleReset,
 
-    fileList,
     tableRef,
-    importLoading,
-    exportLoading,
-    handleDownloadTemplate,
+    uploadClass,
+    operationConfig,
+    actionConfig,
+    getPermission,
+    getTableData,
+    clearSelection,
+    reload,
+
+    fileList,
     handleUpload,
-    handleExport,
-    handleDelete,
-    handleMultiDelete,
 
     createRef,
     createVisible,
     createData,
     createLoading,
-    openCreate,
     handleCreate,
 
     editRef,
     editVisible,
     editData,
     editLoading,
-    openEdit,
     handleEdit,
     handleSave,
 
     setFormData,
     getFormData,
-} = useCrud({
-    rowKey: props.rowKey,
-    templateUrl: props.templateUrl,
-    params: props.params,
-    preQuery: props.preQuery,
-    importApi: props.importApi,
-    exportApi: props.exportApi,
-    deleteApi: props.deleteApi,
-
-    createDefaultData: props.createDefaultData,
-    createApi: props.createApi,
-    createSaveApi: props.createSaveApi,
-
-    editDefaultData: props.editDefaultData,
-    editApi: props.editApi,
-    editSaveApi: props.editSaveApi,
-
-    validate: props.validate,
-    formatFormData: props.formatFormData,
-    afterSubmit: props.afterSubmit,
-
-    afterOpen: props.afterOpen,
-    reset: props.reset,
-});
+    clearValidate,
+} = useIndex(props);
 
 /**
- * 重新加载
- */
-function reload(): void {
-    tableRef.value?.loadData(searchData.value);
-}
-
-/**
- * 清除选中
- */
-function clearSelection(): void {
-    tableRef.value?.clearSelection();
-}
-
-/**
- * 获取表格数据
- */
-function getTableData(): any[] {
-    return tableRef.value?.getTableData();
-}
-
-/**
- * 校验
- */
-async function clearValidate() {
-    if (props.createApi) {
-        const valid = await createRef.value?.validate();
-
-        if (!valid) {
-            return;
-        }
-    } else if (props.editApi) {
-        const valid = await editRef.value?.validate();
-
-        if (!valid) {
-            return;
-        }
-    }
-}
-
-/**
- * 实例方法
+ * 暴露的实例方法
  */
 defineExpose<CrudInstance>({
     getTableData,
     clearSelection,
     reload,
-
     getFormData,
     setFormData,
     clearValidate,
@@ -561,7 +333,7 @@ defineExpose<CrudInstance>({
 </script>
 
 <style lang="scss" scoped>
-.upload-btn {
+.upload-button {
     margin-left: 12px;
     margin-right: 12px;
 }

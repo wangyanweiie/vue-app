@@ -1,25 +1,31 @@
 import { ElMessage } from 'element-plus';
+import { Plus, Delete, Download, Upload } from '@element-plus/icons-vue';
 import { OPERATION_NOTICE } from '@/constant/base';
 import { confirmDeleteMessage } from '@/utils/confirm-message';
 import { downloadFileFromURL } from '@/utils/common-methods';
-import type { XTableInstance } from '@/components/Table/interface';
+import type { XTableActionButton, XTableInstance } from '@/components/Table/interface';
 import type { XFormInstance } from '@/components/Form/interface';
-import type { CrudOption, CrudReturn } from './interface';
+import type {
+    Props,
+    UseIndexReturn,
+    genericOperationType,
+    genericActionType,
+    XTableOperationButton,
+    XTableOperationButtonOption,
+} from './interface';
 
 export const genericAction = ['编辑', '删除'];
 export const genericOperationAction = ['新增', '下载模板', '导入', '导出', '批量删除'];
 
 /**
- * @description 通用 crud
- * @param options crud 配置
- * @returns crud 返回值
+ * @description useIdex
+ * @param props props
+ * @returns 返回值
  */
-export function useCrud(options?: CrudOption): CrudReturn {
+export default function useIndex(props: Props): UseIndexReturn {
     /**
      ********************** 查询 **********************
      */
-    // 表格实例
-    const tableRef = ref<XTableInstance>();
     // 表单实例
     const searchFormRef = ref<XFormInstance>();
     // loading
@@ -37,8 +43,8 @@ export function useCrud(options?: CrudOption): CrudReturn {
         };
 
         // 预查询，如果需要对查询数据额外处理的可以使用这个钩子，返回值就是查询条件
-        if (options?.preQuery) {
-            const res = options.preQuery(searchData.value!);
+        if (props?.preQuery) {
+            const res = props.preQuery(searchData.value!);
 
             if (!res) {
                 return;
@@ -61,9 +67,200 @@ export function useCrud(options?: CrudOption): CrudReturn {
         searchFormRef.value?.resetFields();
         tableRef.value?.loadData();
 
-        if (options?.reset) {
-            options.reset();
+        if (props?.reset) {
+            props.reset();
         }
+    }
+
+    /**
+     ********************** 表格 **********************
+     */
+    // 表格实例
+    const tableRef = ref<XTableInstance>();
+
+    /**
+     * 上传按钮样式
+     * @param isUpload 是否上传按钮
+     * @returns 样式
+     */
+    function uploadClass(isUpload: boolean): 'upload-button' | '' {
+        if (isUpload) {
+            return 'upload-button';
+        }
+
+        return '';
+    }
+
+    /**
+     * @description 操作区域按钮配置
+     *  @param rows 表格行数据
+     *  @returns 表格操作按钮配置
+     */
+    function operationConfig(rows: Record<string, any>[]): XTableOperationButtonOption[] {
+        let buttons = [];
+
+        if (!props.operations) {
+            return [];
+        }
+
+        if (typeof props.operations === 'function') {
+            buttons = props.operations(rows);
+        } else {
+            buttons = props.operations;
+        }
+
+        return buttons.map(item => getOperationConfigItem(item));
+    }
+
+    /**
+     * @description 获取操作区域按钮配置
+     * @param item 操作项配置
+     * @returns 按钮配置
+     */
+    function getOperationConfigItem(item: XTableOperationButton | genericOperationType): XTableOperationButtonOption {
+        const obj: { [key in genericOperationType]: XTableOperationButtonOption } = {
+            新增: {
+                label: '新增',
+                icon: Plus,
+                type: 'primary',
+                isUpload: false,
+                onClick: openCreate,
+            },
+            下载模板: {
+                label: '下载模板',
+                onClick: handleDownloadTemplate,
+                icon: Download,
+                type: '',
+            },
+            导入: {
+                label: '导入',
+                onClick: handleUpload,
+                icon: Upload,
+                type: '',
+                isUpload: true,
+                loading: importLoading.value,
+            },
+            导出: {
+                label: '导出',
+                onClick: handleExport,
+                icon: Download,
+                type: '',
+                loading: exportLoading.value,
+            },
+            批量删除: {
+                label: '批量删除',
+                onClick: handleMultiDelete,
+                icon: Delete,
+                type: 'danger',
+            },
+        };
+
+        // 若子项为字符串类型，直接从 obj 中取
+        if (typeof item === 'string') {
+            return obj[item];
+        }
+
+        // 若子项为对象类型，且 label 存在于 obj 中，则进行合并
+        if (genericOperationAction.includes(item.label)) {
+            return {
+                ...obj[item.label as genericOperationType],
+                ...item,
+            };
+        }
+
+        return item;
+    }
+
+    /**
+     * @description 操作列按钮配置
+     * @param row 表格行数据
+     * @returns 表格操作按钮配置
+     */
+    function actionConfig(row: Record<string, any>, index: number): XTableActionButton[] {
+        let buttons = [];
+
+        if (!props.actions) {
+            return [];
+        }
+
+        if (typeof props.actions === 'function') {
+            buttons = props.actions(row, index);
+        } else {
+            buttons = props.actions;
+        }
+
+        return buttons.map(item => getActionConfigItem(row, item)) ?? [];
+    }
+
+    /**
+     * @description 获取操作列按钮配置
+     * @param row 行数据
+     * @param item 操作项配置
+     * @returns 按钮配置
+     */
+    function getActionConfigItem(row: any, item: XTableActionButton | genericActionType): XTableActionButton {
+        const obj: { [key in genericActionType | string]: XTableActionButton } = {
+            编辑: {
+                label: '编辑',
+                onClick: (item as XTableActionButton).onClick
+                    ? (item as XTableActionButton).onClick
+                    : openEdit.bind(null, row),
+            },
+            删除: {
+                label: '删除',
+                type: 'danger',
+                onClick: handleDelete.bind(null, [row.id ?? '']),
+            },
+        };
+
+        // 若子项为字符串类型，直接从 obj 中取
+        if (typeof item === 'string') {
+            return obj[item];
+        }
+
+        // 若子项为对象类型，且 label 存在于 obj 中，则进行合并
+        if (genericAction.includes(item.label)) {
+            return {
+                ...obj[item.label],
+                ...item,
+            };
+        }
+
+        return item;
+    }
+
+    /**
+     * @description 获取权限
+     * @param label 权限名称
+     * @returns 权限
+     */
+    function getPermission(label: string): string[] | undefined {
+        if (!props.permission) {
+            return undefined;
+        }
+
+        return props.permission[label];
+    }
+
+    /**
+     * 获取表格数据
+     */
+    function getTableData(): any[] {
+        return tableRef.value!.getTableData();
+    }
+
+    /**
+     * 清除选中
+     */
+    function clearSelection(): void {
+        tableRef.value?.clearSelection();
+    }
+
+    /**
+     * 重新加载
+     */
+    function reload(): void {
+        tableRef.value?.loadData(searchData.value);
     }
 
     /**
@@ -84,16 +281,16 @@ export function useCrud(options?: CrudOption): CrudReturn {
      */
     async function openCreate(): Promise<void> {
         createData.value = {
-            ...options?.createDefaultData,
+            ...props?.createDefaultData,
         };
 
         await nextTick(async (): Promise<void> => {
-            if (!options?.afterOpen) {
+            if (!props?.afterOpen) {
                 return;
             }
 
             // 获取处理后数据
-            const res = await options.afterOpen(createData.value);
+            const res = await props.afterOpen(createData.value);
 
             if (!res) {
                 return;
@@ -112,11 +309,11 @@ export function useCrud(options?: CrudOption): CrudReturn {
      * @returns 处理后的数据
      */
     function beforeHandle(data: Record<string, any>, isSave?: boolean): Record<string, any> {
-        if (!options?.formatFormData) {
+        if (!props?.formatFormData) {
             return data;
         }
 
-        return options.formatFormData(data, isSave);
+        return props.formatFormData(data, isSave);
     }
 
     /**
@@ -124,7 +321,7 @@ export function useCrud(options?: CrudOption): CrudReturn {
      * @returns {Promise<void>}
      */
     async function handleCreate(): Promise<void> {
-        if (!options?.createApi) {
+        if (!props?.createApi) {
             throw new Error(`未配置 'create-api'`);
         }
 
@@ -135,8 +332,8 @@ export function useCrud(options?: CrudOption): CrudReturn {
         }
 
         // 自定义校验
-        if (options.validate) {
-            const customValid = await options.validate();
+        if (props.validate) {
+            const customValid = await props.validate();
 
             if (!customValid) {
                 return;
@@ -145,7 +342,7 @@ export function useCrud(options?: CrudOption): CrudReturn {
 
         createLoading.value = true;
         const data = beforeHandle(createData.value, false);
-        const res = await options.createApi(data);
+        const res = await props.createApi(data);
 
         if (!res) {
             createLoading.value = false;
@@ -158,7 +355,7 @@ export function useCrud(options?: CrudOption): CrudReturn {
         ElMessage.success(OPERATION_NOTICE.CREATE_SUCCESS);
         tableRef.value?.loadData(searchData.value);
 
-        options.afterSubmit?.(data, '新增');
+        props.afterSubmit?.(data, '新增');
     }
 
     /**
@@ -180,17 +377,17 @@ export function useCrud(options?: CrudOption): CrudReturn {
      */
     async function openEdit(row: Record<string, any> = {}): Promise<void> {
         editData.value = {
-            ...options?.editDefaultData,
+            ...props?.editDefaultData,
             ...row,
         };
 
         await nextTick(async (): Promise<void> => {
-            if (!options?.afterOpen) {
+            if (!props?.afterOpen) {
                 return;
             }
 
             // 获取处理后数据
-            const res = await options.afterOpen(editData.value);
+            const res = await props.afterOpen(editData.value);
 
             if (!res) {
                 return;
@@ -207,7 +404,7 @@ export function useCrud(options?: CrudOption): CrudReturn {
      * @returns {Promise<void>}
      */
     async function handleEdit(): Promise<void> {
-        if (!options?.editApi) {
+        if (!props?.editApi) {
             throw new Error(`未配置 'edit-api'`);
         }
 
@@ -218,8 +415,8 @@ export function useCrud(options?: CrudOption): CrudReturn {
         }
 
         // 自定义校验
-        if (options.validate) {
-            const customValid = await options.validate();
+        if (props.validate) {
+            const customValid = await props.validate();
 
             if (!customValid) {
                 return;
@@ -228,7 +425,7 @@ export function useCrud(options?: CrudOption): CrudReturn {
 
         editLoading.value = true;
         const data = beforeHandle(editData.value, false);
-        const res = await options.editApi(data);
+        const res = await props.editApi(data);
 
         if (!res) {
             editLoading.value = false;
@@ -241,7 +438,7 @@ export function useCrud(options?: CrudOption): CrudReturn {
         ElMessage.success(OPERATION_NOTICE.EDIT_SUCCESS);
         tableRef.value?.loadData(searchData.value);
 
-        options.afterSubmit?.(data, '编辑');
+        props.afterSubmit?.(data, '编辑');
     }
 
     /**
@@ -255,7 +452,7 @@ export function useCrud(options?: CrudOption): CrudReturn {
      * @returns {Promise<void>}
      */
     async function handleSave(): Promise<void> {
-        if (!options?.createSaveApi || !options?.editSaveApi) {
+        if (!props?.createSaveApi || !props?.editSaveApi) {
             throw new Error(`未配置保存接口`);
         }
 
@@ -267,7 +464,7 @@ export function useCrud(options?: CrudOption): CrudReturn {
 
         const params = isCreate.value ? createData.value : editData.value;
         const data = beforeHandle(params, true);
-        const res = isCreate.value ? await options.createSaveApi(data) : await options.editSaveApi(data);
+        const res = isCreate.value ? await props.createSaveApi(data) : await props.editSaveApi(data);
 
         if (!res) {
             if (isCreate.value) {
@@ -301,7 +498,7 @@ export function useCrud(options?: CrudOption): CrudReturn {
      * @returns {Promise<void>}
      */
     async function handleDelete(ids: string[]): Promise<void> {
-        if (!options?.deleteApi) {
+        if (!props?.deleteApi) {
             throw new Error(`未配置 'delete-api'`);
         }
 
@@ -311,7 +508,7 @@ export function useCrud(options?: CrudOption): CrudReturn {
             return;
         }
 
-        const res = await options.deleteApi({ ids });
+        const res = await props.deleteApi({ ids });
 
         if (!res) {
             ElMessage.error(OPERATION_NOTICE.DELETE_ERROR);
@@ -353,11 +550,11 @@ export function useCrud(options?: CrudOption): CrudReturn {
      * @returns {Promise<void>}
      */
     async function handleDownloadTemplate(): Promise<void> {
-        if (!options?.templateUrl) {
+        if (!props?.templateUrl) {
             throw new Error(`未配置 'template-url'`);
         }
 
-        const res = await downloadFileFromURL(options.templateUrl);
+        const res = await downloadFileFromURL(props.templateUrl);
 
         if (!res) {
             ElMessage.error(OPERATION_NOTICE.DOWNLOAD_ERROR);
@@ -373,7 +570,7 @@ export function useCrud(options?: CrudOption): CrudReturn {
      * @returns {Promise<void>}
      */
     async function handleUpload(file: any): Promise<void> {
-        if (!options?.importApi) {
+        if (!props?.importApi) {
             throw new Error(`未配置 'import-api'`);
         }
 
@@ -382,11 +579,11 @@ export function useCrud(options?: CrudOption): CrudReturn {
             const fileInfo = {
                 fileName: file.name,
                 filePath,
-                ...options.params,
+                ...props.params,
             };
 
             importLoading.value = true;
-            const res = await options.importApi(fileInfo);
+            const res = await props.importApi(fileInfo);
 
             if (!res) {
                 ElMessage.error(OPERATION_NOTICE.IMPORT_ERROR);
@@ -409,18 +606,18 @@ export function useCrud(options?: CrudOption): CrudReturn {
      * @returns {Promise<void>}
      */
     async function handleExport(rows: Record<string, any>[]): Promise<void> {
-        if (!options?.exportApi) {
+        if (!props?.exportApi) {
             throw new Error(`未配置 'export-api'`);
         }
 
-        if (!options.rowKey) {
+        if (!props.rowKey) {
             return;
         }
 
         exportLoading.value = true;
-        const res = await options.exportApi({
-            ids: rows.map((item: Record<string, any>) => item[options.rowKey as string]),
-            ...options.params,
+        const res = await props.exportApi({
+            ids: rows.map((item: Record<string, any>) => item[props.rowKey as string]),
+            ...props.params,
             ...searchData.value,
         });
 
@@ -437,7 +634,7 @@ export function useCrud(options?: CrudOption): CrudReturn {
     }
 
     /**
-     ********************** 获取/设置表单值 **********************
+     ********************** 获取/设置表单 **********************
      */
     /**
      * @description 获取表单的值
@@ -470,6 +667,26 @@ export function useCrud(options?: CrudOption): CrudReturn {
         }
     }
 
+    /**
+     * @description 清除表单的校验
+     * @returns {Promise<void>}
+     */
+    async function clearValidate(): Promise<void> {
+        if (props?.createApi) {
+            const valid = await createRef.value?.validate();
+
+            if (!valid) {
+                return;
+            }
+        } else if (props?.editApi) {
+            const valid = await editRef.value?.validate();
+
+            if (!valid) {
+                return;
+            }
+        }
+    }
+
     return {
         searchFormRef,
         searchData,
@@ -478,31 +695,32 @@ export function useCrud(options?: CrudOption): CrudReturn {
         handleReset,
 
         tableRef,
+        uploadClass,
+        operationConfig,
+        actionConfig,
+        getPermission,
+        getTableData,
+        clearSelection,
+        reload,
+
         fileList,
-        importLoading,
-        exportLoading,
-        handleDownloadTemplate,
         handleUpload,
-        handleExport,
-        handleDelete,
-        handleMultiDelete,
 
         createRef,
         createVisible,
         createData,
         createLoading,
-        openCreate,
         handleCreate,
 
         editRef,
         editVisible,
         editData,
         editLoading,
-        openEdit,
         handleEdit,
         handleSave,
 
         setFormData,
         getFormData,
+        clearValidate,
     };
 }
