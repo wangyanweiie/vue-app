@@ -102,22 +102,25 @@ export default defineConfig({
         AutoImport({
             imports: ['vue', 'vue-router', 'vitest'],
 
-            // 自定义组件解析器
-            resolvers: [ElementPlusResolver(), IconsResolver()],
-
             // 配置文件生成位置
             dts: path.resolve('src/types/auto-imports.d.ts'),
+
+            // 自定义组件解析器
+            resolvers: [ElementPlusResolver(), IconsResolver()],
         }),
 
         /**
          * 自动引入自定义组件
          */
         Components({
-            // 指定组件位置，默认是src/components
-            // dirs: ['src/components'],
+            // 指定组件位置，默认是 src/components
+            dirs: ['src/components'],
 
             // 组件的有效文件扩展名。
-            // extensions: ['vue'],
+            extensions: ['vue'],
+
+            // 配置文件生成位置
+            dts: path.resolve('src/types/components.d.ts'),
 
             // 自动导入指令
             // 默认值：Vue 3 的 `true`，Vue 2 的 `false`
@@ -131,9 +134,6 @@ export default defineConfig({
                     enabledCollections: ['ep'],
                 }),
             ],
-
-            // 配置文件生成位置
-            dts: path.resolve('src/types/components.d.ts'),
         }),
 
         /**

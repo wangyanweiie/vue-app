@@ -122,3 +122,14 @@ export interface XTableSpanMethodProps {
     rowIndex: number;
     columnIndex: number;
 }
+
+/**
+ * table ref
+ */
+export interface XTableInstance {
+    loadData: (data?: Record<string, string | number>) => Promise<void>;
+    getSelectedRows: () => Record<string, any>[];
+    clearSelection: () => void;
+    getTableData: () => Record<string, any>[];
+    handleToggleRowSelection: () => void;
+}

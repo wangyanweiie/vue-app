@@ -5,6 +5,7 @@
         :title="title"
         :width="width"
         :size="size"
+        :show-close="showClose"
         append-to-body
         destroy-on-close
         @opened="handleOpen"
@@ -14,16 +15,16 @@
             <slot name="title"></slot>
         </template>
 
-        <x-form
+        <!-- <x-form
             ref="formRef"
             :model-value="modelForm"
             :el-form-props="elFormProps"
             :schemas="schemas"
             @update:model-value="handleUpdate"
         >
-        </x-form>
+        </x-form> -->
 
-        <!-- <el-form ref="formRef" :model="modelForm" v-bind="elFormProps">
+        <el-form ref="formRef" :model="modelForm" v-bind="elFormProps">
             <el-row>
                 <el-col v-for="(schema, index) in schemas" :key="index" :span="12" v-bind="schema.colProps">
                     <x-form-item :model-value="modelForm" :schema="schema" @update:model-value="handleUpdate">
@@ -35,15 +36,13 @@
             </el-row>
 
             <slot name="form-append"></slot>
-        </el-form> -->
+        </el-form>
 
         <template #footer>
             <div class="actions">
                 <slot name="action" :form="modelForm" :form-ref="formRef"></slot>
 
-                <el-button v-if="isShowConfirm" type="primary" :loading="loading" @click="handleSubmit">
-                    确认
-                </el-button>
+                <el-button v-if="showConfirm" type="primary" :loading="loading" @click="handleSubmit"> 确认 </el-button>
                 <el-button @click="handleCancel"> 取消 </el-button>
             </div>
         </template>
@@ -54,8 +53,8 @@
 import { computed, ref } from 'vue';
 import { ElDialog, ElDrawer, type FormProps } from 'element-plus';
 import type { XFormInstance, XFormItemSchema } from './interface';
-import XForm from './XForm.vue';
-// import XFormItem from './XFormItem.vue';
+// import XForm from './XForm.vue';
+import XFormItem from './XFormItem.vue';
 
 /**
  * props
@@ -78,8 +77,10 @@ const props = withDefaults(
         schemas?: XFormItemSchema[];
         /** form props */
         elFormProps?: Partial<FormProps>;
+        /** 是否显示关闭按钮 */
+        showClose?: boolean;
         /** 是否展示提交按钮 */
-        isShowConfirm?: boolean;
+        showConfirm?: boolean;
         /** 提交 loading */
         loading?: boolean;
     }>(),
@@ -92,7 +93,8 @@ const props = withDefaults(
         data: () => ({}),
         schemas: () => [],
         elFormProps: () => ({ labelWidth: '120px' }),
-        isShowConfirm: true,
+        showClose: true,
+        showConfirm: true,
         loading: false,
     },
 );
@@ -116,9 +118,9 @@ const emits = defineEmits<{
 /**
  * slot-name
  */
-// function customSlotName(schema: XFormItemSchema): string {
-//     return schema.components === 'custom' ? schema.slotName : '';
-// }
+function customSlotName(schema: XFormItemSchema): string {
+    return schema.components === 'custom' ? schema.slotName : '';
+}
 
 /**
  * 弹窗组件

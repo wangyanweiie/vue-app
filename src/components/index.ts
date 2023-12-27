@@ -1,61 +1,21 @@
-import type { App, Component } from 'vue';
-import XLayout from './Layout/XLayout.vue';
-import XLogo from './Layout/XLogo.vue';
-import XUser from './Layout/XUser.vue';
-import ParentView from './Layout/ParentView.vue';
-import ParentMenuView from './Layout/ParentMenuView.vue';
-import XTable from './Table/XTable.vue';
-import XTableV2 from './TableV2/XTableV2.vue';
-import XEditTable from './EditTable/XEditTable.vue';
-import XEditTableItem from './EditTable/XEditTableItem.vue';
-import XSearchForm from './Form/XSearchForm.vue';
-import XDialogForm from './Form/XDialogForm.vue';
-import XForm from './Form/XForm.vue';
-import XRadio from './Form/components/XRadio.vue';
-import XCheckbox from './Form/components/XCheckbox.vue';
-import XSelect from './Form/components/XSelect.vue';
-import XDescription from './Description/XDescription.vue';
-import XFilePreview from './FilePreview/XFilePreview.vue';
-import XRichTextEditor from './RichTextEditor/XRichTextEditor.vue';
-import XChart from './Chart/XChart.vue';
-import XMap from './Map/XMap.vue';
+import { type App, defineAsyncComponent } from 'vue';
 
-interface ComponentItem {
-    name: string;
-    component: Component;
-}
-
-const components = shallowRef<ComponentItem[]>([
-    { name: 'XLayout', component: XLayout },
-    { name: 'XLogo', component: XLogo },
-    { name: 'XUser', component: XUser },
-    { name: 'ParentView', component: ParentView },
-    { name: 'ParentMenuView', component: ParentMenuView },
-    { name: 'XTable', component: XTable },
-    { name: 'XTableV2', component: XTableV2 },
-    { name: 'XEditTable', component: XEditTable },
-    { name: 'XEditTableItem', component: XEditTableItem },
-    { name: 'XDialogForm', component: XDialogForm },
-    { name: 'XSearchForm', component: XSearchForm },
-    { name: 'XForm', component: XForm },
-    { name: 'XRadio', component: XRadio },
-    { name: 'XCheckbox', component: XCheckbox },
-    { name: 'XSelect', component: XSelect },
-    { name: 'XDescription', component: XDescription },
-    { name: 'XFilePreview', component: XFilePreview },
-    { name: 'XRichTextEditor', component: XRichTextEditor },
-    { name: 'XChart', component: XChart },
-    { name: 'XMap', component: XMap },
-]);
+/**
+ * @description 导入组件
+ */
+const components = import.meta.glob('./**/*.vue');
 
 /**
  * @description 注册组件
- * @param app vue app
+ * @param app vue 实例
  */
 export default {
     install: (app: App) => {
-        components.value.forEach(({ name, component }) => {
-            app.component(name, component);
-        });
+        for (const [key, value] of Object.entries(components)) {
+            const name = key.match(/\w+\.vue$/)?.[0].replace(/.vue/, '');
+            const component = defineAsyncComponent(value as any);
+            console.log(name);
+            app.component(name as string, component);
+        }
     },
 };

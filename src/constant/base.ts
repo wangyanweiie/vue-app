@@ -41,6 +41,10 @@ export enum OPERATION_NOTICE {
     EDIT_SUCCESS = '编辑成功',
     EDIT_ERROR = '编辑失败',
 
+    /** 保存 */
+    SAVE_SUCCESS = '保存成功',
+    SAVE_ERROR = '保存失败',
+
     /** 导入 */
     IMPORT_FILE_TYPE_ERROR = '导入文件类型错误',
     IMPORT_SUCCESS = '导入成功',

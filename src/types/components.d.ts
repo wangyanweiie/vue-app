@@ -24,7 +24,6 @@ declare module 'vue' {
         ElDescriptionsItem: (typeof import('element-plus/es'))['ElDescriptionsItem'];
         ElDialog: (typeof import('element-plus/es'))['ElDialog'];
         ElDivider: (typeof import('element-plus/es'))['ElDivider'];
-        ElDrawer: (typeof import('element-plus/es'))['ElDrawer'];
         ElDropdown: (typeof import('element-plus/es'))['ElDropdown'];
         ElDropdownItem: (typeof import('element-plus/es'))['ElDropdownItem'];
         ElEmpty: (typeof import('element-plus/es'))['ElEmpty'];
@@ -48,6 +47,7 @@ declare module 'vue' {
         ElTableV2: (typeof import('element-plus/es'))['ElTableV2'];
         ElTag: (typeof import('element-plus/es'))['ElTag'];
         ElTooltip: (typeof import('element-plus/es'))['ElTooltip'];
+        ElUpload: (typeof import('element-plus/es'))['ElUpload'];
         Excel: (typeof import('./../components/FilePreview/components/excel.vue'))['default'];
         HandleCache: (typeof import('./../components/Layout/HandleCache.vue'))['default'];
         HistoryTabs: (typeof import('./../components/Layout/HistoryTabs.vue'))['default'];
@@ -61,6 +61,7 @@ declare module 'vue' {
         Word: (typeof import('./../components/FilePreview/components/word.vue'))['default'];
         XChart: (typeof import('./../components/Chart/XChart.vue'))['default'];
         XCheckbox: (typeof import('./../components/Form/components/XCheckbox.vue'))['default'];
+        XCrudPage: (typeof import('./../components/CrudPage/XCrudPage.vue'))['default'];
         XDescription: (typeof import('./../components/Description/XDescription.vue'))['default'];
         XDialogForm: (typeof import('./../components/Form/XDialogForm.vue'))['default'];
         XEditTable: (typeof import('./../components/EditTable/XEditTable.vue'))['default'];

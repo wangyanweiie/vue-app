@@ -149,11 +149,11 @@ export function importTemplate(
  * 通用下载
  * @param url 文件路径
  * @param fileName 文件名
- * @returns { boolean }
+ * @returns Promise<boolean>
  */
-export async function downloadFileFromURL(url: string, fileName = '') {
+export async function downloadFileFromURL(url: string, fileName = ''): Promise<boolean> {
     if (!url) {
-        return;
+        return false;
     }
 
     const a = document.createElement('a');
@@ -161,4 +161,5 @@ export async function downloadFileFromURL(url: string, fileName = '') {
     a.download = fileName;
 
     a.click();
+    return true;
 }

@@ -97,5 +97,14 @@ export const demoRoutes: RouteRecordRaw = {
                 icon: '',
             },
         },
+        {
+            path: '/demo/crudPage',
+            name: 'demo-crudPage',
+            component: () => import('@/views/demo/crudPage.vue'),
+            meta: {
+                title: 'crudPage',
+                icon: '',
+            },
+        },
     ],
 };

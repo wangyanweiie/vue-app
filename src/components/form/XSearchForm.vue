@@ -281,6 +281,6 @@ defineExpose({
 .x-search-form__actions {
     width: 100%;
     text-align: right;
-    margin-bottom: 18px;
+    margin-bottom: 15px;
 }
 </style>
