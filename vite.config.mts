@@ -26,7 +26,6 @@ const pathSrc = path.resolve(__dirname, 'src');
 export default defineConfig({
     resolve: {
         /**
-         * 别名
          * 当使用文件系统路径的别名时，请使用绝对路径
          */
         alias: {
@@ -113,6 +112,14 @@ export default defineConfig({
 
             // 自定义组件解析器
             resolvers: [ElementPlusResolver(), IconsResolver()],
+
+            // eslint 报错解决
+            eslintrc: {
+                // 当 enabled 为 true 时，会根据 filepath 生成一个 eslint 的配置文件，需要引入到 eslint 的配置文件中
+                enabled: false,
+                filepath: './.eslintrc-auto-import.json',
+                globalsPropValue: true,
+            },
         }),
 
         /**

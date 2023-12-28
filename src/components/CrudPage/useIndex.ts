@@ -248,7 +248,7 @@ export default function useIndex(props: Props): UseIndexReturn {
     /**
      * 获取表格数据
      */
-    function getTableData(): any[] {
+    function getTableData(): Record<string, any>[] {
         return tableRef.value!.getTableData();
     }
 
@@ -311,7 +311,7 @@ export default function useIndex(props: Props): UseIndexReturn {
      * @param isSave 是否保存
      * @returns 处理后的数据
      */
-    function beforeHandle(data: Record<string, any>, isSave?: boolean): Record<string, any> {
+    function beforeHandle<T>(data: T, isSave?: boolean): T {
         if (!props?.formatFormData) {
             return data;
         }

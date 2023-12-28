@@ -4,6 +4,22 @@
     "private": true,
     "author": "wyw",
     "license": "ISC",
+    "description": "vue-app-template",
+    "keywords": [
+        "vue3",
+        "typescript",
+        "element-plus",
+        "vite",
+        "rollup"
+    ],
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-customizable"
+        },
+        "cz-customizable": {
+            "config": "./.cz-config.cjs"
+        }
+    },
     "scripts": {
         "dev": "vite --host",
         "build": "vue-tsc --noEmit && vite build",
@@ -17,14 +33,6 @@
         "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
         "format": "prettier --write src/",
         "commit": "git add . && git cz"
-    },
-    "config": {
-        "commitizen": {
-            "path": "./node_modules/cz-customizable"
-        },
-        "cz-customizable": {
-            "config": "./.cz-config.cjs"
-        }
     },
     "dependencies": {
         "@amap/amap-jsapi-loader": "^1.0.1",

@@ -69,7 +69,7 @@ export interface Props {
     /** 表格查询 API 入参 */
     params?: Record<string, string | number>;
     /** 表格 API 查询前数据预处理 */
-    preQuery?: (params: Record<string, string | number>) => Record<string, string | number>;
+    preQuery?: <T>(params: T) => T;
     /** 导入 API */
     importApi?: (data?: any) => Promise<any>;
     /** 导出 API */
@@ -108,14 +108,14 @@ export interface Props {
     /** 表单校验 */
     validate?: () => Promise<boolean>;
     /** 新增/编辑前参数处理 */
-    formatFormData?: (form: Record<string, any>, isSave?: boolean) => Record<string, any>;
+    formatFormData?: <T>(form: T, isSave?: boolean) => T;
     /** 新增/编辑提交后处理 */
-    afterSubmit?: (form: Record<string, any>, operationType: FormOperationType) => any;
+    afterSubmit?: (form: Record<string, any>, operationType: FormOperationType) => void;
 
     /** 权限 */
     permission?: Record<string, string[]>;
     /** 弹窗打开后处理 */
-    afterOpen?: (data?: any) => any;
+    afterOpen?: <T>(data?: T) => T;
     /** 重置 */
     reset?: () => void;
 }
