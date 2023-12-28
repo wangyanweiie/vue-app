@@ -27,7 +27,7 @@ import type { XDescriptionColumn } from './interface';
 withDefaults(
     defineProps<{
         /** el-card-header */
-        header: string;
+        header?: string;
         /** el-card-shadow */
         shadow?: 'hover' | 'always' | 'never';
         /** card-body-style */

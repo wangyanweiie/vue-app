@@ -46,7 +46,7 @@
             :data="data"
             :selected-list="selectedList"
             :column-index="[3, 6]"
-            :actions="actionsConf"
+            :actions="actionsConfig"
             class="component"
         >
             <template #operation>
@@ -195,7 +195,7 @@ const data = [
 /**
  * x-table-actions
  */
-function actionsConf(row: Record<string, any>) {
+function actionsConfig(row: Record<string, any>) {
     return getPermissionAction(
         [
             {

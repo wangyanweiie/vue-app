@@ -28,9 +28,9 @@
             :actions="actionConfig"
         >
             <template #operation="{ checkedRows }">
-                <template v-for="(button, index) in operationConfig(checkedRows)" :key="index">
+                <template v-for="button in operationConfig(checkedRows)" :key="button.label">
                     <component
-                        :is="button.isUpload ? 'el-upload' : 'el-button'"
+                        :is="button.isUpload ? ElUpload : ElButton"
                         v-permission="getPermission(button.label)"
                         :type="button.type"
                         :icon="button.icon"
@@ -63,7 +63,7 @@
             ref="createRef"
             v-model:data="createData"
             v-model="createVisible"
-            :el-type="formType"
+            :el-type="elType"
             :title="createTitle"
             :schemas="createSchemas"
             :el-form-props="elFormProps"
@@ -90,7 +90,7 @@
             v-model:data="editData"
             v-model="editVisible"
             :title="editTitle"
-            :el-type="formType"
+            :el-type="elType"
             :schemas="editSchemas"
             :el-form-props="elFormProps"
             :loading="editLoading"
@@ -115,7 +115,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { FormProps, TableProps } from 'element-plus';
+import { type FormProps, type TableProps, ElButton, ElUpload } from 'element-plus';
 import type { XTableColumn } from '@/components/Table/interface';
 import type { XFormItemSchema } from '@/components/Form/interface';
 import { UPLOAD_URL } from '@/constant/global';
@@ -196,7 +196,7 @@ const props = withDefaults(
         editSaveApi?: (data?: any) => Promise<any>;
 
         /** 弹窗类型 */
-        formType?: 'el-dialog' | 'el-drawer';
+        elType?: 'el-dialog' | 'el-drawer';
         /** 表单 props */
         elFormProps?: Partial<FormProps>;
         /** 是否显示确认按钮 */
@@ -218,7 +218,7 @@ const props = withDefaults(
     {
         showSearch: true,
         searchFormProps: () => ({
-            labelWidth: '150px',
+            labelWidth: '80px',
         }),
         searchFormSchemas: () => [],
 
@@ -254,9 +254,9 @@ const props = withDefaults(
         editApi: undefined,
         editSaveApi: undefined,
 
-        formType: 'el-dialog',
+        elType: 'el-dialog',
         elFormProps: () => ({
-            labelWidth: '150px',
+            labelWidth: '80px',
         }),
         showConfirm: true,
         validate: undefined,

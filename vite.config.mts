@@ -12,8 +12,14 @@ import IconsResolver from 'unplugin-icons/resolver';
 import ElementPlus from 'unplugin-element-plus/vite';
 import VueDevTools from 'vite-plugin-vue-devtools';
 import Legacy from '@vitejs/plugin-legacy';
-import ViteCompression from 'vite-plugin-compression';
+import Compression from 'vite-plugin-compression';
 import { visualizer } from 'rollup-plugin-visualizer';
+
+/**
+ * In a basic Vite project, make sure:
+ * The vite.config.js(ts) file content is using the ESM syntax.
+ * The closest package.json file has "type": "module", or use the .mjs extension, e.g. vite.config.mjs(mts)
+ */
 
 const pathSrc = path.resolve(__dirname, 'src');
 
@@ -196,7 +202,7 @@ export default defineConfig({
          *   -    ...
          *   - }
          */
-        ViteCompression({
+        Compression({
             verbose: true, // 是否在控制台中输出压缩结果
             disable: false,
             threshold: 1024 * 10, // 如果体积大于阈值，将被压缩（单位：b）；体积过小时不要压缩，以免适得其反

@@ -78,13 +78,13 @@
                     <template #default="{ row, $index }">
                         <div class="actions">
                             <el-button
-                                v-for="(item, index) in actionButtons(row, $index)"
+                                v-for="(button, index) in actionButtons(row, $index)"
                                 :key="index"
                                 text
                                 type="primary"
-                                v-bind="item"
+                                v-bind="button"
                             >
-                                {{ item.label }}
+                                {{ button.label }}
                             </el-button>
                         </div>
                     </template>
@@ -129,7 +129,7 @@ import TableSetting from './components/TableSetting.vue';
 const props = withDefaults(
     defineProps<{
         /** el-card-header */
-        header: string;
+        header?: string;
         /** el-card-shadow */
         shadow?: 'hover' | 'always' | 'never';
         /** card-body-style */

@@ -46,7 +46,7 @@ import type { RequestFunc, FormModelItem, FormModel, EditActions } from './inter
 const props = withDefaults(
     defineProps<{
         /** el-card-header */
-        header: string;
+        header?: string;
         /** el-card-shadow */
         shadow?: 'hover' | 'always' | 'never';
         /** card-body-style */

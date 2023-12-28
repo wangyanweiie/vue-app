@@ -97,7 +97,7 @@ const props = withDefaults(
         /** 容器高度 */
         height?: string;
         /** el-card-header */
-        header: string;
+        header?: string;
         /** el-card-shadow */
         shadow?: 'always' | 'never' | 'hover';
         /** card-body-style */

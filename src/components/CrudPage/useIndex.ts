@@ -128,30 +128,33 @@ export default function useIndex(props: Props): UseIndexReturn {
             },
             下载模板: {
                 label: '下载模板',
-                onClick: handleDownloadTemplate,
                 icon: Download,
                 type: '',
+                isUpload: false,
+                onClick: handleDownloadTemplate,
             },
             导入: {
                 label: '导入',
-                onClick: handleUpload,
                 icon: Upload,
                 type: '',
                 isUpload: true,
                 loading: importLoading.value,
+                onClick: handleUpload,
             },
             导出: {
                 label: '导出',
-                onClick: handleExport,
                 icon: Download,
                 type: '',
+                isUpload: false,
                 loading: exportLoading.value,
+                onClick: handleExport,
             },
             批量删除: {
                 label: '批量删除',
-                onClick: handleMultiDelete,
                 icon: Delete,
                 type: 'danger',
+                isUpload: false,
+                onClick: handleMultiDelete,
             },
         };
 

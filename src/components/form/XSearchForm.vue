@@ -3,26 +3,23 @@
         <el-form ref="formRef" :model="modelForm" v-bind="elFormProps">
             <el-row>
                 <template v-for="(schema, index) in schemas" :key="index">
-                    <el-collapse-transition>
-                        <el-col v-if="showMore ? !showFormItem(index) : true" v-bind="schemaColProps(schema.colProps)">
-                            <x-form-item
-                                :model-value="modelForm"
-                                :schema="schema"
-                                @update:model-value="handleUpdate"
-                                @enter="handleEnter"
-                            >
-                                <template #[customSlotName(schema)]>
-                                    <slot :name="customSlotName(schema)" :form="modelForm" :index="0"></slot>
-                                </template>
-                            </x-form-item>
-                        </el-col>
-                    </el-collapse-transition>
+                    <el-col v-if="showMore ? showFormItem(index) : true" v-bind="schemaColProps(schema.colProps)">
+                        <x-form-item
+                            :model-value="modelForm"
+                            :schema="schema"
+                            @update:model-value="handleUpdate"
+                            @enter="handleEnter"
+                        >
+                            <template #[customSlotName(schema)]>
+                                <slot :name="customSlotName(schema)" :form="modelForm" :index="0"></slot>
+                            </template>
+                        </x-form-item>
+                    </el-col>
                 </template>
 
                 <el-col v-bind="actionColProps">
                     <div class="x-search-form__actions">
                         <slot name="action" :form="modelForm" :form-ref="formRef"></slot>
-
                         <el-button type="primary" :loading="loading" @click="handleSearch">
                             {{ searchBtnText }}
                         </el-button>
@@ -59,7 +56,7 @@ export interface FormElement extends HTMLElement {
 const props = withDefaults(
     defineProps<{
         /** el-card-header */
-        header: string;
+        header?: string;
         /** el-card-shadow */
         shadow?: 'hover' | 'never' | 'always';
         /** form 表单 */
@@ -81,7 +78,7 @@ const props = withDefaults(
         modelValue: undefined,
         schemas: () => [],
         elFormProps: () => ({
-            labelWidth: '120px',
+            labelWidth: '100px',
         }),
         loading: false,
         searchBtnText: '查询',
@@ -142,10 +139,22 @@ const countFormItems = computed(() => {
 const actionColProps = computed(() => {
     return {
         xs: { span: 24 },
-        sm: { span: 24 - ((countFormItems.value.count * 12) % 24) },
-        md: { span: 24 - ((countFormItems.value.count * 8) % 24) },
-        lg: { span: 24 - ((countFormItems.value.count * 6) % 24) },
-        xl: { span: 24 - ((countFormItems.value.count * 6) % 24) },
+        sm: {
+            span: 12,
+            offset: (1 - (countFormItems.value.count % 2)) * 12,
+        },
+        md: {
+            span: 8,
+            offset: (2 - (countFormItems.value.count % 3)) * 8,
+        },
+        lg: {
+            span: 6,
+            offset: (3 - (countFormItems.value.count % 4)) * 6,
+        },
+        xl: {
+            span: 6,
+            offset: (3 - (countFormItems.value.count % 4)) * 6,
+        },
     };
 });
 
@@ -165,7 +174,7 @@ function showFormItem(itemIndex: number) {
     // 第 7 个搜索框的位置
     let location = 7;
 
-    props.schemas.forEach((item: XFormItemSchema, index: number) => {
+    props.schemas.forEach((schema: XFormItemSchema, index: number) => {
         count = count + 1;
 
         if (count === 7) {
@@ -175,11 +184,11 @@ function showFormItem(itemIndex: number) {
 
     // 超过 7 的部分
     if (itemIndex > location) {
-        return true;
+        return false;
     }
 
     // 不超过 7 的部分
-    return false;
+    return true;
 }
 
 /**

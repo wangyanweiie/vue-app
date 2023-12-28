@@ -26,7 +26,6 @@
                 v-model="dialogVisible"
                 v-model:data="form"
                 title="新增"
-                el-type="el-drawer"
                 :schemas="schemas"
                 :loading="loading"
                 @submit="handleSubmit"
@@ -45,7 +44,6 @@ import dayjs from 'dayjs';
  */
 interface SearchForm {
     text: string;
-    number: number;
     select: string | number;
     daterange: string[];
 }
@@ -83,7 +81,7 @@ const searchSchemas: XFormItemSchema[] = [
         prop: 'daterange',
         components: 'el-date-picker',
         colProps: {
-            span: 12,
+            span: 6,
         },
         elProps: {
             type: 'daterange',
@@ -96,15 +94,6 @@ const searchSchemas: XFormItemSchema[] = [
         prop: 'text',
         components: 'el-input',
         colProps: searchProps,
-    },
-    {
-        label: '数字',
-        prop: 'number',
-        components: 'el-input-number',
-        colProps: searchProps,
-        elProps: {
-            controlsPosition: 'right',
-        },
     },
     {
         label: '下拉',
@@ -260,7 +249,6 @@ const schemas: XFormItemSchema[] = [
  */
 const searchForm = ref<SearchForm>({
     text: '',
-    number: NaN,
     select: '',
     daterange: [],
 });

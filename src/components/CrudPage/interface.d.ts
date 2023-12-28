@@ -129,7 +129,7 @@ export interface UseIndexReturn {
     /** 查询表单数据 */
     searchData: any;
     /** 查询表单加载状态 */
-    searchLoading: boolean;
+    searchLoading: Ref<boolean>;
     /** 查询 */
     handleSearch: () => Promise<void>;
     /** 重置 */
@@ -153,29 +153,29 @@ export interface UseIndexReturn {
     reload: () => void;
 
     /** 文件列表 */
-    fileList: any[];
+    fileList: Ref<any[]>;
     /** 上传 */
     handleUpload: (file?: any) => Promise<void>;
 
     /** 新增表单 ref */
     createRef: any;
     /** 新增弹窗是否展示 */
-    createVisible: boolean;
+    createVisible: Ref<boolean>;
     /** 新增表单数据 */
     createData: Record<string, any>;
     /** 新增表单加载状态 */
-    createLoading: boolean;
+    createLoading: Ref<boolean>;
     /** 新增 */
     handleCreate: () => Promise<void>;
 
     /** 编辑表单 ref */
     editRef: XFormInstance | undefined;
     /** 编辑弹窗是否展示 */
-    editVisible: boolean;
+    editVisible: Ref<boolean>;
     /** 编辑表单数据 */
     editData: Record<string, any>;
     /** 编辑表单加载状态 */
-    editLoading: boolean;
+    editLoading: Ref<boolean>;
     /** 编辑 */
     handleEdit: () => Promise<void>;
     /** 保存 */

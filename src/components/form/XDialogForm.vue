@@ -92,7 +92,9 @@ const props = withDefaults(
         size: '40%',
         data: () => ({}),
         schemas: () => [],
-        elFormProps: () => ({ labelWidth: '120px' }),
+        elFormProps: () => ({
+            labelWidth: '100px',
+        }),
         showClose: true,
         showConfirm: true,
         loading: false,
