@@ -116,6 +116,19 @@ function customSlotName(schema: XFormItemSchema): string {
 }
 
 /**
+ * 是否渲染 formItem，默认展示两行，7个搜索框
+ */
+function showFormItem(index: number) {
+    // 超过 7 的部分隐藏
+    if (index + 1 > 7) {
+        return false;
+    }
+
+    // 不超过 7 的部分渲染
+    return true;
+}
+
+/**
  * 渲染 ArrowDownBold 或者 ArrowUpBold
  */
 const collapsed = ref(true);
@@ -125,7 +138,7 @@ const collapsed = ref(true);
  */
 const countFormItems = computed(() => {
     const showMore = props.schemas.length > 7 ? true : false;
-    const count = props.schemas.length && collapsed.value === true ? 7 : props.schemas.length;
+    const count = props.schemas.length && showMore && collapsed.value === true ? 7 : props.schemas.length;
 
     return {
         showMore,
@@ -163,33 +176,6 @@ const actionColProps = computed(() => {
  */
 const showMore = ref(countFormItems.value.showMore);
 const showCollapse = computed(() => countFormItems.value.showMore);
-
-/**
- * 是否渲染 formItem
- */
-function showFormItem(itemIndex: number) {
-    // 默认展示两行，7个搜索框
-    let count = 0;
-
-    // 第 7 个搜索框的位置
-    let location = 7;
-
-    props.schemas.forEach((schema: XFormItemSchema, index: number) => {
-        count = count + 1;
-
-        if (count === 7) {
-            location = index;
-        }
-    });
-
-    // 超过 7 的部分
-    if (itemIndex > location) {
-        return false;
-    }
-
-    // 不超过 7 的部分
-    return true;
-}
 
 /**
  * 改变展开/收起

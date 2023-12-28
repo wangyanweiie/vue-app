@@ -14,7 +14,6 @@ import { type ColProps } from 'element-plus';
 import dayjs from 'dayjs';
 import type { XFormItemSchema } from '@/components/Form/interface';
 import type { XTableColumn } from '@/components/Table/interface';
-import { getPermissionAction } from '@/utils/permission-action';
 
 /**
  * 查询表单配置
@@ -36,64 +35,9 @@ const searchSchemas: XFormItemSchema[] = [
         components: 'el-input',
     },
     {
-        label: '下拉',
-        prop: 'select',
-        components: 'el-select-v2',
-
-        elProps: {
-            options: [
-                { label: 'label1', value: 'value1' },
-                { label: 'label2', value: 'value2' },
-            ],
-        },
-    },
-    {
-        label: '下拉',
-        prop: 'select',
-        components: 'el-select-v2',
-
-        elProps: {
-            options: [
-                { label: 'label1', value: 'value1' },
-                { label: 'label2', value: 'value2' },
-            ],
-        },
-    },
-    {
-        label: '下拉',
-        prop: 'select',
-        components: 'el-select-v2',
-
-        elProps: {
-            options: [
-                { label: 'label1', value: 'value1' },
-                { label: 'label2', value: 'value2' },
-            ],
-        },
-    },
-    {
-        label: '下拉',
-        prop: 'select',
-        components: 'el-select-v2',
-
-        elProps: {
-            options: [
-                { label: 'label1', value: 'value1' },
-                { label: 'label2', value: 'value2' },
-            ],
-        },
-    },
-    {
-        label: '下拉',
-        prop: 'select',
-        components: 'el-select-v2',
-
-        elProps: {
-            options: [
-                { label: 'label1', value: 'value1' },
-                { label: 'label2', value: 'value2' },
-            ],
-        },
+        label: '文本',
+        prop: 'text',
+        components: 'el-input',
     },
     {
         label: '下拉',
@@ -304,32 +248,6 @@ const data = [
         hobby: '跳舞',
     },
 ];
-
-/**
- * x-table-actions
- */
-function actionsConfig(row: Record<string, any>) {
-    return getPermissionAction(
-        [
-            {
-                label: '详情',
-                permission: 'detail',
-                onClick: () => {
-                    console.log('详情', row);
-                },
-            },
-            {
-                label: '删除',
-                permission: 'delete',
-                onClick: () => {
-                    console.log('删除', row);
-                },
-            },
-        ],
-        // 权限列表
-        [],
-    );
-}
 </script>
 <style lang="scss" scoped>
 .component {
