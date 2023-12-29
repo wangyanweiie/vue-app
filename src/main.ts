@@ -3,7 +3,6 @@ import mitt from 'mitt';
 import { createPinia } from 'pinia';
 import App from '@/App.vue';
 import router from '@/router/index';
-import dataV from '@dataview/datav-vue3';
 import registerDirective from '@/directive';
 import registerComponents from '@/components';
 import { setPermissionRoute } from '@/store/permission';
@@ -25,9 +24,6 @@ import '@wangeditor/editor/dist/css/style.css';
 
     // 注册路由
     app.use(router);
-
-    // 注册 dataV
-    app.use(dataV);
 
     // 注册指令
     app.use(registerDirective);

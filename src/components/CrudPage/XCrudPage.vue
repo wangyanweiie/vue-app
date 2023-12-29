@@ -115,162 +115,75 @@
 </template>
 
 <script lang="ts" setup>
-import { type FormProps, type TableProps, ElButton, ElUpload } from 'element-plus';
-import type { XTableColumn } from '@/components/Table/interface';
-import type { XFormItemSchema } from '@/components/Form/interface';
+import { ElButton, ElUpload } from 'element-plus';
 import { UPLOAD_URL } from '@/constant/global';
-import type { CrudAction, CrudInstance, FormOperationType, XTableOperationButton } from './interface';
+import type { CrudAction, CrudInstance, XCrudPageProp, XTableOperationButton } from './interface';
 import useIndex from './useIndex';
 
 /**
  * props
+ * @version Vue@3.3：https://blog.vuejs.org/posts/vue-3-3
+ * 以前 defineProps 与 defineEmits 仅限于本地类型，并且仅支持类型文字和接口；
+ * 这是因为 Vue 需要能够分析 props 接口上的属性，以便生成相应的运行时选项；
+ * 此限制现已在 Vue@3.3 中得到解决，编译器现在可以解析导入的类型，并支持一组有限的复杂类型；
  */
-const props = withDefaults(
-    defineProps<{
-        /** 是否显示查询表单 */
-        showSearch?: boolean;
-        /** 查询表单 props */
-        searchFormProps?: Partial<FormProps>;
-        /** 查询表单配置 */
-        searchFormSchemas?: XFormItemSchema[];
+const props = withDefaults(defineProps<XCrudPageProp>(), {
+    showSearch: true,
+    searchFormProps: () => ({
+        labelWidth: '80px',
+    }),
+    searchFormSchemas: () => [],
 
-        /** 表格标题 */
-        tableTitle?: string;
-        /** 表格行 key */
-        rowKey?: string;
-        /** 表格配置 */
-        columns?: XTableColumn[];
-        /** 表格静态数据 */
-        data?: Record<string, any>[];
-        /** 表格是否显示索引列 */
-        showIndex?: boolean;
-        /** 表格是否可选 */
-        selectable?: boolean;
-        /** 表格是否分页 */
-        dividePage?: boolean;
-        /** 表格是否懒加载 */
-        lazy?: boolean;
-        /** 表格 props */
-        elTableProps?: Partial<TableProps<any>>;
-        /** 上传路径 */
-        uploadUrl?: string;
-        /** 下载模版 URL */
-        templateUrl?: string;
-        /** 表格操作区按钮 */
-        operations?: XTableOperationButton[] | ((rows?: Record<string, any>[]) => XTableOperationButton[]);
-        /** 操作列配置 */
-        actions?: CrudAction | ((row?: any, index?: number) => CrudAction);
-        /** 表格查询 API */
-        api?: (data?: any) => Promise<any>;
-        /** 表格查询 API 入参 */
-        params?: Record<string, string | number>;
-        /** 表格 API 查询前数据预处理 */
-        preQuery?: <T>(params: T) => T;
-        /** 导入 API */
-        importApi?: (data?: any) => Promise<any>;
-        /** 导出 API */
-        exportApi?: (data?: any) => Promise<any>;
-        /** 删除 API */
-        deleteApi?: (data?: any) => Promise<any>;
+    tableTitle: '数据列表',
+    rowKey: 'id',
+    columns: () => [],
+    data: () => [],
+    showIndex: false,
+    selectable: true,
+    dividePage: true,
+    lazy: false,
+    elTableProps: () => ({}),
+    uploadUrl: UPLOAD_URL,
+    templateUrl: '',
+    operations: () => ['新增', '下载模板', '导入', '导出', '批量删除'] as XTableOperationButton[],
+    actions: () => ['编辑', '删除'] as CrudAction,
+    api: undefined,
+    params: () => ({}),
+    preQuery: undefined,
+    importApi: undefined,
+    exportApi: undefined,
+    deleteApi: undefined,
 
-        /** 新增弹窗标题 */
-        createTitle?: string;
-        /** 新增表单配置 */
-        createSchemas?: XFormItemSchema[];
-        /** 新增表单默认值 */
-        createDefaultData?: Record<string, any>;
-        /** 新增 API */
-        createApi?: (data?: any) => Promise<any>;
-        /** 新增保存 API */
-        createSaveApi?: (data?: any) => Promise<any>;
+    createTitle: '新增',
+    createSchemas: () => [],
+    createDefaultData: () => ({}),
+    createApi: undefined,
+    createSaveApi: undefined,
 
-        /** 编辑弹窗标题 */
-        editTitle?: string;
-        /** 编辑表单配置 */
-        editSchemas?: XFormItemSchema[];
-        /** 编辑表单默认值 */
-        editDefaultData?: Record<string, any>;
-        /** 编辑 API */
-        editApi?: (data?: any) => Promise<any>;
-        /** 编辑保存 API */
-        editSaveApi?: (data?: any) => Promise<any>;
+    editTitle: '编辑',
+    editSchemas: () => [],
+    editDefaultData: () => ({}),
+    editApi: undefined,
+    editSaveApi: undefined,
 
-        /** 弹窗类型 */
-        elType?: 'el-dialog' | 'el-drawer';
-        /** 表单 props */
-        elFormProps?: Partial<FormProps>;
-        /** 是否显示确认按钮 */
-        showConfirm?: boolean;
-        /** 表单校验 */
-        validate?: () => Promise<boolean>;
-        /** 新增/编辑前参数处理 */
-        formatFormData?: <T>(form: T, isSave?: boolean) => T;
-        /** 新增/编辑提交后处理 */
-        afterSubmit?: (form: Record<string, any>, operationType: FormOperationType) => void;
+    elType: 'el-dialog',
+    elFormProps: () => ({
+        labelWidth: '80px',
+    }),
+    showConfirm: true,
+    validate: undefined,
+    formatFormData: undefined,
+    afterSubmit: undefined,
 
-        /** 权限 */
-        permission?: Record<string, string[]>;
-        /** 弹窗打开后处理 */
-        afterOpen?: <T>(data?: T) => T;
-        /** 重置 */
-        reset?: () => void;
-    }>(),
-    {
-        showSearch: true,
-        searchFormProps: () => ({
-            labelWidth: '80px',
-        }),
-        searchFormSchemas: () => [],
-
-        tableTitle: '数据列表',
-        rowKey: 'id',
-        columns: () => [],
-        data: () => [],
-        showIndex: false,
-        selectable: true,
-        dividePage: true,
-        lazy: false,
-        elTableProps: () => ({}),
-        uploadUrl: UPLOAD_URL,
-        templateUrl: '',
-        operations: () => ['新增', '下载模板', '导入', '导出', '批量删除'] as XTableOperationButton[],
-        actions: () => ['编辑', '删除'] as CrudAction,
-        api: undefined,
-        params: () => ({}),
-        preQuery: undefined,
-        importApi: undefined,
-        exportApi: undefined,
-        deleteApi: undefined,
-
-        createTitle: '新增',
-        createSchemas: () => [],
-        createDefaultData: () => ({}),
-        createApi: undefined,
-        createSaveApi: undefined,
-
-        editTitle: '编辑',
-        editSchemas: () => [],
-        editDefaultData: () => ({}),
-        editApi: undefined,
-        editSaveApi: undefined,
-
-        elType: 'el-dialog',
-        elFormProps: () => ({
-            labelWidth: '80px',
-        }),
-        showConfirm: true,
-        validate: undefined,
-        formatFormData: undefined,
-        afterSubmit: undefined,
-
-        permission: () => ({}),
-        afterOpen: undefined,
-        reset: undefined,
-    },
-);
+    permission: () => ({}),
+    afterOpen: undefined,
+    reset: undefined,
+});
 
 /**
  * slots
+ * @version Vue@3.3：https://blog.vuejs.org/posts/vue-3-3
+ * 新的 defineSlots 宏可用于声明预期的插槽及其各自的预期插槽属性
  */
 defineSlots<{
     create(props: { form: Record<string, any> }): any;

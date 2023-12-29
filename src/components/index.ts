@@ -14,7 +14,6 @@ export default {
         for (const [key, value] of Object.entries(components)) {
             const name = key.match(/\w+\.vue$/)?.[0].replace(/.vue/, '');
             const component = defineAsyncComponent(value as any);
-            console.log(name);
             app.component(name as string, component);
         }
     },

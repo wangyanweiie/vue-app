@@ -1,5 +1,7 @@
 import type { Component, Ref } from 'vue';
-import type { XTableActionButton } from '@/components/Table/interface';
+import type { FormProps, TableProps } from 'element-plus';
+import type { XTableActionButton, XTableColumn } from '@/components/Table/interface';
+import type { XFormItemSchema } from '@/components/Form/interface';
 
 export type CrudAction = ('编辑' | '删除' | XTableActionButton)[];
 export type FormOperationType = '新增' | '编辑';
@@ -30,7 +32,7 @@ export interface XTableOperationButtonOption {
 /**
  * props
  */
-export interface Props {
+export interface XCrudPageProp {
     /** 是否显示查询表单 */
     showSearch?: boolean;
     /** 查询表单 props */
@@ -100,7 +102,7 @@ export interface Props {
     editSaveApi?: (data?: any) => Promise<any>;
 
     /** 弹窗类型 */
-    formType?: 'el-dialog' | 'el-drawer';
+    elType?: 'el-dialog' | 'el-drawer';
     /** 表单 props */
     elFormProps?: Partial<FormProps>;
     /** 是否显示确认按钮 */

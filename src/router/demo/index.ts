@@ -89,6 +89,15 @@ export const demoRoutes: RouteRecordRaw = {
             },
         },
         {
+            path: '/demo/crudPage',
+            name: 'demo-crudPage',
+            component: () => import('@/views/demo/crudPage.vue'),
+            meta: {
+                title: 'crudPage',
+                icon: '',
+            },
+        },
+        {
             path: '/demo/threeJs',
             name: 'demo-threeJs',
             component: () => import('@/views/demo/threeJs.vue'),
@@ -98,11 +107,11 @@ export const demoRoutes: RouteRecordRaw = {
             },
         },
         {
-            path: '/demo/crudPage',
-            name: 'demo-crudPage',
-            component: () => import('@/views/demo/crudPage.vue'),
+            path: '/demo/map',
+            name: 'demo-map',
+            component: () => import('@/views/demo/map.vue'),
             meta: {
-                title: 'crudPage',
+                title: 'map',
                 icon: '',
             },
         },

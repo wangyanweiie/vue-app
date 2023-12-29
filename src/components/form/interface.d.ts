@@ -92,7 +92,7 @@ interface XFormItemInputNumberSchema<T> extends BaseXFormSchema<T> {
  */
 interface XFormItemSelectSchema<T> extends BaseXFormSchema<T> {
     components: 'el-select-v2';
-    elProps?: XSelectProp | ((form: any) => XSelectProp);
+    elProps?: XSelectProps | ((form: any) => XSelectProps);
     api?: (data?: any) => Promise<any>;
 }
 
@@ -101,7 +101,7 @@ interface XFormItemSelectSchema<T> extends BaseXFormSchema<T> {
  */
 interface XFormItemSelectMultiSchema<T> extends BaseXFormSchema<T> {
     components: 'x-select';
-    elProps?: XSelectMultiProp | ((form: any) => XSelectMultiProp);
+    elProps?: XSelectMultiProps | ((form: any) => XSelectMultiProps);
     api?: (data?: any) => Promise<any>;
     isAllChoose?: boolean;
 }
@@ -207,12 +207,12 @@ interface XCheckBoxProps {
     options?: CheckBoxOption[];
 }
 
-interface XSelectProp extends ExtractPropTypes<typeof ElSelectV2> {
+interface XSelectProps extends ExtractPropTypes<typeof ElSelectV2> {
     // label字段表示
     labelSchema?: string;
 }
 
-interface XSelectMultiProp extends ExtractPropTypes<typeof ElSelect> {
+interface XSelectMultiProps extends ExtractPropTypes<typeof ElSelect> {
     // label字段表示
     labelSchema?: string;
 }
@@ -244,6 +244,6 @@ export type {
     SelectOption,
     XRadioProps,
     XCheckBoxProps,
-    XSelectProp,
-    XSelectMultiProp,
+    XSelectProps,
+    XSelectMultiProps,
 };

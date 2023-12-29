@@ -6,7 +6,7 @@ import { downloadFileFromURL } from '@/utils/common-methods';
 import type { XTableActionButton, XTableInstance } from '@/components/Table/interface';
 import type { XFormInstance } from '@/components/Form/interface';
 import type {
-    Props,
+    XCrudPageProp,
     UseIndexReturn,
     genericOperationType,
     genericActionType,
@@ -22,7 +22,7 @@ export const genericOperationAction = ['新增', '下载模板', '导入', '导�
  * @param props props
  * @returns 返回值
  */
-export default function useIndex(props: Props): UseIndexReturn {
+export default function useIndex(props: XCrudPageProp): UseIndexReturn {
     /**
      ********************** 查询 **********************
      */
