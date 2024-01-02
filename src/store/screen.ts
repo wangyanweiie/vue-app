@@ -6,6 +6,10 @@ interface ScreenState {
     theme: 'dark' | 'light';
 }
 
+/**
+ * 切换主题、提示信息、标题
+ * option store
+ */
 export const useScreenStore = defineStore({
     id: 'screen',
     state: (): ScreenState => {

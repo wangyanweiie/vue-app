@@ -7,6 +7,7 @@ import appLayout from '@/layout/index.vue';
 
 /**
  * 权限缓存状态
+ * setup store
  */
 export const usePermissionStore: any = defineStore('permission', () => {
     // ================= 权限 =================

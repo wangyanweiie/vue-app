@@ -41,7 +41,7 @@ import { getBaseUrl, saveBaseUrl, saveUserToken, saveUserInfo } from '@/utils/st
 import { ENV } from '@/constant/global';
 
 const router = useRouter();
-const { setPermission, setActiveRouteList } = usePermissionStore();
+const permissionStore = usePermissionStore();
 
 /**
  * 登录提交表单
@@ -136,10 +136,9 @@ async function login(): Promise<void> {
 
     saveUserToken(res.token);
     saveUserInfo(res);
-    setPermission(res?.pcPerms);
 
-    // 动态加载路由
-    setActiveRouteList();
+    permissionStore.setPermission(res?.pcPerms);
+    permissionStore.setActiveRouteList();
 
     // 路由重定向
     const redirectPath = router.currentRoute.value.query.redirect;

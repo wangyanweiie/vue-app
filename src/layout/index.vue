@@ -1,5 +1,5 @@
 <template>
-    <el-config-provider :locale="zhCn">
+    <el-config-provider :locale="getLocale">
         <x-layout :routes="showMenus" :include-list="cacheList">
             <template #logo="{ collapsed }">
                 <x-logo logo="/logo.png" :title="APP_NAME" :collapsed="collapsed"></x-logo>
@@ -8,6 +8,15 @@
             <template #header-right>
                 <div class="header-right">
                     <el-button type="primary" text bg @click="handleJudge">screen</el-button>
+
+                    <el-select v-model="getLanguage" class="header-right__item" @change="setLanguage">
+                        <el-option
+                            v-for="item in getLanguageList"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                        ></el-option>
+                    </el-select>
 
                     <el-input
                         v-if="ENV !== 'production'"
@@ -39,11 +48,19 @@
 </template>
 
 <script setup lang="ts">
-import zhCn from 'element-plus/es/locale/lang/zh-cn';
+import { useLanguageStore } from '@/store/language';
 import { usePermissionStore } from '@/store/permission';
 import { ENV, APP_NAME } from '@/constant/global';
 import useIndex from './useIndex';
 
+// 保持响应性
+const languageStore = useLanguageStore();
+const getLanguage = computed(() => languageStore.getLanguage);
+const getLocale = computed(() => languageStore.getLocale);
+const getLanguageList = computed(() => languageStore.getLanguageList);
+const setLanguage = computed(() => languageStore.setLanguage);
+
+// 直接解构会失去响应性
 const { showMenus, cacheList } = usePermissionStore();
 const {
     baseUrl,

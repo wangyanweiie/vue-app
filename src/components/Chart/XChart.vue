@@ -56,10 +56,15 @@ function init(
     option && setOption(option, true);
     loading && setLoading(loading);
 
-    chart.value.on('click', function (params) {
-        console.log(params.data);
-        callback && callback(params.data, mapName, mapJson, option);
-    });
+    callback &&
+        chart.value.on('click', function (params) {
+            if (!params.data) {
+                return;
+            }
+
+            console.log(params.data);
+            callback(params.data, mapName, mapJson, option);
+        });
 }
 
 /**

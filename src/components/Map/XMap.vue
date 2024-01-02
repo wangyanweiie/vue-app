@@ -2,61 +2,13 @@
     <div id="mapContainer"></div>
 </template>
 
-<!-- <script setup lang="ts">
-import { onMounted, shallowRef } from 'vue';
-import '@amap/amap-jsapi-types';
-import AMapLoader from '@amap/amap-jsapi-loader';
-
-const map = shallowRef<AMap.Map | null>(null);
-
-function init() {
-    AMapLoader.load({
-        // 申请好的 Web 端开发者 Key，首次调用 load 时必填
-        key: '9bb0c23f3ee80c3409b9dd5f8dabfa94',
-        // 指定要加载的 JS API 的版本，缺省时默认为 1.4.15
-        version: '2.0',
-        // 需要使用的的插件列表
-        plugins: ['AMap.ToolBar', 'AMap.Scale'],
-    })
-        .then((MyAMap: typeof AMap) => {
-            map.value = new MyAMap.Map('mapContainer', {
-                // 设置地图的显示样式
-                mapStyle: 'amap://styles/darkblue',
-                // 设置地图模式
-                viewMode: '2D',
-            });
-
-            // 创建插件实例
-            const toolbar = new MyAMap.ToolBar();
-            const scale = new MyAMap.Scale();
-
-            // 将插件添加到页面
-            map.value.addControl(toolbar);
-            map.value.addControl(scale);
-        })
-        .catch((e: any) => {
-            console.log(e);
-        });
-}
-
-onMounted(() => {
-    init();
-});
-
-onUnmounted(() => {
-    map.value?.destroy();
-});
-</script> -->
-
 <script lang="ts" setup>
 import Map from 'ol/Map';
 import View from 'ol/View';
-import Tile from 'ol/layer/Tile';
+import { Tile } from 'ol/layer';
 import { XYZ, OSM } from 'ol/source';
 import { fromLonLat } from 'ol/proj';
-import Overlay from 'ol/Overlay';
-import { defaults, FullScreen, ScaleLine, MousePosition } from 'ol/control';
-import { defaults as defaultInteractions, DragRotateAndZoom } from 'ol/interaction';
+import { defaults, FullScreen, ScaleLine } from 'ol/control';
 
 /**
  * 地图实例
@@ -71,6 +23,7 @@ function init() {
     map.value = new Map({
         // 指定地图绘制的容器 id
         target: 'mapContainer',
+
         // 图层
         layers: [
             new Tile({
@@ -118,32 +71,7 @@ function init() {
 
     map.value.on('click', (e: any) => {
         console.log('地图点击', e.coordinate);
-        // handleClick(e.coordinate);
     });
-}
-
-/**
- * handle-click
- */
-function handleClick(coordinate: number[]) {
-    // 你可以给元素添加任意的内容或属性或样式，也可以给元素绑定事件
-    const el = document.createElement('div');
-    const marker = new Overlay({
-        // 要显示的元素
-        element: el,
-        // 地图投影的位置
-        position: fromLonLat([coordinate[0], coordinate[1]], 'EPSG:4326'),
-        // 元素显示的像素偏移量
-        offset: [-17, -17],
-        // 自动移动地图以完整的显示元素
-        autoPan: true,
-    });
-
-    // 添加到地图
-    map.value.addOverlay(marker);
-
-    // 从地图上删除
-    // map.value.removeOverlay(marker);
 }
 
 onMounted(() => {
@@ -156,6 +84,8 @@ defineExpose({
 </script>
 
 <style lang="scss">
+@import 'node_modules/ol/ol.css';
+
 #mapContainer {
     padding: 0px;
     margin: 0px;

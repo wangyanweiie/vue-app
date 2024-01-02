@@ -4,14 +4,29 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import axios from 'axios';
 import type { EChartsCoreOption } from 'echarts';
 import { useScreenStore } from '@/store/screen';
 import china from '@/views/screen/json/中华人民共和国.json';
-import { mapDataList } from './conf';
 
 const store = useScreenStore();
+const chartRef = ref(); // echarts 实例
+const geoLevel = ref<string>(); // 地图等级
 
-const chartRef = ref();
+/**
+ * @description 中华人民共和国地图数据
+ */
+const mapDataList = china?.features?.map((item: Record<string, any>) => {
+    return {
+        name: item.properties.name,
+        code: item.properties.adcode,
+        value: Math.ceil(Math.random() * 1000 - 1),
+    };
+});
+
+/**
+ * @description 中华人民共和国地图配置
+ */
 const option = ref({
     tooltip: {
         trigger: 'item',
@@ -25,12 +40,7 @@ const option = ref({
             zoom: 1.1,
             // 是否开启鼠标缩放和平移漫游，默认不开启，若想要开启缩放或者平移，可以设置成 'scale' 或者 'move'；设置成 true 为都开启
             roam: 'scale',
-            data: mapDataList.value.map(item => {
-                return {
-                    ...item,
-                    value: Math.ceil(Math.random() * 1000 - 1),
-                };
-            }),
+            data: mapDataList,
         },
     ],
     visualMap: {
@@ -47,6 +57,22 @@ const option = ref({
 });
 
 /**
+ * @description 获取地区 json
+ * @param {number} code 地区编码
+ * @returns {Promise<any>}
+ */
+async function getGeoJson(code: number): Promise<any> {
+    const res = await axios.get(`https://geo.datav.aliyun.com/areas_v3/bound/${code}_full.json`);
+
+    if (res.status !== 200) {
+        return '';
+    }
+
+    geoLevel.value = res.data?.features[0]?.properties?.level;
+    return res.data;
+}
+
+/**
  * @description 地图下钻
  * @param {any} data 数据
  * @param {string} mapName 当前地图名称
@@ -55,16 +81,16 @@ const option = ref({
  * @returns {Promise<void>}
  */
 async function mapDrillDown(data: any, mapName: string, mapJson: string, option: EChartsCoreOption): Promise<void> {
-    if (!data || !data?.name) {
+    // 当前地图级别为县级时，不再继续下钻
+    if (geoLevel.value === 'district' || data.name === '台湾省') {
         return;
     }
+
+    // 子级地图名称
+    const childName = data?.name;
 
     // 子级地图 json
-    const childJson = mapDataList.value.filter(item => item.name === data.name)[0]?.json;
-
-    if (!childJson) {
-        return;
-    }
+    const childJson = await getGeoJson(data?.code);
 
     // 子级地图数据
     const childMapDataList = childJson?.features?.map((item: Record<string, any>) => {
@@ -74,6 +100,7 @@ async function mapDrillDown(data: any, mapName: string, mapJson: string, option:
             value: Math.ceil(Math.random() * 100 - 1),
         };
     });
+
     // 子级图表配置
     const childOption = {
         tooltip: {
@@ -82,7 +109,7 @@ async function mapDrillDown(data: any, mapName: string, mapJson: string, option:
         series: [
             {
                 type: 'map',
-                map: data.name,
+                map: childName,
                 data: childMapDataList,
             },
         ],
@@ -110,7 +137,9 @@ async function mapDrillDown(data: any, mapName: string, mapJson: string, option:
                 },
                 onclick: () => {
                     // 销毁当前渲染的图表
-                    chartRef.value.destroy();
+                    chartRef.value.clear();
+                    // 更新为上级地图的等级
+                    geoLevel.value = mapJson?.features[0]?.properties?.level;
                     // 渲染上级地图
                     chartRef.value.init(mapName, mapJson, option, false, mapDrillDown);
                 },
@@ -121,6 +150,6 @@ async function mapDrillDown(data: any, mapName: string, mapJson: string, option:
     // 销毁当前渲染的图表
     chartRef.value.destroy();
     // 渲染子级地图
-    chartRef.value.init(data.name, childJson, childOption, false, mapDrillDown);
+    chartRef.value.init(childName, childJson, childOption, false, mapDrillDown);
 }
 </script>
