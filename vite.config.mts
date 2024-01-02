@@ -78,6 +78,7 @@ export default defineConfig({
                     three: ['three'],
                     echarts: ['echarts'],
                     sortablejs: ['sortablejs'],
+                    ol: ['ol'],
                 },
             },
         },

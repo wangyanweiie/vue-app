@@ -35,7 +35,6 @@
         "commit": "git add . && git cz"
     },
     "dependencies": {
-        "@amap/amap-jsapi-loader": "^1.0.1",
         "@element-plus/icons-vue": "^2.3.1",
         "@vueuse/core": "^10.7.1",
         "@wangeditor/editor": "^5.1.23",
@@ -69,7 +68,6 @@
         "vuedraggable": "^4.1.0"
     },
     "devDependencies": {
-        "@amap/amap-jsapi-types": "^0.0.13",
         "@commitlint/cli": "^18.4.3",
         "@commitlint/config-conventional": "^18.4.3",
         "@tsconfig/node18": "^18.2.2",
