@@ -21,9 +21,9 @@
                     <div class="x-search-form__actions">
                         <slot name="action" :form="modelForm" :form-ref="formRef"></slot>
                         <el-button type="primary" :loading="loading" @click="handleSearch">
-                            {{ searchBtnText }}
+                            {{ searchText }}
                         </el-button>
-                        <el-button v-if="showRestButton" @click="handleReset"> 重置 </el-button>
+                        <el-button v-if="showRestButton" @click="handleReset"> {{ resetText }} </el-button>
                         <el-button v-if="showCollapse" circle @click="handleCollapse">
                             <el-icon>
                                 <component :is="collapsed ? ArrowDownBold : ArrowUpBold"></component>
@@ -67,10 +67,12 @@ const props = withDefaults(
         elFormProps?: Partial<FormProps>;
         /** 查询 loading */
         loading?: boolean;
-        /** 查询按钮文字 */
-        searchBtnText?: string;
         /** 是否展示重置按钮 */
         showRestButton?: boolean;
+        /** 查询按钮文字 */
+        searchText?: string;
+        /** 重置按钮文字 */
+        resetText?: string;
     }>(),
     {
         header: '',
@@ -81,8 +83,9 @@ const props = withDefaults(
             labelWidth: '100px',
         }),
         loading: false,
-        searchBtnText: '查询',
         showRestButton: true,
+        searchText: '查询',
+        resetText: '重置',
     },
 );
 

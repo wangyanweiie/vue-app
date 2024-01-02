@@ -7,6 +7,7 @@ import registerDirective from '@/directive';
 import registerComponents from '@/components';
 import { setPermissionRoute } from '@/store/permission';
 import { setupRouterGuard } from '@/router/route-guard';
+import i18n from '@/i18n/index';
 
 // 引入组件样式
 import 'element-plus/dist/index.css';
@@ -30,6 +31,9 @@ import '@wangeditor/editor/dist/css/style.css';
 
     // 注册组件
     app.use(registerComponents);
+
+    // 国际化
+    app.use(i18n);
 
     // 赋值路由数组并动态加载路由
     setPermissionRoute();

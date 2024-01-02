@@ -42,8 +42,10 @@
             <div class="actions">
                 <slot name="action" :form="modelForm" :form-ref="formRef"></slot>
 
-                <el-button v-if="showConfirm" type="primary" :loading="loading" @click="handleSubmit"> 确认 </el-button>
-                <el-button @click="handleCancel"> 取消 </el-button>
+                <el-button v-if="showConfirm" type="primary" :loading="loading" @click="handleSubmit">
+                    {{ confirmText }}
+                </el-button>
+                <el-button @click="handleCancel"> {{ cancelText }} </el-button>
             </div>
         </template>
     </component>
@@ -83,6 +85,10 @@ const props = withDefaults(
         showConfirm?: boolean;
         /** 提交 loading */
         loading?: boolean;
+        /** 确认文字 */
+        confirmText?: string;
+        /** 取消文字 */
+        cancelText?: string;
     }>(),
     {
         modelValue: false,
@@ -98,6 +104,8 @@ const props = withDefaults(
         showClose: true,
         showConfirm: true,
         loading: false,
+        confirmText: '确认',
+        cancelText: '取消',
     },
 );
 

@@ -6,6 +6,8 @@
             :el-form-props="elFromProps"
             header="x-search-form"
             class="component"
+            :search-text="$t('button.search')"
+            :reset-text="$t('button.reset')"
             @search="handleSearch"
         >
         </x-search-form>
@@ -19,7 +21,7 @@
         </el-card> -->
 
         <el-card header="x-dialog-form" shadow="hover" class="component">
-            <el-button @click="openDialog">打开弹窗</el-button>
+            <el-button @click="openDialog">{{ $t('button.create') }}</el-button>
 
             <x-dialog-form
                 ref="dialogFormRef"
@@ -28,6 +30,8 @@
                 title="新增"
                 :schemas="schemas"
                 :loading="loading"
+                :submit-text="$t('button.submit')"
+                :cancel-text="$t('button.cancel')"
                 @submit="handleSubmit"
             ></x-dialog-form>
         </el-card>
@@ -180,9 +184,9 @@ const schemas: XFormItemSchema[] = [
             ],
             onChange: (value: string | number) => {
                 if (value === 'value1') {
-                    form.switch = true;
+                    button.switch = true;
                 } else {
-                    form.switch = false;
+                    button.switch = false;
                 }
             },
         }),
@@ -205,7 +209,7 @@ const schemas: XFormItemSchema[] = [
             format: 'YYYY-MM-DD',
             valueFormat: 'YYYY-MM-DD',
             onChange: (value: string) => {
-                form.datetime = dayjs(value).format('YYYY-MM-DD HH:mm:ss');
+                button.datetime = dayjs(value).format('YYYY-MM-DD HH:mm:ss');
             },
         }),
         elFormItemProps: {
@@ -283,7 +287,7 @@ const form = ref<Form>({
 //  * 默认值
 //  */
 // function handleDefault() {
-//     form.value = {
+//     button.value = {
 //         text: '哈哈',
 //         number: 18,
 //         radio: 1,
@@ -299,7 +303,7 @@ const form = ref<Form>({
 //  * 清空
 //  */
 // function handleRest() {
-//     form.value = {
+//     button.value = {
 //         text: '',
 //         number: undefined,
 //         radio: undefined,
@@ -322,7 +326,7 @@ const form = ref<Form>({
 //         return;
 //     }
 
-//     console.log('form', form.value);
+//     console.log('form', button.value);
 // }
 
 /**

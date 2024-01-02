@@ -48,20 +48,36 @@
 </template>
 
 <script setup lang="ts">
-import { useLanguageStore } from '@/store/language';
+import { useI18n } from 'vue-i18n';
+import { type LanguageType, useLanguageStore } from '@/store/language';
 import { usePermissionStore } from '@/store/permission';
 import { ENV, APP_NAME } from '@/constant/global';
 import useIndex from './useIndex';
 
-// 保持响应性
+const i18 = useI18n();
+
+/**
+ * 语言
+ * 整体赋值可以保持响应性
+ */
 const languageStore = useLanguageStore();
 const getLanguage = computed(() => languageStore.getLanguage);
 const getLocale = computed(() => languageStore.getLocale);
 const getLanguageList = computed(() => languageStore.getLanguageList);
-const setLanguage = computed(() => languageStore.setLanguage);
+function setLanguage(e: LanguageType) {
+    languageStore.setLanguage(e);
+    i18.locale.value = e;
+}
 
-// 直接解构会失去响应性
+/**
+ * 权限与路由
+ * 直接解构会失去响应性
+ */
 const { showMenus, cacheList } = usePermissionStore();
+
+/**
+ * useIndex
+ */
 const {
     baseUrl,
     userInfo,

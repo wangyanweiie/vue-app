@@ -129,6 +129,8 @@ import useIndex from './useIndex';
  */
 const props = withDefaults(defineProps<XCrudPageProp>(), {
     showSearch: true,
+    searchText: '查询',
+    resetText: '重置',
     searchFormProps: () => ({
         labelWidth: '80px',
     }),
@@ -171,6 +173,8 @@ const props = withDefaults(defineProps<XCrudPageProp>(), {
         labelWidth: '80px',
     }),
     showConfirm: true,
+    confirmText: '确认',
+    cancelText: '取消',
     validate: undefined,
     formatFormData: undefined,
     afterSubmit: undefined,

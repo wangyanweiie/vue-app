@@ -35,6 +35,10 @@ export interface XTableOperationButtonOption {
 export interface XCrudPageProp {
     /** 是否显示查询表单 */
     showSearch?: boolean;
+    /** 查询按钮文字 */
+    searchText?: string;
+    /** 重置按钮文字 */
+    resetText?: string;
     /** 查询表单 props */
     searchFormProps?: Partial<FormProps>;
     /** 查询表单配置 */
@@ -107,6 +111,10 @@ export interface XCrudPageProp {
     elFormProps?: Partial<FormProps>;
     /** 是否显示确认按钮 */
     showConfirm?: boolean;
+    /** 确认文字 */
+    confirmText?: string;
+    /** 取消文字 */
+    cancelText?: string;
     /** 表单校验 */
     validate?: () => Promise<boolean>;
     /** 新增/编辑前参数处理 */

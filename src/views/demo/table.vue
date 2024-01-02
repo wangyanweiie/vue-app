@@ -11,8 +11,12 @@
             class="component"
         >
             <template #operation>
-                <el-button type="success" @click="editTableRef?.editActions.addRow()">新增</el-button>
-                <el-button type="primary" @click="editTableSubmit">提交</el-button>
+                <el-button type="success" @click="editTableRef?.editActions.addRow()">
+                    {{ $t('button.create') }}
+                </el-button>
+                <el-button type="primary" @click="editTableSubmit">
+                    {{ $t('button.submit') }}
+                </el-button>
             </template>
 
             <template #default>
@@ -21,15 +25,25 @@
                         <el-input v-model="row[item.prop]" placeholder="请输入"></el-input>
                     </template>
                 </x-edit-table-item>
-                <x-edit-table-item label="操作" :required="false" fixed="right" width="250">
+                <x-edit-table-item :label="$t('button.operate')" :required="false" fixed="right" width="250">
                     <template #default="{ actions, index }">
-                        <el-button text type="primary" @click="actions.startEdit(index)">操作</el-button>
-                        <el-button text type="primary" @click="actions.deleteRow(index)">删除</el-button>
+                        <el-button text type="primary" @click="actions.startEdit(index)">
+                            {{ $t('button.operate') }}
+                        </el-button>
+                        <el-button text type="primary" @click="actions.deleteRow(index)">
+                            {{ $t('button.delete') }}
+                        </el-button>
                     </template>
                     <template #edit="{ actions, index }">
-                        <el-button text type="primary" @click="actions.saveEdit(index)">保存</el-button>
-                        <el-button text type="primary" @click="actions.cancelEdit(index)">取消</el-button>
-                        <el-button text type="primary" @click="actions.deleteRow(index)">删除</el-button>
+                        <el-button text type="primary" @click="actions.saveEdit(index)">
+                            {{ $t('button.save') }}
+                        </el-button>
+                        <el-button text type="primary" @click="actions.cancelEdit(index)">
+                            {{ $t('button.cancel') }}
+                        </el-button>
+                        <el-button text type="primary" @click="actions.deleteRow(index)">
+                            {{ $t('button.delete') }}
+                        </el-button>
                     </template>
                 </x-edit-table-item>
             </template>
@@ -50,8 +64,8 @@
             class="component"
         >
             <template #operation>
-                <el-button type="success">新增</el-button>
-                <el-button type="warning" @click="handleExport">导出</el-button>
+                <el-button type="success">{{ $t('button.create') }}</el-button>
+                <el-button type="warning" @click="handleExport"> {{ $t('button.export') }}</el-button>
             </template>
         </x-table>
 
@@ -67,8 +81,8 @@
             class="component"
         >
             <template #operation>
-                <el-button type="success">新增</el-button>
-                <el-button type="warning">导出</el-button>
+                <el-button type="success">{{ $t('button.create') }}</el-button>
+                <el-button type="warning" @click="handleExport"> {{ $t('button.export') }}</el-button>
             </template>
         </x-table-v2>
     </div>
