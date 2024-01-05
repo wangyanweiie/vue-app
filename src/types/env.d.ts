@@ -12,3 +12,6 @@ declare module 'three/addons/loaders/GLTFLoader.js';
 declare module 'archiver';
 declare module '@amap/amap-jsapi-loader';
 declare module 'sortablejs';
+declare module 'element-plus/dist/locale/zh-cn.mjs';
+declare module 'element-plus/dist/locale/zh-tw.mjs';
+declare module 'element-plus/dist/locale/en.mjs';

@@ -1,4 +1,16 @@
 export default {
+    menu: {
+        demo: 'demo',
+        form: 'form',
+        table: 'table',
+        description: 'description',
+        select: 'select',
+        textEditor: 'textEditor',
+        filePreview: 'filePreview',
+        crudPage: 'crudPage',
+        threeJs: 'threeJs',
+        map: 'map',
+    },
     button: {
         export: 'export',
         import: 'import',
@@ -8,6 +20,7 @@ export default {
         create: 'create',
         edit: 'edit',
         delete: 'delete',
+        detail: 'detail',
 
         search: 'search',
         reset: 'reset',

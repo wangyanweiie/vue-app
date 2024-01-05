@@ -2,6 +2,8 @@ import type { RouteRecordRaw } from 'vue-router';
 import { subRoutes } from './sub';
 // import ParentMenuView from '@/components/Layout/ParentMenuView.vue';
 // import ParentView from '@/components/Layout/ParentView.vue';
+import i18n from '@/i18n/index';
+const { t } = i18n.global;
 
 export const demoRoutes: RouteRecordRaw = {
     path: '/demo',
@@ -13,8 +15,9 @@ export const demoRoutes: RouteRecordRaw = {
     // }),
     redirect: '/demo/sub',
     meta: {
-        title: 'demo',
+        title: t('menu.demo'),
         icon: 'FolderOpened',
+        permission: ['dict:item:select'],
     },
     children: [
         {
@@ -31,6 +34,7 @@ export const demoRoutes: RouteRecordRaw = {
                 title: 'demo-sub',
                 icon: '',
                 keepAlive: true,
+                permission: ['dict:item:select'],
             },
             children: subRoutes,
         },
@@ -39,8 +43,9 @@ export const demoRoutes: RouteRecordRaw = {
             name: 'demo-description',
             component: () => import('@/views/demo/description.vue'),
             meta: {
-                title: 'description',
+                title: t('menu.description'),
                 icon: '',
+                permission: ['dict:item:select'],
             },
         },
         {
@@ -48,8 +53,9 @@ export const demoRoutes: RouteRecordRaw = {
             name: 'demo-table',
             component: () => import('@/views/demo/table.vue'),
             meta: {
-                title: 'table',
+                title: t('menu.table'),
                 icon: '',
+                permission: ['dict:item:select'],
             },
         },
         {
@@ -57,8 +63,9 @@ export const demoRoutes: RouteRecordRaw = {
             name: 'demo-select',
             component: () => import('@/views/demo/select.vue'),
             meta: {
-                title: 'select',
+                title: t('menu.select'),
                 icon: '',
+                permission: ['dict:item:select'],
             },
         },
         {
@@ -66,8 +73,9 @@ export const demoRoutes: RouteRecordRaw = {
             name: 'demo-form',
             component: () => import('@/views/demo/form.vue'),
             meta: {
-                title: 'form',
+                title: t('menu.form'),
                 icon: '',
+                permission: ['dict:item:select'],
             },
         },
         {
@@ -75,8 +83,9 @@ export const demoRoutes: RouteRecordRaw = {
             name: 'demo-text-editor',
             component: () => import('@/views/demo/textEditor.vue'),
             meta: {
-                title: 'textEditor',
+                title: t('menu.textEditor'),
                 icon: '',
+                permission: ['dict:item:select'],
             },
         },
         {
@@ -84,8 +93,9 @@ export const demoRoutes: RouteRecordRaw = {
             name: 'demo-file-preview',
             component: () => import('@/views/demo/filePreview.vue'),
             meta: {
-                title: 'filePreview',
+                title: t('menu.filePreview'),
                 icon: '',
+                permission: ['dict:item:select'],
             },
         },
         {
@@ -93,8 +103,9 @@ export const demoRoutes: RouteRecordRaw = {
             name: 'demo-crudPage',
             component: () => import('@/views/demo/crudPage.vue'),
             meta: {
-                title: 'crudPage',
+                title: t('menu.crudPage'),
                 icon: '',
+                permission: ['dict:item:select'],
             },
         },
         {
@@ -102,8 +113,9 @@ export const demoRoutes: RouteRecordRaw = {
             name: 'demo-threeJs',
             component: () => import('@/views/demo/threeJs.vue'),
             meta: {
-                title: 'threeJs',
+                title: t('menu.threeJs'),
                 icon: '',
+                permission: ['dict:item:select'],
             },
         },
         {
@@ -111,8 +123,9 @@ export const demoRoutes: RouteRecordRaw = {
             name: 'demo-map',
             component: () => import('@/views/demo/map.vue'),
             meta: {
-                title: 'map',
+                title: t('menu.map'),
                 icon: '',
+                permission: ['dict:item:select'],
             },
         },
     ],

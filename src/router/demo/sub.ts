@@ -10,6 +10,7 @@ export const subRoutes: RouteRecordRaw[] = [
             icon: '',
             hidden: true,
             keepAlive: true,
+            permission: ['dict:item:select'],
         },
     },
     {
@@ -17,7 +18,6 @@ export const subRoutes: RouteRecordRaw[] = [
         name: 'demo-sub2',
         component: () => import('@/views/demo/sub/sub2.vue'),
         meta: {
-            title: 'demo-sub2',
             icon: '',
             hidden: true,
             keepAlive: true,

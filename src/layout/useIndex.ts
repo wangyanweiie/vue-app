@@ -1,7 +1,16 @@
 import { ElMessage } from 'element-plus';
 import { OPERATION_NOTICE } from '@/constant/base';
 import type { XFormItemSchema, XFormInstance } from '@/components/Form/interface';
-import { getBaseUrl, getUserToken, getUserInfo, saveBaseUrl } from '@/utils/storage';
+import {
+    getBaseUrl,
+    getUserToken,
+    getUserInfo,
+    saveBaseUrl,
+    removeBaseUrl,
+    removeUserToken,
+    removeUserInfo,
+    removePermission,
+} from '@/utils/storage';
 import { confirmExitMessage } from '@/utils/confirm-message';
 import { clearStorage } from '@/utils/local-storage';
 import router from '@/router';
@@ -122,7 +131,11 @@ export default function useIndex() {
         const result = await RequestAPI.logout();
 
         if (result) {
-            clearStorage();
+            // clearStorage();
+            removeBaseUrl();
+            removeUserToken();
+            removeUserInfo();
+            removePermission();
             router.push(`/login`);
         }
     }
@@ -144,7 +157,11 @@ export default function useIndex() {
         const res = await RequestAPI.logout();
 
         if (res) {
-            clearStorage();
+            // clearStorage();
+            removeBaseUrl();
+            removeUserToken();
+            removeUserInfo();
+            removePermission();
             router.push(`/login`);
         }
     }

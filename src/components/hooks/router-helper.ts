@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 import type IconNameMap from '@element-plus/icons-vue';
-import { cloneDeep } from 'lodash-es';
+import { cloneDeep, intersection } from 'lodash-es';
 
 type IconTypes = keyof typeof IconNameMap;
 
@@ -22,8 +22,18 @@ function generateCacheList(routes: RouteRecordRaw[], permissions?: string[]): st
         }
 
         // 过滤掉无权限的路由
-        if (permissions && !permissions.includes(currentRoute.meta?.title as string)) {
-            continue;
+        // if (permissions && !permissions.includes(currentRoute.meta?.title as string)) {
+        //     continue;
+        // }
+
+        if (permissions && currentRoute.meta?.permission) {
+            if (intersection(permissions, currentRoute.meta?.permission as string[]).length === 0) {
+                continue;
+            }
+        } else if (permissions && currentRoute.meta?.title) {
+            if (!permissions.includes(currentRoute.meta?.title as string)) {
+                continue;
+            }
         }
 
         // 更新缓存路由数组
@@ -68,8 +78,18 @@ function generateActiveRoutes(routes: RouteRecordRaw[], permissions?: string[]):
         }
 
         // 过滤掉无权限的路由
-        if (permissions && !permissions.includes(currentRoute.meta?.title as string)) {
-            continue;
+        // if (permissions && !permissions.includes(currentRoute.meta?.title as string)) {
+        //     continue;
+        // }
+
+        if (permissions && currentRoute.meta?.permission) {
+            if (intersection(permissions, currentRoute.meta?.permission as string[]).length === 0) {
+                continue;
+            }
+        } else if (permissions && currentRoute.meta?.title) {
+            if (!permissions.includes(currentRoute.meta?.title as string)) {
+                continue;
+            }
         }
 
         // 区分 menu 类型
@@ -105,12 +125,22 @@ function generateShowMenus(routes: RouteRecordRaw[], permissions?: string[]): Ro
         }
 
         // 过滤掉无权限的路由
-        if (permissions && !permissions.includes(currentRoute.meta?.title as string)) {
-            continue;
+        // if (permissions && !permissions.includes(currentRoute.meta?.title as string)) {
+        //     continue;
+        // }
+
+        if (permissions && Array.isArray(currentRoute.meta?.permission)) {
+            if (intersection(permissions, currentRoute.meta?.permission as string[]).length === 0) {
+                continue;
+            }
+        } else if (permissions && currentRoute.meta?.title) {
+            if (!permissions.includes(currentRoute.meta?.title as string)) {
+                continue;
+            }
         }
 
-        // 过滤掉隐藏的路由
         if (currentRoute.meta.hidden) {
+            // 过滤掉隐藏的路由
             continue;
         }
 

@@ -93,6 +93,8 @@ import useExcelJs from '@/utils/use-exceljs';
 import { getPermissionAction } from '@/utils/permission-action';
 import type { XEditTableColumn } from '@/components/EditTable/interface';
 import type { XTableColumn } from '@/components/Table/interface';
+import i18n from '@/i18n/index';
+const { t } = i18n.global;
 
 /**
  * 表格列配置
@@ -213,14 +215,14 @@ function actionsConfig(row: Record<string, any>) {
     return getPermissionAction(
         [
             {
-                label: '详情',
+                label: t('button.detail'),
                 permission: 'detail',
                 onClick: () => {
                     console.log('详情', row);
                 },
             },
             {
-                label: '删除',
+                label: t('button.delete'),
                 permission: 'delete',
                 onClick: () => {
                     console.log('删除', row);

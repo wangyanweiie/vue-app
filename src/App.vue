@@ -1,14 +1,7 @@
 <template>
-    <el-config-provider :locale="getLocale">
-        <router-view />
-    </el-config-provider>
+    <router-view />
 </template>
-<script lang="ts" setup>
-import { useLanguageStore } from '@/store/language';
 
-const languageStore = useLanguageStore();
-const getLocale = computed(() => languageStore.getLocale);
-</script>
 <style lang="scss">
 @import '@/styles/index.scss';
 </style>

@@ -6,22 +6,19 @@
             :el-form-props="elFromProps"
             header="x-search-form"
             class="component"
-            :search-text="$t('button.search')"
-            :reset-text="$t('button.reset')"
             @search="handleSearch"
         >
         </x-search-form>
 
         <!-- <el-card header="x-form" shadow="hover" class="component">
             <x-form ref="formRef" v-model="form" :el-form-props="elFromProps" :schemas="schemas"> </x-form>
-
             <el-button @click="handleDefault"> DEFAULT </el-button>
             <el-button @click="handleRest"> REST </el-button>
             <el-button type="primary" @click="handleConfirm"> CONFIRM </el-button>
         </el-card> -->
 
         <el-card header="x-dialog-form" shadow="hover" class="component">
-            <el-button @click="openDialog">{{ $t('button.create') }}</el-button>
+            <el-button @click="openDialog">新增</el-button>
 
             <x-dialog-form
                 ref="dialogFormRef"
@@ -30,8 +27,6 @@
                 title="新增"
                 :schemas="schemas"
                 :loading="loading"
-                :submit-text="$t('button.submit')"
-                :cancel-text="$t('button.cancel')"
                 @submit="handleSubmit"
             ></x-dialog-form>
         </el-card>
@@ -184,9 +179,9 @@ const schemas: XFormItemSchema[] = [
             ],
             onChange: (value: string | number) => {
                 if (value === 'value1') {
-                    button.switch = true;
+                    form.switch = true;
                 } else {
-                    button.switch = false;
+                    form.switch = false;
                 }
             },
         }),
@@ -209,7 +204,7 @@ const schemas: XFormItemSchema[] = [
             format: 'YYYY-MM-DD',
             valueFormat: 'YYYY-MM-DD',
             onChange: (value: string) => {
-                button.datetime = dayjs(value).format('YYYY-MM-DD HH:mm:ss');
+                form.datetime = dayjs(value).format('YYYY-MM-DD HH:mm:ss');
             },
         }),
         elFormItemProps: {

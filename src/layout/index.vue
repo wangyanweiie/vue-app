@@ -1,5 +1,5 @@
 <template>
-    <el-config-provider :locale="getLocale">
+    <el-config-provider :locale="locale">
         <x-layout :routes="showMenus" :include-list="cacheList">
             <template #logo="{ collapsed }">
                 <x-logo logo="/logo.png" :title="APP_NAME" :collapsed="collapsed"></x-logo>
@@ -9,9 +9,9 @@
                 <div class="header-right">
                     <el-button type="primary" text bg @click="handleJudge">screen</el-button>
 
-                    <el-select v-model="getLanguage" class="header-right__item" @change="setLanguage">
+                    <el-select v-model="language" class="header-right__item" @change="setLanguage">
                         <el-option
-                            v-for="item in getLanguageList"
+                            v-for="item in languageList"
                             :key="item.value"
                             :label="item.label"
                             :value="item.value"
@@ -58,12 +58,12 @@ const i18 = useI18n();
 
 /**
  * 语言
- * 整体赋值可以保持响应性
+ * 整体赋值 ＋ 计算属性可以保持响应性
  */
 const languageStore = useLanguageStore();
-const getLanguage = computed(() => languageStore.getLanguage);
-const getLocale = computed(() => languageStore.getLocale);
-const getLanguageList = computed(() => languageStore.getLanguageList);
+const language = computed(() => languageStore.language);
+const locale = computed(() => languageStore.locale);
+const languageList = computed(() => languageStore.languageList);
 function setLanguage(e: LanguageType) {
     languageStore.setLanguage(e);
     i18.locale.value = e;

@@ -5,6 +5,7 @@ export const LOCAL_BASE_URL_KEY = 'baseUrl';
 export const LOCAL_TOKEN_KEY = 'token';
 export const LOCAL_USER_INFO_KEY = 'userInfo';
 export const LOCAL_PERMISSION_KEY = 'permission';
+export const LOCAL_LANGUAGE_KEY = 'language';
 
 /**
  * 当前环境

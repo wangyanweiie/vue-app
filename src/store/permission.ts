@@ -2,8 +2,9 @@ import { defineStore } from 'pinia';
 import type { RouteRecordRaw } from 'vue-router';
 import { generateActiveRoutes, generateCacheList, generateShowMenus } from '@/components/hooks/router-helper';
 import router, { menuRoutes } from '@/router/index';
-import { savePermission } from '@/utils/storage';
+import { getPermission, savePermission } from '@/utils/storage';
 import appLayout from '@/layout/index.vue';
+import { intersection } from 'lodash-es';
 
 /**
  * 权限缓存状态
@@ -14,7 +15,7 @@ export const usePermissionStore: any = defineStore('permission', () => {
     /**
      * 是否开启权限设置
      */
-    const usable = ref<boolean>(false);
+    const usable = ref<boolean>(true);
 
     /**
      * 开启权限
@@ -120,7 +121,14 @@ export const usePermissionStore: any = defineStore('permission', () => {
      */
     function getPermissionMenus(routes: RouteRecordRaw[]) {
         if (usable.value) {
-            return routes.filter(route => permissions.value.includes(route.meta?.title as string));
+            return routes.filter(route => {
+                // 若存在权限数组优先根据权限数组过滤，否则再根据 title 过滤
+                if (Array.isArray(route.meta?.permission)) {
+                    return intersection(permissions.value, route.meta?.permission as string[]).length > 0;
+                } else if (route.meta?.title) {
+                    return permissions.value.includes(route.meta?.title as string);
+                }
+            });
         }
 
         return routes;
@@ -145,11 +153,11 @@ export const usePermissionStore: any = defineStore('permission', () => {
     /**
      * 监听
      */
-    // watchEffect(() => {
-    //     console.log('activeRoutes', activeRoutes.value);
-    //     console.log('cacheList', cacheList.value);
-    //     console.log('showMenus', showMenus.value);
-    // });
+    watchEffect(() => {
+        console.log('activeRoutes', activeRoutes.value);
+        console.log('cacheList', cacheList.value);
+        console.log('showMenus', showMenus.value);
+    });
 
     return {
         usable,
@@ -175,8 +183,12 @@ export const usePermissionStore: any = defineStore('permission', () => {
  */
 export function setPermissionRoute() {
     const permissionStore = usePermissionStore();
+    const permissions = getPermission();
 
-    // 赋值路由数组并动态加载路由
+    // 设置路由
     permissionStore.setRoutes(menuRoutes);
+    // 设置权限
+    permissionStore.setPermission(permissions);
+    // 动态加载路由
     permissionStore.setActiveRouteList();
 }

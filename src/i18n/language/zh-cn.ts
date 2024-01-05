@@ -1,4 +1,16 @@
 export default {
+    menu: {
+        demo: '示例',
+        form: '表单',
+        table: '表格',
+        description: '描述列',
+        select: '下拉',
+        textEditor: '富文本编辑器',
+        filePreview: '文件预览',
+        crudPage: '增删改查页面',
+        threeJs: '3D建模',
+        map: '地图',
+    },
     button: {
         export: '导出',
         import: '导入',
@@ -8,6 +20,7 @@ export default {
         create: '新增',
         edit: '编辑',
         delete: '删除',
+        detail: '详情',
 
         search: '查询',
         reset: '重置',
