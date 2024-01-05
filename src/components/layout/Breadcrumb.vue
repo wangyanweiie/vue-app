@@ -10,7 +10,7 @@
 import { useRoute, type RouteRecordRaw } from 'vue-router';
 
 const route = useRoute();
-const breadcrumbs = computed<RouteRecordRaw[]>(() => route.matched);
+const breadcrumbs = computed<RouteRecordRaw[]>(() => route.matched?.filter(item => item.name !== '/'));
 </script>
 
 <style lang="scss" scoped>
