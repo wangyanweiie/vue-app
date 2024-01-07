@@ -39,8 +39,8 @@ export const usePermissionStore: any = defineStore('permission', () => {
     /**
      * 更新权限数组
      */
-    function setPermission(value: string[]): void {
-        permissions.value = ['首页', ...(value ?? [])];
+    function setPermission(value: string[] = []): void {
+        permissions.value = ['首页', ...value];
         savePermission(permissions.value);
     }
 
@@ -179,16 +179,24 @@ export const usePermissionStore: any = defineStore('permission', () => {
 });
 
 /**
- * 设置路由
+ * 设置权限与路由
  */
 export function setPermissionRoute() {
     const permissionStore = usePermissionStore();
-    const permissions = getPermission();
+    const permissions = getPermission() || [];
 
     // 设置路由
-    permissionStore.setRoutes(menuRoutes);
+    permissionStore.setRoutes(menuRoutes.value);
     // 设置权限
     permissionStore.setPermission(permissions);
     // 动态加载路由
     permissionStore.setActiveRouteList();
+}
+
+/**
+ * 更新路由
+ */
+export function updateRoute() {
+    const permissionStore = usePermissionStore();
+    permissionStore.setRoutes(menuRoutes.value);
 }

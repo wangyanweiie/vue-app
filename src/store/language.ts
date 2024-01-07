@@ -27,7 +27,6 @@ export const useLanguageStore = defineStore('language', () => {
         language.value = value;
         locale.value = value === 'zh-cn' ? zhCn : value === 'zh-tw' ? zhTw : en;
         saveLanguage(value);
-        window.location.reload();
     }
 
     return {

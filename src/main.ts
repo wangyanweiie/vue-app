@@ -7,7 +7,7 @@ import registerDirective from '@/directive';
 import registerComponents from '@/components';
 import { setPermissionRoute } from '@/store/permission';
 import { setupRouterGuard } from '@/router/route-guard';
-import i18n from '@/i18n/index';
+import i18n from '@/locale';
 
 // 引入组件样式
 import 'element-plus/dist/index.css';

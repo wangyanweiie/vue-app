@@ -50,30 +50,31 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { type LanguageType, useLanguageStore } from '@/store/language';
-import { usePermissionStore } from '@/store/permission';
+import { usePermissionStore, updateRoute } from '@/store/permission';
 import { ENV, APP_NAME } from '@/constant/global';
 import useIndex from './useIndex';
 
 const i18 = useI18n();
 
 /**
- * 语言
- * 整体赋值 ＋ 计算属性可以保持响应性
+ * 整体赋值 ＋ 计算属性可以保持响应性；
+ * 直接解构会失去响应性；
  */
+
 const languageStore = useLanguageStore();
 const language = computed(() => languageStore.language);
 const locale = computed(() => languageStore.locale);
 const languageList = computed(() => languageStore.languageList);
+
 function setLanguage(e: LanguageType) {
-    languageStore.setLanguage(e);
     i18.locale.value = e;
+    languageStore.setLanguage(e);
+    updateRoute();
 }
 
-/**
- * 权限与路由
- * 直接解构会失去响应性
- */
-const { showMenus, cacheList } = usePermissionStore();
+const permissionStore = usePermissionStore();
+const showMenus = computed(() => permissionStore.showMenus);
+const cacheList = computed(() => permissionStore.cacheList);
 
 /**
  * useIndex

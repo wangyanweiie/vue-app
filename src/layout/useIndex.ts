@@ -12,7 +12,6 @@ import {
     removePermission,
 } from '@/utils/storage';
 import { confirmExitMessage } from '@/utils/confirm-message';
-import { clearStorage } from '@/utils/local-storage';
 import router from '@/router';
 import RequestAPI from '@/api/login';
 

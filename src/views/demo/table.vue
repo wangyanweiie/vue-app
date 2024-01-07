@@ -93,7 +93,8 @@ import useExcelJs from '@/utils/use-exceljs';
 import { getPermissionAction } from '@/utils/permission-action';
 import type { XEditTableColumn } from '@/components/EditTable/interface';
 import type { XTableColumn } from '@/components/Table/interface';
-import i18n from '@/i18n/index';
+import i18n from '@/locale';
+
 const { t } = i18n.global;
 
 /**

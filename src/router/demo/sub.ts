@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-export const subRoutes: RouteRecordRaw[] = [
+export const subRoutes = computed<RouteRecordRaw[]>(() => [
     {
         path: '/demo/sub/sub1',
         name: 'demo-sub1',
@@ -23,4 +23,4 @@ export const subRoutes: RouteRecordRaw[] = [
             keepAlive: true,
         },
     },
-];
+]);

@@ -6,12 +6,12 @@ import { HOME_ROUTE, LOGIN_ROUTE, FORBIDDEN_ROUTE, SCREEN_ROUTE } from './base';
 /**
  * menu-routes
  */
-const menuRoutes: RouteRecordRaw[] = [HOME_ROUTE, demoRoutes];
+const menuRoutes = computed<RouteRecordRaw[]>(() => [HOME_ROUTE, demoRoutes.value]);
 
 /**
  * routers
  */
-const routes: RouteRecordRaw[] = [
+const routes = computed<RouteRecordRaw[]>(() => [
     {
         path: '/',
         name: '/',
@@ -21,20 +21,20 @@ const routes: RouteRecordRaw[] = [
             icon: 'HomeFilled',
             title: 'index',
         },
-        children: menuRoutes,
+        children: menuRoutes.value,
     },
 
     LOGIN_ROUTE,
     FORBIDDEN_ROUTE,
     SCREEN_ROUTE,
-];
+]);
 
 /**
  * router
  */
 const router = createRouter({
     history: createWebHistory(),
-    routes,
+    routes: routes.value,
 });
 
 export default router;
