@@ -1,4 +1,4 @@
-import { writeFileSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import axios, { AxiosHeaders } from 'axios';
 
 interface tagType {
@@ -30,7 +30,7 @@ interface swaggerResType {
 async function writeAPI() {
     try {
         // 将需要用到的后端 swagger 接口地址放进来
-        const apiList = ['http://192.168.3.201:8002/v3/api-docs?group=%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1'];
+        const apiList = ['http://192.168.3.200:8063/v3/api-docs?group=%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1'];
 
         // 收集所有后端 swagger 返回的数据
         const res: any = await Promise.all(
@@ -83,6 +83,11 @@ async function writeAPI() {
 
             writeData.paths[key][method].operationId = `${funName}${method.toUpperCase()}`;
         }
+
+        if (!existsSync('./src/json')) {
+            mkdirSync('./src/json');
+        }
+
         writeFileSync('./src/json/api.json', JSON.stringify(writeData));
     } catch (error) {
         console.log('出错了');

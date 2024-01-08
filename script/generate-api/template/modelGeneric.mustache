@@ -26,16 +26,16 @@ export interface {{classname}} {{#parent}}extends {{{.}}} {{/parent}}{
 {{#isEnum}}
 {{#stringEnums}}
 /**
-    * @export
-    * @enum {string}
-    */
+ * @export
+ * @enum {string}
+ */
 export enum {{enumName}} {
 {{#allowableValues}}
     {{#enumVars}}
     {{#enumDescription}}
     /**
-    * {{.}}
-    */
+     * {{.}}
+     */
     {{/enumDescription}}
     {{{name}}} = {{{value}}}{{^-last}},{{/-last}}
     {{/enumVars}}
@@ -48,8 +48,8 @@ export const {{enumName}} = {
     {{#enumVars}}
     {{#enumDescription}}
     /**
-    * {{.}}
-    */
+     * {{.}}
+     */
     {{/enumDescription}}
     {{{name}}}: {{{value}}}{{^-last}},{{/-last}}
     {{/enumVars}}

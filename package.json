@@ -32,7 +32,10 @@
         "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
         "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
         "format": "prettier --write src/",
-        "commit": "git add . && git cz"
+        "commit": "git add . && git cz",
+        "write-permission": "tsc --skipLibCheck ./script/permission/get-permission.ts && node ./script/permission/get-permission.js",
+        "write-api": "tsc --skipLibCheck ./script/generate-api/get-api-docs.ts && node ./script/generate-api/get-api-docs.js",
+        "generate-api": "cd ./script/generate-api && npx openapi-generator-cli generate -c openapitools.json --generator-key v2.0"
     },
     "dependencies": {
         "@element-plus/icons-vue": "^2.3.1",
@@ -71,6 +74,7 @@
     "devDependencies": {
         "@commitlint/cli": "^18.4.3",
         "@commitlint/config-conventional": "^18.4.3",
+        "@openapitools/openapi-generator-cli": "^2.7.0",
         "@tsconfig/node18": "^18.2.2",
         "@types/animejs": "^3.1.12",
         "@types/file-saver": "^2.0.7",

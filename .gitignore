@@ -17,16 +17,6 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-.DS_Store
-dist
-dist-ssr
-coverage
-*.local
-
-/cypress/videos/
-/cypress/screenshots/
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -36,3 +26,11 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# 包
+node_modules
+dist
+
+# 生成接口
+src/gen-api
+src/json
