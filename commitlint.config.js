@@ -61,14 +61,6 @@ module.exports = {
         ],
 
         /**
-         * scope
-         * 'scope-empty'：是否允许为空
-         * 'scope-enum'：只允许在列出的枚举值中
-         */
-        'scope-empty': [2, 'never'],
-        'scope-enum': [2, 'always', ['vue-app']],
-
-        /**
          * subject
          * 'subject-empty'：是否允许为空
          * 'subject-min-length'：最小长度

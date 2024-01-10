@@ -20,11 +20,6 @@ module.exports = {
     ],
 
     /**
-     * scope
-     */
-    scopes: ['vue-app'],
-
-    /**
      * 消息步骤
      */
     messages: {
@@ -40,7 +35,7 @@ module.exports = {
     /**
      * 跳过问题：自定义修改范围，详细描述，issue 相关
      */
-    skipQuestions: ['customScope', 'body', 'footer'],
+    skipQuestions: ['scope', 'customScope', 'body', 'footer'],
 
     /**
      * 描述文字长度限制
