@@ -1,5 +1,5 @@
 export default {
-    menu: {
+    router: {
         demo: '示例',
         form: '表单',
         table: '表格',

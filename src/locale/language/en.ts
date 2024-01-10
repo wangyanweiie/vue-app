@@ -1,13 +1,13 @@
 export default {
-    menu: {
+    router: {
         demo: 'demo',
         form: 'form',
         table: 'table',
         description: 'description',
         select: 'select',
-        textEditor: 'textEditor',
-        filePreview: 'filePreview',
-        crudPage: 'crudPage',
+        textEditor: 'text editor',
+        filePreview: 'file preview',
+        crudPage: 'crud page',
         threeJs: 'threeJs',
         map: 'map',
     },
@@ -16,7 +16,7 @@ export default {
         import: 'import',
         print: 'print',
         operate: 'operate',
-        downloadTemplate: 'downloadTemplate',
+        downloadTemplate: 'download template',
         create: 'create',
         edit: 'edit',
         delete: 'delete',

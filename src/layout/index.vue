@@ -54,6 +54,9 @@ import { usePermissionStore, updateRoute } from '@/store/permission';
 import { ENV, APP_NAME } from '@/constant/global';
 import useIndex from './useIndex';
 
+console.log('时区', Intl.DateTimeFormat().resolvedOptions().timeZone);
+console.log('时区偏移量', new Date().getTimezoneOffset() / 60);
+
 const i18 = useI18n();
 
 /**

@@ -31,7 +31,7 @@
                     </span>
                 </div>
 
-                <breadcrumb></breadcrumb>
+                <breadcrumb :routes="routes"></breadcrumb>
 
                 <h4 v-if="isBoxVisible" class="x-header__center">{{ title }}</h4>
 
@@ -41,7 +41,7 @@
             </el-header>
 
             <!-- 历史页面面包屑 -->
-            <history-tabs></history-tabs>
+            <history-tabs :routes="routes"></history-tabs>
 
             <!-- 主要区域容器 -->
             <el-scrollbar>

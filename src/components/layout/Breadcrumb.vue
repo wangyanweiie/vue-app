@@ -9,6 +9,23 @@
 <script setup lang="ts">
 import { useRoute, type RouteRecordRaw } from 'vue-router';
 
+/**
+ * props
+ */
+const props = withDefaults(
+    defineProps<{
+        /** 路由数组 */
+        routes?: RouteRecordRaw[];
+    }>(),
+    {
+        routes: () => [],
+    },
+);
+
+watchEffect(() => {
+    console.log('Breadcrumb', props.routes);
+});
+
 const route = useRoute();
 const breadcrumbs = computed<RouteRecordRaw[]>(() => route.matched?.filter(item => item.name !== '/'));
 </script>

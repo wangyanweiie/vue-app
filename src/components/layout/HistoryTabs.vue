@@ -51,9 +51,26 @@
 
 <script setup lang="ts">
 import { getCurrentInstance, nextTick, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, type RouteRecordRaw } from 'vue-router';
 import { ElScrollbar } from 'element-plus';
 import { DArrowLeft, Close, DArrowRight, RefreshRight } from '@element-plus/icons-vue';
+
+/**
+ * props
+ */
+const props = withDefaults(
+    defineProps<{
+        /** 路由数组 */
+        routes?: RouteRecordRaw[];
+    }>(),
+    {
+        routes: () => [],
+    },
+);
+
+watchEffect(() => {
+    console.log('HistoryTabs', props.routes);
+});
 
 interface Tab {
     path: string;
