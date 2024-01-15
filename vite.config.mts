@@ -6,7 +6,7 @@ import Icons from 'unplugin-icons/vite';
 import Dts from 'vite-plugin-dts';
 import Inspect from 'vite-plugin-inspect';
 import AutoImport from 'unplugin-auto-import/vite';
-import Components from 'unplugin-vue-components/vite';
+import VueComponents from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import IconsResolver from 'unplugin-icons/resolver';
 import ElementPlus from 'unplugin-element-plus/vite';
@@ -20,7 +20,6 @@ import { visualizer } from 'rollup-plugin-visualizer';
  * The vite.config.js(ts) file content is using the ESM syntax.
  * The closest package.json file has "type": "module", or use the .mjs extension, e.g. vite.config.mjs(mts)
  */
-
 const pathSrc = path.resolve(__dirname, 'src');
 
 export default defineConfig({
@@ -126,7 +125,7 @@ export default defineConfig({
         /**
          * 自动引入自定义组件
          */
-        Components({
+        VueComponents({
             // 指定组件位置，默认是 src/components
             dirs: ['src/components'],
 

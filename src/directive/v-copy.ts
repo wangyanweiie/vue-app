@@ -1,5 +1,8 @@
 import { ElMessage } from 'element-plus';
 
+/**
+ * 复制指令
+ */
 const copy = {
     mounted(el: any, binding: Record<string, any>) {
         // 用一个全局属性来存传进来的值，因为这个值在别的钩子函数里还会用到

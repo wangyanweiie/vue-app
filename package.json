@@ -21,10 +21,11 @@
         }
     },
     "scripts": {
-        "dev": "vite --host",
+        "dev": "vite --host --open",
         "build": "vue-tsc --noEmit && vite build",
         "build-only": "vite build",
-        "preview": "vite preview",
+        "optimize": "vite optimize",
+        "preview": "vite preview --host --open",
         "test": "vitest",
         "test-ui": "vitest --ui",
         "test-preview": "vite preview --outDir ./html",

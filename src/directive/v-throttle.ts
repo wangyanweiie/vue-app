@@ -1,3 +1,6 @@
+/**
+ * 节流指令
+ */
 const throttle = {
     mounted(el: any, binding: Record<string, any>) {
         // 节流时间

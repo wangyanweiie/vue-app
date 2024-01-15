@@ -10,6 +10,7 @@ function hasPermission(permission: string) {
 }
 
 /**
+ * 权限指令
  * 指令是具有一组生命周期的钩子，具有 7 个生命周期
  * - created、beforeMount、mounted、beforeUpdate、updated、beforeUnmount、unmounted
  */
