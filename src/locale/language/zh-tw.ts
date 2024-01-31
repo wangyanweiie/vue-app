@@ -19,34 +19,27 @@ export default {
         downloadTemplate: '下載模版',
         create: '新增',
         edit: '編輯',
-        delete: '删除',
+        delete: '刪除',
         detail: '詳情',
-
-        search: '査詢',
+        search: '查詢',
         reset: '重置',
-
         save: '保存',
         confirm: '確認',
         submit: '提交',
         cancel: '取消',
     },
     toptip: {
-        confirmDelete: '確認删除？',
-        deleteSuccess: '删除成功',
-        deleteFailed: '删除失敗',
-
+        confirmDelete: '確認刪除？',
+        deleteSuccess: '刪除成功',
+        deleteFailed: '刪除失敗',
         exportSuccess: '導出成功',
         exportFailed: '導出失敗',
-
         importSuccess: '導入成功',
         importFailed: '導入失敗',
-
         createSuccess: '新增成功',
         createFailed: '新增失敗',
-
         editSuccess: '編輯成功',
         editFailed: '編輯失敗',
-
         operateSuccess: '操作成功',
         operateFailed: '操作失敗',
     },

@@ -22,12 +22,36 @@ const props = withDefaults(
     },
 );
 
-watchEffect(() => {
-    console.log('Breadcrumb', props.routes);
-});
-
 const route = useRoute();
-const breadcrumbs = computed<RouteRecordRaw[]>(() => route.matched?.filter(item => item.name !== '/'));
+const breadcrumbs = ref<RouteRecordRaw[]>([]);
+// const breadcrumbs = computed<RouteRecordRaw[]>(() => route.matched?.filter(item => item.name !== '/'));
+
+function getLatestBreadcrumbs(currentRoutes: RouteRecordRaw[], allRoutes: RouteRecordRaw[]) {
+    let index = 0;
+
+    for (let i = 0; i < currentRoutes.length; i++) {
+        const currentRoute = currentRoutes[i];
+
+        if (!allRoutes || !allRoutes.length) {
+            continue;
+        }
+
+        if (allRoutes.findIndex(item => item.path === currentRoute.path) === -1) {
+            continue;
+        }
+
+        index = allRoutes.findIndex(item => item.path === currentRoute.path);
+        breadcrumbs.value.push(allRoutes[index]);
+
+        getLatestBreadcrumbs(currentRoutes, allRoutes[index].children as RouteRecordRaw[]);
+        break;
+    }
+}
+
+watchEffect(() => {
+    breadcrumbs.value = [];
+    getLatestBreadcrumbs(route.matched, props.routes);
+});
 </script>
 
 <style lang="scss" scoped>

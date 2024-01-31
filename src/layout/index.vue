@@ -7,23 +7,24 @@
 
             <template #header-right>
                 <div class="header-right">
-                    <el-button type="primary" text bg @click="handleJudge">screen</el-button>
+                    <el-input v-if="ENV !== 'production'" v-model="baseUrl" @blur="handleBlur"></el-input>
 
-                    <el-select v-model="language" class="header-right__item" @change="setLanguage">
-                        <el-option
-                            v-for="item in languageList"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
-                        ></el-option>
-                    </el-select>
+                    <el-button type="primary" text bg class="header-right__item" @click="handleJudge">screen</el-button>
 
-                    <el-input
-                        v-if="ENV !== 'production'"
-                        v-model="baseUrl"
-                        class="header-right__item"
-                        @blur="handleBlur"
-                    ></el-input>
+                    <el-dropdown class="header-right__item">
+                        <img src="/svg/language.svg" alt="" width="15" />
+                        <template #dropdown>
+                            <el-dropdown-menu>
+                                <el-dropdown-item
+                                    v-for="item in languageList"
+                                    :key="item.value"
+                                    @click="setLanguage(item.value as LanguageType)"
+                                >
+                                    {{ item.label }}
+                                </el-dropdown-item>
+                            </el-dropdown-menu>
+                        </template>
+                    </el-dropdown>
 
                     <x-user
                         :user-name="userInfo?.userName"
@@ -63,7 +64,6 @@ const i18 = useI18n();
  * 整体赋值 ＋ 计算属性可以保持响应性；
  * 直接解构会失去响应性；
  */
-
 const languageStore = useLanguageStore();
 const language = computed(() => languageStore.language);
 const locale = computed(() => languageStore.locale);
