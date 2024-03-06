@@ -2,8 +2,8 @@
     <x-crud-page
         el-type="el-drawer"
         :search-form-schemas="searchSchemas"
-        :createSchemas="schemas"
-        :editSchemas="schemas"
+        :create-schemas="schemas"
+        :edit-schemas="schemas"
         :columns="columns"
         :data="data"
     ></x-crud-page>

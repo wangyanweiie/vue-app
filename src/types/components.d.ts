@@ -7,7 +7,7 @@ export {}
 
 declare module 'vue' {
     export interface GlobalComponents {
-        Breadcrumb: (typeof import('./../components/Layout/Breadcrumb.vue'))['default'];
+        Breadcrumb: (typeof import('./../components/x-layout/Breadcrumb.vue'))['default'];
         ElAside: (typeof import('element-plus/es'))['ElAside'];
         ElAutoResizer: (typeof import('element-plus/es'))['ElAutoResizer'];
         ElBreadcrumb: (typeof import('element-plus/es'))['ElBreadcrumb'];
@@ -47,38 +47,37 @@ declare module 'vue' {
         ElTableV2: (typeof import('element-plus/es'))['ElTableV2'];
         ElTag: (typeof import('element-plus/es'))['ElTag'];
         ElTooltip: (typeof import('element-plus/es'))['ElTooltip'];
-        Excel: (typeof import('./../components/FilePreview/components/excel.vue'))['default'];
-        HandleCache: (typeof import('./../components/Layout/HandleCache.vue'))['default'];
-        HistoryTabs: (typeof import('./../components/Layout/HistoryTabs.vue'))['default'];
-        ParentMenuView: (typeof import('./../components/Layout/ParentMenuView.vue'))['default'];
-        ParentView: (typeof import('./../components/Layout/ParentView.vue'))['default'];
-        Pdf: (typeof import('./../components/FilePreview/components/pdf.vue'))['default'];
+        Excel: (typeof import('./../components/x-file-preview/components/excel.vue'))['default'];
+        HistoryTabs: (typeof import('./../components/x-layout/HistoryTabs.vue'))['default'];
+        ParentMenuView: (typeof import('./../components/x-layout/ParentMenuView.vue'))['default'];
+        ParentView: (typeof import('./../components/x-layout/ParentView.vue'))['default'];
+        Pdf: (typeof import('./../components/x-file-preview/components/pdf.vue'))['default'];
         RouterLink: (typeof import('vue-router'))['RouterLink'];
         RouterView: (typeof import('vue-router'))['RouterView'];
-        SubMenu: (typeof import('./../components/Layout/SubMenu.vue'))['default'];
-        TableSetting: (typeof import('./../components/Table/components/TableSetting.vue'))['default'];
-        Word: (typeof import('./../components/FilePreview/components/word.vue'))['default'];
-        XChart: (typeof import('./../components/Chart/XChart.vue'))['default'];
-        XCheckbox: (typeof import('./../components/Form/components/XCheckbox.vue'))['default'];
-        XCrudPage: (typeof import('./../components/CrudPage/XCrudPage.vue'))['default'];
-        XDescription: (typeof import('./../components/Description/XDescription.vue'))['default'];
-        XDialogForm: (typeof import('./../components/Form/XDialogForm.vue'))['default'];
-        XEditTable: (typeof import('./../components/EditTable/XEditTable.vue'))['default'];
-        XEditTableItem: (typeof import('./../components/EditTable/XEditTableItem.vue'))['default'];
-        XFilePreview: (typeof import('./../components/FilePreview/XFilePreview.vue'))['default'];
-        XForm: (typeof import('./../components/Form/XForm.vue'))['default'];
-        XFormItem: (typeof import('./../components/Form/XFormItem.vue'))['default'];
-        XLayout: (typeof import('./../components/Layout/XLayout.vue'))['default'];
-        XLogo: (typeof import('./../components/Layout/XLogo.vue'))['default'];
-        XMap: (typeof import('./../components/Map/XMap.vue'))['default'];
-        XRadio: (typeof import('./../components/Form/components/XRadio.vue'))['default'];
-        XRichTextEditor: (typeof import('./../components/RichTextEditor/XRichTextEditor.vue'))['default'];
-        XSearchForm: (typeof import('./../components/Form/XSearchForm.vue'))['default'];
-        XSelect: (typeof import('./../components/Form/components/XSelect.vue'))['default'];
-        XTable: (typeof import('./../components/Table/XTable.vue'))['default'];
-        XTableV2: (typeof import('./../components/TableV2/XTableV2.vue'))['default'];
-        XUpload: (typeof import('./../components/Upload/XUpload.vue'))['default'];
-        XUser: (typeof import('./../components/Layout/XUser.vue'))['default'];
+        SubMenu: (typeof import('./../components/x-layout/SubMenu.vue'))['default'];
+        TableSetting: (typeof import('./../components/x-table/components/TableSetting.vue'))['default'];
+        Word: (typeof import('./../components/x-file-preview/components/word.vue'))['default'];
+        XChart: (typeof import('./../components/x-chart/XChart.vue'))['default'];
+        XCheckbox: (typeof import('./../components/x-form/components/XCheckbox.vue'))['default'];
+        XCrudPage: (typeof import('./../components/x-crud-page/XCrudPage.vue'))['default'];
+        XDescription: (typeof import('./../components/x-description/XDescription.vue'))['default'];
+        XDialogForm: (typeof import('./../components/x-form/XDialogForm.vue'))['default'];
+        XEditTable: (typeof import('./../components/x-edit-table/XEditTable.vue'))['default'];
+        XEditTableItem: (typeof import('./../components/x-edit-table/XEditTableItem.vue'))['default'];
+        XFilePreview: (typeof import('./../components/x-file-preview/XFilePreview.vue'))['default'];
+        XForm: (typeof import('./../components/x-form/XForm.vue'))['default'];
+        XFormItem: (typeof import('./../components/x-form/XFormItem.vue'))['default'];
+        XLayout: (typeof import('./../components/x-layout/XLayout.vue'))['default'];
+        XLogo: (typeof import('./../components/x-layout/XLogo.vue'))['default'];
+        XMap: (typeof import('./../components/x-map/XMap.vue'))['default'];
+        XRadio: (typeof import('./../components/x-form/components/XRadio.vue'))['default'];
+        XRichTextEditor: (typeof import('./../components/x-rich-text-editor/XRichTextEditor.vue'))['default'];
+        XSearchForm: (typeof import('./../components/x-form/XSearchForm.vue'))['default'];
+        XSelect: (typeof import('./../components/x-form/components/XSelect.vue'))['default'];
+        XTable: (typeof import('./../components/x-table/XTable.vue'))['default'];
+        XTableV2: (typeof import('./../components/x-table-v2/XTableV2.vue'))['default'];
+        XUpload: (typeof import('./../components/x-upload/XUpload.vue'))['default'];
+        XUser: (typeof import('./../components/x-layout/XUser.vue'))['default'];
     }
     export interface ComponentCustomProperties {
         vLoading: (typeof import('element-plus/es'))['ElLoadingDirective'];

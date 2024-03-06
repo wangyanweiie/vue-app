@@ -18,9 +18,11 @@ export const subRoutes = computed<RouteRecordRaw[]>(() => [
         name: 'demo-sub2',
         component: () => import('@/views/demo/sub/sub2.vue'),
         meta: {
+            title: 'demo-sub2',
             icon: '',
             hidden: true,
             keepAlive: true,
+            permission: ['dict:item:select'],
         },
     },
 ]);

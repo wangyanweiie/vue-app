@@ -1,4 +1,3 @@
-import type { url } from 'inspector';
 <template>
     <div id="luckysheetId" class="luckysheet"></div>
 </template>

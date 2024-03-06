@@ -1,12 +1,5 @@
 <template>
     <el-dialog v-model="dialogVisible" :title="title" fullscreen :show-close="true" destroy-on-close>
-        <!-- <template #header="{ close }">
-            <div class="dialog-header">
-                <el-button type="success" @click="download()">下载</el-button>
-                <el-button @click="close"> 关闭 </el-button>
-            </div>
-        </template> -->
-
         <component :is="currentComponent" :ref="componentRef" :url="url"></component>
     </el-dialog>
 </template>

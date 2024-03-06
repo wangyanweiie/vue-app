@@ -12,4 +12,3 @@ import { usePermissionStore } from '@/store/permission';
 
 const { cacheList, getPermissionMenus } = usePermissionStore();
 </script>
-@/router/demo/sub

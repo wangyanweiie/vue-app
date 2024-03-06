@@ -25,24 +25,24 @@
                         <el-input v-model="row[item.prop]" placeholder="请输入"></el-input>
                     </template>
                 </x-edit-table-item>
-                <x-edit-table-item :label="$t('button.operate')" :required="false" fixed="right" width="250">
+                <x-edit-table-item :label="$t('button.操作')" :required="false" fixed="right" width="250">
                     <template #default="{ actions, index }">
                         <el-button text type="primary" @click="actions.startEdit(index)">
-                            {{ $t('button.operate') }}
+                            {{ $t('button.操作') }}
                         </el-button>
                         <el-button text type="primary" @click="actions.deleteRow(index)">
-                            {{ $t('button.delete') }}
+                            {{ $t('button.删除') }}
                         </el-button>
                     </template>
                     <template #edit="{ actions, index }">
                         <el-button text type="primary" @click="actions.saveEdit(index)">
-                            {{ $t('button.save') }}
+                            {{ $t('button.保存') }}
                         </el-button>
                         <el-button text type="primary" @click="actions.cancelEdit(index)">
-                            {{ $t('button.cancel') }}
+                            {{ $t('button.取消') }}
                         </el-button>
                         <el-button text type="primary" @click="actions.deleteRow(index)">
-                            {{ $t('button.delete') }}
+                            {{ $t('button.删除') }}
                         </el-button>
                     </template>
                 </x-edit-table-item>
@@ -64,8 +64,8 @@
             class="component"
         >
             <template #operation>
-                <el-button type="success">{{ $t('button.create') }}</el-button>
-                <el-button type="warning" @click="handleExport"> {{ $t('button.export') }}</el-button>
+                <el-button type="success">{{ $t('button.新增') }}</el-button>
+                <el-button type="warning" @click="handleExport"> {{ $t('button.导出') }}</el-button>
             </template>
         </x-table>
 
@@ -81,8 +81,8 @@
             class="component"
         >
             <template #operation>
-                <el-button type="success">{{ $t('button.create') }}</el-button>
-                <el-button type="warning" @click="handleExport"> {{ $t('button.export') }}</el-button>
+                <el-button type="success">{{ $t('button.新增') }}</el-button>
+                <el-button type="warning" @click="handleExport"> {{ $t('button.导出') }}</el-button>
             </template>
         </x-table-v2>
     </div>
@@ -216,15 +216,15 @@ function actionsConfig(row: Record<string, any>) {
     return getPermissionAction(
         [
             {
-                label: t('button.detail'),
-                permission: 'detail',
+                label: t('button.详情'),
+                permission: '',
                 onClick: () => {
                     console.log('详情', row);
                 },
             },
             {
-                label: t('button.delete'),
-                permission: 'delete',
+                label: t('button.删除'),
+                permission: '',
                 onClick: () => {
                     console.log('删除', row);
                 },
@@ -259,3 +259,4 @@ function editTableSubmit() {
     margin-bottom: 10px;
 }
 </style>
+@/components/x-edit-table/interface

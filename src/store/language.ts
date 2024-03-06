@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 import zhTw from 'element-plus/dist/locale/zh-tw.mjs';
 import en from 'element-plus/dist/locale/en.mjs';
-import { getLanguage, saveLanguage } from '@/utils/storage';
+import { getLanguage, saveLanguage } from '@/utils/storage.ts';
 
 /**
  * 语言类型

@@ -69,7 +69,6 @@ export default defineConfig({
                     'element-plus': ['element-plus'],
                     'lodash-es': ['lodash-es'],
                     'docx-preview': ['docx-preview'],
-                    'datav-vue3': ['@dataview/datav-vue3'],
                     html2canvas: ['html2canvas'],
                     luckyexcel: ['luckyexcel'],
                     exceljs: ['exceljs'],

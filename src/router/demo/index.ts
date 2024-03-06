@@ -17,7 +17,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
         // }),
         redirect: '/demo/sub',
         meta: {
-            title: t('router.demo'),
+            title: t('router.示例页面'),
             icon: 'FolderOpened',
             permission: ['dict:item:select'],
         },
@@ -45,7 +45,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 name: 'demo-description',
                 component: () => import('@/views/demo/description.vue'),
                 meta: {
-                    title: t('router.description'),
+                    title: t('router.描述列'),
                     icon: '',
                     permission: ['dict:item:select'],
                 },
@@ -55,7 +55,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 name: 'demo-table',
                 component: () => import('@/views/demo/table.vue'),
                 meta: {
-                    title: t('router.table'),
+                    title: t('router.表格'),
                     icon: '',
                     permission: ['dict:item:select'],
                 },
@@ -65,7 +65,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 name: 'demo-select',
                 component: () => import('@/views/demo/select.vue'),
                 meta: {
-                    title: t('router.select'),
+                    title: t('router.下拉'),
                     icon: '',
                     permission: ['dict:item:select'],
                 },
@@ -75,7 +75,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 name: 'demo-form',
                 component: () => import('@/views/demo/form.vue'),
                 meta: {
-                    title: t('router.form'),
+                    title: t('router.表单'),
                     icon: '',
                     permission: ['dict:item:select'],
                 },
@@ -85,7 +85,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 name: 'demo-text-editor',
                 component: () => import('@/views/demo/textEditor.vue'),
                 meta: {
-                    title: t('router.textEditor'),
+                    title: t('router.富文本编辑器'),
                     icon: '',
                     permission: ['dict:item:select'],
                 },
@@ -95,7 +95,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 name: 'demo-file-preview',
                 component: () => import('@/views/demo/filePreview.vue'),
                 meta: {
-                    title: t('router.filePreview'),
+                    title: t('router.文件预览'),
                     icon: '',
                     permission: ['dict:item:select'],
                 },
@@ -105,7 +105,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 name: 'demo-crudPage',
                 component: () => import('@/views/demo/crudPage.vue'),
                 meta: {
-                    title: t('router.crudPage'),
+                    title: t('router.增删改查'),
                     icon: '',
                     permission: ['dict:item:select'],
                 },
@@ -115,7 +115,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 name: 'demo-threeJs',
                 component: () => import('@/views/demo/threeJs.vue'),
                 meta: {
-                    title: t('router.threeJs'),
+                    title: t('router.3D建模'),
                     icon: '',
                     permission: ['dict:item:select'],
                 },
@@ -125,7 +125,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 name: 'demo-map',
                 component: () => import('@/views/demo/map.vue'),
                 meta: {
-                    title: t('router.map'),
+                    title: t('router.地图'),
                     icon: '',
                     permission: ['dict:item:select'],
                 },

@@ -2,6 +2,14 @@
     // extends 属性可以从另一个配置文件里继承配置
     "extends": "./tsconfig.app.json",
 
+    "include": [
+        "env.d.ts",
+        "src/**/*",
+        "src/**/*.vue",
+        "src/**/*.json",
+        "vite.config.ts"
+    ],
+
     // 编译选项
     "compilerOptions": {
         // 启用项目编译
