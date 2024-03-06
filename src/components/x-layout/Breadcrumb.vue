@@ -26,28 +26,31 @@ const route = useRoute();
 const breadcrumbs = ref<RouteRecordRaw[]>([]);
 // const breadcrumbs = computed<RouteRecordRaw[]>(() => route.matched?.filter(item => item.name !== '/'));
 
+/**
+ * 根据最新路由获取最新语言的面包屑
+ */
 function getLatestBreadcrumbs(currentRoutes: RouteRecordRaw[], allRoutes: RouteRecordRaw[]) {
-    let index = 0;
+    if (!allRoutes || !allRoutes.length) {
+        return;
+    }
 
     for (let i = 0; i < currentRoutes.length; i++) {
         const currentRoute = currentRoutes[i];
+        const index = allRoutes.findIndex(item => item.path === currentRoute.path);
 
-        if (!allRoutes || !allRoutes.length) {
+        if (index === -1) {
             continue;
         }
 
-        if (allRoutes.findIndex(item => item.path === currentRoute.path) === -1) {
-            continue;
-        }
-
-        index = allRoutes.findIndex(item => item.path === currentRoute.path);
         breadcrumbs.value.push(allRoutes[index]);
-
         getLatestBreadcrumbs(currentRoutes, allRoutes[index].children as RouteRecordRaw[]);
-        break;
     }
 }
 
+/**
+ * 监听路由变化
+ * 语言切换时会导致路由变化，所以需要监听路由变化
+ */
 watchEffect(() => {
     breadcrumbs.value = [];
     getLatestBreadcrumbs(route.matched, props.routes);

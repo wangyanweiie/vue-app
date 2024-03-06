@@ -51,7 +51,7 @@
 
 <script setup lang="ts">
 import { getCurrentInstance, nextTick, ref } from 'vue';
-import { useRouter, type RouteRecordRaw } from 'vue-router';
+import { useRoute, useRouter, type RouteRecordRaw } from 'vue-router';
 import { ElScrollbar } from 'element-plus';
 import { DArrowLeft, Close, DArrowRight, RefreshRight } from '@element-plus/icons-vue';
 
@@ -68,17 +68,15 @@ const props = withDefaults(
     },
 );
 
-watchEffect(() => {
-    console.log('HistoryTabs', props.routes);
-});
-
 interface Tab {
     path: string;
     name: string;
     title: string;
 }
 
+const route = useRoute();
 const router = useRouter();
+
 const proxy = getCurrentInstance()?.proxy;
 
 const tabWrapRef = ref<InstanceType<typeof HTMLElement>>();
@@ -207,6 +205,59 @@ function handleAfter() {
         handleTabClick(currentIndex.value + 1, tabs.value[currentIndex.value + 1]);
     }
 }
+
+/**
+ * 扁平化数组
+ */
+const allFlatRoutes = ref<RouteRecordRaw[]>([]);
+
+/**
+ * 数组扁平化，将 route 中的 children 拿到最外层
+ */
+function handleRoutesFlat(allRoutes?: RouteRecordRaw[] | any) {
+    if (!allRoutes || !allRoutes.length) {
+        return;
+    }
+
+    for (let i = 0; i < allRoutes.length; i++) {
+        if (!allRoutes[i].children || allRoutes[i].children.length === 0) {
+            allFlatRoutes.value.push(allRoutes[i]);
+            continue;
+        }
+
+        handleRoutesFlat(allRoutes[i]?.children);
+    }
+}
+
+/**
+ * 根据扁平化处理的最新路由获取最新语言的历史标签
+ */
+function getLatestTabs(flatRoutes: RouteRecordRaw[]) {
+    if (!flatRoutes || !flatRoutes.length) {
+        return;
+    }
+
+    for (let i = 0; i < tabs.value.length; i++) {
+        const currentTab = tabs.value[i];
+        const index = flatRoutes.findIndex(item => item.path === currentTab.path);
+
+        if (index === -1) {
+            continue;
+        }
+
+        tabs.value[i].title = flatRoutes[index]?.meta?.title as string;
+    }
+}
+
+/**
+ * 监听路由变化
+ * 语言切换时会导致路由变化，所以需要监听路由变化
+ */
+watchEffect(() => {
+    allFlatRoutes.value = [];
+    handleRoutesFlat(props.routes);
+    getLatestTabs(allFlatRoutes.value);
+});
 </script>
 
 <style lang="scss" scoped>

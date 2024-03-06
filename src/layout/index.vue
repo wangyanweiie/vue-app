@@ -7,10 +7,13 @@
 
             <template #header-right>
                 <div class="header-right">
-                    <el-input v-if="ENV !== 'production'" v-model="baseUrl" @blur="handleBlur"></el-input>
+                    <!-- 动态更改 base_url -->
+                    <!-- <el-input v-if="ENV !== 'production'" v-model="baseUrl" @blur="handleBlur"></el-input> -->
 
+                    <!-- 数字大屏 -->
                     <el-button type="primary" text bg class="header-right__item" @click="handleJudge">screen</el-button>
 
+                    <!-- 语言切换 -->
                     <el-dropdown class="header-right__item">
                         <img src="/svg/language.svg" alt="" width="15" />
                         <template #dropdown>
@@ -26,6 +29,7 @@
                         </template>
                     </el-dropdown>
 
+                    <!-- 用户信息 -->
                     <x-user
                         :user-name="userInfo?.userName"
                         :dropdown-items="dropdownItems"
@@ -35,6 +39,7 @@
             </template>
         </x-layout>
 
+        <!-- 修改密码弹窗 -->
         <x-dialog-form
             ref="formRef"
             v-model="visible"
@@ -55,9 +60,6 @@ import { usePermissionStore, updateRoute } from '@/store/permission';
 import { ENV, APP_NAME } from '@/constant/global';
 import useIndex from './useIndex';
 
-console.log('时区', Intl.DateTimeFormat().resolvedOptions().timeZone);
-console.log('时区偏移量', new Date().getTimezoneOffset() / 60);
-
 const i18 = useI18n();
 
 /**
@@ -72,6 +74,8 @@ const languageList = computed(() => languageStore.languageList);
 function setLanguage(e: LanguageType) {
     i18.locale.value = e;
     languageStore.setLanguage(e);
+
+    // 更新路由
     updateRoute();
 }
 

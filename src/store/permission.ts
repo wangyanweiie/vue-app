@@ -153,11 +153,11 @@ export const usePermissionStore: any = defineStore('permission', () => {
     /**
      * 监听
      */
-    watchEffect(() => {
-        console.log('activeRoutes', activeRoutes.value);
-        console.log('cacheList', cacheList.value);
-        console.log('showMenus', showMenus.value);
-    });
+    // watchEffect(() => {
+    //     console.log('activeRoutes', activeRoutes.value);
+    //     console.log('cacheList', cacheList.value);
+    //     console.log('showMenus', showMenus.value);
+    // });
 
     return {
         usable,
