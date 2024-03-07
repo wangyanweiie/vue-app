@@ -50,7 +50,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var fs_1 = require("fs");
 var tunnel = require("tunnel");
 var google = require("@vitalets/google-translate-api");
-var zh_CN_1 = require("../../src/locale/language/zh-CN");
+var zh_cn_1 = require("../../src/locale/language/zh-cn");
 var flattenObject = function (obj, prefix) {
     if (prefix === void 0) { prefix = ''; }
     var result = {};
@@ -89,7 +89,7 @@ var unFlattenObject = function (obj) {
     return result;
 };
 var translateEn = function (text) {
-    return google(text, { from: 'zh-CN', to: 'en' }, {
+    return google(text, { from: 'zh-cn', to: 'en' }, {
         agent: tunnel.httpsOverHttp({
             proxy: {
                 host: '127.0.0.1', // 代理 ip
@@ -102,7 +102,7 @@ var translateEn = function (text) {
     });
 };
 var translatorZhTw = function (text) {
-    return google(text, { from: 'zh-CN', to: 'zh-TW' }, {
+    return google(text, { from: 'zh-cn', to: 'zh-tw' }, {
         agent: tunnel.httpsOverHttp({
             proxy: {
                 host: '127.0.0.1', // 代理 ip
@@ -218,7 +218,7 @@ var translateRun = function (inputJson) { return __awaiter(void 0, void 0, void 
     });
 }); };
 // 将翻译结果写入硬盘
-translateRun(JSON.parse(JSON.stringify(zh_CN_1.default))).then(function (_a) {
+translateRun(JSON.parse(JSON.stringify(zh_cn_1.default))).then(function (_a) {
     var enJson = _a.en, zhTwJson = _a.tradition;
     if ((0, fs_1.existsSync)('./src/locale/language/zh-cn.js')) {
         (0, fs_1.unlinkSync)('./src/locale/language/zh-cn.js');

@@ -74,7 +74,13 @@
                 </el-table-column>
 
                 <!-- 操作栏 -->
-                <el-table-column v-if="hasActionBtn" fixed="right" label="操作" align="center" :width="actionsWidth">
+                <el-table-column
+                    v-if="hasActionBtn"
+                    fixed="right"
+                    align="center"
+                    :label="actionText"
+                    :width="actionsWidth"
+                >
                     <template #default="{ row, $index }">
                         <div class="actions">
                             <el-button
@@ -172,6 +178,10 @@ const props = withDefaults(
         apiKeyMap?: XTableAPIKeyMap;
         /** 操作栏 */
         actions?: (row: any, index: number) => XTableActionButton[];
+        /** 操作栏文字 */
+        actionText?: string;
+        /** 操作栏宽度 */
+        actionWidth?: string | number;
         /** 要合并的某一列字段 */
         combineField?: string;
         /** 要根据某一列字段进行合并的列索引 */
@@ -212,6 +222,8 @@ const props = withDefaults(
             returnRecordKey: 'records',
         }),
         actions: () => [],
+        actionText: '操作',
+        actionWidth: '',
         combineField: '',
         columnIndex: () => [],
     },

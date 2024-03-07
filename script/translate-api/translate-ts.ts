@@ -1,7 +1,7 @@
 import { writeFileSync, unlinkSync, existsSync } from 'fs';
 import * as tunnel from 'tunnel';
 import * as google from '@vitalets/google-translate-api';
-import simplifiedChinese from '../../src/locale/language/zh-CN';
+import simplifiedChinese from '../../src/locale/language/zh-cn';
 
 const flattenObject = (obj: any, prefix = '') => {
     let result: any = {};
@@ -49,7 +49,7 @@ const unFlattenObject = (obj: any) => {
 const translateEn = (text: string) =>
     (google as any)(
         text,
-        { from: 'zh-CN', to: 'en' },
+        { from: 'zh-cn', to: 'en' },
         {
             agent: tunnel.httpsOverHttp({
                 proxy: {
@@ -66,7 +66,7 @@ const translateEn = (text: string) =>
 const translatorZhTw = (text: string) =>
     (google as any)(
         text,
-        { from: 'zh-CN', to: 'zh-TW' },
+        { from: 'zh-cn', to: 'zh-tw' },
         {
             agent: tunnel.httpsOverHttp({
                 proxy: {
@@ -165,6 +165,5 @@ translateRun(JSON.parse(JSON.stringify(simplifiedChinese))).then(({ en: enJson, 
     }
 
     writeFileSync('./src/locale/language/en.ts', `export default ${JSON.stringify(enJson)}`);
-
     writeFileSync('./src/locale/language/zh-tw.ts', `export default ${JSON.stringify(zhTwJson)}`);
 });

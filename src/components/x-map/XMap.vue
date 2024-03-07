@@ -84,7 +84,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import 'node_modules/ol/ol.css';
+@import '/node_modules/ol/ol.css';
 
 #mapContainer {
     padding: 0px;

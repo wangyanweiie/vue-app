@@ -261,7 +261,11 @@ export default function useIndex(props: XTableProp) {
                 return preValue + (currentValue?.label?.length || 0);
             }, 0) * WIDTH_PER_CHAR;
 
-        actionsWidth.value = width < ACTION_COLUMN_MIN_WIDTH ? ACTION_COLUMN_MIN_WIDTH : width;
+        if (props.actionWidth) {
+            actionsWidth.value = props.actionWidth;
+        } else {
+            actionsWidth.value = width < ACTION_COLUMN_MIN_WIDTH ? ACTION_COLUMN_MIN_WIDTH : width;
+        }
 
         return buttons;
     }
