@@ -107,19 +107,19 @@ const { t } = i18n.global;
  */
 const columns = computed<XTableColumn[]>(() => [
     {
-        label: t('common.姓名'),
+        label: t('filed.姓名'),
         prop: 'name',
     },
     {
-        label: t('common.年龄'),
+        label: t('filed.年龄'),
         prop: 'age',
     },
     {
-        label: t('common.性别'),
+        label: t('filed.性别'),
         prop: 'sex',
     },
     {
-        label: t('common.爱好'),
+        label: t('filed.爱好'),
         prop: 'hobby',
     },
 ]);
@@ -129,22 +129,22 @@ const columns = computed<XTableColumn[]>(() => [
  */
 const columnsV2 = computed(() => [
     {
-        title: t('common.姓名'),
+        title: t('filed.姓名'),
         key: 'name',
         dataKey: 'name',
     },
     {
-        title: t('common.年龄'),
+        title: t('filed.年龄'),
         key: 'age',
         dataKey: 'age',
     },
     {
-        title: t('common.性别'),
+        title: t('filed.性别'),
         key: 'sex',
         dataKey: 'sex',
     },
     {
-        title: t('common.爱好'),
+        title: t('filed.爱好'),
         key: 'hobby',
         dataKey: 'hobby',
     },
@@ -155,22 +155,22 @@ const columnsV2 = computed(() => [
  */
 const editColumns = computed<XEditTableColumn[]>(() => [
     {
-        label: t('common.姓名'),
+        label: t('filed.姓名'),
         prop: 'name',
         edit: false,
     },
     {
-        label: t('common.年龄'),
+        label: t('filed.年龄'),
         prop: 'age',
         required: true,
     },
     {
-        label: t('common.性别'),
+        label: t('filed.性别'),
         prop: 'sex',
         required: true,
     },
     {
-        label: t('common.爱好'),
+        label: t('filed.爱好'),
         prop: 'hobby',
     },
 ]);
