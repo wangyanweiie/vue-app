@@ -34,11 +34,12 @@
 
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus';
-import { usePermissionStore } from '@/store/permission';
+
 import dropdownAPI from '@/api/dropdown';
 import RequestAPI from '@/api/login';
-import { getBaseUrl, saveBaseUrl, saveUserToken, saveUserInfo } from '@/utils/storage';
 import { ENV } from '@/constant/global';
+import { usePermissionStore } from '@/store/permission';
+import { getBaseUrl, saveBaseUrl, saveUserInfo, saveUserToken } from '@/utils/storage';
 
 const router = useRouter();
 const permissionStore = usePermissionStore();

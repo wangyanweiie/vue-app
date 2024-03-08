@@ -14,23 +14,24 @@
 </template>
 
 <script setup lang="ts">
-import type { XFormItemSchema, SelectOption } from './interface';
-import { mergeProps, markRaw } from 'vue';
-import { isNumber, isString, get, set } from 'lodash-es';
 import {
-    ElDivider,
-    ElSwitch,
     ElButton,
-    ElRadio,
+    ElCascader,
     ElCheckbox,
+    ElDatePicker,
+    ElDivider,
     ElInput,
     ElInputNumber,
+    ElRadio,
     ElSelectV2,
-    ElDatePicker,
-    ElCascader,
+    ElSwitch,
 } from 'element-plus';
+import { get, isNumber, isString, set } from 'lodash-es';
+import { markRaw, mergeProps } from 'vue';
+
 import XRadio from './components/XRadio.vue';
 import XSelect from './components/XSelect.vue';
+import type { SelectOption, XFormItemSchema } from './interface';
 
 /**
  * props

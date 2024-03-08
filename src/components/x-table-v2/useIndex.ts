@@ -1,6 +1,7 @@
-import { ElCheckbox, type CheckboxValueType, type Column, type TableV2Instance } from 'element-plus';
-import type { XTableV2Pagination, XTableV2Prop } from './interface';
+import { type CheckboxValueType, type Column, ElCheckbox, type TableV2Instance } from 'element-plus';
 import { cloneDeep } from 'lodash-es';
+
+import type { XTableV2Pagination, XTableV2Prop } from './interface';
 
 /**
  * @description useIndex

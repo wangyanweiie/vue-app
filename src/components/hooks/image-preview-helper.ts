@@ -1,5 +1,5 @@
-import { createVNode, render } from 'vue';
 import { ElImageViewer, type ImageViewerProps } from 'element-plus';
+import { createVNode, render } from 'vue';
 
 type PreviewOption = Partial<ImageViewerProps>;
 

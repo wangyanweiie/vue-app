@@ -21,8 +21,9 @@
 </template>
 
 <script setup lang="ts">
-import type { RadioValueType, SelectValueType } from '@/components/Form/interface';
 import type { CheckboxGroupValueType } from 'element-plus';
+
+import type { RadioValueType, SelectValueType } from '@/components/x-form/interface';
 
 /**
  * radio

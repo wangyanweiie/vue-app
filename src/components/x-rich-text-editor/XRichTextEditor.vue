@@ -14,6 +14,7 @@
 
 <script setup lang="ts">
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
+
 import useIndex from './useIndex';
 
 /**

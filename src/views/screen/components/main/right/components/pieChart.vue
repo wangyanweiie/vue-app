@@ -4,6 +4,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+
 import { useScreenStore } from '@/store/screen';
 
 const store = useScreenStore();

@@ -1,5 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router';
+
 import i18n from '@/locale';
+
 import { subRoutes } from './sub';
 // import ParentMenuView from '@/components/Layout/ParentMenuView.vue';
 // import ParentView from '@/components/Layout/ParentView.vue';

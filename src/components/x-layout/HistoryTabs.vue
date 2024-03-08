@@ -50,10 +50,10 @@
 </template>
 
 <script setup lang="ts">
-import { getCurrentInstance, nextTick, ref } from 'vue';
-import { useRoute, useRouter, type RouteRecordRaw } from 'vue-router';
+import { Close, DArrowLeft, DArrowRight, RefreshRight } from '@element-plus/icons-vue';
 import { ElScrollbar } from 'element-plus';
-import { DArrowLeft, Close, DArrowRight, RefreshRight } from '@element-plus/icons-vue';
+import { getCurrentInstance, nextTick, ref } from 'vue';
+import { type RouteRecordRaw, useRoute, useRouter } from 'vue-router';
 
 /**
  * props

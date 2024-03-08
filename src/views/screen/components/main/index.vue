@@ -13,9 +13,9 @@
 </template>
 
 <script setup lang="ts">
+import MainCenter from '../../components/main/center/index.vue';
 import MainLeft from '../../components/main/left/index.vue';
 import MainRight from '../../components/main/right/index.vue';
-import MainCenter from '../../components/main/center/index.vue';
 </script>
 
 <style lang="scss" scoped>

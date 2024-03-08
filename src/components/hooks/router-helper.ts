@@ -1,6 +1,6 @@
-import type { RouteRecordRaw } from 'vue-router';
 import type IconNameMap from '@element-plus/icons-vue';
 import { cloneDeep, intersection } from 'lodash-es';
+import type { RouteRecordRaw } from 'vue-router';
 
 type IconTypes = keyof typeof IconNameMap;
 
@@ -159,4 +159,4 @@ function generateShowMenus(routes: RouteRecordRaw[], permissions?: string[]): Ro
     return showMenus;
 }
 
-export { type IconTypes, generateCacheList, generateActiveRoutes, generateShowMenus };
+export { generateActiveRoutes, generateCacheList, generateShowMenus, type IconTypes };

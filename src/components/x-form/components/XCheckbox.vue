@@ -19,13 +19,14 @@
 
 <script setup lang="ts">
 import {
-    ElCheckbox,
-    ElCheckboxButton,
     type CheckboxGroupProps,
     type CheckboxGroupValueType,
     type CheckboxValueType,
+    ElCheckbox,
+    ElCheckboxButton,
 } from 'element-plus';
 import type { Component } from 'vue';
+
 import type { CheckBoxOption, CheckboxType } from '../interface';
 
 /**

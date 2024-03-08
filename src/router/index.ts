@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
+
 import appLayout from '@/layout/index.vue';
+
+import { FORBIDDEN_ROUTE, HOME_ROUTE, LOGIN_ROUTE, SCREEN_ROUTE } from './base';
 import { demoRoutes } from './demo';
-import { HOME_ROUTE, LOGIN_ROUTE, FORBIDDEN_ROUTE, SCREEN_ROUTE } from './base';
 
 /**
  * menu-routes

@@ -49,6 +49,11 @@ module.exports = defineConfig({
     ],
 
     /**
+     * 插件
+     */
+    plugins: ['simple-import-sort'],
+
+    /**
      * rules 用于设置 ESLint 的规则和规则的错误等级
      * 配置项是一个对象，它的每个属性表示一个规则，属性值表示该规则的错误等级
      *   - 'off' <==> 0 关闭告警
@@ -76,5 +81,9 @@ module.exports = defineConfig({
                 requireForBlockBody: false,
             },
         ],
+        // 导入排序
+        'simple-import-sort/imports': 'error',
+        // 导出排序
+        'simple-import-sort/exports': 'error',
     },
 });

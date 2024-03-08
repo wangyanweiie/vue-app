@@ -1,15 +1,17 @@
+import { Delete, Download, Plus, Upload } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
-import { Plus, Delete, Download, Upload } from '@element-plus/icons-vue';
-import { OPERATION_NOTICE } from '@/constant/base';
-import { confirmDeleteMessage } from '@/utils/confirm-message';
-import { downloadFileFromURL } from '@/utils/common-methods';
-import type { XTableActionButton, XTableInstance } from '@/components/Table/interface';
+
 import type { XFormInstance } from '@/components/Form/interface';
+import type { XTableActionButton, XTableInstance } from '@/components/Table/interface';
+import { OPERATION_NOTICE } from '@/constant/base';
+import { downloadFileFromURL } from '@/utils/common-methods';
+import { confirmDeleteMessage } from '@/utils/confirm-message';
+
 import type {
-    XCrudPageProp,
-    UseIndexReturn,
-    genericOperationType,
     genericActionType,
+    genericOperationType,
+    UseIndexReturn,
+    XCrudPageProp,
     XTableOperationButton,
     XTableOperationButtonOption,
 } from './interface';

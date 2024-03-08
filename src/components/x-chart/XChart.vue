@@ -3,9 +3,9 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, shallowRef } from 'vue';
-import * as echarts from 'echarts';
 import type { ECharts, EChartsCoreOption } from 'echarts';
+import * as echarts from 'echarts';
+import { onMounted, shallowRef } from 'vue';
 
 /**
  * props

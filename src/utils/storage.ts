@@ -1,10 +1,11 @@
 import store from 'store2';
+
 import {
     LOCAL_BASE_URL_KEY,
+    LOCAL_LANGUAGE_KEY,
     LOCAL_PERMISSION_KEY,
     LOCAL_TOKEN_KEY,
     LOCAL_USER_INFO_KEY,
-    LOCAL_LANGUAGE_KEY,
 } from '@/constant/global';
 
 /**

@@ -15,8 +15,9 @@
 </template>
 <script lang="ts" setup>
 import { ElMessage } from 'element-plus';
-import { guid } from '@/utils/hooks';
+
 import { UPLOAD_URL } from '@/constant/global';
+import { guid } from '@/utils/hooks';
 
 /**
  * props

@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { RequestFunc, FormModelItem, FormModel, EditActions } from './interface';
+import type { EditActions, FormModel, FormModelItem, RequestFunc } from './interface';
 
 /**
  * props

@@ -1,12 +1,13 @@
 import type { TableInstance } from 'element-plus';
+import { cloneDeep } from 'lodash-es';
+
 import type {
-    XTablePagination,
-    XTableColumn,
     XTableActionButton,
+    XTableColumn,
+    XTablePagination,
     XTableProp,
     XTableSpanMethodProps,
 } from './interface';
-import { cloneDeep } from 'lodash-es';
 
 /**
  * @description useIndex

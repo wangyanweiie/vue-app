@@ -1,5 +1,6 @@
 import { describe, it } from 'vitest';
-import { checkNumberFormat, keepDecimalPrecision, transformEnumToOptions, handleToHumpFormat } from '../hooks';
+
+import { checkNumberFormat, handleToHumpFormat, keepDecimalPrecision, transformEnumToOptions } from '../hooks';
 
 enum STATUS {
     '在用' = 1,

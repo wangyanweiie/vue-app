@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted, watchEffect, type Ref } from 'vue';
+import { onMounted, onUnmounted, type Ref, watchEffect } from 'vue';
 
 /**
  * @description 实现拖拽功能

@@ -52,8 +52,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
 import { ElDialog, ElDrawer, type FormProps } from 'element-plus';
+import { computed, ref } from 'vue';
+
 import type { XFormInstance, XFormItemSchema } from './interface';
 // import XForm from './XForm.vue';
 import XFormItem from './XFormItem.vue';

@@ -3,9 +3,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import axios from 'axios';
 import type { EChartsCoreOption } from 'echarts';
+import { ref } from 'vue';
+
 import { useScreenStore } from '@/store/screen';
 import china from '@/views/screen/json/中华人民共和国.json';
 

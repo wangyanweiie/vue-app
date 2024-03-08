@@ -1,5 +1,5 @@
-import { onMounted, shallowRef, type Ref } from 'vue';
 import animejs from 'animejs/lib/anime.es.js';
+import { onMounted, type Ref, shallowRef } from 'vue';
 
 export type OptionsType = {
     direction?: 'horizontal' | 'vertical';

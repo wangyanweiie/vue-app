@@ -1,6 +1,7 @@
-import { writeFileSync, unlinkSync, existsSync } from 'fs';
-import * as tunnel from 'tunnel';
 import * as google from '@vitalets/google-translate-api';
+import { existsSync, unlinkSync, writeFileSync } from 'fs';
+import * as tunnel from 'tunnel';
+
 import simplifiedChinese from '../../src/locale/language/zh-cn';
 
 const flattenObject = (obj: Record<string, any>, prefix = ''): Record<string, string> => {

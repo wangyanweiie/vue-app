@@ -8,7 +8,8 @@
 
 <script setup lang="ts">
 import { ElRadio, ElRadioButton, type RadioGroupProps } from 'element-plus';
-import type { RadioType, RadioValueType, RadioOption } from '../interface';
+
+import type { RadioOption, RadioType, RadioValueType } from '../interface';
 
 /**
  * props

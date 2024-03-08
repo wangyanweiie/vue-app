@@ -4,8 +4,9 @@
 
 <script lang="ts" setup>
 import axios from 'axios';
-import { ElMessage } from 'element-plus';
 import { renderAsync } from 'docx-preview';
+import { ElMessage } from 'element-plus';
+
 import { downloadFileFromURL } from '@/utils/common-methods';
 
 const props = withDefaults(

@@ -116,7 +116,9 @@
 
 <script lang="ts" setup>
 import { ElButton, ElUpload } from 'element-plus';
+
 import { UPLOAD_URL } from '@/constant/global';
+
 import type { CrudAction, CrudInstance, XCrudPageProp, XTableOperationButton } from './interface';
 import useIndex from './useIndex';
 

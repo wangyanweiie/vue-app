@@ -55,9 +55,11 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
+
+import { APP_NAME, ENV } from '@/constant/global';
 import { type LanguageType, useLanguageStore } from '@/store/language';
-import { usePermissionStore, updateRoute } from '@/store/permission';
-import { ENV, APP_NAME } from '@/constant/global';
+import { updateRoute, usePermissionStore } from '@/store/permission';
+
 import useIndex from './useIndex';
 
 const i18 = useI18n();

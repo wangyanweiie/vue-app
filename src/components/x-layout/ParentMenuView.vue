@@ -18,7 +18,8 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute, type RouteRecordRaw } from 'vue-router';
+import { type RouteRecordRaw, useRoute } from 'vue-router';
+
 import { useRefresh } from './use-refresh';
 
 /**

@@ -1,4 +1,4 @@
-import { ref, nextTick } from 'vue';
+import { nextTick, ref } from 'vue';
 
 /**
  * @description 无限滚动

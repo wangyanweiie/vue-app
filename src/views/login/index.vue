@@ -22,6 +22,7 @@
 
 <script setup lang="ts">
 import { APP_NAME } from '@/constant/global';
+
 import LoginForm from './login-form.vue';
 </script>
 

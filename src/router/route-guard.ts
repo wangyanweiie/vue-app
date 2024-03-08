@@ -1,4 +1,5 @@
 import type { Router } from 'vue-router';
+
 import { getUserToken } from '@/utils/storage';
 
 export function setupRouterGuard(router: Router) {

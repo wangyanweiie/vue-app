@@ -22,26 +22,27 @@
 // };
 
 import type { App, Component } from 'vue';
+
+import XChart from './x-chart/XChart.vue';
+import XDescription from './x-description/XDescription.vue';
+import XEditTable from './x-edit-table/XEditTable.vue';
+import XEditTableItem from './x-edit-table/XEditTableItem.vue';
+import XFilePreview from './x-file-preview/XFilePreview.vue';
+import XCheckbox from './x-form/components/XCheckbox.vue';
+import XRadio from './x-form/components/XRadio.vue';
+import XSelect from './x-form/components/XSelect.vue';
+import XDialogForm from './x-form/XDialogForm.vue';
+import XForm from './x-form/XForm.vue';
+import XSearchForm from './x-form/XSearchForm.vue';
+import ParentMenuView from './x-layout/ParentMenuView.vue';
+import ParentView from './x-layout/ParentView.vue';
 import XLayout from './x-layout/XLayout.vue';
 import XLogo from './x-layout/XLogo.vue';
 import XUser from './x-layout/XUser.vue';
-import ParentView from './x-layout/ParentView.vue';
-import ParentMenuView from './x-layout/ParentMenuView.vue';
+import XMap from './x-map/XMap.vue';
+import XRichTextEditor from './x-rich-text-editor/XRichTextEditor.vue';
 import XTable from './x-table/XTable.vue';
 import XTableV2 from './x-table-v2/XTableV2.vue';
-import XEditTable from './x-edit-table/XEditTable.vue';
-import XEditTableItem from './x-edit-table/XEditTableItem.vue';
-import XSearchForm from './x-form/XSearchForm.vue';
-import XDialogForm from './x-form/XDialogForm.vue';
-import XForm from './x-form/XForm.vue';
-import XRadio from './x-form/components/XRadio.vue';
-import XCheckbox from './x-form/components/XCheckbox.vue';
-import XSelect from './x-form/components/XSelect.vue';
-import XDescription from './x-description/XDescription.vue';
-import XFilePreview from './x-file-preview/XFilePreview.vue';
-import XRichTextEditor from './x-rich-text-editor/XRichTextEditor.vue';
-import XChart from './x-chart/XChart.vue';
-import XMap from './x-map/XMap.vue';
 
 interface ComponentItem {
     name: string;

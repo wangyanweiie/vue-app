@@ -1,5 +1,5 @@
-import { ref, onMounted, type Ref } from 'vue';
 import Sortable from 'sortablejs';
+import { onMounted, type Ref, ref } from 'vue';
 
 /**
  * @description 初始化排序

@@ -5,9 +5,9 @@
 </template>
 
 <script lang="ts" setup>
-import word from './components/word.vue';
 import excel from './components/excel.vue';
 import pdf from './components/pdf.vue';
+import word from './components/word.vue';
 
 /**
  * props

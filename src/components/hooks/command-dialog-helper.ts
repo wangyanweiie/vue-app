@@ -1,10 +1,10 @@
 import {
-    createVNode,
-    render,
-    getCurrentInstance,
     type AppContext,
     type Component,
     type ComponentPublicInstance,
+    createVNode,
+    getCurrentInstance,
+    render,
     type VNode,
 } from 'vue';
 

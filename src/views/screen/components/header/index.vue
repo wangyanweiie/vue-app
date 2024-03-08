@@ -15,12 +15,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeUnmount, ref } from 'vue';
 import dayjs from 'dayjs';
-import darkIcon from '@/assets/images/screen/qiehuan_dark.png';
-import lightIcon from '@/assets/images/screen/qiehuan_light.png';
+import { computed, onBeforeUnmount, ref } from 'vue';
+
 import githubIconDark from '@/assets/images/screen/github_dark.svg';
 import githubIconLight from '@/assets/images/screen/github_light.svg';
+import darkIcon from '@/assets/images/screen/qiehuan_dark.png';
+import lightIcon from '@/assets/images/screen/qiehuan_light.png';
 import { useScreenStore } from '@/store/screen';
 
 const store = useScreenStore();

@@ -3,12 +3,12 @@
 </template>
 
 <script lang="ts" setup>
-import Map from 'ol/Map';
-import View from 'ol/View';
-import { Tile } from 'ol/layer';
-import { XYZ, OSM } from 'ol/source';
-import { fromLonLat } from 'ol/proj';
 import { defaults, FullScreen, ScaleLine } from 'ol/control';
+import { Tile } from 'ol/layer';
+import Map from 'ol/Map';
+import { fromLonLat } from 'ol/proj';
+import { OSM, XYZ } from 'ol/source';
+import View from 'ol/View';
 
 /**
  * 地图实例

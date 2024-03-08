@@ -10,10 +10,11 @@
 </template>
 
 <script setup lang="ts">
-import { type ColProps } from 'element-plus';
 import dayjs from 'dayjs';
-import type { XFormItemSchema } from '@/components/Form/interface';
-import type { XTableColumn } from '@/components/Table/interface';
+import { type ColProps } from 'element-plus';
+
+import type { XFormItemSchema } from '@/components/x-form/interface';
+import type { XTableColumn } from '@/components/x-table/interface';
 
 /**
  * 查询表单配置

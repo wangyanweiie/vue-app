@@ -11,9 +11,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, type Component } from 'vue';
+import { Coffee, Dessert, GobletFull, IceCream, IceTea, KnifeFork } from '@element-plus/icons-vue';
 import { ElIcon } from 'element-plus';
-import { KnifeFork, IceTea, Coffee, IceCream, Dessert, GobletFull } from '@element-plus/icons-vue';
+import { type Component, ref } from 'vue';
+
 import { useSeamlessScroll } from '@/views/screen/hooks/useSeamlessScroll';
 
 const listRef = ref();

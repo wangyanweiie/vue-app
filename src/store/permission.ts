@@ -1,10 +1,11 @@
+import { intersection } from 'lodash-es';
 import { defineStore } from 'pinia';
 import type { RouteRecordRaw } from 'vue-router';
+
 import { generateActiveRoutes, generateCacheList, generateShowMenus } from '@/components/hooks/router-helper';
+import appLayout from '@/layout/index.vue';
 import router, { menuRoutes } from '@/router/index';
 import { getPermission, savePermission } from '@/utils/storage';
-import appLayout from '@/layout/index.vue';
-import { intersection } from 'lodash-es';
 
 /**
  * 权限缓存状态

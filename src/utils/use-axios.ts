@@ -1,8 +1,9 @@
 import axios, { type AxiosError, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
 import { ElNotification } from 'element-plus';
 import { throttle } from 'lodash-es';
+
 import { HTTP_ERROR_NOTICE } from '@/constant/base';
-import { getUserToken, getBaseUrl } from '@/utils/storage';
+import { getBaseUrl, getUserToken } from '@/utils/storage';
 
 /**
  * 后端返回数据格式

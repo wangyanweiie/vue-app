@@ -1,7 +1,8 @@
-import { defineStore } from 'pinia';
+import en from 'element-plus/dist/locale/en.mjs';
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 import zhTw from 'element-plus/dist/locale/zh-tw.mjs';
-import en from 'element-plus/dist/locale/en.mjs';
+import { defineStore } from 'pinia';
+
 import { getLanguage, saveLanguage } from '@/utils/storage.ts';
 
 /**

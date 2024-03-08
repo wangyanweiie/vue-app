@@ -18,6 +18,7 @@
 
 <script setup lang="ts">
 import { useAttrs } from 'vue';
+
 import type { XSelectMultiProp } from '../interface';
 
 /**

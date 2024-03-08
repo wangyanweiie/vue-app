@@ -82,9 +82,10 @@
 </template>
 
 <script lang="ts" setup>
+import { InfoFilled, Loading as LoadingIcon } from '@element-plus/icons-vue';
 import type { Column } from 'element-plus';
+
 import type { XTableV2APIKeyMap } from './interface';
-import { Loading as LoadingIcon, InfoFilled } from '@element-plus/icons-vue';
 import useIndex from './useIndex';
 
 /**

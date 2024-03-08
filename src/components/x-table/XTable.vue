@@ -123,11 +123,12 @@
 </template>
 
 <script lang="ts" setup>
-import type { PaginationProps, TableProps } from 'element-plus';
-import type { XTableAPIKeyMap, XTableColumn, XTableDataType, XTableActionButton } from './interface';
 import { InfoFilled } from '@element-plus/icons-vue';
-import useIndex from './useIndex';
+import type { PaginationProps, TableProps } from 'element-plus';
+
 import TableSetting from './components/TableSetting.vue';
+import type { XTableActionButton, XTableAPIKeyMap, XTableColumn, XTableDataType } from './interface';
+import useIndex from './useIndex';
 
 /**
  * Props

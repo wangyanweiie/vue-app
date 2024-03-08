@@ -1,5 +1,5 @@
-import { usePermissionStore } from '@/store/permission';
 import type { XTableActionButton } from '@/components/Table/interface';
+import { usePermissionStore } from '@/store/permission';
 
 /**
  * 操作按钮权限

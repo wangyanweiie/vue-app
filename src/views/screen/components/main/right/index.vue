@@ -9,10 +9,11 @@
 </template>
 
 <script setup lang="ts">
-import PieChart from './components/pieChart.vue';
-import LineChart from './components/lineChart.vue';
-import BarChart from './components/barChart.vue';
 import { useSortable } from '@/views/screen/hooks/useSortable';
+
+import BarChart from './components/barChart.vue';
+import LineChart from './components/lineChart.vue';
+import PieChart from './components/pieChart.vue';
 
 const components = shallowRef([
     { name: 'PieChart', component: PieChart },

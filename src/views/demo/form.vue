@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { type FormProps, type ColProps } from 'element-plus';
-import type { XFormItemSchema } from '@/components/Form/interface';
+import type { XFormItemSchema } from '@/components/x-form/interface';
 import dayjs from 'dayjs';
 
 /**

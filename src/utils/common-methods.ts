@@ -1,8 +1,9 @@
 import { ElMessage, type UploadRequestOptions } from 'element-plus';
+import { isBoolean } from 'lodash-es';
+
+import FileAPI from '@/api/upload';
 import { OPERATION_NOTICE } from '@/constant/base';
 import { confirmDeleteMessage } from '@/utils/confirm-message';
-import FileAPI from '@/api/upload';
-import { isBoolean } from 'lodash-es';
 
 /**
  * 通用删除

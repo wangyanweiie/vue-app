@@ -94,11 +94,11 @@
 </template>
 
 <script setup lang="ts">
-import useExcelJs from '@/utils/use-exceljs';
-import { getPermissionAction } from '@/utils/permission-action';
-import type { XEditTableColumn } from '@/components/EditTable/interface';
-import type { XTableColumn } from '@/components/Table/interface';
+import type { XEditTableColumn } from '@/components/x-edit-table/interface';
+import type { XTableColumn } from '@/components/x-table/interface';
 import i18n from '@/locale';
+import { getPermissionAction } from '@/utils/permission-action';
+import useExcelJs from '@/utils/use-exceljs';
 
 const { t } = i18n.global;
 

@@ -1,7 +1,8 @@
 import type { App } from 'vue';
+
+import copy from './v-copy';
 import permission from './v-permission';
 import throttle from './v-throttle';
-import copy from './v-copy';
 
 const directives: Record<string, any> = {
     permission,

@@ -1,5 +1,5 @@
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import axios, { AxiosHeaders } from 'axios';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 
 interface tagType {
     name: string;
