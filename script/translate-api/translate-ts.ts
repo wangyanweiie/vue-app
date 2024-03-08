@@ -3,30 +3,37 @@ import * as tunnel from 'tunnel';
 import * as google from '@vitalets/google-translate-api';
 import simplifiedChinese from '../../src/locale/language/zh-cn';
 
-const flattenObject = (obj: any, prefix = '') => {
-    let result: any = {};
+const flattenObject = (obj: Record<string, any>, prefix = ''): Record<string, string> => {
+    let result = {};
+
     for (const key in obj) {
         if (Object.prototype.hasOwnProperty.call(obj, key)) {
             const nestedKey = prefix.length > 0 ? `${prefix}/${key}` : key;
+
             if (typeof obj[key] === 'object' && obj[key] !== null) {
                 const nestedObj = flattenObject(obj[key], nestedKey);
-                result = { ...result, ...nestedObj };
+
+                result = {
+                    ...result,
+                    ...nestedObj,
+                };
             } else {
                 result[nestedKey] = obj[key];
             }
         }
     }
+
     return result;
 };
 
-const unFlattenObject = (obj: any) => {
+const unFlattenObject = (obj: Record<string, string>) => {
     const result = {};
 
     for (const key in obj) {
         if (Object.prototype.hasOwnProperty.call(obj, key)) {
             const nestedKeys = key.split('/');
 
-            let nestedObj: any = result;
+            let nestedObj = result;
 
             for (let i = 0; i < nestedKeys.length; i++) {
                 const nestedKey = nestedKeys[i];
@@ -43,13 +50,17 @@ const unFlattenObject = (obj: any) => {
             }
         }
     }
+
     return result;
 };
 
 const translateEn = (text: string) =>
     (google as any)(
         text,
-        { from: 'zh-cn', to: 'en' },
+        {
+            from: 'zh-cn',
+            to: 'en',
+        },
         {
             agent: tunnel.httpsOverHttp({
                 proxy: {
@@ -66,7 +77,10 @@ const translateEn = (text: string) =>
 const translatorZhTw = (text: string) =>
     (google as any)(
         text,
-        { from: 'zh-cn', to: 'zh-tw' },
+        {
+            from: 'zh-cn',
+            to: 'zh-tw',
+        },
         {
             agent: tunnel.httpsOverHttp({
                 proxy: {
@@ -80,85 +94,92 @@ const translatorZhTw = (text: string) =>
         },
     );
 
-// 定义翻译方法
-const translateRun = async (inputJson: string) => {
-    inputJson = flattenObject(inputJson);
+/**
+ * 定义翻译方法
+ */
+const translateRun = async (inputJson: Record<string, any>) => {
+    const flatInputJson = flattenObject(inputJson);
+    const sourceKeyValues = Object.entries(flatInputJson);
 
-    let chunkValuesLength = 0;
+    let chunk: Record<string, string>[] = [];
+    let chunkLength: number = 0;
 
-    let chunk: any = [];
+    const chunks: Record<string, string>[][] = [];
 
-    const chunks: any = [];
-
-    const sourceKeyValues = Object.entries(inputJson);
-
-    sourceKeyValues.forEach(([key, value]: any) => {
+    sourceKeyValues.forEach(([key, value]: string[]) => {
         // Google 翻译单次最大字符长度 5000 字, 5 为占位分隔符长度
-        if (chunkValuesLength + value.length + 5 >= 5000) {
-            chunks.push(chunk);
-            chunkValuesLength = 0;
-            chunk = [];
-        } else {
+        if (chunkLength + value.length + 5 < 5000) {
             chunk.push({ key, value });
-            chunkValuesLength += value.length + 5;
+            chunkLength += value.length + 5;
+        } else {
+            chunks.push(chunk);
+            chunk = [];
+            chunkLength = 0;
         }
     });
 
+    // 遍历完后检查不满 5000 字符的遗留
     if (chunk.length > 0) {
-        // 遍历完后检查不满 5000 字符的遗留
         chunks.push(chunk);
-        chunkValuesLength = 0;
         chunk = [];
+        chunkLength = 0;
     }
 
-    const enJson: any = {};
+    // 英文翻译结果
+    const enJson: Record<string, string> = {};
 
     for (let i = 0; i < chunks.length; i++) {
         const chunk = chunks[i];
 
         // 合并文案
-        const mergeText = chunk.map((v: any) => v.value).join('\n###\n');
+        const mergeText = chunk.map((item: Record<string, string>) => item.value).join('\n###\n');
 
         const { text } = await translateEn(mergeText);
 
         // 拆分文案
-        const resultValues = text.split(/\n *# *# *# *\n/).map((v: any) => v.trim());
+        const resultValues = text.split(/\n *# *# *# *\n/).map((item: string) => item.trim());
 
         if (chunk.length !== resultValues.length) {
             throw new Error('翻译前文案碎片长度和翻译后的不一致');
         }
 
-        chunk.forEach(({ key }: any, index: number) => {
+        chunk.forEach(({ key }: Record<string, string>, index: number) => {
             enJson[key] = resultValues[index];
         });
     }
 
-    const zhTwJson: any = {};
+    // 中文繁体翻译结果
+    const zhTwJson: Record<string, string> = {};
 
     for (let i = 0; i < chunks.length; i++) {
         const chunk = chunks[i];
 
         // 合并文案
-        const mergeText = chunk.map((v: any) => v.value).join('###');
+        const mergeText = chunk.map((item: Record<string, string>) => item.value).join('###');
 
         const { text } = await translatorZhTw(mergeText);
 
         // 拆分文案
-        const resultValues = text.split(/ *# *# *# */).map((v: any) => v.trim());
+        const resultValues = text.split(/ *# *# *# */).map((item: string) => item.trim());
 
         if (chunk.length !== resultValues.length) {
             throw new Error('翻译前文案碎片长度和翻译后的不一致');
         }
 
-        chunk.forEach(({ key }: any, index: number) => {
+        chunk.forEach(({ key }: Record<string, string>, index: number) => {
             zhTwJson[key] = resultValues[index];
         });
     }
 
-    return { en: unFlattenObject(enJson), tradition: unFlattenObject(zhTwJson) };
+    return {
+        en: unFlattenObject(enJson),
+        tradition: unFlattenObject(zhTwJson),
+    };
 };
 
-// 将翻译结果写入硬盘
+/**
+ * 将翻译结果写入硬盘
+ */
 translateRun(JSON.parse(JSON.stringify(simplifiedChinese))).then(({ en: enJson, tradition: zhTwJson }) => {
     if (existsSync('./src/locale/language/zh-cn.js')) {
         unlinkSync('./src/locale/language/zh-cn.js');

@@ -89,7 +89,10 @@ var unFlattenObject = function (obj) {
     return result;
 };
 var translateEn = function (text) {
-    return google(text, { from: 'zh-cn', to: 'en' }, {
+    return google(text, {
+        from: 'zh-cn',
+        to: 'en',
+    }, {
         agent: tunnel.httpsOverHttp({
             proxy: {
                 host: '127.0.0.1', // 代理 ip
@@ -102,7 +105,10 @@ var translateEn = function (text) {
     });
 };
 var translatorZhTw = function (text) {
-    return google(text, { from: 'zh-cn', to: 'zh-tw' }, {
+    return google(text, {
+        from: 'zh-cn',
+        to: 'zh-tw',
+    }, {
         agent: tunnel.httpsOverHttp({
             proxy: {
                 host: '127.0.0.1', // 代理 ip
@@ -114,35 +120,37 @@ var translatorZhTw = function (text) {
         }),
     });
 };
-// 定义翻译方法
+/**
+ * 定义翻译方法
+ */
 var translateRun = function (inputJson) { return __awaiter(void 0, void 0, void 0, function () {
-    var chunkValuesLength, chunk, chunks, sourceKeyValues, enJson, _loop_1, i, zhTwJson, _loop_2, i;
+    var flatInputJson, sourceKeyValues, chunk, chunkLength, chunks, enJson, _loop_1, i, zhTwJson, _loop_2, i;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                inputJson = flattenObject(inputJson);
-                chunkValuesLength = 0;
+                flatInputJson = flattenObject(inputJson);
+                sourceKeyValues = Object.entries(flatInputJson);
                 chunk = [];
+                chunkLength = 0;
                 chunks = [];
-                sourceKeyValues = Object.entries(inputJson);
                 sourceKeyValues.forEach(function (_a) {
                     var key = _a[0], value = _a[1];
                     // Google 翻译单次最大字符长度 5000 字, 5 为占位分隔符长度
-                    if (chunkValuesLength + value.length + 5 >= 5000) {
-                        chunks.push(chunk);
-                        chunkValuesLength = 0;
-                        chunk = [];
+                    if (chunkLength + value.length + 5 < 5000) {
+                        chunk.push({ key: key, value: value });
+                        chunkLength += value.length + 5;
                     }
                     else {
-                        chunk.push({ key: key, value: value });
-                        chunkValuesLength += value.length + 5;
+                        chunks.push(chunk);
+                        chunk = [];
+                        chunkLength = 0;
                     }
                 });
+                // 遍历完后检查不满 5000 字符的遗留
                 if (chunk.length > 0) {
-                    // 遍历完后检查不满 5000 字符的遗留
                     chunks.push(chunk);
-                    chunkValuesLength = 0;
                     chunk = [];
+                    chunkLength = 0;
                 }
                 enJson = {};
                 _loop_1 = function (i) {
@@ -151,11 +159,11 @@ var translateRun = function (inputJson) { return __awaiter(void 0, void 0, void 
                         switch (_b.label) {
                             case 0:
                                 chunk_1 = chunks[i];
-                                mergeText = chunk_1.map(function (v) { return v.value; }).join('\n###\n');
+                                mergeText = chunk_1.map(function (item) { return item.value; }).join('\n###\n');
                                 return [4 /*yield*/, translateEn(mergeText)];
                             case 1:
                                 text = (_b.sent()).text;
-                                resultValues = text.split(/\n *# *# *# *\n/).map(function (v) { return v.trim(); });
+                                resultValues = text.split(/\n *# *# *# *\n/).map(function (item) { return item.trim(); });
                                 if (chunk_1.length !== resultValues.length) {
                                     throw new Error('翻译前文案碎片长度和翻译后的不一致');
                                 }
@@ -186,11 +194,11 @@ var translateRun = function (inputJson) { return __awaiter(void 0, void 0, void 
                         switch (_c.label) {
                             case 0:
                                 chunk_2 = chunks[i];
-                                mergeText = chunk_2.map(function (v) { return v.value; }).join('###');
+                                mergeText = chunk_2.map(function (item) { return item.value; }).join('###');
                                 return [4 /*yield*/, translatorZhTw(mergeText)];
                             case 1:
                                 text = (_c.sent()).text;
-                                resultValues = text.split(/ *# *# *# */).map(function (v) { return v.trim(); });
+                                resultValues = text.split(/ *# *# *# */).map(function (item) { return item.trim(); });
                                 if (chunk_2.length !== resultValues.length) {
                                     throw new Error('翻译前文案碎片长度和翻译后的不一致');
                                 }
@@ -213,11 +221,16 @@ var translateRun = function (inputJson) { return __awaiter(void 0, void 0, void 
             case 7:
                 i++;
                 return [3 /*break*/, 5];
-            case 8: return [2 /*return*/, { en: unFlattenObject(enJson), tradition: unFlattenObject(zhTwJson) }];
+            case 8: return [2 /*return*/, {
+                    en: unFlattenObject(enJson),
+                    tradition: unFlattenObject(zhTwJson),
+                }];
         }
     });
 }); };
-// 将翻译结果写入硬盘
+/**
+ * 将翻译结果写入硬盘
+ */
 translateRun(JSON.parse(JSON.stringify(zh_cn_1.default))).then(function (_a) {
     var enJson = _a.en, zhTwJson = _a.tradition;
     if ((0, fs_1.existsSync)('./src/locale/language/zh-cn.js')) {
