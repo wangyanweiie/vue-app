@@ -1,5 +1,19 @@
 {
   "typescript.inlayHints.functionLikeReturnTypes.enabled": false,
   "typescript.inlayHints.parameterTypes.enabled": false,
-  "typescript.inlayHints.variableTypes.enabled": false
+  "typescript.inlayHints.variableTypes.enabled": false,
+  "i18n-ally.localesPaths": [
+    "src/locale"
+  ],
+  "i18n-ally.extract.ignored": [
+    "小明",
+    "男",
+    "男",
+    "跑步",
+    "小强",
+    "骑行",
+    "小红",
+    "跳舞",
+    "女"
+  ],
 }

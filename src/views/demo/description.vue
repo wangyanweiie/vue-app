@@ -8,6 +8,9 @@
 
 <script setup lang="ts">
 import type { XDescriptionColumn } from '@/components/x-description/interface';
+import i18n from '@/locale';
+
+const { t } = i18n.global;
 
 /**
  * 描述列配置

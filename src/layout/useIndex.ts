@@ -1,19 +1,20 @@
 import { ElMessage } from 'element-plus';
+
+import RequestAPI from '@/api/login';
+import type { XFormInstance, XFormItemSchema } from '@/components/Form/interface';
 import { OPERATION_NOTICE } from '@/constant/base';
-import type { XFormItemSchema, XFormInstance } from '@/components/Form/interface';
+import router from '@/router';
+import { confirmExitMessage } from '@/utils/confirm-message';
 import {
     getBaseUrl,
-    getUserToken,
     getUserInfo,
-    saveBaseUrl,
+    getUserToken,
     removeBaseUrl,
-    removeUserToken,
-    removeUserInfo,
     removePermission,
+    removeUserInfo,
+    removeUserToken,
+    saveBaseUrl,
 } from '@/utils/storage';
-import { confirmExitMessage } from '@/utils/confirm-message';
-import router from '@/router';
-import RequestAPI from '@/api/login';
 
 export default function useIndex() {
     const baseUrl = ref<string>(getBaseUrl());

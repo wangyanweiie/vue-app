@@ -34,9 +34,10 @@
 </template>
 
 <script setup lang="ts">
-import { type FormProps, type ColProps } from 'element-plus';
-import type { XFormItemSchema } from '@/components/x-form/interface';
 import dayjs from 'dayjs';
+import { type ColProps, type FormProps } from 'element-plus';
+
+import type { XFormItemSchema } from '@/components/x-form/interface';
 
 /**
  * search-form 表单类型

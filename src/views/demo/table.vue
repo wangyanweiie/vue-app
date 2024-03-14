@@ -2,7 +2,7 @@
     <div>
         <x-edit-table
             ref="editTableRef"
-            :title="t('common.数据列表')"
+            :title="$t('iDpzKzxbRbJEnt1PRgY')"
             header="x-edit-table"
             show-index
             selectable
@@ -13,37 +13,35 @@
         >
             <template #operation>
                 <el-button type="success" @click="editTableRef?.editActions.addRow()">
-                    {{ t('button.新增') }}
+                    {{ $t('kHi2pIo34f3yReZhVayu') }}
                 </el-button>
-                <el-button type="primary" @click="editTableSubmit">
-                    {{ t('button.提交') }}
-                </el-button>
+                <el-button type="primary" @click="editTableSubmit"> {{ $t('xrnNbPAatEuKjmd0lSoh') }} </el-button>
             </template>
 
             <template #default>
                 <x-edit-table-item v-for="(item, index) in editColumns" :key="index" v-bind="item">
                     <template #edit="{ row }">
-                        <el-input v-model="row[item.prop]" placeholder="请输入"></el-input>
+                        <el-input v-model="row[item.prop]" :placeholder="$t('sJiqs2ZbOt5MXdpd1ZvjH')"></el-input>
                     </template>
                 </x-edit-table-item>
-                <x-edit-table-item :label="t('button.操作')" :required="false" fixed="right" width="250">
+                <x-edit-table-item :label="$t('bYdjy1muZRKxxYlokF')" :required="false" fixed="right" width="250">
                     <template #default="{ actions, index }">
                         <el-button text type="primary" @click="actions.startEdit(index)">
-                            {{ t('button.操作') }}
+                            {{ $t('bYdjy1muZRKxxYlokF') }}
                         </el-button>
                         <el-button text type="primary" @click="actions.deleteRow(index)">
-                            {{ t('button.删除') }}
+                            {{ $t('nepCavywzYMgyyUdPe') }}
                         </el-button>
                     </template>
                     <template #edit="{ actions, index }">
                         <el-button text type="primary" @click="actions.saveEdit(index)">
-                            {{ t('button.保存') }}
+                            {{ $t('hTugxoOxYljQQvW5Uclz8') }}
                         </el-button>
                         <el-button text type="primary" @click="actions.cancelEdit(index)">
-                            {{ t('button.取消') }}
+                            {{ $t('bgOh1bYyBiz19ApW3s3Hk') }}
                         </el-button>
                         <el-button text type="primary" @click="actions.deleteRow(index)">
-                            {{ t('button.删除') }}
+                            {{ $t('nepCavywzYMgyyUdPe') }}
                         </el-button>
                     </template>
                 </x-edit-table-item>
@@ -52,7 +50,7 @@
 
         <x-table
             ref="tableRef"
-            :title="t('common.数据列表')"
+            :title="$t('iDpzKzxbRbJEnt1PRgY')"
             header="x-table"
             row-key="id"
             combine-field="age"
@@ -63,19 +61,19 @@
             :selected-list="selectedList"
             :column-index="[3, 6]"
             :actions="actionsConfig"
-            :action-text="t('common.操作')"
+            action-text="操作"
             action-width="150"
             class="component"
         >
             <template #operation>
-                <el-button type="success">{{ t('button.新增') }}</el-button>
-                <el-button type="warning" @click="handleExport"> {{ t('button.导出') }}</el-button>
+                <el-button type="success"> {{ $t('kHi2pIo34f3yReZhVayu') }} </el-button>
+                <el-button type="warning" @click="handleExport"> {{ $t('cd5B8eWfhOw3Scy2ACcoy') }} </el-button>
             </template>
         </x-table>
 
         <x-table-v2
             ref="tableV2Ref"
-            :title="t('common.数据列表')"
+            :title="$t('iDpzKzxbRbJEnt1PRgY')"
             header="x-table-v2"
             height="300px"
             show-index
@@ -86,8 +84,8 @@
             class="component"
         >
             <template #operation>
-                <el-button type="success">{{ t('button.新增') }}</el-button>
-                <el-button type="warning" @click="handleExport"> {{ t('button.导出') }}</el-button>
+                <el-button type="success"> {{ $t('kHi2pIo34f3yReZhVayu') }} </el-button>
+                <el-button type="warning" @click="handleExport"> {{ $t('cd5B8eWfhOw3Scy2ACcoy') }} </el-button>
             </template>
         </x-table-v2>
     </div>
@@ -107,19 +105,19 @@ const { t } = i18n.global;
  */
 const columns = computed<XTableColumn[]>(() => [
     {
-        label: t('filed.姓名'),
+        label: t('xgf4aCzA4SnJzGBak8E'),
         prop: 'name',
     },
     {
-        label: t('filed.年龄'),
+        label: t('qDx5COvEeBmUji45JcXs7'),
         prop: 'age',
     },
     {
-        label: t('filed.性别'),
+        label: t('khbpvf3Q1hd798MXvxpV'),
         prop: 'sex',
     },
     {
-        label: t('filed.爱好'),
+        label: t('0eq3Zi1FhcpRlTS7hOn'),
         prop: 'hobby',
     },
 ]);
@@ -129,22 +127,22 @@ const columns = computed<XTableColumn[]>(() => [
  */
 const columnsV2 = computed(() => [
     {
-        title: t('filed.姓名'),
+        title: t('xgf4aCzA4SnJzGBak8E'),
         key: 'name',
         dataKey: 'name',
     },
     {
-        title: t('filed.年龄'),
+        title: t('qDx5COvEeBmUji45JcXs7'),
         key: 'age',
         dataKey: 'age',
     },
     {
-        title: t('filed.性别'),
+        title: t('khbpvf3Q1hd798MXvxpV'),
         key: 'sex',
         dataKey: 'sex',
     },
     {
-        title: t('filed.爱好'),
+        title: t('0eq3Zi1FhcpRlTS7hOn'),
         key: 'hobby',
         dataKey: 'hobby',
     },
@@ -155,22 +153,22 @@ const columnsV2 = computed(() => [
  */
 const editColumns = computed<XEditTableColumn[]>(() => [
     {
-        label: t('filed.姓名'),
+        label: t('xgf4aCzA4SnJzGBak8E'),
         prop: 'name',
         edit: false,
     },
     {
-        label: t('filed.年龄'),
+        label: t('qDx5COvEeBmUji45JcXs7'),
         prop: 'age',
         required: true,
     },
     {
-        label: t('filed.性别'),
+        label: t('khbpvf3Q1hd798MXvxpV'),
         prop: 'sex',
         required: true,
     },
     {
-        label: t('filed.爱好'),
+        label: t('0eq3Zi1FhcpRlTS7hOn'),
         prop: 'hobby',
     },
 ]);
@@ -221,14 +219,14 @@ function actionsConfig(row: Record<string, any>) {
     return getPermissionAction(
         [
             {
-                label: t('button.详情'),
+                label: t('hd0aor8CrBgAFxzHACkz'),
                 permission: '',
                 onClick: () => {
                     console.log('详情', row);
                 },
             },
             {
-                label: t('button.删除'),
+                label: t('nepCavywzYMgyyUdPe'),
                 permission: '',
                 onClick: () => {
                     console.log('删除', row);

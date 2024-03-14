@@ -2,9 +2,12 @@ import { createI18n } from 'vue-i18n';
 
 import { getLanguage } from '@/utils/storage';
 
-import en from './language/en';
-import zhCn from './language/zh-cn';
-import zhTw from './language/zh-tw';
+// import en from './language/en';
+// import zhCn from './language/zh-cn';
+// import zhTw from './language/zh-tw';
+import en from './en.json';
+import zhCn from './zh-cn.json';
+import zhTw from './zh-tw.json';
 
 const messages = {
     'zh-cn': zhCn,
