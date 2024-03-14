@@ -163,12 +163,12 @@ const props = withDefaults(defineProps<XCrudPageProp>(), {
     createDefaultData: () => ({}),
     createApi: undefined,
     createSaveApi: undefined,
-
     editTitle: '编辑',
     editSchemas: () => [],
     editDefaultData: () => ({}),
     editApi: undefined,
     editSaveApi: undefined,
+    saveText: '保存',
 
     elType: 'el-dialog',
     elFormProps: () => ({

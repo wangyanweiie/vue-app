@@ -1,17 +1,21 @@
 import type { RouteRecordRaw } from 'vue-router';
 
+import i18n from '@/locale';
+
+const { t } = i18n.global;
+
 /**
  * home
  */
-export const HOME_ROUTE: RouteRecordRaw = {
+export const HOME_ROUTE = computed<RouteRecordRaw>(() => ({
     path: '/home',
     name: 'home',
     component: () => import('@/views/home/index.vue'),
     meta: {
-        title: '首页',
+        title: t('pZAw6rgPAsWmFf5mfvhI'),
         icon: 'Folder',
     },
-};
+}));
 
 /**
  * login

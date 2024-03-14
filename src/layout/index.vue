@@ -7,9 +7,6 @@
 
             <template #header-right>
                 <div class="header-right">
-                    <!-- 动态更改 base_url -->
-                    <!-- <el-input v-if="ENV !== 'production'" v-model="baseUrl" @blur="handleBlur"></el-input> -->
-
                     <!-- 数字大屏 -->
                     <el-button type="primary" text bg class="header-right__item" @click="handleJudge">screen</el-button>
 
@@ -56,7 +53,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 
-import { APP_NAME, ENV } from '@/constant/global';
+import { APP_NAME } from '@/constant/global';
 import { type LanguageType, useLanguageStore } from '@/store/language';
 import { updateRoute, usePermissionStore } from '@/store/permission';
 
@@ -69,7 +66,6 @@ const i18 = useI18n();
  * 直接解构会失去响应性；
  */
 const languageStore = useLanguageStore();
-const language = computed(() => languageStore.language);
 const locale = computed(() => languageStore.locale);
 const languageList = computed(() => languageStore.languageList);
 
@@ -88,19 +84,7 @@ const cacheList = computed(() => permissionStore.cacheList);
 /**
  * useIndex
  */
-const {
-    baseUrl,
-    userInfo,
-    dropdownItems,
-    schemas,
-    visible,
-    formRef,
-    loading,
-    form,
-    handleJudge,
-    handleBlur,
-    changePassword,
-} = useIndex();
+const { userInfo, dropdownItems, schemas, visible, formRef, loading, form, handleJudge, changePassword } = useIndex();
 </script>
 <style lang="scss" scoped>
 .header-right {

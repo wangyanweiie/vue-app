@@ -1,20 +1,13 @@
 import router from '@/router/index';
+import { clearStorage } from '@/utils/local-storage';
 import useAxiosInterceptors from '@/utils/use-axios';
-import { removeBaseUrl, removeUserToken, removeUserInfo, removePermission } from '@/utils/storage';
 
 const { get, post } = useAxiosInterceptors({
     url: import.meta.env.VITE_API_URL as string,
 
-    storageUrlKey: 'baseUrl',
-    storageTokenKey: 'token',
-
     // 退出登录
     expireCallback: () => {
-        // clearStorage();
-        removeBaseUrl();
-        removeUserToken();
-        removeUserInfo();
-        removePermission();
+        clearStorage();
         router.push(`/login?redirect=${router.currentRoute.value.path}`);
     },
 });

@@ -34,6 +34,7 @@
 
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus';
+import { useRouter } from 'vue-router';
 
 import dropdownAPI from '@/api/dropdown';
 import RequestAPI from '@/api/login';
@@ -154,7 +155,6 @@ async function login(): Promise<void> {
  * 页面渲染
  */
 onMounted(async () => {
-    saveBaseUrl(import.meta.env.VITE_API_URL);
     getCompanyList();
 });
 </script>

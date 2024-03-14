@@ -93,7 +93,6 @@ export interface XCrudPageProp {
     createApi?: (data?: any) => Promise<any>;
     /** 新增保存 API */
     createSaveApi?: (data?: any) => Promise<any>;
-
     /** 编辑弹窗标题 */
     editTitle?: string;
     /** 编辑表单配置 */
@@ -104,6 +103,8 @@ export interface XCrudPageProp {
     editApi?: (data?: any) => Promise<any>;
     /** 编辑保存 API */
     editSaveApi?: (data?: any) => Promise<any>;
+    /** 新增/编辑保存按钮文字 */
+    saveText: string;
 
     /** 弹窗类型 */
     elType?: 'el-dialog' | 'el-drawer';

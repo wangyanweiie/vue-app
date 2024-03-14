@@ -2,7 +2,7 @@
     <el-card shadow="hover" class="home">
         <div class="home__greeting">
             <h3>{{ `${greeting}${userInfo?.userName || ''}` }}</h3>
-            <p>欢迎使用智能平台！</p>
+            <p>{{ $t('ykN48J3gPiQaRfBOhoBod') }}</p>
         </div>
     </el-card>
 </template>

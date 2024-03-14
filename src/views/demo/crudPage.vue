@@ -6,6 +6,14 @@
         :edit-schemas="schemas"
         :columns="columns"
         :data="data"
+        search-text="查询"
+        reset-text="重置"
+        table-title="数据列表"
+        create-title="新增"
+        edit-title="编辑"
+        save-text="保存"
+        confirm-text="确认"
+        cancel-text="取消"
     ></x-crud-page>
 </template>
 
@@ -19,7 +27,7 @@ import type { XTableColumn } from '@/components/x-table/interface';
 /**
  * 查询表单配置
  */
-const searchSchemas: XFormItemSchema[] = [
+const searchSchemas = computed<XFormItemSchema[]>(() => [
     {
         label: '日期范围',
         prop: 'daterange',
@@ -44,7 +52,6 @@ const searchSchemas: XFormItemSchema[] = [
         label: '下拉',
         prop: 'select',
         components: 'el-select-v2',
-
         elProps: {
             options: [
                 { label: 'label1', value: 'value1' },
@@ -56,7 +63,6 @@ const searchSchemas: XFormItemSchema[] = [
         label: '下拉',
         prop: 'select',
         components: 'el-select-v2',
-
         elProps: {
             options: [
                 { label: 'label1', value: 'value1' },
@@ -64,7 +70,7 @@ const searchSchemas: XFormItemSchema[] = [
             ],
         },
     },
-];
+]);
 
 /**
  * 表单配置
@@ -72,7 +78,7 @@ const searchSchemas: XFormItemSchema[] = [
 const colProps: Partial<ColProps> = {
     span: 12,
 };
-const schemas: XFormItemSchema[] = [
+const schemas = computed<XFormItemSchema[]>(() => [
     {
         label: '文本',
         prop: 'text',
@@ -199,12 +205,12 @@ const schemas: XFormItemSchema[] = [
         components: 'el-switch',
         colProps,
     },
-];
+]);
 
 /**
  * 表格列配置
  */
-const columns: XTableColumn[] = [
+const columns = computed<XTableColumn[]>(() => [
     {
         label: '姓名',
         prop: 'name',
@@ -221,7 +227,7 @@ const columns: XTableColumn[] = [
         label: '爱好',
         prop: 'hobby',
     },
-];
+]);
 
 /**
  * 表格数据

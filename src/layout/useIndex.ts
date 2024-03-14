@@ -1,23 +1,14 @@
 import { ElMessage } from 'element-plus';
 
 import RequestAPI from '@/api/login';
-import type { XFormInstance, XFormItemSchema } from '@/components/Form/interface';
+import type { XFormInstance, XFormItemSchema } from '@/components/x-form/interface';
 import { OPERATION_NOTICE } from '@/constant/base';
 import router from '@/router';
 import { confirmExitMessage } from '@/utils/confirm-message';
-import {
-    getBaseUrl,
-    getUserInfo,
-    getUserToken,
-    removeBaseUrl,
-    removePermission,
-    removeUserInfo,
-    removeUserToken,
-    saveBaseUrl,
-} from '@/utils/storage';
+import { clearStorage } from '@/utils/local-storage';
+import { getUserInfo, getUserToken } from '@/utils/storage';
 
 export default function useIndex() {
-    const baseUrl = ref<string>(getBaseUrl());
     const token = getUserToken();
     const userInfo = getUserInfo();
 
@@ -26,17 +17,6 @@ export default function useIndex() {
      */
     function handleJudge() {
         window.open(`${window.location.protocol}//${window.location.host}/screen`, '_blank');
-    }
-
-    /**
-     * 改变 base-url
-     */
-    function handleBlur(e: any): void {
-        if (!e.target.value) {
-            return;
-        }
-
-        saveBaseUrl(e.target.value);
     }
 
     /**
@@ -131,11 +111,7 @@ export default function useIndex() {
         const result = await RequestAPI.logout();
 
         if (result) {
-            // clearStorage();
-            removeBaseUrl();
-            removeUserToken();
-            removeUserInfo();
-            removePermission();
+            clearStorage();
             router.push(`/login`);
         }
     }
@@ -157,17 +133,12 @@ export default function useIndex() {
         const res = await RequestAPI.logout();
 
         if (res) {
-            // clearStorage();
-            removeBaseUrl();
-            removeUserToken();
-            removeUserInfo();
-            removePermission();
+            clearStorage();
             router.push(`/login`);
         }
     }
 
     return {
-        baseUrl,
         userInfo,
         dropdownItems,
         schemas,
@@ -176,7 +147,6 @@ export default function useIndex() {
         loading,
         form,
         handleJudge,
-        handleBlur,
         changePassword,
     };
 }

@@ -8,7 +8,7 @@ import { demoRoutes } from './demo';
 /**
  * menu-routes
  */
-const menuRoutes = computed<RouteRecordRaw[]>(() => [HOME_ROUTE, demoRoutes.value]);
+const menuRoutes = computed<RouteRecordRaw[]>(() => [HOME_ROUTE.value, demoRoutes.value]);
 
 /**
  * routers

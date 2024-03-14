@@ -1,5 +1,5 @@
 import router from '@/router/index';
-import { removeBaseUrl, removePermission, removeUserInfo, removeUserToken } from '@/utils/storage';
+import { clearStorage } from '@/utils/local-storage';
 import useAxiosInterceptors from '@/utils/use-axios';
 
 const { get, post } = useAxiosInterceptors({
@@ -7,11 +7,7 @@ const { get, post } = useAxiosInterceptors({
 
     // 退出登录
     expireCallback: () => {
-        // clearStorage();
-        removeBaseUrl();
-        removeUserToken();
-        removeUserInfo();
-        removePermission();
+        clearStorage();
         router.push(`/login?redirect=${router.currentRoute.value.path}`);
     },
 });

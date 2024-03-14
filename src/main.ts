@@ -1,18 +1,19 @@
-import { createApp } from 'vue';
-import mitt from 'mitt';
-import { createPinia } from 'pinia';
-import App from '@/App.vue';
-import router from '@/router/index';
-import registerDirective from '@/directive';
-import registerComponents from '@/components';
-import { setPermissionRoute } from '@/store/permission';
-import { setupRouterGuard } from '@/router/route-guard';
-import i18n from '@/locale';
-
 // 引入组件样式
 import 'element-plus/dist/index.css';
 import 'nprogress/nprogress.css';
 import '@wangeditor/editor/dist/css/style.css';
+
+import mitt from 'mitt';
+import { createPinia } from 'pinia';
+import { createApp } from 'vue';
+
+import App from '@/App.vue';
+import registerComponents from '@/components';
+import registerDirective from '@/directive';
+import i18n from '@/locale';
+import router from '@/router/index';
+import { setupRouterGuard } from '@/router/route-guard';
+import { setPermissionRoute } from '@/store/permission';
 
 (() => {
     const app = createApp(App);

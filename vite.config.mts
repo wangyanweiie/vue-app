@@ -1,19 +1,19 @@
 /// <reference types="vitest" />
-import path from 'path';
-import { defineConfig } from 'vite';
+import Legacy from '@vitejs/plugin-legacy';
 import Vue from '@vitejs/plugin-vue';
+import path from 'path';
+import { visualizer } from 'rollup-plugin-visualizer';
+import AutoImport from 'unplugin-auto-import/vite';
+import ElementPlus from 'unplugin-element-plus/vite';
+import IconsResolver from 'unplugin-icons/resolver';
 import Icons from 'unplugin-icons/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import VueComponents from 'unplugin-vue-components/vite';
+import { defineConfig } from 'vite';
+import Compression from 'vite-plugin-compression';
 import Dts from 'vite-plugin-dts';
 import Inspect from 'vite-plugin-inspect';
-import AutoImport from 'unplugin-auto-import/vite';
-import VueComponents from 'unplugin-vue-components/vite';
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import IconsResolver from 'unplugin-icons/resolver';
-import ElementPlus from 'unplugin-element-plus/vite';
 import VueDevTools from 'vite-plugin-vue-devtools';
-import Legacy from '@vitejs/plugin-legacy';
-import Compression from 'vite-plugin-compression';
-import { visualizer } from 'rollup-plugin-visualizer';
 
 /**
  * In a basic Vite project, make sure:
@@ -111,14 +111,6 @@ export default defineConfig({
 
             // 自定义组件解析器
             resolvers: [ElementPlusResolver(), IconsResolver()],
-
-            // eslint 报错解决
-            eslintrc: {
-                // 当 enabled 为 true 时，会根据 filepath 生成一个 eslint 的配置文件，需要引入到 eslint 的配置文件中
-                enabled: false,
-                filepath: './.eslintrc-auto-import.json',
-                globalsPropValue: true,
-            },
         }),
 
         /**
