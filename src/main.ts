@@ -3,6 +3,7 @@ import 'element-plus/dist/index.css';
 import 'nprogress/nprogress.css';
 import '@wangeditor/editor/dist/css/style.css';
 
+// import ElementPlus from 'element-plus';
 import mitt from 'mitt';
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';

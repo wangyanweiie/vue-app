@@ -18,7 +18,7 @@
                     </el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item prop="baseUrl">
+            <el-form-item>
                 <el-input
                     v-if="ENV !== 'production'"
                     v-model="form.baseUrl"
@@ -78,7 +78,6 @@ const rules = {
     account: [{ required: true, message: '账号不能为空' }],
     password: [{ required: true, message: '密码不能为空' }],
     companyId: [{ required: true, message: '公司不能为空' }],
-    baseUrl: [{ required: true, message: 'BASE_URL 不能为空' }],
 };
 
 /**

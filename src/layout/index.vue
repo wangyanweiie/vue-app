@@ -7,12 +7,15 @@
 
             <template #header-right>
                 <div class="header-right">
+                    <!-- baseurl -->
+                    <el-input v-if="ENV !== 'production'" v-model="baseUrl" disabled placeholder="自动生成"></el-input>
+
                     <!-- 数字大屏 -->
                     <el-button type="primary" text bg class="header-right__item" @click="handleJudge">screen</el-button>
 
                     <!-- 语言切换 -->
                     <el-dropdown class="header-right__item">
-                        <img src="/svg/language.svg" alt="" width="15" />
+                        <img src="/svg/language.svg" alt="" width="20" />
                         <template #dropdown>
                             <el-dropdown-menu>
                                 <el-dropdown-item
@@ -53,7 +56,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 
-import { APP_NAME } from '@/constant/global';
+import { APP_NAME, ENV } from '@/constant/global';
 import { type LanguageType, useLanguageStore } from '@/store/language';
 import { updateRoute, usePermissionStore } from '@/store/permission';
 
@@ -84,7 +87,8 @@ const cacheList = computed(() => permissionStore.cacheList);
 /**
  * useIndex
  */
-const { userInfo, dropdownItems, schemas, visible, formRef, loading, form, handleJudge, changePassword } = useIndex();
+const { baseUrl, userInfo, dropdownItems, schemas, visible, formRef, loading, form, handleJudge, changePassword } =
+    useIndex();
 </script>
 <style lang="scss" scoped>
 .header-right {

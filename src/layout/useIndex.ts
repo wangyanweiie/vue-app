@@ -6,9 +6,10 @@ import { OPERATION_NOTICE } from '@/constant/base';
 import router from '@/router';
 import { confirmExitMessage } from '@/utils/confirm-message';
 import { clearStorage } from '@/utils/local-storage';
-import { getUserInfo, getUserToken } from '@/utils/storage';
+import { getBaseUrl, getUserInfo, getUserToken } from '@/utils/storage';
 
 export default function useIndex() {
+    const baseUrl = ref<string>(getBaseUrl() || import.meta.env.VITE_API_URL);
     const token = getUserToken();
     const userInfo = getUserInfo();
 
@@ -139,6 +140,7 @@ export default function useIndex() {
     }
 
     return {
+        baseUrl,
         userInfo,
         dropdownItems,
         schemas,

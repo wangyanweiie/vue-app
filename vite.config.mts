@@ -8,7 +8,7 @@ import ElementPlus from 'unplugin-element-plus/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import Icons from 'unplugin-icons/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import VueComponents from 'unplugin-vue-components/vite';
+import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vite';
 import Compression from 'vite-plugin-compression';
 import Dts from 'vite-plugin-dts';
@@ -116,7 +116,7 @@ export default defineConfig({
         /**
          * 自动引入自定义组件
          */
-        VueComponents({
+        Components({
             // 指定组件位置，默认是 src/components
             dirs: ['src/components'],
 
