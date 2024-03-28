@@ -16,9 +16,12 @@ import Inspect from 'vite-plugin-inspect';
 import VueDevTools from 'vite-plugin-vue-devtools';
 
 /**
- * In a basic Vite project, make sure:
- * The vite.config.js(ts) file content is using the ESM syntax.
- * The closest package.json file has "type": "module", or use the .mjs extension, e.g. vite.config.mjs(mts)
+ * 官方文档：https://cn.vitejs.dev/guide/troubleshooting
+ * Vite CJS Node API deprecated
+ * Vite 的 CJS Node API 构建已经被废弃，并将在 Vite 6 中移除，你应该更新你的文件或框架来导入 Vite 的 ESM 构建。
+ * 在一个基础的 Vite 项目中，请确保：
+ *  - 1.vite.config.js 配置文件的内容使用 ESM 语法。
+ *  - 2.最近的 package.json 文件中有 "type": "module"，或者使用 .mjs/.mts 扩展名，例如 vite.config.mjs 或者 vite.config.mts。
  */
 const pathSrc = path.resolve(__dirname, 'src');
 
@@ -94,10 +97,6 @@ export default defineConfig({
             autoInstall: true,
             // 编译方式
             // compiler: 'vue3',
-            // 默认类名
-            // defaultClass: '',
-            // 默认样式
-            // defaultStyle: '',
         }),
 
         /**
@@ -153,9 +152,7 @@ export default defineConfig({
         /**
          * 为 Element Plus 按需引入样式
          */
-        ElementPlus({
-            // options
-        }),
+        ElementPlus({}),
 
         /**
          * 增强 Vue 开发者体验
