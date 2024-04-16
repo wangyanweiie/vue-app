@@ -15,35 +15,22 @@
 <script setup lang="ts">
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 
+import type { XRichTextEditorProps } from './interface';
 import useIndex from './useIndex';
 
 /**
  * props
  */
-const props = withDefaults(
-    defineProps<{
-        /** 双向绑定 */
-        modelValue: string;
-        /** 上传地址 */
-        uploadUrl?: string;
-        /** 文件名 */
-        fileName?: string;
-        /** 编辑器模式 */
-        mode?: 'default' | 'simple';
-        /** 编辑器样式 */
-        editorStyle?: Record<string, string | number>;
-    }>(),
-    {
-        modelValue: '<p>hello</p>',
-        uploadUrl: `${import.meta.env.VITE_API_URL}${import.meta.env.VITE_GLOB_UPLOAD_URL}`,
-        fileName: 'file',
-        mode: 'simple',
-        editorStyle: () => ({
-            height: '400px',
-            overflowY: 'hidden',
-        }),
-    },
-);
+const props = withDefaults(defineProps<XRichTextEditorProps>(), {
+    modelValue: '<p>hello</p>',
+    uploadUrl: `${import.meta.env.VITE_API_URL}${import.meta.env.VITE_GLOB_UPLOAD_URL}`,
+    fileName: 'file',
+    mode: 'simple',
+    editorStyle: () => ({
+        height: '400px',
+        overflowY: 'hidden',
+    }),
+});
 
 /**
  * emits

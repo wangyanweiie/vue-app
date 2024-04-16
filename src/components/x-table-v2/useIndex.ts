@@ -143,7 +143,7 @@ export default function useIndex(props: XTableV2Prop) {
         () => props.data,
         newValue => {
             if (Array.isArray(newValue)) {
-                loadData({});
+                loadData();
             }
         },
         {
@@ -308,7 +308,7 @@ export default function useIndex(props: XTableV2Prop) {
      * 页面挂载
      */
     onMounted(() => {
-        loadData({});
+        loadData();
     });
 
     /**

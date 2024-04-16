@@ -62,6 +62,7 @@ declare module 'vue' {
         XCrudPage: (typeof import('./../components/x-crud-page/XCrudPage.vue'))['default'];
         XDescription: (typeof import('./../components/x-description/XDescription.vue'))['default'];
         XDialogForm: (typeof import('./../components/x-form/XDialogForm.vue'))['default'];
+        XDynamicHeaderTable: (typeof import('./../components/x-dynamic-header-table/XDynamicHeaderTable.vue'))['default'];
         XEditTable: (typeof import('./../components/x-edit-table/XEditTable.vue'))['default'];
         XEditTableItem: (typeof import('./../components/x-edit-table/XEditTableItem.vue'))['default'];
         XFilePreview: (typeof import('./../components/x-file-preview/XFilePreview.vue'))['default'];

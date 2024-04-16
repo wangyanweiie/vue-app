@@ -19,52 +19,26 @@
     </el-card>
 </template>
 <script setup lang="ts">
-import type { XDescriptionColumn } from './interface';
+import type { XDescriptionProp } from './interface';
 
 /**
  * props
  */
-withDefaults(
-    defineProps<{
-        /** el-card-header */
-        header?: string;
-        /** el-card-shadow */
-        shadow?: 'hover' | 'always' | 'never';
-        /** card-body-style */
-        bodyStyle?: Record<string, string>;
-        /** 标题 */
-        title: string;
-        /** 边框 */
-        border: boolean;
-        /** 列 */
-        column: number;
-        /** 尺寸 */
-        size: 'small' | 'default' | 'large';
-        /** 操作区文本 */
-        extra: string;
-        /** 方向 */
-        direction: 'horizontal' | 'vertical';
-        /** 描述列列表 */
-        columns: XDescriptionColumn[];
-        /** 描述列数据 */
-        data: Record<string, any>;
-    }>(),
-    {
-        header: '',
-        shadow: 'hover',
-        bodyStyle: () => {
-            return {
-                padding: '15px',
-            };
-        },
-        title: '',
-        border: true,
-        column: 4,
-        size: 'default',
-        extra: '',
-        direction: 'horizontal',
-        columns: () => [],
-        data: () => ({}),
+withDefaults(defineProps<XDescriptionProp>(), {
+    header: '',
+    shadow: 'hover',
+    bodyStyle: () => {
+        return {
+            padding: '15px',
+        };
     },
-);
+    title: '',
+    border: true,
+    column: 4,
+    size: 'default',
+    extra: '',
+    direction: 'horizontal',
+    columns: () => [],
+    data: () => ({}),
+});
 </script>

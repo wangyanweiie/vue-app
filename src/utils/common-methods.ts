@@ -40,7 +40,7 @@ export async function commonDelete(
     }
 
     ElMessage.success(OPERATION_NOTICE.DELETE_SUCCESS);
-    tableRef?.loadData({});
+    tableRef?.loadData();
     tableRef?.clearSelection();
 }
 

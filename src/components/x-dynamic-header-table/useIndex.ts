@@ -1,19 +1,13 @@
 import type { TableInstance } from 'element-plus';
 import { cloneDeep } from 'lodash-es';
 
-import type {
-    XTableActionButton,
-    XTableColumn,
-    XTablePagination,
-    XTableProp,
-    XTableSpanMethodProps,
-} from './interface';
+import type { XDynamicHeaderTableProp, XTableActionButton, XTableColumn, XTablePagination } from './interface';
 
 /**
  * @description useIndex
  * @param props 组件传参
  */
-export default function useIndex(props: XTableProp) {
+export default function useIndex(props: XDynamicHeaderTableProp) {
     /**
      * 按钮每个字符所占宽度
      */
@@ -42,7 +36,7 @@ export default function useIndex(props: XTableProp) {
     /**
      * 表格列配置
      */
-    const tableColumns = ref<XTableColumn[]>();
+    const tableColumns = ref<any[]>();
 
     /**
      * 分页设置
@@ -51,17 +45,6 @@ export default function useIndex(props: XTableProp) {
         pageSize: 10,
         currentPage: 1,
         total: 0,
-    });
-
-    /**
-     * 树形结构
-     */
-    const treeProps = computed(() => {
-        if (props.isTree && props.elTableProps?.treeProps) {
-            return props.elTableProps.treeProps;
-        } else {
-            return {};
-        }
     });
 
     /**
@@ -293,74 +276,11 @@ export default function useIndex(props: XTableProp) {
     }
 
     /**
-     * FIXME: 合并单元格方法
-     */
-    let cellList: number[] = [];
-    let count: number = 0;
-
-    /**
-     * 遍历单元格
-     * @param data 表格数据
-     */
-    function computeCell(data: Record<string, any>[]) {
-        if (!props.combineField) {
-            return;
-        }
-
-        cellList = [];
-        count = 0;
-        for (let i = 0; i < data.length; i++) {
-            // 先设置第一项
-            if (i === 0) {
-                // 初始值为 1，若下一项和此项相同，就往 cellList 数组中追加 0
-                cellList.push(1);
-                // 初始计数为 0
-                count = 0;
-            } else {
-                if (data[i][props.combineField as string] == data[i - 1][props.combineField as string]) {
-                    // 增加计数
-                    cellList[count] += 1;
-                    // 相等就往 cellList 数组中追加 0
-                    cellList.push(0);
-                } else {
-                    // 不等就往 cellList 数组中追加 1
-                    cellList.push(1);
-                    // 将索引赋值为计数
-                    count = i;
-                }
-            }
-        }
-    }
-
-    /**
-     * 合并单元格-首列
-     * @param param.rowIndex 行索引
-     * @param param.columnIndex 列索引
-     */
-    function spanMethod({ rowIndex, columnIndex }: XTableSpanMethodProps) {
-        if (!props.columnIndex || props.columnIndex?.length === 0) {
-            return;
-        }
-
-        computeCell(tableData.value);
-
-        if (props.columnIndex?.includes(columnIndex)) {
-            const rowspan = cellList[rowIndex];
-            const colspan = rowspan > 0 ? 1 : 0;
-
-            return {
-                rowspan,
-                colspan,
-            };
-        }
-    }
-
-    /**
      * 监听表格列配置
      */
     watch(
         () => props.columns,
-        (newValue: XTableColumn[]) => {
+        (newValue: any[]) => {
             tableColumns.value = cloneDeep(newValue);
         },
     );
@@ -397,7 +317,6 @@ export default function useIndex(props: XTableProp) {
         tableColumns,
         tableData,
         pagination,
-        treeProps,
         selectedRows,
         selectedCount,
         handleSelectChange,
@@ -414,6 +333,5 @@ export default function useIndex(props: XTableProp) {
         getSelectedRows,
         clearSelection,
         getTableData,
-        spanMethod,
     };
 }

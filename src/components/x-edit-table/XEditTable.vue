@@ -38,54 +38,28 @@
 </template>
 
 <script lang="ts" setup>
-import type { EditActions, FormModel, FormModelItem, RequestFunc } from './interface';
+import type { EditActions, FormModel, FormModelItem, XEditTableProp } from './interface';
 
 /**
  * props
  */
-const props = withDefaults(
-    defineProps<{
-        /** el-card-header */
-        header?: string;
-        /** el-card-shadow */
-        shadow?: 'hover' | 'always' | 'never';
-        /** card-body-style */
-        bodyStyle?: Record<string, string>;
-        /** 标题 */
-        title?: string;
-        /** 感叹号提示内容 */
-        tooltipContent?: string;
-        /** 是否展示索引 */
-        showIndex?: boolean;
-        /** 是否可选 */
-        selectable?: boolean;
-        /** 行数据 key 值 */
-        rowKey?: string;
-        /** 表格数据 */
-        dataSource?: Record<string, unknown>[];
-        /** 请求接口 */
-        api?: RequestFunc<any> | null;
-        /** 请求接口参数 */
-        apiParams?: Record<string, string | number>;
-    }>(),
-    {
-        header: '',
-        shadow: 'hover',
-        bodyStyle: () => {
-            return {
-                padding: '15px',
-            };
-        },
-        title: '数据列表',
-        tooltipContent: '',
-        showIndex: false,
-        selectable: false,
-        rowKey: 'id',
-        dataSource: () => [],
-        api: null,
-        apiParams: () => ({}),
+const props = withDefaults(defineProps<XEditTableProp>(), {
+    header: '',
+    shadow: 'hover',
+    bodyStyle: () => {
+        return {
+            padding: '15px',
+        };
     },
-);
+    title: '数据列表',
+    tooltipContent: '',
+    showIndex: false,
+    selectable: false,
+    rowKey: 'id',
+    dataSource: () => [],
+    api: null,
+    apiParams: () => ({}),
+});
 
 /**
  * 表单

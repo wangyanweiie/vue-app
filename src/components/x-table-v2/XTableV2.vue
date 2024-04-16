@@ -83,105 +83,52 @@
 
 <script lang="ts" setup>
 import { InfoFilled, Loading as LoadingIcon } from '@element-plus/icons-vue';
-import type { Column } from 'element-plus';
 
-import type { XTableV2APIKeyMap } from './interface';
+import type { XTableV2Prop } from './interface';
 import useIndex from './useIndex';
 
 /**
  * props
  */
-const props = withDefaults(
-    defineProps<{
-        /** 容器宽度 */
-        width?: string;
-        /** 容器高度 */
-        height?: string;
-        /** el-card-header */
-        header?: string;
-        /** el-card-shadow */
-        shadow?: 'always' | 'never' | 'hover';
-        /** card-body-style */
-        bodyStyle?: Record<string, string>;
-        /** 表格标题 */
-        title?: string;
-        /** 感叹号提示内容 */
-        tooltipContent?: string;
-        /** 是否展示索引 */
-        showIndex?: boolean;
-        /** 是否可选 */
-        selectable?: boolean;
-        /** 每行的 key 值 */
-        rowKey?: string;
-        /** 表格行高度 */
-        rowHeight?: number;
-        /** 表头行高度 */
-        headerHeight?: number;
-        /** loading */
-        loading?: boolean;
-        /** 无数据提示 */
-        emptyText?: string;
-        /** 请求接口 */
-        api?: any;
-        /** 请求接口参数 */
-        apiParams?: Record<string, string | number>;
-        /** 接口字段映射 */
-        apiKeyMap?: XTableV2APIKeyMap;
-        /** 表格列配置 */
-        columns: Column<any>[];
-        /** 表格数据 */
-        data?: Record<string, any>[];
-        /** 是否为分页格式 */
-        dividePage?: boolean;
-        /** 分页设置 */
-        paginationProp?: Record<string, number>;
-        // /** 表头行样式 */
-        // headerClass?: any;
-        // /** 表格行样式 */
-        // rowClass?: any;
-        /** 滚动 */
-        scroll?: boolean;
-    }>(),
-    {
-        width: '100%',
-        height: '500px',
-        header: '',
-        shadow: 'hover',
-        bodyStyle: () => {
-            return {
-                padding: '15px',
-            };
-        },
-        title: '数据列表',
-        tooltipContent: '',
-        showIndex: false,
-        selectable: false,
-        rowKey: 'id',
-        rowHeight: 45,
-        headerHeight: 45,
-        loading: false,
-        emptyText: '暂无数据',
-        api: undefined,
-        apiParams: () => ({}),
-        apiKeyMap: () => ({
-            queryCurrentPageKey: 'page',
-            queryPageSizeKey: 'limit',
-            returnCurrentPageKey: 'current',
-            returnTotalKey: 'total',
-            returnPagesKey: 'pages',
-            returnRecordKey: 'records',
-        }),
-        columns: () => [],
-        data: () => [],
-        dividePage: true,
-        paginationProp: () => ({
-            pageSize: 10,
-        }),
-        // headerClass: null,
-        // rowClass: null,
-        scroll: false,
+const props = withDefaults(defineProps<XTableV2Prop>(), {
+    width: '100%',
+    height: '500px',
+    header: '',
+    shadow: 'hover',
+    bodyStyle: () => {
+        return {
+            padding: '15px',
+        };
     },
-);
+    title: '数据列表',
+    tooltipContent: '',
+    showIndex: false,
+    selectable: false,
+    rowKey: 'id',
+    rowHeight: 45,
+    headerHeight: 45,
+    loading: false,
+    emptyText: '暂无数据',
+    api: undefined,
+    apiParams: () => ({}),
+    apiKeyMap: () => ({
+        queryCurrentPageKey: 'page',
+        queryPageSizeKey: 'limit',
+        returnCurrentPageKey: 'current',
+        returnTotalKey: 'total',
+        returnPagesKey: 'pages',
+        returnRecordKey: 'records',
+    }),
+    columns: () => [],
+    data: () => [],
+    dividePage: true,
+    paginationProp: () => ({
+        pageSize: 10,
+    }),
+    // headerClass: null,
+    // rowClass: null,
+    scroll: false,
+});
 
 /**
  * useIndex
@@ -189,7 +136,6 @@ const props = withDefaults(
 const {
     tableRef,
     selectedRows,
-    selectedCount,
     tableColumns,
     tableData,
     pagination,

@@ -17,7 +17,6 @@
             <el-scrollbar>
                 <div class="table__header__operation">
                     <slot name="operation" :checked-rows="selectedRows"></slot>
-                    <table-setting v-model="tableColumns" @reload="loadData(searchData)" />
                 </div>
             </el-scrollbar>
         </div>
@@ -32,15 +31,13 @@
                 table-layout="auto"
                 :data="tableData"
                 :row-key="rowKey"
-                :tree-props="treeProps"
-                :span-method="spanMethod"
                 :style="{ width: '100%' }"
                 v-bind="elTableProps"
                 @selection-change="handleSelectChange"
             >
                 <!-- 选择列 -->
                 <el-table-column
-                    v-if="selectable"
+                    v-if="tableColumns?.length && selectable"
                     type="selection"
                     align="center"
                     width="50px"
@@ -50,7 +47,7 @@
 
                 <!-- 索引列 -->
                 <el-table-column
-                    v-if="showIndex"
+                    v-if="tableColumns?.length && showIndex"
                     type="index"
                     align="center"
                     width="50px"
@@ -58,20 +55,21 @@
                     :index="handleIndex"
                 />
 
-                <el-table-column
-                    v-for="(col, index) in tableColumns"
-                    :key="index"
-                    align="center"
-                    min-width="150"
-                    show-overflow-tooltip
-                    v-bind="col"
-                >
-                    <template v-if="!col[`formatter`]" #default="scope">
-                        <slot :name="`${col.prop + 'Slot'}`" :scope="scope">
-                            {{ scope.row[`${col.prop}`] }}
-                        </slot>
-                    </template>
-                </el-table-column>
+                <template v-for="(col, colIndex) in tableColumns" :key="colIndex">
+                    <el-table-column :label="col.label" :prop="col.prop" min-width="100" align="center">
+                        <template v-if="col.child?.length">
+                            <el-table-column
+                                v-for="(childCol, childIndex) in col.child"
+                                :key="childIndex"
+                                :label="childCol.label"
+                                :prop="`${col.prop}.${childCol.prop}`"
+                                min-width="100"
+                                align="center"
+                            >
+                            </el-table-column>
+                        </template>
+                    </el-table-column>
+                </template>
 
                 <!-- 操作栏 -->
                 <el-table-column
@@ -125,14 +123,13 @@
 <script lang="ts" setup>
 import { InfoFilled } from '@element-plus/icons-vue';
 
-import TableSetting from './components/TableSetting.vue';
-import type { XTableProp } from './interface';
+import type { XDynamicHeaderTableProp } from './interface';
 import useIndex from './useIndex';
 
 /**
  * Props
  */
-const props = withDefaults(defineProps<XTableProp>(), {
+const props = withDefaults(defineProps<XDynamicHeaderTableProp>(), {
     header: '',
     shadow: 'hover',
     bodyStyle: () => {
@@ -169,8 +166,6 @@ const props = withDefaults(defineProps<XTableProp>(), {
     actions: () => [],
     actionText: '操作',
     actionWidth: '',
-    combineField: '',
-    columnIndex: () => [],
 });
 
 /**
@@ -182,12 +177,10 @@ const {
     tableColumns,
     tableData,
     pagination,
-    treeProps,
     selectedRows,
     handleSelectChange,
     handleIndex,
     selectableValue,
-    searchData,
     loadData,
     handleSizeChange,
     handleCurrentChange,
@@ -198,7 +191,6 @@ const {
     getSelectedRows,
     clearSelection,
     getTableData,
-    spanMethod,
 } = useIndex(props);
 
 /**
