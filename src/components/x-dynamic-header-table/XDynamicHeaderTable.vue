@@ -56,14 +56,14 @@
                 />
 
                 <template v-for="(col, colIndex) in tableColumns" :key="colIndex">
-                    <el-table-column :label="col.label" :prop="col.prop" min-width="100" align="center">
+                    <el-table-column :label="col.label" :prop="col.prop" min-width="120" align="center">
                         <template v-if="col.child?.length">
                             <el-table-column
                                 v-for="(childCol, childIndex) in col.child"
                                 :key="childIndex"
                                 :label="childCol.label"
                                 :prop="`${col.prop}.${childCol.prop}`"
-                                min-width="100"
+                                min-width="120"
                                 align="center"
                             >
                             </el-table-column>
@@ -212,7 +212,7 @@ defineExpose({
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        padding: 0 10px 10px 10px;
+        padding-bottom: 10px;
 
         &__title {
             justify-content: left;

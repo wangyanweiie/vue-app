@@ -1,6 +1,6 @@
 # 数据格式
 
-``` typescript
+```typescript
 /**
  * 表头数据列表
  */

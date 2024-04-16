@@ -71,6 +71,23 @@ const emit = defineEmits<{
  */
 const reverseList = ref<any[]>([]);
 
+function handleReverse() {
+    if (props.fileList.length === 0) {
+        return;
+    }
+
+    // 反显已上传的文件列表
+    reverseList.value = props.fileList
+        ?.filter((item: string) => !!item)
+        .map((_item: string) => {
+            return {
+                name: _item.split('/')[_item.split('/').length - 1],
+                url: _item,
+                uid: guid(),
+            };
+        });
+}
+
 /**
  * 上传之前
  * @param file 文件
@@ -87,14 +104,18 @@ function beforeUpload(file: Record<string, any>) {
  * @param file 文件
  */
 function handleSuccess(file: Record<string, any>) {
-    if (file.code === 120) {
-        reverseList.value.push({
-            name: file?.data?.split('/')[file?.data?.split('/').length - 1],
-            url: file?.data,
-            uid: guid(),
-        });
-        emit('update', reverseList.value);
+    if (file.code !== 120) {
+        return;
     }
+
+    // 后端返回的 data 是 url 路径
+    reverseList.value.push({
+        name: file?.data?.split('/')[file?.data?.split('/').length - 1],
+        url: file?.data,
+        uid: guid(),
+    });
+
+    emit('update', reverseList.value);
 }
 
 /**
@@ -103,17 +124,20 @@ function handleSuccess(file: Record<string, any>) {
  * @param fileList 文件列表
  */
 function handleRemove(file: Record<string, any>, fileList: Record<string, any>[]) {
-    if (file.status === 'success') {
-        // 前端上传路径地址为 item?.response?.data , 反显的路径地址为 item?.url
-        reverseList.value = fileList.map(item => {
-            return {
-                name: item.name,
-                url: item?.response?.data ?? item?.url,
-                uid: item.uid,
-            };
-        });
-        emit('update', reverseList.value);
+    if (file.status !== 'success') {
+        return;
     }
+
+    // 新上传的路径地址为 item?.response?.data , 已上传的路径地址为 item?.url
+    reverseList.value = fileList.map(item => {
+        return {
+            name: item.name,
+            url: item?.response?.data ?? item?.url,
+            uid: item.uid,
+        };
+    });
+
+    emit('update', reverseList.value);
 }
 
 /**
@@ -126,16 +150,14 @@ function handleExceed() {
 /**
  * 页面挂载
  */
-onMounted(() => {
-    // 反显已上传的文件列表
-    reverseList.value = props.fileList
-        ?.filter((item: string) => !!item)
-        .map((_item: string) => {
-            return {
-                name: _item.split('/')[_item.split('/').length - 1],
-                url: _item,
-                uid: guid(),
-            };
-        });
+// onMounted(() => {
+//     handleReverse();
+// });
+
+/**
+ * 监听 fileList
+ */
+watchEffect(() => {
+    handleReverse();
 });
 </script>

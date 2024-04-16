@@ -162,7 +162,7 @@ defineExpose({
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        padding: 0 10px 10px 10px;
+        padding-bottom: 10px;
 
         &__title {
             justify-content: left;
