@@ -23,7 +23,7 @@ import useIndex from './useIndex';
  */
 const props = withDefaults(defineProps<XRichTextEditorProps>(), {
     modelValue: '<p>hello</p>',
-    uploadUrl: `${import.meta.env.VITE_API_URL}${import.meta.env.VITE_GLOB_UPLOAD_URL}`,
+    url: `${import.meta.env.VITE_API_URL}${import.meta.env.VITE_GLOB_UPLOAD_URL}`,
     fileName: 'file',
     mode: 'simple',
     editorStyle: () => ({

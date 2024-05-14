@@ -33,7 +33,7 @@ export default function useIndex(props: XRichTextEditorProps, emits: any) {
     const menuConfig = {
         uploadImage: {
             // 上传地址
-            server: props.uploadUrl,
+            server: props.url,
             // 上传文件名
             fieldName: props.fileName,
             // 小于该值就插入 base64 格式（而不上传），默认为 0
@@ -49,7 +49,7 @@ export default function useIndex(props: XRichTextEditorProps, emits: any) {
         },
         uploadVideo: {
             // 上传地址
-            server: props.uploadUrl,
+            server: props.url,
             // 上传文件名
             fieldName: props.fileName,
             // 自定义插入图片

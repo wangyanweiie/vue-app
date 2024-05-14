@@ -2,8 +2,16 @@ import router from '@/router/index';
 import { clearStorage } from '@/utils/local-storage';
 import useAxiosInterceptors from '@/utils/use-axios';
 
-const { get, post } = useAxiosInterceptors({
+const { get: GET, post: POST } = useAxiosInterceptors({
     url: import.meta.env.VITE_API_URL as string,
+
+    successValidate: data => {
+        if (data.code === 200) {
+            return true;
+        }
+
+        return false;
+    },
 
     // 退出登录
     expireCallback: () => {
@@ -12,4 +20,4 @@ const { get, post } = useAxiosInterceptors({
     },
 });
 
-export { get, post };
+export { GET, POST };

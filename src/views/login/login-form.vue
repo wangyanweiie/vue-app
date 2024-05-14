@@ -13,7 +13,7 @@
                         v-for="items in companyList"
                         :key="items.value"
                         :label="items.label"
-                        :value="items.value"
+                        :value="items.value as string"
                     >
                     </el-option>
                 </el-select>
@@ -36,24 +36,13 @@
 import type { FormInstance } from 'element-plus';
 import { useRouter } from 'vue-router';
 
-import dropdownAPI from '@/api/dropdown';
-import RequestAPI from '@/api/login';
 import { ENV } from '@/constant/global';
+import { labelValueCompanyDropDownGET, type LabelValueVo, type LoginDto, userLoginPOST } from '@/gen-api';
 import { usePermissionStore } from '@/store/permission';
 import { getBaseUrl, saveBaseUrl, saveUserInfo, saveUserToken } from '@/utils/storage';
 
 const router = useRouter();
 const permissionStore = usePermissionStore();
-
-/**
- * 登录提交表单
- */
-interface Form {
-    account: string;
-    password: string;
-    companyId: string;
-    baseUrl: string;
-}
 
 /**
  * form ref
@@ -63,7 +52,7 @@ const formRef = ref<FormInstance>();
 /**
  * form
  */
-const form = reactive<Form>({
+const form = reactive<LoginDto & { baseUrl?: string }>({
     account: '',
     password: '',
     companyId: '',
@@ -83,13 +72,13 @@ const rules = {
 /**
  * 公司列表
  */
-const companyList = ref<any>([]);
+const companyList = ref<LabelValueVo[]>([]);
 
 /**
  * 获取公司列表
  */
 async function getCompanyList() {
-    const res = await dropdownAPI.getCompanyName();
+    const res = await labelValueCompanyDropDownGET();
 
     if (!res) {
         return false;
@@ -126,7 +115,7 @@ async function login(): Promise<void> {
     }
 
     loading.value = true;
-    const res = await RequestAPI.login(form);
+    const res = await userLoginPOST(form);
 
     if (!res) {
         loading.value = false;
@@ -135,7 +124,7 @@ async function login(): Promise<void> {
 
     loading.value = false;
 
-    saveUserToken(res.token);
+    saveUserToken(res.token ?? '');
     saveUserInfo(res);
 
     permissionStore.setPermission(res?.pcPerms);

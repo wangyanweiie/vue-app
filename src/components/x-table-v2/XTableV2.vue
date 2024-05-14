@@ -25,8 +25,6 @@
                     </div>
 
                     <!-- 表格区域 -->
-                    <!-- :header-class="typeof headerClass === 'function' && headerClass()"
-                    :row-class="typeof rowClass === 'function' && rowClass()" -->
                     <div class="table__main">
                         <el-table-v2
                             ref="tableRef"
@@ -125,8 +123,6 @@ const props = withDefaults(defineProps<XTableV2Prop>(), {
     paginationProp: () => ({
         pageSize: 10,
     }),
-    // headerClass: null,
-    // rowClass: null,
     scroll: false,
 });
 

@@ -1,8 +1,8 @@
 import { ElMessage } from 'element-plus';
 
-import RequestAPI from '@/api/login';
 import type { XFormInstance, XFormItemSchema } from '@/components/x-form/interface';
 import { OPERATION_NOTICE } from '@/constant/base';
+import { type ChangePasswordDto, userChangePasswordPOST, userLogoutGET } from '@/gen-api';
 import router from '@/router';
 import { confirmExitMessage } from '@/utils/confirm-message';
 import { clearStorage } from '@/utils/local-storage';
@@ -60,7 +60,7 @@ export default function useIndex() {
     /**
      * form
      */
-    const form = ref<Record<string, string>>({
+    const form = ref<ChangePasswordDto>({
         newPassword: '',
         oldPassword: '',
         userId: '',
@@ -96,7 +96,7 @@ export default function useIndex() {
         }
 
         loading.value = true;
-        const res = await RequestAPI.updatePassword(form.value);
+        const res = await userChangePasswordPOST(form.value);
 
         if (!res) {
             ElMessage.error(OPERATION_NOTICE.OPERATE_ERROR);
@@ -109,7 +109,7 @@ export default function useIndex() {
         visible.value = false;
 
         // 退出登录
-        const result = await RequestAPI.logout();
+        const result = await userLogoutGET();
 
         if (result) {
             clearStorage();
@@ -131,7 +131,7 @@ export default function useIndex() {
             return;
         }
 
-        const res = await RequestAPI.logout();
+        const res = await userLogoutGET();
 
         if (res) {
             clearStorage();

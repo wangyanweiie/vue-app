@@ -197,23 +197,21 @@ interface SelectOption {
     value: string | number | boolean | undefined;
 }
 
-interface XRadioProps {
-    elProps?: Partial<RadioGroupProps>;
+interface XRadioProps extends Partial<RadioGroupProps> {
     options?: RadioOption[];
 }
 
-interface XCheckBoxProps {
-    elProps?: Partial<CheckboxGroupProps>;
+interface XCheckBoxProps extends Partial<CheckboxGroupProps> {
     options?: CheckBoxOption[];
 }
 
 interface XSelectProps extends ExtractPropTypes<typeof ElSelectV2> {
-    // label字段表示
+    // label 字段表示
     labelSchema?: string;
 }
 
 interface XSelectMultiProps extends ExtractPropTypes<typeof ElSelect> {
-    // label字段表示
+    // label 字段表示
     labelSchema?: string;
 }
 

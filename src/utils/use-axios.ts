@@ -8,10 +8,10 @@ import { getBaseUrl, getUserToken } from '@/utils/storage';
 /**
  * 后端返回数据格式
  */
-interface Responsedata {
+interface Responsedata<T = any> {
     code: number;
     message: string | null;
-    data: any;
+    data: T;
 }
 
 /**
@@ -47,7 +47,7 @@ export default function useAxiosInterceptors(options: Options) {
     }
 
     /**
-     * axios实例
+     * axios 实例
      */
     const service = axios.create({
         baseURL: options.url || '',
@@ -71,7 +71,7 @@ export default function useAxiosInterceptors(options: Options) {
             }
 
             // 设置 url
-            if (baseUrl) {
+            if (baseUrl && config.url) {
                 config.url = baseUrl + config.url;
             }
 

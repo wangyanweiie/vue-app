@@ -1,8 +1,8 @@
 import { ElMessage, type UploadRequestOptions } from 'element-plus';
 import { isBoolean } from 'lodash-es';
 
-import FileAPI from '@/api/upload';
 import { OPERATION_NOTICE } from '@/constant/base';
+import { uploadPOST } from '@/gen-api';
 import { confirmDeleteMessage } from '@/utils/confirm-message';
 
 /**
@@ -119,7 +119,7 @@ export function importTemplate(
         const data = new FormData();
         data.append('file', options.file);
 
-        const url = FileAPI.upload(data);
+        const url = uploadPOST(data);
 
         if (!url) {
             ElMessage.error(OPERATION_NOTICE.UPLOAD_ERROR);
