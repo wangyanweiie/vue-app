@@ -8,10 +8,11 @@
 </template>
 
 <script setup lang="ts">
-import ScreenHeader from './components/header/index.vue';
-import ScreenMain from './components/main/index.vue';
 import { useScreenStore } from '@/store/screen';
 import { useResize } from '@/views/screen/hooks/useResize';
+
+import ScreenHeader from './components/header/index.vue';
+import ScreenMain from './components/main/index.vue';
 
 const store = useScreenStore();
 const { screenRef } = useResize();
