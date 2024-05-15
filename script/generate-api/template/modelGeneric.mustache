@@ -1,17 +1,18 @@
 /**
- * 122
- * {{{description}}}
- * @export
+ {{#description}}
+ * @description {{{description}}}
+ {{/description}}
  * @interface {{classname}}
  */
 export interface {{classname}} {{#parent}}extends {{{.}}} {{/parent}}{
 {{#additionalPropertiesType}}
     [key: string]: {{{additionalPropertiesType}}}{{^additionalPropertiesIsAnyType}}{{#hasVars}} | any{{/hasVars}}{{/additionalPropertiesIsAnyType}};
-
 {{/additionalPropertiesType}}
 {{#vars}}
     /**
-     * {{{description}}}
+     {{#description}}
+     * @description {{{description}}}
+     {{/description}}
      * @type {{=<% %>=}}{<%&datatype%>}<%={{ }}=%>
      * @memberof {{classname}}
     {{#deprecated}}
@@ -20,8 +21,9 @@ export interface {{classname}} {{#parent}}extends {{{.}}} {{/parent}}{
      */
     '{{baseName}}'{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}};
 {{/vars}}
-}{{#hasEnums}}
+}
 
+{{#hasEnums}}
 {{#vars}}
 {{#isEnum}}
 {{#stringEnums}}

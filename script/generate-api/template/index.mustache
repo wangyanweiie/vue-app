@@ -2,8 +2,8 @@
 /* eslint-disable */
 
 {{>licenseInfo}}
-
 export * from "./api";
 export * from "./base";
-{{#withSeparateModelsAndApi}}export * from "./{{tsModelPackage}}";
+{{#withSeparateModelsAndApi}}
+export * from "./{{tsModelPackage}}";
 {{/withSeparateModelsAndApi}}
