@@ -22,17 +22,17 @@ export interface XDescriptionProp {
     /** card-body-style */
     bodyStyle?: Record<string, string>;
     /** 标题 */
-    title: string;
+    title?: string;
     /** 边框 */
-    border: boolean;
+    border?: boolean;
     /** 列 */
-    column: number;
+    column?: number;
     /** 尺寸 */
-    size: 'small' | 'default' | 'large';
+    size?: 'small' | 'default' | 'large';
     /** 操作区文本 */
-    extra: string;
+    extra?: string;
     /** 方向 */
-    direction: 'horizontal' | 'vertical';
+    direction?: 'horizontal' | 'vertical';
     /** 描述列列表 */
     columns: XDescriptionColumn[];
     /** 描述列数据 */

@@ -21,7 +21,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
         meta: {
             title: t('jaqjpDj0GvRpwNx0Bkdl0'),
             icon: 'FolderOpened',
-            permission: ['dict:item:select'],
+            permission: ['login:log:select'],
         },
         children: [
             {
@@ -38,7 +38,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                     title: t('532slvgU3F9qhxfZ2yVfw'),
                     icon: '',
                     keepAlive: true,
-                    permission: ['dict:item:select'],
+                    permission: ['login:log:select'],
                 },
                 children: subRoutes.value,
             },
@@ -49,7 +49,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 meta: {
                     title: t('16Egj6Vr1l9HmCaeDuKzy'),
                     icon: '',
-                    permission: ['dict:item:select'],
+                    permission: ['login:log:select'],
                 },
             },
             {
@@ -59,7 +59,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 meta: {
                     title: t('a42ztkHel2fc9gO5iuhCc'),
                     icon: '',
-                    permission: ['dict:item:select'],
+                    permission: ['login:log:select'],
                 },
             },
             {
@@ -69,7 +69,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 meta: {
                     title: t('ie5cDkag4HaOo6AMuo9a'),
                     icon: '',
-                    permission: ['dict:item:select'],
+                    permission: ['login:log:select'],
                 },
             },
             {
@@ -79,7 +79,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 meta: {
                     title: t('nbvW17gm2nTxwwRdOj9Z'),
                     icon: '',
-                    permission: ['dict:item:select'],
+                    permission: ['login:log:select'],
                 },
             },
             {
@@ -89,7 +89,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 meta: {
                     title: t('f8bHnwHMh7iUPpn5W1fjK'),
                     icon: '',
-                    permission: ['dict:item:select'],
+                    permission: ['login:log:select'],
                 },
             },
             {
@@ -99,7 +99,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 meta: {
                     title: t('jVEkL1PywXko1Bmb6sgC'),
                     icon: '',
-                    permission: ['dict:item:select'],
+                    permission: ['login:log:select'],
                 },
             },
             {
@@ -109,7 +109,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 meta: {
                     title: t('v7EtGnHupCoJ9cvAafy'),
                     icon: '',
-                    permission: ['dict:item:select'],
+                    permission: ['login:log:select'],
                 },
             },
             {
@@ -119,7 +119,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 meta: {
                     title: t('x_2IciI93yoEqi4uU0exd'),
                     icon: '',
-                    permission: ['dict:item:select'],
+                    permission: ['login:log:select'],
                 },
             },
             {
@@ -129,7 +129,7 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 meta: {
                     title: t('7m_3svGlMlsuBJbhScLz'),
                     icon: '',
-                    permission: ['dict:item:select'],
+                    permission: ['login:log:select'],
                 },
             },
         ],

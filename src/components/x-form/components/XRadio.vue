@@ -1,7 +1,7 @@
 <template>
     <el-radio-group :model-value="radioValue" v-bind="elProps" @change="handleChange" @update:model-value="updateData">
         <component :is="isComponent" v-for="(option, index) in options" :key="index" v-bind="option">
-            {{ option.labelName }}
+            {{ option.label }}
         </component>
     </el-radio-group>
 </template>

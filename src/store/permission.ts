@@ -9,7 +9,6 @@ import { getPermission, savePermission } from '@/utils/storage';
 
 /**
  * 权限缓存状态
- * setup store
  */
 export const usePermissionStore: any = defineStore('permission', () => {
     // ================= 权限 =================
@@ -123,12 +122,16 @@ export const usePermissionStore: any = defineStore('permission', () => {
     function getPermissionMenus(routes: RouteRecordRaw[]) {
         if (usable.value) {
             return routes.filter(route => {
+                let flag = true;
+
                 // 若存在权限数组优先根据权限数组过滤，否则再根据 title 过滤
                 if (Array.isArray(route.meta?.permission)) {
-                    return intersection(permissions.value, route.meta?.permission as string[]).length > 0;
+                    flag = intersection(permissions.value, route.meta?.permission as string[]).length > 0;
                 } else if (route.meta?.title) {
-                    return permissions.value.includes(route.meta?.title as string);
+                    flag = permissions.value.includes(route.meta?.title as string);
                 }
+
+                return flag;
             });
         }
 
@@ -154,11 +157,11 @@ export const usePermissionStore: any = defineStore('permission', () => {
     /**
      * 监听
      */
-    // watchEffect(() => {
-    //     console.log('activeRoutes', activeRoutes.value);
-    //     console.log('cacheList', cacheList.value);
-    //     console.log('showMenus', showMenus.value);
-    // });
+    watchEffect(() => {
+        console.log('activeRoutes', activeRoutes.value);
+        console.log('cacheList', cacheList.value);
+        console.log('showMenus', showMenus.value);
+    });
 
     return {
         usable,

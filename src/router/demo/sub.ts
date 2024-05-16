@@ -14,7 +14,7 @@ export const subRoutes = computed<RouteRecordRaw[]>(() => [
             icon: '',
             hidden: true,
             keepAlive: true,
-            permission: ['dict:item:select'],
+            permission: ['login:log:select'],
         },
     },
     {
@@ -26,7 +26,7 @@ export const subRoutes = computed<RouteRecordRaw[]>(() => [
             icon: '',
             hidden: true,
             keepAlive: true,
-            permission: ['dict:item:select'],
+            permission: [],
         },
     },
 ]);

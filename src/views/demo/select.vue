@@ -31,16 +31,16 @@ import type { RadioValueType, SelectValueType } from '@/components/x-form/interf
 const radioValue = ref<RadioValueType>();
 const radioOptions = [
     {
-        labelName: '北京',
-        label: 'bj',
+        label: '北京',
+        value: 'bj',
     },
     {
-        labelName: '上海',
-        label: 'sh',
+        label: '上海',
+        value: 'sh',
     },
     {
-        labelName: '南京',
-        label: 'nj',
+        label: '南京',
+        value: 'nj',
     },
 ];
 
@@ -50,16 +50,16 @@ const radioOptions = [
 const checkboxValue = ref<CheckboxGroupValueType>();
 const checkboxOptions = [
     {
-        labelName: '北京',
-        label: 'bj',
+        label: '北京',
+        value: 'bj',
     },
     {
-        labelName: '上海',
-        label: 'sh',
+        label: '上海',
+        value: 'sh',
     },
     {
-        labelName: '南京',
-        label: 'nj',
+        label: '南京',
+        value: 'nj',
     },
 ];
 

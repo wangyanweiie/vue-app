@@ -2,7 +2,7 @@
 
 ## 1. 安装
 
-npm全局安装
+npm 全局安装
 
 ```shell
 npm install @openapitools/openapi-generator-cli -g
@@ -40,11 +40,11 @@ npx openapi-generator-cli help generate
 | --------------------------- | ------------------------------------------------------------ |
 | -c \| --config              | 配置文件路径                                                 |
 | -g \| --generator-name      | 选择生成器名字                                               |
-| -e \| --engine              | 选择使用哪种模版引擎生成( 默认使用 `mustache模版` )          |
-| -i \| --input-spec          | 接口文件的地址( 可以是 `json文件` ,也可以是 `yaml文件` , 也可以是一个url  ) |
+| -e \| --engine              | 选择使用哪种模版引擎生成（默认使用 `mustache模版`）         |
+| -i \| --input-spec          | 接口文件的地址（可以是 `json文件` ,也可以是 `yaml文件` , 也可以是一个 url）|
 | -o \| --output              | 输出的接口文件路径                                           |
-| -p \|--additional-propertie | 附加属性。以-p=name=value,name=value,...的形式进行展示       |
-| -t \| --template-dir        | 模版所在路径( 默认使用`mustache模版` )                       |
+| -p \| --additional-propertie | 附加属性。以 -p=name=value,name=value,... 的形式进行展示       |
+| -t \| --template-dir        | 模版所在路径（默认使用 `mustache模版`）                      |
 | ...                         | ...                                                          |
 
 基本使用
@@ -57,7 +57,7 @@ npx openapi-generator-cli generate -i ./json/api.json -g typescript-axios -o ./a
 
 ![img1](./img/img1.png)
 
-按照接口和类型进行区分(使用-p|--additional-propertie, 具体参数看[链接](https://openapi-generator.tech/docs/generators/typescript-axios))
+按照接口和类型进行区分（使用 -p|--additional-propertie, 具体参数看[链接](https://openapi-generator.tech/docs/generators/typescript-axios)）
 
 ```shell
 npx openapi-generator-cli generate -i ./json/api.json -g typescript-axios -p=withSeparateModelsAndApi=true,apiPackage=api,modelPackage=interface  -o ./api/
@@ -115,7 +115,7 @@ npx openapi-generator-cli generate -i ./json/api.json -g typescript-axios -p=wit
 npx openapi-generator-cli generate -c ./openapitools.json --generator-key v2.0
 ```
 
-忽略某些文件的自动生成(对第一次生成最有用)
+忽略某些文件的自动生成（对第一次生成最有用）
 
 在生成代码的根目录下创建 `.openapi-generator-ignore` 文件，用法和 `.gitignore` 文件一样。然后再运行脚本。
 

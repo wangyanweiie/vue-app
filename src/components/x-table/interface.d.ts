@@ -38,7 +38,7 @@ export interface XTablePagination {
  */
 export interface XTableProp {
     /** el-card-header */
-    header: string;
+    header?: string;
     /** el-card-shadow */
     shadow?: 'hover' | 'always' | 'never';
     /** card-body-style */

@@ -1,6 +1,6 @@
 <template>
     <el-config-provider :locale="locale">
-        <x-layout :routes="allRoutes" :include-list="cacheList">
+        <x-layout :routes="showMenus" :include-list="cacheList">
             <template #logo="{ collapsed }">
                 <x-logo logo="/logo.png" :title="APP_NAME" :collapsed="collapsed"></x-logo>
             </template>
@@ -81,7 +81,7 @@ function setLanguage(e: LanguageType) {
 }
 
 const permissionStore = usePermissionStore();
-const allRoutes = computed(() => permissionStore.routes);
+const showMenus = computed(() => permissionStore.showMenus);
 const cacheList = computed(() => permissionStore.cacheList);
 
 /**

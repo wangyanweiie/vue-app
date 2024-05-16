@@ -38,6 +38,8 @@
 </template>
 
 <script lang="ts" setup>
+import { InfoFilled } from '@element-plus/icons-vue';
+
 import type { EditActions, FormModel, FormModelItem, XEditTableProp } from './interface';
 
 /**

@@ -49,6 +49,8 @@ export interface XTableV2Prop {
     bodyStyle?: Record<string, string>;
     /** 表格标题 */
     title?: string;
+    /** 感叹号提示内容 */
+    tooltipContent?: string;
     /** 是否展示索引 */
     showIndex?: boolean;
     /** 是否可选 */

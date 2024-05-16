@@ -11,7 +11,7 @@
             @update:model-value="updateData"
         >
             <component :is="isComponent" v-for="(option, index) in options" :key="index" v-bind="option">
-                {{ option.labelName }}
+                {{ option.label }}
             </component>
         </el-checkbox-group>
     </div>
@@ -78,7 +78,7 @@ const isIndeterminate = ref(false);
  * 选中的值
  */
 const checkedValue = ref<any>(props.modelValue);
-const checkedAll = props.options.map(item => item.label);
+const checkedAll = props.options.map(item => item.value);
 
 /**
  *
