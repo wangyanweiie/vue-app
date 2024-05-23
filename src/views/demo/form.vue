@@ -154,8 +154,8 @@ const schemas: XFormItemSchema[] = [
         colProps,
         elProps: {
             options: [
-                { labelName: '是', label: 1 },
-                { labelName: '否', label: 2 },
+                { label: '是', value: 1 },
+                { label: '否', value: 2 },
             ],
         },
         elFormItemProps: {

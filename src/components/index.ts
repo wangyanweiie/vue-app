@@ -78,7 +78,7 @@ const components = shallowRef<ComponentItem[]>([
  */
 export default {
     install: (app: App) => {
-        components.value.forEach(({ name, component }) => {
+        components.value.forEach(({ name, component }: ComponentItem) => {
             app.component(name, component);
         });
     },

@@ -46,6 +46,7 @@ module.exports = defineConfig({
         'plugin:prettier/recommended',
         '@vue/typescript/recommended',
         'eslint-config-prettier',
+        './.eslintrc-auto-import.json',
     ],
 
     /**

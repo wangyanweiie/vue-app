@@ -87,7 +87,7 @@ export default defineConfig({
 
     esbuild: {
         // minify: 'esbuild' 模式下，生产环境删除 console & debugger
-        // drop: ['console', 'debugger'],
+        drop: ['console', 'debugger'],
     },
 
     plugins: [
@@ -110,6 +110,14 @@ export default defineConfig({
 
             // 自定义组件解析器
             resolvers: [ElementPlusResolver(), IconsResolver()],
+
+            // eslint 报错解决
+            eslintrc: {
+                // 当 enabled 为 true 时，会根据 filepath 生成一个 eslint 的配置文件，需要引入到 eslint 的配置文件中
+                enabled: false,
+                filepath: './.eslintrc-auto-import.json',
+                globalsPropValue: true,
+            },
         }),
 
         /**

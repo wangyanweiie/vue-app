@@ -1,8 +1,8 @@
 import { Delete, Download, Plus, Upload } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
 
-import type { XFormInstance } from '@/components/Form/interface';
-import type { XTableActionButton, XTableInstance } from '@/components/Table/interface';
+import type { XFormInstance } from '@/components/x-form/interface';
+import type { XTableActionButton, XTableInstance } from '@/components/x-table/interface';
 import { OPERATION_NOTICE } from '@/constant/base';
 import { downloadFileFromURL } from '@/utils/common-methods';
 import { confirmDeleteMessage } from '@/utils/confirm-message';
