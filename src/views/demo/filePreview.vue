@@ -28,7 +28,7 @@ const preview = useCommandComponent(XFilePreview);
  * file-url
  */
 const wordUrl = ref<string>('http://121.41.28.31:9000/lvling/电脑添加打印机.docx');
-const excelUrl = ref<string>('http://121.41.28.31:9000/lvling/条码模板.xlsx');
+const excelUrl = ref<string>('http://121.41.28.31:9000/ruilian/原材料COA报告.xlsx');
 const pdfUrl = ref<string>('http://121.41.28.31:9000/lvling/掼蛋.pdf');
 const imageUrlList = ref<string[]>([
     'http://121.41.28.31:9000/lvling/Fuck.png',
