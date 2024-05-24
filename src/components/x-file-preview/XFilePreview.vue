@@ -1,6 +1,6 @@
 <template>
     <el-dialog v-model="dialogVisible" :title="title" fullscreen :show-close="true" destroy-on-close>
-        <component :is="currentComponent" :ref="componentRef" :url="url"></component>
+        <component :is="currentComponent" :ref="componentRef" :url="url" class="component"></component>
     </el-dialog>
 </template>
 
@@ -67,30 +67,8 @@ const currentComponent = computed(() => {
 });
 </script>
 <style lang="scss" scoped>
-.dialog-header {
-    display: flex;
-    justify-content: end;
-}
-
-// FIXME: class 不用 luckysheet 不生效？
-.luckysheet {
-    width: 100%;
-    height: 100%;
-}
-
-.pdf-style {
-    position: relative;
-
-    &__operate {
-        position: sticky;
-        bottom: 0;
-        padding: 15px;
-        text-align: center;
-    }
-}
-
-.iframe-style {
-    width: 100%;
-    height: 100%;
+.component {
+    height: calc(100vh - 80px);
+    overflow-y: auto;
 }
 </style>

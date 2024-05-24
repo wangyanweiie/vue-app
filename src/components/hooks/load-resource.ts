@@ -1,7 +1,7 @@
 /**
- * 异步加载 JavaScript 文件。
- * @param src 要加载的 JavaScript 文件的 URL。
- * @param clearCache 是否在 src 中添加时间戳参数以清除缓存，默认为 false。
+ * 异步加载 JavaScript 文件
+ * @param src JavaScript 文件的 URL 地址
+ * @param clearCache 是否在 src 中添加时间戳参数以清除缓存，默认为 false
  */
 export function loadJS(src: string, clearCache = false) {
     // 创建一个新的 Promise，通过动态创建 script 元素并设置其属性来加载 JavaScript 文件
@@ -40,7 +40,7 @@ export function loadJS(src: string, clearCache = false) {
 }
 
 /**
- * 动态加载 CSS 文件到当前页面
+ * 动态加载 CSS 文件
  * @param src CSS 文件的 URL 地址
  */
 export function loadCSS(src: string) {

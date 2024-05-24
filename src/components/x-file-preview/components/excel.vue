@@ -56,6 +56,16 @@ function preview() {
             enableAddRow: false,
             // 是否允许增加列
             enableAddCol: false,
+            // 钩子
+            hook: {
+                cellUpdated: function (rowIndex: number, colIndex: number, a: any, b: any, c: any) {
+                    console.log('行索引', rowIndex);
+                    console.log('列索引', colIndex);
+                    console.log('a', a);
+                    console.log('b', b);
+                    console.log('c', c);
+                },
+            },
         };
 
         // 销毁原来的表格
@@ -76,13 +86,24 @@ function download() {
 /**
  * 加载 luckysheet 所需样式与脚本文件
  */
-async function loadResource() {
-    await loadCSS('https://cdn.jsdelivr.net/npm/luckysheet/dist/plugins/css/pluginsCss.css');
-    await loadCSS('https://cdn.jsdelivr.net/npm/luckysheet/dist/plugins/plugins.css');
-    await loadCSS('https://cdn.jsdelivr.net/npm/luckysheet/dist/css/luckysheet.css');
-    await loadCSS('https://cdn.jsdelivr.net/npm/luckysheet/dist/assets/iconfont/iconfont.css');
-    await loadJS('https://cdn.jsdelivr.net/npm/luckysheet/dist/plugins/js/plugin.js');
-    await loadJS('https://cdn.jsdelivr.net/npm/luckysheet/dist/luckysheet.umd.js');
+function loadResource() {
+    loadCSS('https://cdn.jsdelivr.net/npm/luckysheet/dist/plugins/css/pluginsCss.css');
+    loadCSS('https://cdn.jsdelivr.net/npm/luckysheet/dist/plugins/plugins.css');
+    loadCSS('https://cdn.jsdelivr.net/npm/luckysheet/dist/css/luckysheet.css');
+    loadCSS('https://cdn.jsdelivr.net/npm/luckysheet/dist/assets/iconfont/iconfont.css');
+
+    Promise.all([
+        loadJS('https://cdn.jsdelivr.net/npm/luckysheet/dist/plugins/js/plugin.js'),
+        loadJS('https://cdn.jsdelivr.net/npm/luckysheet/dist/luckysheet.umd.js'),
+    ])
+        .then(() => {
+            setTimeout(() => {
+                preview();
+            }, 500);
+        })
+        .catch(function (error) {
+            console.error('Failed to load script:', error);
+        });
 }
 
 /**
@@ -90,10 +111,6 @@ async function loadResource() {
  */
 onMounted(async () => {
     loadResource();
-
-    setTimeout(() => {
-        preview();
-    }, 500);
 });
 
 /**
