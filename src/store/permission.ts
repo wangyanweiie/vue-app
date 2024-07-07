@@ -125,10 +125,12 @@ export const usePermissionStore: any = defineStore('permission', () => {
                 let flag = true;
 
                 // 若存在权限数组优先根据权限数组过滤，否则再根据 title 过滤
+                // if (route.meta?.title) {
+                //     flag = permissions.value.includes(route.meta?.title as string);
+                // }
+
                 if (Array.isArray(route.meta?.permission)) {
                     flag = intersection(permissions.value, route.meta?.permission as string[]).length > 0;
-                } else if (route.meta?.title) {
-                    flag = permissions.value.includes(route.meta?.title as string);
                 }
 
                 return flag;
@@ -139,7 +141,10 @@ export const usePermissionStore: any = defineStore('permission', () => {
     }
 
     /**
-     * 动态加载路由
+     * 路由权限控制：
+     * 初始化的时候先挂载不需要权限控制的路由，比如登录页，404 等错误页；
+     * 如果用户通过 URL 进行强制访问，则会直接进入 404，相当于从源头上做了控制；
+     * 登录后，获取用户的权限信息，然后筛选有权限访问的路由，（在全局路由守卫里进行）调用 addRoute 添加路由；
      */
     function setActiveRouteList() {
         router.addRoute({
