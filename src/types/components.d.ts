@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
     export interface GlobalComponents {
         Breadcrumb: (typeof import('./../components/x-layout/Breadcrumb.vue'))['default'];
+        copy: (typeof import('./../components/x-file-preview/components/excel copy.vue'))['default'];
         ElAside: (typeof import('element-plus/es'))['ElAside'];
         ElAutoResizer: (typeof import('element-plus/es'))['ElAutoResizer'];
         ElBreadcrumb: (typeof import('element-plus/es'))['ElBreadcrumb'];
@@ -48,6 +49,7 @@ declare module 'vue' {
         ElTag: (typeof import('element-plus/es'))['ElTag'];
         ElTooltip: (typeof import('element-plus/es'))['ElTooltip'];
         Excel: (typeof import('./../components/x-file-preview/components/excel.vue'))['default'];
+        ExcelLucysheet: (typeof import('./../components/x-file-preview/components/excel-lucysheet.vue'))['default'];
         HistoryTabs: (typeof import('./../components/x-layout/HistoryTabs.vue'))['default'];
         ParentMenuView: (typeof import('./../components/x-layout/ParentMenuView.vue'))['default'];
         ParentView: (typeof import('./../components/x-layout/ParentView.vue'))['default'];

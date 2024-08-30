@@ -10,7 +10,6 @@ import { downloadFileFromURL } from '@/utils/common-methods';
 
 const props = withDefaults(
     defineProps<{
-        /** 文档路径 */
         url: string;
     }>(),
     {

@@ -181,7 +181,9 @@ function excelPreview() {
         }
 
         // 销毁原来的表格
-        window.luckysheet.destroy();
+        if(window.luckysheet) {
+            window.luckysheet?.destroy();
+        }
 
         // 重新创建新表格
         window.luckysheet.create({

@@ -29,7 +29,9 @@ const preview = useCommandComponent(XFilePreview);
  */
 const wordUrl = ref<string>('http://121.41.28.31:9000/lvling/电脑添加打印机.docx');
 const excelUrl = ref<string>('http://121.41.28.31:9000/ruilian/原材料COA报告.xlsx');
-const pdfUrl = ref<string>('http://121.41.28.31:9000/lvling/掼蛋.pdf');
+const pdfUrl = ref<string>(
+    'http://121.41.28.31:9000/zhongjuxin/KH001-产成品-OLED-OLED-GG-4dbb2a9a0f86450889bbabef83c378b2.pdf',
+);
 const imageUrlList = ref<string[]>([
     'http://121.41.28.31:9000/lvling/Fuck.png',
     'http://121.41.28.31:9000/lvling/mhgg.jpg',
