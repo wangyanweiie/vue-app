@@ -3,7 +3,7 @@ import type { FormProps, TableProps } from 'element-plus';
 import type { XTableActionButton, XTableColumn } from '@/components/Table/interface';
 import type { XFormItemSchema } from '@/components/Form/interface';
 
-export type CrudAction = ('编辑' | '删除' | XTableActionButton)[];
+export type CurdAction = ('编辑' | '删除' | XTableActionButton)[];
 export type FormOperationType = '新增' | '编辑';
 export type genericActionType = '编辑' | '删除';
 export type genericOperationType = '新增' | '下载模板' | '导入' | '导出' | '批量删除';
@@ -32,7 +32,7 @@ export interface XTableOperationButtonOption {
 /**
  * props
  */
-export interface XCrudPageProp {
+export interface XCurdPageProp {
     /** 是否显示查询表单 */
     showSearch?: boolean;
     /** 查询按钮文字 */
@@ -69,7 +69,7 @@ export interface XCrudPageProp {
     /** 表格操作区按钮 */
     operations?: XTableOperationButton[] | ((rows?: Record<string, any>[]) => XTableOperationButton[]);
     /** 操作列配置 */
-    actions?: CrudAction | ((row?: any, index?: number) => CrudAction);
+    actions?: CurdAction | ((row?: any, index?: number) => CurdAction);
     /** 表格查询 API */
     api?: (data?: any) => Promise<any>;
     /** 表格查询 API 入参 */
@@ -203,7 +203,7 @@ export interface UseIndexReturn {
 /**
  * CRUD 实例
  */
-export interface CrudInstance {
+export interface CurdInstance {
     /** 获取表格数据 */
     getTableData: () => Record<string, any>[];
     /** 清空表格选中 */

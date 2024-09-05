@@ -11,7 +11,7 @@ import type {
     genericActionType,
     genericOperationType,
     UseIndexReturn,
-    XCrudPageProp,
+    XCurdPageProp,
     XTableOperationButton,
     XTableOperationButtonOption,
 } from './interface';
@@ -24,7 +24,7 @@ export const genericOperationAction = ['新增', '下载模板', '导入', '导�
  * @param props props
  * @returns 返回值
  */
-export default function useIndex(props: XCrudPageProp): UseIndexReturn {
+export default function useIndex(props: XCurdPageProp): UseIndexReturn {
     /**
      ********************** 查询 **********************
      */

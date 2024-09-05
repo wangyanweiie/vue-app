@@ -103,9 +103,9 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 },
             },
             {
-                path: '/demo/crudPage',
-                name: 'demo-crudPage',
-                component: () => import('@/views/demo/crudPage.vue'),
+                path: '/demo/curdPage',
+                name: 'demo-curdPage',
+                component: () => import('@/views/demo/curdPage.vue'),
                 meta: {
                     title: t('v7EtGnHupCoJ9cvAafy'),
                     icon: '',

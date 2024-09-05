@@ -61,7 +61,8 @@ declare module 'vue' {
         Word: (typeof import('./../components/x-file-preview/components/word.vue'))['default'];
         XChart: (typeof import('./../components/x-chart/XChart.vue'))['default'];
         XCheckbox: (typeof import('./../components/x-form/components/XCheckbox.vue'))['default'];
-        XCrudPage: (typeof import('./../components/x-crud-page/XCrudPage.vue'))['default'];
+        XCrudPage: (typeof import('./../components/x-curd-page/XCurdPage.vue'))['default'];
+        XCurdPage: (typeof import('./../components/x-curd-page/XCurdPage.vue'))['default'];
         XDescription: (typeof import('./../components/x-description/XDescription.vue'))['default'];
         XDialogForm: (typeof import('./../components/x-form/XDialogForm.vue'))['default'];
         XDynamicHeaderTable: (typeof import('./../components/x-dynamic-header-table/XDynamicHeaderTable.vue'))['default'];

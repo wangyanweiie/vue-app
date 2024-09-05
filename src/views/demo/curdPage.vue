@@ -1,5 +1,5 @@
 <template>
-    <x-crud-page
+    <x-curd-page
         el-type="el-drawer"
         :search-form-schemas="searchSchemas"
         :create-schemas="schemas"
@@ -14,7 +14,7 @@
         save-text="保存"
         confirm-text="确认"
         cancel-text="取消"
-    ></x-crud-page>
+    ></x-curd-page>
 </template>
 
 <script setup lang="ts">

@@ -24,6 +24,7 @@
 import type { App, Component } from 'vue';
 
 import XChart from './x-chart/XChart.vue';
+import XCurdPage from './x-curd-page/XCurdPage.vue';
 import XDescription from './x-description/XDescription.vue';
 import XEditTable from './x-edit-table/XEditTable.vue';
 import XEditTableItem from './x-edit-table/XEditTableItem.vue';
@@ -70,6 +71,7 @@ const components = shallowRef<ComponentItem[]>([
     { name: 'XRichTextEditor', component: XRichTextEditor },
     { name: 'XChart', component: XChart },
     { name: 'XMap', component: XMap },
+    { name: 'XCurdPage', component: XCurdPage },
 ]);
 
 /**

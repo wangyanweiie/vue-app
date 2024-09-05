@@ -119,7 +119,7 @@ import { ElButton, ElUpload } from 'element-plus';
 
 import { UPLOAD_URL } from '@/constant/global';
 
-import type { CrudAction, CrudInstance, XCrudPageProp, XTableOperationButton } from './interface';
+import type { CurdAction, CurdInstance, XCurdPageProp, XTableOperationButton } from './interface';
 import useIndex from './useIndex';
 
 /**
@@ -129,7 +129,7 @@ import useIndex from './useIndex';
  * 这是因为 Vue 需要能够分析 props 接口上的属性，以便生成相应的运行时选项；
  * 此限制现已在 Vue@3.3 中得到解决，编译器现在可以解析导入的类型，并支持一组有限的复杂类型；
  */
-const props = withDefaults(defineProps<XCrudPageProp>(), {
+const props = withDefaults(defineProps<XCurdPageProp>(), {
     showSearch: true,
     searchText: '查询',
     resetText: '重置',
@@ -150,7 +150,7 @@ const props = withDefaults(defineProps<XCrudPageProp>(), {
     uploadUrl: UPLOAD_URL,
     templateUrl: '',
     operations: () => ['新增', '下载模板', '导入', '导出', '批量删除'] as XTableOperationButton[],
-    actions: () => ['编辑', '删除'] as CrudAction,
+    actions: () => ['编辑', '删除'] as CurdAction,
     api: undefined,
     params: () => ({}),
     preQuery: undefined,
@@ -241,7 +241,7 @@ const {
 /**
  * 暴露的实例方法
  */
-defineExpose<CrudInstance>({
+defineExpose<CurdInstance>({
     getTableData,
     clearSelection,
     reload,
