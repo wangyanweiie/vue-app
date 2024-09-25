@@ -201,7 +201,7 @@ export interface UseIndexReturn {
 }
 
 /**
- * CRUD 实例
+ * CURD 实例
  */
 export interface CurdInstance {
     /** 获取表格数据 */

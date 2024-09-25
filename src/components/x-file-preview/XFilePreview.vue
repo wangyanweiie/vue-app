@@ -1,13 +1,39 @@
 <template>
-    <el-dialog v-model="dialogVisible" :title="title" fullscreen :show-close="true" destroy-on-close>
-        <component :is="currentComponent" :ref="componentRef" :url="url" class="component"></component>
+    <el-dialog v-model="dialogVisible" destroy-on-close append-to-body>
+        <template #header>
+            <div class="header">
+                <div class="header-title">{{ title }}</div>
+                <el-button :icon="Download" type="primary" @click="download">
+                    {{ text }}
+                </el-button>
+            </div>
+        </template>
+
+        <div class="component">
+            <component
+                :is="currentComponent"
+                v-if="fileType in fileTypeMap"
+                :src="fileSrc"
+                class="component-item"
+            ></component>
+
+            <el-empty v-else description="当前文件类型暂不支持预览" />
+        </div>
     </el-dialog>
 </template>
 
 <script lang="ts" setup>
-import excel from './components/excel.vue';
-import pdf from './components/pdf.vue';
-import word from './components/word.vue';
+import '@vue-office/excel/lib/index.css';
+import '@vue-office/docx/lib/index.css';
+
+import { Download } from '@element-plus/icons-vue';
+import VueOfficeDocx from '@vue-office/docx';
+import VueOfficeExcel from '@vue-office/excel';
+import VueOfficePdf from '@vue-office/pdf';
+
+import { downloadFileFromURL } from '@/utils/common-methods';
+
+import Img from './components/img.vue';
 
 /**
  * props
@@ -18,13 +44,16 @@ const props = withDefaults(
         visible: boolean;
         /** 弹窗标题 */
         title?: string;
+        /** 下载文字 */
+        text?: string;
         /** 文档路径 */
-        url: string;
+        src: string;
     }>(),
     {
         visible: false,
-        title: '弹窗标题',
-        url: '',
+        title: '文件预览',
+        text: '下载',
+        src: '',
     },
 );
 
@@ -51,24 +80,77 @@ const dialogVisible = computed<boolean>({
 });
 
 /**
- * 组件类型
+ * 文件地址
  */
-const componentRef = ref();
-const currentComponent = computed(() => {
-    if (props.url.indexOf('.docx') !== -1) {
-        return word;
-    } else if (props.url.indexOf('.xlsx') !== -1) {
-        return excel;
-    } else if (props.url.indexOf('.pdf') !== -1) {
-        return pdf;
-    } else {
-        return word;
-    }
+const fileSrc = computed(() => {
+    return props.src;
 });
+
+/**
+ * 文件类型
+ */
+type FileType = 'doc' | 'docx' | 'xls' | 'xlsx' | 'pdf' | 'png' | 'jpg' | 'jpeg';
+
+const fileType = computed<string>(() => {
+    return props.src?.split('.')?.pop()?.toLowerCase() ?? '';
+});
+
+/**
+ * 文件类型与组件对应关系
+ */
+const fileTypeMap = {
+    doc: VueOfficeDocx,
+    docx: VueOfficeDocx,
+    xls: VueOfficeExcel,
+    xlsx: VueOfficeExcel,
+    pdf: VueOfficePdf,
+    png: Img,
+    jpg: Img,
+    jpeg: Img,
+};
+
+/**
+ * 当前组件类型
+ */
+const currentComponent = computed(() => {
+    const type = fileType.value as FileType;
+
+    if (type in fileTypeMap) {
+        return fileTypeMap[type];
+    }
+
+    throw new Error(`当前文件类型不支持预览: ${type}`);
+});
+
+/**
+ * 下载
+ */
+function download() {
+    downloadFileFromURL(fileSrc.value);
+}
 </script>
 <style lang="scss" scoped>
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .header-title {
+        font-size: 16px;
+    }
+}
+
 .component {
-    height: calc(100vh - 80px);
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow-y: auto;
+
+    .component-item {
+        width: 100%;
+        height: 100%;
+    }
 }
 </style>

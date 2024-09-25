@@ -1,19 +1,41 @@
 <template>
-    <el-form-item :prop="schema.prop as string" :label="schema.label" v-bind="formItemProps">
+    <el-form-item v-bind="formItemProps" :label="schema.label" :prop="schema.prop as string">
         <slot v-if="schema.components === 'custom'" :name="schema.slotName"></slot>
 
         <component
             :is="isComponent"
+            v-model:uploadStatus="uploadStatus"
             :model-value="currentValue"
             v-bind="componentProps"
             class="form-item-element"
             @update:model-value="handleUpdate"
             @keydown.enter="handleEnter"
-        ></component>
+        >
+            <template v-if="schema?.components === 'el-divider'" #default>
+                <span>
+                    {{ schema.label }}
+                </span>
+            </template>
+
+            <template v-else-if="schema?.components === 'el-select-v2'" #default="{ item }">
+                <span :title="item.label">
+                    {{ item.label }}
+                </span>
+            </template>
+
+            <template v-if="!!schema?.tip" #suffix>
+                <el-tooltip :content="schema?.tip">
+                    <el-icon>
+                        <info-filled />
+                    </el-icon>
+                </el-tooltip>
+            </template>
+        </component>
     </el-form-item>
 </template>
 
 <script setup lang="ts">
+import type { InternalRuleItem } from 'async-validator';
 import {
     ElButton,
     ElCascader,
@@ -25,12 +47,14 @@ import {
     ElRadio,
     ElSelectV2,
     ElSwitch,
+    type UploadStatus,
 } from 'element-plus';
 import { get, isNumber, isString, set } from 'lodash-es';
 import { markRaw, mergeProps } from 'vue';
 
 import XRadio from './components/XRadio.vue';
 import XSelect from './components/XSelect.vue';
+import XUpload from './components/XUpload.vue';
 import type { SelectOption, XFormItemSchema } from './interface';
 
 /**
@@ -79,6 +103,7 @@ const maps = {
     'el-cascader': markRaw(ElCascader),
     'x-radio': markRaw(XRadio),
     'x-select': markRaw(XSelect),
+    'x-upload': markRaw(XUpload),
 };
 
 /**
@@ -93,9 +118,25 @@ const { schema } = toRefs(props);
  * item props
  */
 const formItemProps = computed(() => {
-    return typeof schema.value.elFormItemProps === 'function'
-        ? schema.value.elFormItemProps(props.modelValue)
-        : schema.value.elFormItemProps;
+    const elFormItemProps =
+        typeof schema.value.elFormItemProps === 'function'
+            ? schema.value.elFormItemProps(props.modelValue)
+            : schema.value.elFormItemProps;
+
+    if (props.schema?.components === 'x-upload') {
+        const existingRules: any = elFormItemProps?.rules || [];
+
+        const mergedRules = existingRules?.concat({
+            validator: validFileUploading,
+        });
+
+        return {
+            ...elFormItemProps,
+            rules: mergedRules,
+        };
+    }
+
+    return elFormItemProps;
 });
 
 /**
@@ -113,6 +154,22 @@ const isComponent = computed<any>(() => {
  * 等价于：modelForm[schema.value.prop] ?? undefined
  */
 const currentValue = ref<unknown>(get(modelForm, schema.value.prop, undefined));
+
+/**
+ * 文件上传状态
+ */
+const uploadStatus = ref<UploadStatus>();
+
+/**
+ * 校验文件是否正在上传
+ */
+function validFileUploading(_rule: InternalRuleItem, _value: string, callback: (error?: string | Error) => void) {
+    if (uploadStatus.value === 'uploading') {
+        return callback(new Error('文件正在上传中，请稍后'));
+    }
+
+    callback();
+}
 
 /**
  * extra props

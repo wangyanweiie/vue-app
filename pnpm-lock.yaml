@@ -18,7 +18,9 @@ specifiers:
   '@vitejs/plugin-vue': ^5.0.4
   '@vitejs/plugin-vue-jsx': ^3.1.0
   '@vitest/ui': ^1.4.0
+  '@vue-office/docx': ^1.6.2
   '@vue-office/excel': ^1.7.11
+  '@vue-office/pdf': ^2.0.2
   '@vue/eslint-config-prettier': ^9.0.0
   '@vue/eslint-config-typescript': ^13.0.0
   '@vue/test-utils': ^2.4.5
@@ -27,6 +29,7 @@ specifiers:
   '@wangeditor/editor': ^5.1.23
   '@wangeditor/editor-for-vue': ^5.1.12
   animejs: ^3.2.2
+  async-validator: ^4.2.5
   axios: ^1.6.8
   cz-customizable: ^7.0.0
   dat.gui: ^0.7.9
@@ -84,11 +87,14 @@ specifiers:
 
 dependencies:
   '@element-plus/icons-vue': 2.3.1_vue@3.4.38
+  '@vue-office/docx': 1.6.2_vue@3.4.38
   '@vue-office/excel': 1.7.11_vue@3.4.38
+  '@vue-office/pdf': 2.0.2_vue@3.4.38
   '@vueuse/core': 10.11.1_vue@3.4.38
   '@wangeditor/editor': 5.1.23
   '@wangeditor/editor-for-vue': 5.1.12_1787bcbf1d97f0d974087291e6d7c6a2
   animejs: 3.2.2
+  async-validator: 4.2.5
   axios: 1.7.5
   dat.gui: 0.7.9
   dayjs: 1.11.13
@@ -2877,8 +2883,36 @@ packages:
       vscode-uri: 3.0.8
     dev: true
 
+  /@vue-office/docx/1.6.2_vue@3.4.38:
+    resolution: {integrity: sha512-OHAoUHeY8nHjhWvwDhlPx+/rmRkxmqLpvPgtfCEOZ4H1c1LCdJ6eDbdV3152ww8dcdZ7fgGQu3fmSSaI7JwdpQ==}
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.7.1
+      vue: ^2.0.0 || >=3.0.0
+      vue-demi: ^0.14.6
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      vue: 3.4.38_typescript@5.4.5
+    dev: false
+
   /@vue-office/excel/1.7.11_vue@3.4.38:
     resolution: {integrity: sha512-LF3R9IV573Sf4qTu6Ik5Ee8UMfkrsZQ6HEQE25/2m1c0CMcHX6KanIy6Cz0b0Q+FrLH3TjIsLTm6oPcqAbDGSA==}
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.7.1
+      vue: ^2.0.0 || >=3.0.0
+      vue-demi: ^0.14.6
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      vue: 3.4.38_typescript@5.4.5
+    dev: false
+
+  /@vue-office/pdf/2.0.2_vue@3.4.38:
+    resolution: {integrity: sha512-bQFqGxSOnKbvCS7OoJniYoTz1VIm1XOrRD27Msorxny9NFJ8RsQK1A4uhlnISJRFMaUwp1qlcVE9jMAhsiIyjg==}
     requiresBuild: true
     peerDependencies:
       '@vue/composition-api': ^1.7.1

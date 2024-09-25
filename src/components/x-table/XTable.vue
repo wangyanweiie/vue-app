@@ -28,14 +28,18 @@
                 ref="tableRef"
                 v-loading="tableLoading"
                 border
-                size="small"
                 table-layout="auto"
+                :max-height="maxHeight"
                 :data="tableData"
+                :size="size"
                 :row-key="rowKey"
                 :tree-props="treeProps"
+                :lazy="treeLazy"
+                :load="treeLoad"
                 :span-method="spanMethod"
                 :style="{ width: '100%' }"
                 v-bind="elTableProps"
+                @cell-click="cellClick"
                 @selection-change="handleSelectChange"
             >
                 <!-- 选择列 -->
@@ -96,7 +100,7 @@
                     </template>
                 </el-table-column>
 
-                <slot name="table__main__action"></slot>
+                <slot name="action"></slot>
             </el-table>
         </div>
 
@@ -142,6 +146,8 @@ const props = withDefaults(defineProps<XTableProp>(), {
     },
     title: '数据列表',
     tooltipContent: '',
+    maxHeight: undefined,
+    size: 'small',
     showIndex: false,
     selectable: false,
     elTableProps: () => ({}),
@@ -171,6 +177,9 @@ const props = withDefaults(defineProps<XTableProp>(), {
     actionWidth: '',
     combineField: '',
     columnIndex: () => [],
+    cellClick: undefined,
+    treeLazy: false,
+    treeLoad: undefined,
 });
 
 /**

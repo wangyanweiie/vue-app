@@ -16,6 +16,7 @@ import type {
     FormProps,
     ElSelect,
     ElSelectV2,
+    UploadProps,
 } from 'element-plus';
 import type { Arrayable } from 'element-plus/es/utils';
 import type { ExtractPropTypes } from 'vue';
@@ -26,13 +27,14 @@ import type { ExtractPropTypes } from 'vue';
 interface BaseXFormSchema<T> {
     label: string;
     prop: keyof T | '';
+    tip?: string;
     components: ComponentTypes;
     elFormItemProps?: Partial<FormItemProps> | ((form: any) => Partial<FormItemProps>);
     colProps?: Partial<ColProps>;
 }
 
 /**
- * x-form-item divider
+ * x-form-item el-divider
  */
 interface XFormItemDividerSchema<T> extends BaseXFormSchema<T> {
     components: 'el-divider';
@@ -40,7 +42,7 @@ interface XFormItemDividerSchema<T> extends BaseXFormSchema<T> {
 }
 
 /**
- * x-form-item button
+ * x-form-item el-button
  */
 interface XFormItemButtonSchema<T> extends BaseXFormSchema<T> {
     components: 'el-button';
@@ -48,7 +50,7 @@ interface XFormItemButtonSchema<T> extends BaseXFormSchema<T> {
 }
 
 /**
- * x-form-item switch
+ * x-form-item el-switch
  */
 interface XFormItemSwitchSchema<T> extends BaseXFormSchema<T> {
     components: 'el-switch';
@@ -56,15 +58,7 @@ interface XFormItemSwitchSchema<T> extends BaseXFormSchema<T> {
 }
 
 /**
- * x-form-item el-radio
- */
-interface XFormItemRadioSchema<T> extends BaseXFormSchema<T> {
-    components: 'x-radio';
-    elProps?: XRadioProps | ((form: any) => XRadioProps);
-}
-
-/**
- * x-form-item checkbox
+ * x-form-item el-checkbox
  */
 interface XFormItemCheckBoxSchema<T> extends BaseXFormSchema<T> {
     components: 'el-checkbox';
@@ -72,7 +66,7 @@ interface XFormItemCheckBoxSchema<T> extends BaseXFormSchema<T> {
 }
 
 /**
- * x-form-item input
+ * x-form-item el-input
  */
 interface XFormItemInputSchema<T> extends BaseXFormSchema<T> {
     components: 'el-input';
@@ -80,7 +74,7 @@ interface XFormItemInputSchema<T> extends BaseXFormSchema<T> {
 }
 
 /**
- * x-form-item input-number
+ * x-form-item el-input-number
  */
 interface XFormItemInputNumberSchema<T> extends BaseXFormSchema<T> {
     components: 'el-input-number';
@@ -88,7 +82,7 @@ interface XFormItemInputNumberSchema<T> extends BaseXFormSchema<T> {
 }
 
 /**
- * x-form-item select
+ * x-form-item el-select
  */
 interface XFormItemSelectSchema<T> extends BaseXFormSchema<T> {
     components: 'el-select-v2';
@@ -97,7 +91,34 @@ interface XFormItemSelectSchema<T> extends BaseXFormSchema<T> {
 }
 
 /**
- * x-form-item multiselect
+ * x-form-item el-date-picker
+ */
+interface XFormItemDatePickerSchema<T> extends BaseXFormSchema<T> {
+    components: 'el-date-picker';
+    elProps?:
+        | Partial<DatePickerProps & { onChange: (val: string) => void }>
+        | ((form: T, formRef?: FormInstance) => Partial<DatePickerProps & { onChange: (val: string) => void }>);
+}
+
+/**
+ * x-form-item el-cascader
+ */
+interface XFormItemCascaderSchema<T> extends BaseXFormSchema<T> {
+    components: 'el-cascader';
+    elProps?: any | ((form: any) => any);
+    api?: (data?: any) => Promise<any>;
+}
+
+/**
+ * x-form-item x-radio
+ */
+interface XFormItemRadioSchema<T> extends BaseXFormSchema<T> {
+    components: 'x-radio';
+    elProps?: XRadioProps | ((form: any) => XRadioProps);
+}
+
+/**
+ * x-form-item x-select
  */
 interface XFormItemSelectMultiSchema<T> extends BaseXFormSchema<T> {
     components: 'x-select';
@@ -107,20 +128,12 @@ interface XFormItemSelectMultiSchema<T> extends BaseXFormSchema<T> {
 }
 
 /**
- * x-form-item date-picker
+ * x-form-item x-upload
  */
-interface XFormItemDatePickerSchema<T> extends BaseXFormSchema<T> {
-    components: 'el-date-picker';
-    elProps?: any | ((form: any) => Partial<any>);
-}
-
-/**
- * x-form-item cascader
- */
-interface XFormItemCascaderSchema<T> extends BaseXFormSchema<T> {
-    components: 'el-cascader';
-    elProps?: any | ((form: any) => any);
-    api?: (data?: any) => Promise<any>;
+interface XFormItemUploadSchema<T = any> extends BaseXFormSchema<T> {
+    components: 'x-upload';
+    valueType?: 'string' | 'array';
+    elProps?: Partial<UploadProps> | ((form: T, formRef?: FormInstance) => Partial<UploadProps>);
 }
 
 /**
@@ -135,15 +148,16 @@ type ComponentTypes =
     | 'el-divider'
     | 'el-button'
     | 'el-switch'
-    | 'x-radio'
-    | 'x-checkbox'
     | 'el-checkbox'
     | 'el-input'
     | 'el-input-number'
     | 'el-select-v2'
-    | 'x-select'
     | 'el-date-picker'
     | 'el-cascader'
+    | 'x-radio'
+    | 'x-checkbox'
+    | 'x-select'
+    | 'x-upload'
     | 'custom';
 
 /**
@@ -153,14 +167,15 @@ type XFormItemSchema<T = any> =
     | XFormItemDividerSchema<T>
     | XFormItemButtonSchema<T>
     | XFormItemSwitchSchema<T>
-    | XFormItemRadioSchema<T>
     | XFormItemCheckBoxSchema<T>
     | XFormItemInputSchema<T>
     | XFormItemInputNumberSchema<T>
     | XFormItemSelectSchema<T>
-    | XFormItemSelectMultiSchema<T>
     | XFormItemDatePickerSchema<T>
     | XFormItemCascaderSchema<T>
+    | XFormItemRadioSchema<T>
+    | XFormItemSelectMultiSchema<T>
+    | XFormItemUploadSchema<T>
     | XFormItemCustomSchema<T>;
 
 /**
@@ -220,14 +235,15 @@ export type {
     XFormItemDividerSchema,
     XFormItemButtonSchema,
     XFormItemSwitchSchema,
-    XFormItemRadioSchema,
     XFormItemCheckBoxSchema,
     XFormItemInputSchema,
     XFormItemInputNumberSchema,
     XFormItemSelectSchema,
-    XFormItemSelectMultiSchema,
     XFormItemDatePickerSchema,
+    XFormItemRadioSchema,
+    XFormItemSelectMultiSchema,
     XFormItemCascaderSchema,
+    XFormItemUploadSchema,
     XFormItemCustomSchema,
     ComponentTypes,
     XFormItemSchema,

@@ -47,6 +47,10 @@ export interface XTableProp {
     title?: string;
     /** 感叹号提示内容 */
     tooltipContent?: string;
+    /** 表格高度 */
+    maxHeight?: number | string | undefined;
+    /** 表格尺寸 */
+    size?: '' | 'large' | 'default' | 'small';
     /** 是否展示索引 */
     showIndex?: boolean;
     /** 是否可选 */
@@ -89,6 +93,12 @@ export interface XTableProp {
     combineField?: string;
     /** 要根据某一列字段进行合并的列索引 */
     columnIndex?: number[];
+    /** 表格行点击事件 */
+    cellClick?: (row: T, column: T, cell: any, event: MouseEvent) => void;
+    /** 是否懒加载子节点数据 */
+    treeLazy?: boolean;
+    /** 加载子节点数据的函数 */
+    treeLoad?: (row: T, treeNode: TreeNode, resolve: (data: any[]) => void) => void;
 }
 
 /**
