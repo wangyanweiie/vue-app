@@ -32,6 +32,7 @@ declare module 'vue' {
         ElFormItem: (typeof import('element-plus/es'))['ElFormItem'];
         ElHeader: (typeof import('element-plus/es'))['ElHeader'];
         ElIcon: (typeof import('element-plus/es'))['ElIcon'];
+        ElImage: (typeof import('element-plus/es'))['ElImage'];
         ElInput: (typeof import('element-plus/es'))['ElInput'];
         ElMain: (typeof import('element-plus/es'))['ElMain'];
         ElMenu: (typeof import('element-plus/es'))['ElMenu'];
@@ -48,9 +49,11 @@ declare module 'vue' {
         ElTableV2: (typeof import('element-plus/es'))['ElTableV2'];
         ElTag: (typeof import('element-plus/es'))['ElTag'];
         ElTooltip: (typeof import('element-plus/es'))['ElTooltip'];
+        ElUpload: (typeof import('element-plus/es'))['ElUpload'];
         Excel: (typeof import('./../components/x-file-preview/components/excel.vue'))['default'];
         ExcelLucysheet: (typeof import('./../components/x-file-preview/components/excel-lucysheet.vue'))['default'];
         HistoryTabs: (typeof import('./../components/x-layout/HistoryTabs.vue'))['default'];
+        Img: (typeof import('./../components/x-file-preview/components/img.vue'))['default'];
         ParentMenuView: (typeof import('./../components/x-layout/ParentMenuView.vue'))['default'];
         ParentView: (typeof import('./../components/x-layout/ParentView.vue'))['default'];
         Pdf: (typeof import('./../components/x-file-preview/components/pdf.vue'))['default'];
