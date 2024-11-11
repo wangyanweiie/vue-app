@@ -44,7 +44,7 @@
         "@vue-office/docx": "^1.6.2",
         "@vue-office/excel": "^1.7.11",
         "@vue-office/pdf": "^2.0.2",
-        "@vueuse/core": "^10.9.0",
+        "@vueuse/core": "^10.11.1",
         "@wangeditor/editor": "^5.1.23",
         "@wangeditor/editor-for-vue": "^5.1.12",
         "animejs": "^3.2.2",
