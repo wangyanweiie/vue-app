@@ -144,6 +144,15 @@ function request<T>({
  * 选择文件
  */
 function handleFileChange(e: Event) {
+    container.value = {
+        file: undefined,
+        worker: undefined,
+        hash: undefined,
+    };
+
+    fileChunkList.value = [];
+    fileChunkRequestList.value = [];
+
     const target = e.target as HTMLInputElement;
 
     const [file] = target.files ?? [];
@@ -351,7 +360,21 @@ function handlePause() {
  * 点击恢复
  */
 async function handleResume() {
-    const { uploadedList } = await verifyUpload(container.value.file?.name as string, container.value.hash as string);
+    const { code, shouldUpload, uploadedList } = await verifyUpload(
+        container.value.file?.name as string,
+        container.value.hash as string,
+    );
+
+    if (code !== 200) {
+        ElMessage.error('验证失败');
+        return;
+    }
+
+    if (!shouldUpload) {
+        ElMessage.success('文件存在');
+        console.log('skip upload：file upload success');
+        return;
+    }
 
     await uploadFileChunks(uploadedList);
 }

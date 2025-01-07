@@ -124,7 +124,7 @@ const mergeFileChunk = async (filePath, fileHash, size) => {
         }
 
         // 合并后删除切片目录
-        fse.rmdirSync(chunkDir, { recursive: true });
+        fse.rmSync(chunkDir, { recursive: true });
     } catch (error) {
         console.error('Error during file chunk merging:', error);
         throw error;

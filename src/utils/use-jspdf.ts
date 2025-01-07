@@ -14,7 +14,7 @@ export default function useJsPDF(
     wholeNodeClass: string,
     ignoreElementsClass: string,
     intervalHeight = 50,
-    fileName = 'example',
+    fileName = 'file',
 ) {
     /**
      * A4 纸尺寸

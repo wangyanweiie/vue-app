@@ -3,6 +3,11 @@ interface Options {
     value: string | number;
 }
 
+interface RadioOptions {
+    label: number;
+    labelName: string | number;
+}
+
 /**
  * 时间问候语
  * @param param 当前时间，new Date() 格式
@@ -98,13 +103,26 @@ export function handleToHumpFormat(str: string, type: 'min' | 'max') {
 }
 
 /**
- * 将枚举转换为 options
- * @param enumeration 枚举
+ * 生成 uuid
+ * @return { string } uuid
+ */
+export function guid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const r = (Math.random() * 16) | 0,
+            v = c == 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+    });
+}
+
+/**
+ * 将枚举转换为 el-select options
+ * @param enumeration 数字枚举
  * @return { Options[] } 转换后的数组
  */
 export function transformEnumToOptions(enumeration: Record<string, string | number>): Options[] {
     // Object.entries 返回给定对象自身可枚举属性的键值对数组
     const list = Object.entries(enumeration);
+
     const transList = list
         .map(([label, value]) => {
             return {
@@ -118,13 +136,35 @@ export function transformEnumToOptions(enumeration: Record<string, string | numb
 }
 
 /**
- * 生成 uuid
- * @return { string } uuid
+ * 将枚举转换为 el-select options
+ * @param enumeration 字符串枚举
+ * @return { Options[] } 转换后的数组
  */
-export function guid() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        const r = (Math.random() * 16) | 0,
-            v = c == 'x' ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
+export function transformEnumToLabelValueStringOptions(enumeration: Record<string, string | number>): Options[] {
+    const arrayList = Object.entries(enumeration);
+
+    return arrayList.map(([label, value]) => {
+        return {
+            label,
+            value: value as number,
+        };
     });
+}
+
+/**
+ * 将枚举转换为 x-radio options
+ * @param enumeration 数字枚举
+ * @return { Options[] } 转换后的数组
+ */
+export function transformEnumToRadioOptions(enumeration: Record<string, string | number>): RadioOptions[] {
+    const arrayList = Object.entries(enumeration);
+
+    return arrayList
+        .map(([labelName, label]) => {
+            return {
+                label: label as number,
+                labelName,
+            };
+        })
+        .slice(arrayList.length / 2);
 }
