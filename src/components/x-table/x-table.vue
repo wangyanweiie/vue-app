@@ -129,7 +129,7 @@
 <script lang="ts" setup>
 import { InfoFilled } from '@element-plus/icons-vue';
 
-import TableSetting from './components/TableSetting.vue';
+import TableSetting from './components/table-setting.vue';
 import type { XTableProp } from './interface';
 import useIndex from './useIndex';
 

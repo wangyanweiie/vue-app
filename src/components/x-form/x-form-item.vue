@@ -52,9 +52,9 @@ import {
 import { get, isNumber, isString, set } from 'lodash-es';
 import { markRaw, mergeProps } from 'vue';
 
-import XRadio from './components/XRadio.vue';
-import XSelect from './components/XSelect.vue';
-import XUpload from './components/XUpload.vue';
+import XRadio from './components/x-radio.vue';
+import XSelect from './components/x-select.vue';
+import XUpload from './components/x-upload.vue';
 import type { SelectOption, XFormItemSchema } from './interface';
 
 /**

@@ -83,9 +83,9 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 },
             },
             {
-                path: '/demo/textEditor',
+                path: '/demo/text-editor',
                 name: 'demo-text-editor',
-                component: () => import('@/views/demo/textEditor.vue'),
+                component: () => import('@/views/demo/text-editor.vue'),
                 meta: {
                     title: t('f8bHnwHMh7iUPpn5W1fjK'),
                     icon: '',
@@ -93,9 +93,9 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 },
             },
             {
-                path: '/demo/filePreview',
+                path: '/demo/file-preview',
                 name: 'demo-file-preview',
-                component: () => import('@/views/demo/filePreview.vue'),
+                component: () => import('@/views/demo/file-preview.vue'),
                 meta: {
                     title: t('jVEkL1PywXko1Bmb6sgC'),
                     icon: '',
@@ -103,9 +103,19 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 },
             },
             {
+                path: '/demo/file-upload',
+                name: 'demo-file-upload',
+                component: () => import('@/views/demo/file-upload/file-upload.vue'),
+                meta: {
+                    title: t('sJmD6Q2OiCyJyiOsfxF'),
+                    icon: '',
+                    permission: ['login:log:select'],
+                },
+            },
+            {
                 path: '/demo/curdPage',
                 name: 'demo-curdPage',
-                component: () => import('@/views/demo/curdPage.vue'),
+                component: () => import('@/views/demo/curd-page.vue'),
                 meta: {
                     title: t('v7EtGnHupCoJ9cvAafy'),
                     icon: '',
@@ -113,9 +123,9 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
                 },
             },
             {
-                path: '/demo/threeJs',
-                name: 'demo-threeJs',
-                component: () => import('@/views/demo/threeJs.vue'),
+                path: '/demo/three-js',
+                name: 'demo-three-js',
+                component: () => import('@/views/demo/three-js.vue'),
                 meta: {
                     title: t('x_2IciI93yoEqi4uU0exd'),
                     icon: '',

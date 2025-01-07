@@ -23,27 +23,27 @@
 
 import type { App, Component } from 'vue';
 
-import XChart from './x-chart/XChart.vue';
-import XCurdPage from './x-curd-page/XCurdPage.vue';
-import XDescription from './x-description/XDescription.vue';
-import XEditTable from './x-edit-table/XEditTable.vue';
-import XEditTableItem from './x-edit-table/XEditTableItem.vue';
-import XFilePreview from './x-file-preview/XFilePreview.vue';
-import XCheckbox from './x-form/components/XCheckbox.vue';
-import XRadio from './x-form/components/XRadio.vue';
-import XSelect from './x-form/components/XSelect.vue';
-import XDialogForm from './x-form/XDialogForm.vue';
-import XForm from './x-form/XForm.vue';
-import XSearchForm from './x-form/XSearchForm.vue';
-import ParentMenuView from './x-layout/ParentMenuView.vue';
-import ParentView from './x-layout/ParentView.vue';
-import XLayout from './x-layout/XLayout.vue';
-import XLogo from './x-layout/XLogo.vue';
-import XUser from './x-layout/XUser.vue';
-import XMap from './x-map/XMap.vue';
-import XRichTextEditor from './x-rich-text-editor/XRichTextEditor.vue';
-import XTable from './x-table/XTable.vue';
-import XTableV2 from './x-table-v2/XTableV2.vue';
+import XChart from './x-chart/x-chart.vue';
+import XCurdPage from './x-curd-page/x-curd-page.vue';
+import XDescription from './x-description/x-description.vue';
+import XEditTable from './x-edit-table/x-edit-table.vue';
+import XEditTableItem from './x-edit-table/x-edit-table-item.vue';
+import XFilePreview from './x-file-preview/x-file-preview.vue';
+import XCheckbox from './x-form/components/x-checkbox.vue';
+import XRadio from './x-form/components/x-radio.vue';
+import XSelect from './x-form/components/x-select.vue';
+import XDialogForm from './x-form/x-dialog-form.vue';
+import XForm from './x-form/x-form.vue';
+import XSearchForm from './x-form/x-search-form.vue';
+import ParentMenuView from './x-layout/parent-menu-view.vue';
+import ParentView from './x-layout/parent-view.vue';
+import XLayout from './x-layout/x-layout.vue';
+import XLogo from './x-layout/x-logo.vue';
+import XUser from './x-layout/x-user.vue';
+import XMap from './x-map/x-map.vue';
+import XRichTextEditor from './x-rich-text-editor/x-rich-text-editor.vue';
+import XTable from './x-table/x-table.vue';
+import XTableV2 from './x-table-v2/x-table-v2.vue';
 
 interface ComponentItem {
     name: string;

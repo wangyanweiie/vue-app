@@ -37,7 +37,7 @@
         "write-permission": "tsc --skipLibCheck ./script/permission/get-permission.ts && node ./script/permission/get-permission.js",
         "write-api": "tsc --skipLibCheck ./script/generate-api/get-api-docs.ts && node ./script/generate-api/get-api-docs.js",
         "generate-api": "cd ./script/generate-api && npx openapi-generator-cli generate -c openapitools.json --generator-key v2.0",
-        "translate-api": "tsc ./script/translate-api/translate-ts.ts && node ./script/translate-api/translate-ts.js && npx prettier -w ./src/locale/language/**.ts"
+        "sort": "eslint --fix --ext .js,.jsx,.ts,.tsx,vue ./src "
     },
     "dependencies": {
         "@element-plus/icons-vue": "^2.3.1",
@@ -57,12 +57,14 @@
         "element-plus": "^2.6.2",
         "exceljs": "^4.4.0",
         "file-saver": "^2.0.5",
+        "fs-extra": "^11.2.0",
         "html2canvas": "^1.4.1",
         "jsbarcode": "^3.11.6",
         "jspdf": "^2.5.1",
         "lodash-es": "^4.17.21",
         "luckyexcel": "^1.0.1",
         "mitt": "^3.0.1",
+        "multiparty": "^4.2.3",
         "nprogress": "^0.2.0",
         "ol": "^9.1.0",
         "pinia": "^2.1.7",

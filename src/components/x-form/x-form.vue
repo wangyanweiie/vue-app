@@ -17,7 +17,7 @@
 import type { FormInstance, FormProps } from 'element-plus';
 
 import type { XFormItemSchema } from './interface';
-import XFormItem from './XFormItem.vue';
+import XFormItem from './x-form-item.vue';
 
 /**
  * props

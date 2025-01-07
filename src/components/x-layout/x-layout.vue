@@ -63,9 +63,9 @@
 import { Expand, Fold } from '@element-plus/icons-vue';
 import { type RouteRecordRaw, useRoute } from 'vue-router';
 
-import Breadcrumb from './Breadcrumb.vue';
-import HistoryTabs from './HistoryTabs.vue';
-import SubMenu from './SubMenu.vue';
+import Breadcrumb from './breadcrumb.vue';
+import HistoryTabs from './history-tabs.vue';
+import SubMenu from './sub-menu.vue';
 import { useRefresh } from './use-refresh';
 
 interface MenuStyle {

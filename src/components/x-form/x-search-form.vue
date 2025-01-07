@@ -41,7 +41,7 @@ import { ArrowDownBold, ArrowUpBold } from '@element-plus/icons-vue';
 import type { ColProps, FormProps } from 'element-plus';
 
 import type { XFormInstance, XFormItemSchema } from './interface';
-import XFormItem from './XFormItem.vue';
+import XFormItem from './x-form-item.vue';
 
 /**
  * 扩展 HTMLElement

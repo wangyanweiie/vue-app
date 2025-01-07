@@ -57,7 +57,7 @@ import { computed, ref } from 'vue';
 
 import type { XFormInstance, XFormItemSchema } from './interface';
 // import XForm from './XForm.vue';
-import XFormItem from './XFormItem.vue';
+import XFormItem from './x-form-item.vue';
 
 /**
  * props
