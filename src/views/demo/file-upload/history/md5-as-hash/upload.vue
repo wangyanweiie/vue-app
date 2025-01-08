@@ -29,6 +29,8 @@
 </template>
 
 <script lang="ts" setup>
+import { ElMessage } from 'element-plus';
+
 interface Container {
     file: File | undefined;
     worker: Worker | undefined;
@@ -45,7 +47,7 @@ interface FileChunk {
 /**
  * 切片大小：1mb
  */
-const CHUNK_SIZE = 20 * 1024 * 1024;
+const CHUNK_SIZE = 10 * 1024 * 1024;
 
 /**
  * 文件
@@ -142,6 +144,15 @@ function request<T>({
  * 选择文件
  */
 function handleFileChange(e: Event) {
+    container.value = {
+        file: undefined,
+        worker: undefined,
+        hash: undefined,
+    };
+
+    fileChunkList.value = [];
+    fileChunkRequestList.value = [];
+
     const target = e.target as HTMLInputElement;
 
     const [file] = target.files ?? [];
@@ -240,6 +251,21 @@ const uploadPercentage = computed(() => {
 });
 
 /**
+ * 问题：当暂停上传时，会由于取消了部分上传请求导致总进度回退
+ * 解決方法：创建一个虚假进度条，当上传总进度增加时，虚假进度也增加，一旦上传总进度回退，假的进度条只需停止即可。
+ */
+const fakeUploadPercentage = ref<number>(0);
+
+watch(
+    () => uploadPercentage.value,
+    newValue => {
+        if (newValue > fakeUploadPercentage.value) {
+            fakeUploadPercentage.value = newValue;
+        }
+    },
+);
+
+/**
  * 合并请求
  */
 async function mergeRequest() {
@@ -309,10 +335,16 @@ async function handleUpload() {
     // 计算文件哈希值
     container.value.hash = (await calculateFileHash(chunkList)) as string;
 
-    // 验证是否需要上传
-    const { shouldUpload, uploadedList } = await verifyUpload(container.value.file?.name, container.value.hash);
+    // 验证文件是否需要上传
+    const { code, shouldUpload, uploadedList } = await verifyUpload(container.value.file?.name, container.value.hash);
+
+    if (code !== 200) {
+        ElMessage.error('验证失败');
+        return;
+    }
 
     if (!shouldUpload) {
+        ElMessage.success('文件存在');
         console.log('skip upload：file upload success');
         return;
     }
@@ -325,7 +357,7 @@ async function handleUpload() {
         // 数组下标
         index,
         // 初始化进度
-        percentage: 0,
+        percentage: uploadedList.includes(index) ? 100 : 0,
     }));
 
     await uploadFileChunks(uploadedList);
@@ -343,7 +375,21 @@ function handlePause() {
  * 点击恢复
  */
 async function handleResume() {
-    const { uploadedList } = await verifyUpload(container.value.file?.name as string, container.value.hash as string);
+    const { code, shouldUpload, uploadedList } = await verifyUpload(
+        container.value.file?.name as string,
+        container.value.hash as string,
+    );
+
+    if (code !== 200) {
+        ElMessage.error('验证失败');
+        return;
+    }
+
+    if (!shouldUpload) {
+        ElMessage.success('文件存在');
+        console.log('skip upload：file upload success');
+        return;
+    }
 
     await uploadFileChunks(uploadedList);
 }

@@ -23,7 +23,7 @@
         </el-card>
 
         <el-card shadow="never" class="component">
-            <el-progress :percentage="uploadPercentage" />
+            <el-progress :percentage="fakeUploadPercentage" />
         </el-card>
     </div>
 </template>
@@ -47,7 +47,7 @@ interface FileChunk {
 /**
  * 切片大小：1mb
  */
-const CHUNK_SIZE = 20 * 1024 * 1024;
+const CHUNK_SIZE = 10 * 1024 * 1024;
 
 /**
  * 文件
@@ -251,6 +251,21 @@ const uploadPercentage = computed(() => {
 });
 
 /**
+ * 问题：当暂停上传时，会由于取消了部分上传请求导致总进度回退
+ * 解決方法：创建一个虚假进度条，当上传总进度增加时，虚假进度也增加，一旦上传总进度回退，假的进度条只需停止即可。
+ */
+const fakeUploadPercentage = ref<number>(0);
+
+watch(
+    () => uploadPercentage.value,
+    newValue => {
+        if (newValue > fakeUploadPercentage.value) {
+            fakeUploadPercentage.value = newValue;
+        }
+    },
+);
+
+/**
  * 合并请求
  */
 async function mergeRequest() {
@@ -342,7 +357,7 @@ async function handleUpload() {
         // 数组下标
         index,
         // 初始化进度
-        percentage: 0,
+        percentage: uploadedList.includes(index) ? 100 : 0,
     }));
 
     await uploadFileChunks(uploadedList);

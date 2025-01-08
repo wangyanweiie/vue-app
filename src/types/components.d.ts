@@ -8,7 +8,6 @@ export {}
 declare module 'vue' {
     export interface GlobalComponents {
         Breadcrumb: (typeof import('./../components/x-layout/breadcrumb.vue'))['default'];
-        copy: (typeof import('./../components/x-file-preview/components/excel copy.vue'))['default'];
         ElAside: (typeof import('element-plus/es'))['ElAside'];
         ElAutoResizer: (typeof import('element-plus/es'))['ElAutoResizer'];
         ElBreadcrumb: (typeof import('element-plus/es'))['ElBreadcrumb'];
@@ -52,7 +51,6 @@ declare module 'vue' {
         ElTooltip: (typeof import('element-plus/es'))['ElTooltip'];
         ElUpload: (typeof import('element-plus/es'))['ElUpload'];
         Excel: (typeof import('./../components/x-file-preview/components/excel.vue'))['default'];
-        ExcelLucysheet: (typeof import('./../components/x-file-preview/components/excel-lucysheet.vue'))['default'];
         HistoryTabs: (typeof import('./../components/x-layout/history-tabs.vue'))['default'];
         Img: (typeof import('./../components/x-file-preview/components/img.vue'))['default'];
         ParentMenuView: (typeof import('./../components/x-layout/parent-menu-view.vue'))['default'];
@@ -65,7 +63,6 @@ declare module 'vue' {
         Word: (typeof import('./../components/x-file-preview/components/word.vue'))['default'];
         XChart: (typeof import('./../components/x-chart/x-chart.vue'))['default'];
         XCheckbox: (typeof import('./../components/x-form/components/x-checkbox.vue'))['default'];
-        XCrudPage: (typeof import('../components/x-curd-page/x-curd-page.vue'))['default'];
         XCurdPage: (typeof import('./../components/x-curd-page/x-curd-page.vue'))['default'];
         XDescription: (typeof import('./../components/x-description/x-description.vue'))['default'];
         XDialogForm: (typeof import('./../components/x-form/x-dialog-form.vue'))['default'];
@@ -83,6 +80,7 @@ declare module 'vue' {
         XSearchForm: (typeof import('./../components/x-form/x-search-form.vue'))['default'];
         XSelect: (typeof import('./../components/x-form/components/x-select.vue'))['default'];
         XTable: (typeof import('./../components/x-table/x-table.vue'))['default'];
+        XTableFilePreview: (typeof import('./../components/x-table-file-preview/x-table-file-preview.vue'))['default'];
         XTableV2: (typeof import('./../components/x-table-v2/x-table-v2.vue'))['default'];
         XUpload: (typeof import('./../components/x-upload/x-upload.vue'))['default'];
         XUser: (typeof import('./../components/x-layout/x-user.vue'))['default'];
