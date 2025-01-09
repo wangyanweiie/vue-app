@@ -152,6 +152,7 @@ function handleFileChange(e: Event) {
 
     fileChunkList.value = [];
     fileChunkRequestList.value = [];
+    fakeUploadPercentage.value = 0;
 
     const target = e.target as HTMLInputElement;
 

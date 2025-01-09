@@ -1,26 +1,6 @@
-/**
- * 文件上传
- * @link https://juejin.cn/post/6844904046436843527#heading-23
- * @description
- * * 1.大文件上传
- * - 前端上传大文件时使用 Blob.prototype.slice 将文件切片，并发上传多个切片，最后发送一个合并的请求通知服务端合并切片；
- * - 服务端接收切片并存储，收到合并请求后使用流将切片合并到最终文件；
- * - 原生 XMLHttpRequest 的 upload.onprogress 对切片上传进度的监听；
- * - 使用 Vue 计算属性根据每个切片的进度算出整个文件的上传进度；
- *
- * * 2.断点续传
- * - 使用 spark-md5 根据文件内容算出文件 hash；
- * - 通过 hash 可以判断服务端是否已经上传该文件，从而直接提示用户上传成功（秒传）；
- * - 通过 XMLHttpRequest 的 abort 方法暂停切片的上传；
- * - 上传前服务端返回已经上传的切片名，前端跳过这些切片的上传；
- */
-
-const http = require('http');
 const path = require('path');
 const fse = require('fs-extra');
 const multiparty = require('multiparty');
-
-const server = http.createServer();
 
 /**
  * 存储文件的临时文件夹
@@ -33,33 +13,6 @@ const UPLOAD_DIR = path.resolve(__dirname, '..', 'target');
  * @returns 文件后缀
  */
 const extractExt = filename => filename.slice(filename.lastIndexOf('.'), filename.length);
-
-/**
- * 处理请求数据
- * @param {*} request
- */
-const handleRequest = request =>
-    new Promise(resolve => {
-        let params = '';
-
-        request.on('data', data => {
-            params = data;
-        });
-
-        request.on('end', () => {
-            resolve(JSON.parse(params));
-        });
-    });
-
-/**
- * 返回已上传的所有切片名
- * @param {*} fileHash 文件 hash
- * @returns
- */
-const getUploadedList = async fileHash =>
-    fse.existsSync(path.resolve(UPLOAD_DIR, fileHash))
-        ? await fse.readdir(path.resolve(UPLOAD_DIR, `chunkDir_${fileHash}`))
-        : [];
 
 /**
  * 写入文件流
@@ -94,6 +47,38 @@ const pipeStream = (path, writeStream) =>
     });
 
 /**
+ * 处理请求数据
+ * @param {*} request
+ */
+const handleRequest = request =>
+    new Promise(resolve => {
+        let params = '';
+
+        request.on('data', data => {
+            params = data;
+        });
+
+        request.on('end', () => {
+            resolve(JSON.parse(params));
+        });
+    });
+
+/**
+ * 获取 chunk 存储目录
+ * @param {*} fileHash 文件 hash
+ * @returns chunk 存储目录
+ */
+const getChunkDir = fileHash => path.resolve(UPLOAD_DIR, `chunkDir_${fileHash}`);
+
+/**
+ * 返回已上传的所有切片名
+ * @param {*} fileHash 文件 hash
+ * @returns
+ */
+const getUploadedList = async fileHash =>
+    fse.existsSync(getChunkDir(fileHash)) ? await fse.readdir(getChunkDir(fileHash)) : [];
+
+/**
  * 合并切片
  * @param {*} filePath 目标文件路径
  * @param {*} fileHash 文件 hash
@@ -102,7 +87,7 @@ const pipeStream = (path, writeStream) =>
 const mergeFileChunk = async (filePath, fileHash, size) => {
     try {
         // 获取切片目录
-        const chunkDir = path.resolve(UPLOAD_DIR, `chunkDir_${fileHash}`);
+        const chunkDir = getChunkDir(fileHash);
 
         // 读取切片目录下的所有文件
         const chunkPaths = await fse.readdir(chunkDir);
@@ -150,58 +135,84 @@ const mergeFileChunk = async (filePath, fileHash, size) => {
     }
 };
 
-server.on('request', async (request, respone) => {
-    respone.setHeader('Access-Control-Allow-Origin', '*');
-    respone.setHeader('Access-Control-Allow-Headers', '*');
+/**
+ * 导出工具类
+ */
+module.exports = class {
+    /**
+     * 处理切片
+     * @param {*} request 请求
+     * @param {*} respone 响应
+     */
+    async handleChunk(request, respone) {
+        const multipart = new multiparty.Form();
 
-    if (request.method === 'OPTIONS') {
-        respone.status = 200;
-        respone.end();
-        return;
+        multipart.parse(request, async (err, fields, files) => {
+            if (err) {
+                respone.status = 500;
+                respone.end('process file chunk failed');
+                return;
+            }
+
+            const [chunk] = files.chunk;
+            const [hash] = fields.hash;
+            const [filename] = fields.filename;
+            const [fileHash] = fields.fileHash;
+
+            // 文件路径
+            const ext = extractExt(filename);
+            const filePath = path.resolve(UPLOAD_DIR, `${fileHash}${ext}`);
+
+            // 切片目录路径
+            const chunkDir = getChunkDir(fileHash);
+            const chunkPath = path.resolve(chunkDir, hash);
+
+            // 文件存在直接返回
+            if (fse.existsSync(filePath)) {
+                respone.end('file exist');
+                return;
+            }
+
+            // 切片存在直接返回
+            if (fse.existsSync(chunkPath)) {
+                respone.end('chunk exist');
+                return;
+            }
+
+            // 切片目录不存在，创建切片目录
+            if (!fse.existsSync(chunkDir)) {
+                await fse.mkdirs(chunkDir);
+            }
+
+            // fs-extra 的 rename 方法 windows 平台会有权限问题
+            // use fs.move instead of fs.rename
+            // https://github.com/meteor/meteor/issues/7852#issuecomment-255767835
+
+            // 移动 chunk 到临时文件夹，覆盖写
+            await fse.move(chunk.path, path.resolve(chunkDir, hash), { overwrite: true });
+
+            respone.end(
+                JSON.stringify({
+                    code: 200,
+                    message: 'received file chunk',
+                }),
+            );
+        });
     }
 
-    // 解析请求
-    const multipart = new multiparty.Form();
-
-    multipart.parse(request, async (err, fields, files) => {
-        if (err) {
-            return;
-        }
-
-        const [chunk] = files.chunk;
-        const [hash] = fields.hash;
-        const [fileHash] = fields.fileHash;
-
-        // 创建临时文件夹用于临时存储 chunk，添加 chunkDir 前缀与文件名做区分
-        const chunkDir = path.resolve(UPLOAD_DIR, `chunkDir_${fileHash}`);
-
-        if (!fse.existsSync(chunkDir)) {
-            await fse.mkdirs(chunkDir);
-        }
-
-        // fs-extra 的 rename 方法 windows 平台会有权限问题
-        // @see https://github.com/meteor/meteor/issues/7852#issuecomment-255767835
-
-        // 移动 chunk 到临时文件夹，覆盖写
-        await fse.move(chunk.path, `${chunkDir}/${hash}`, { overwrite: true });
-
-        respone.end(
-            JSON.stringify({
-                code: 200,
-                message: 'received file chunk',
-            }),
-        );
-    });
-
-    // 合并请求
-    if (request.url === '/merge') {
+    /**
+     * 合并切片
+     * @param {*} request 请求
+     * @param {*} respone 响应
+     */
+    async handleMergeChunk(request, respone) {
         // 处理请求数据
         const data = await handleRequest(request);
 
         // 获取文件名与切片大小
         const { size, filename, fileHash } = data;
 
-        // 文件路径
+        // 服务端根据文件名可以找到上一步创建的切片文件夹
         const ext = extractExt(filename);
         const filePath = path.resolve(UPLOAD_DIR, `${fileHash}${ext}`);
 
@@ -215,8 +226,12 @@ server.on('request', async (request, respone) => {
         );
     }
 
-    // 验证请求：文件秒传（障眼法，实质上根本没有上传）
-    if (request.url === '/verify') {
+    /**
+     * 验证上传：文件秒传（障眼法，实质上根本没有上传）
+     * @param {*} request 请求
+     * @param {*} respone 响应
+     */
+    async handleVerifyUpload(request, respone) {
         // 处理请求数据
         const data = await handleRequest(request);
 
@@ -242,6 +257,20 @@ server.on('request', async (request, respone) => {
             );
         }
     }
-});
 
-server.listen(8000, () => console.log('listening port 8000'));
+    /**
+     * 删除文件
+     * @param {*} request 请求
+     * @param {*} respone 响应
+     */
+    async handleDeleteFile(request, respone) {
+        await fse.remove(path.resolve(UPLOAD_DIR));
+
+        respone.end(
+            JSON.stringify({
+                code: 200,
+                message: 'file delete success',
+            }),
+        );
+    }
+};
