@@ -131,7 +131,7 @@ npx openapi-generator-cli generate -c ./openapitools.json --generator-key v2.0
 
 1. {{keyName}} 简单的变量替换；
 2. {{{keyName}}} 如果keyName的值中有一些特殊字符，{{keyName}} 会将一些特殊字符进行转码，使用 {{{keyName}}} 就可以进行原样输出；
-3. {{#keyName}} {{/keyName}}以#开始、以/结束表示区块，它会根据当前上下文中的键值来对区块进行一次或多次渲染。它的功能很强大，有类似if、forEach的功能；
+3. {{#keyName}} {{/keyName}} 以#开始、以/结束表示区块，它会根据当前上下文中的键值来对区块进行一次或多次渲染。它的功能很强大，有类似if、forEach的功能；
 4. {{^keyName}} {{/keyName}} 该语法与 {{#keyName}} {{/keyName}} 类似，不同在于它是当 keyName 值为 null, undefined, false 时才渲染输出该区块内容；
 5. {{.}} {{.}} 表示枚举，可以循环输出整个数组；
 6. {{! }} 表示注释；

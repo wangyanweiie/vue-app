@@ -127,5 +127,26 @@
         "vite-plugin-vue-devtools": "7.3.9",
         "vitest": "^1.4.0",
         "vue-tsc": "^2.0.7"
+    },
+    "json-comments": {
+        "tips": "请安装JSONComments插件为JSON文件提供注释功能, 详见: https://github.com/zhangfisher/json_comments_extension",
+        "script/open-api/openapitools.json": {
+            "generator-cli.generators.v2.0.additionalProperties.supportsES6": "是否支持 ES6 模块",
+            "generator-cli.generators.v2.0.additionalProperties.withSeparateModelsAndApi": "是否将模型和 API 分开生成",
+            "generator-cli.generators.v2.0.generatorName": "生成器的名称，决定了使用哪种语言和框架生成代码",
+            "generator-cli.generators.v2.0.output": "生成代码的输出目录",
+            "generator-cli.generators.v2.0.inputSpec": "OpenAPI 规范的输入文件路径",
+            "generator-cli.generators.v2.0.templateDir": "自定义模板的目录，用于覆盖默认模板",
+            "generator-cli.generators.v2.0.additionalProperties.apiPackage": "API 服务的包名",
+            "generator-cli.generators.v2.0.additionalProperties.modelPackage": "模型类的包名",
+            "generator-cli.generators.v2.0.additionalProperties.withInterfaces": "是否生成接口",
+            "generator-cli.generators.v2.0.additionalProperties": "定义额外的属性，用于定制生成的代码",
+            "generator-cli.generators": "定义使用的生成器及其配置",
+            "generator-cli.generators.v2.0": "指定 OpenAPI 规范的版本",
+            "$schema": "引用配置文件的架构，用于验证配置文件的正确性",
+            "spaces": "定义代码缩进使用的空格数量",
+            "generator-cli": "配置 OpenAPI Generator CLI 的设置",
+            "generator-cli.version": "CLI 工具的版本号"
+        }
     }
 }
