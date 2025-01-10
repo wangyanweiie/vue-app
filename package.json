@@ -67,6 +67,7 @@
         "multiparty": "^4.2.3",
         "nprogress": "^0.2.0",
         "ol": "^9.1.0",
+        "p-limit": "^6.2.0",
         "pinia": "^2.1.7",
         "print-js": "^1.6.0",
         "qrcode.vue": "^3.4.1",

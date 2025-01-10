@@ -38,6 +38,7 @@ declare module 'vue' {
         ElMenuItem: (typeof import('element-plus/es'))['ElMenuItem'];
         ElOption: (typeof import('element-plus/es'))['ElOption'];
         ElPagination: (typeof import('element-plus/es'))['ElPagination'];
+        ElPercentage: (typeof import('element-plus/es'))['ElPercentage'];
         ElPopover: (typeof import('element-plus/es'))['ElPopover'];
         ElProgress: (typeof import('element-plus/es'))['ElProgress'];
         ElRadioGroup: (typeof import('element-plus/es'))['ElRadioGroup'];

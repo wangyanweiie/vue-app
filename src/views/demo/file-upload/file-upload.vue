@@ -1,16 +1,22 @@
 <template>
     <div>
         <el-card shadow="never" class="component">
-            <input type="file" @change="handleFileChange" />
+            <div class="upload-container">
+                <input type="file" class="upload" @change="handleFileChange" />
 
-            <div class="upload">
-                <el-button :disabled="!container.file" @click="handleUpload"> 上传 </el-button>
-                <el-button type="danger" :disabled="!container.file" @click="handlePause"> 暂停 </el-button>
-                <el-button type="success" :disabled="!container.file" @click="handleResume"> 恢复 </el-button>
+                <div class="button">
+                    <el-button :disabled="!container.file" @click="handleUpload"> 上传 </el-button>
+                    <el-button type="danger" :disabled="!container.file" @click="handlePause"> 暂停 </el-button>
+                    <el-button type="success" :disabled="!container.file" @click="handleResume"> 恢复 </el-button>
+                </div>
             </div>
         </el-card>
 
-        <el-card shadow="never" class="component">
+        <el-card header="文件上传进度" shadow="never" class="component">
+            <el-progress :percentage="fakeUploadPercentage" />
+        </el-card>
+
+        <!-- <el-card header="切片上传进度" shadow="never" class="component">
             <el-table :data="fileChunkList" border>
                 <el-table-column label="chunk_hash" align="center" prop="hash" />
                 <el-table-column label="chunk_size（kb）" align="center" prop="chunk.size" />
@@ -20,16 +26,31 @@
                     </template>
                 </el-table-column>
             </el-table>
-        </el-card>
+        </el-card> -->
 
-        <el-card shadow="never" class="component">
-            <el-progress :percentage="fakeUploadPercentage" />
+        <el-card header="切片上传进度" shadow="never" class="component">
+            <div class="cube-container" :style="{ width: cubeWidth + 'px' }">
+                <div v-for="chunk in fileChunkList" :key="chunk.hash" class="cube">
+                    <div
+                        :class="[
+                            chunk.percentage > 0 && chunk.percentage < 100 ? 'uploading' : '',
+                            chunk.percentage == 100 ? 'success' : '',
+                        ]"
+                        :style="{ height: chunk.percentage + '%' }"
+                    >
+                        <div v-if="chunk.percentage > 0 && chunk.percentage < 100" class="text">
+                            {{ chunk.percentage }}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </el-card>
     </div>
 </template>
 
 <script lang="ts" setup>
 import { ElMessage } from 'element-plus';
+import pLimit from 'p-limit';
 
 interface Container {
     file: File | undefined;
@@ -270,7 +291,7 @@ watch(
  * 合并请求
  */
 async function mergeRequest() {
-    await request({
+    const { data } = await request({
         url: 'http://localhost:8000/merge',
         headers: {
             'content-type': 'application/json',
@@ -281,6 +302,15 @@ async function mergeRequest() {
             fileHash: container.value.hash,
         }),
     });
+
+    const { code } = JSON.parse(data as string);
+
+    if (code !== 200) {
+        ElMessage.error('合并失败');
+        return;
+    }
+
+    ElMessage.success('合并成功');
 }
 
 /**
@@ -288,9 +318,6 @@ async function mergeRequest() {
  * @param {Array} uploadedList 已上传的切片列表
  */
 async function uploadFileChunks(uploadedList: string[] = []) {
-    // 先过滤出已上传的切片，只上传未上传的切片
-    const needUploadList = fileChunkList.value.filter(item => !uploadedList.includes(item.hash));
-
     if (!container.value.file || !container.value.hash) {
         console.error('File or hash is missing');
         return;
@@ -299,7 +326,8 @@ async function uploadFileChunks(uploadedList: string[] = []) {
     const filename = container.value.file.name;
     const fileHash = container.value.hash;
 
-    const requestList = needUploadList.map(({ chunk, hash, index }) => {
+    // 上传单个切片的独立函数
+    function uploadChunk({ chunk, hash, index }: FileChunk) {
         const formData = new FormData();
 
         formData.append('chunk', chunk);
@@ -313,14 +341,31 @@ async function uploadFileChunks(uploadedList: string[] = []) {
             onProgress: createProgressHandler(fileChunkList.value[index]),
             requestList: fileChunkRequestList.value,
         });
-    });
+    }
 
-    // 并发请求
-    await Promise.all(requestList);
+    const limit = pLimit(5);
 
-    // 合并请求：已经上传的切片数量 + 本次上传的切片数量 = 所有切片数量时合并切片
-    if (uploadedList.length + requestList.length === fileChunkList.value.length) {
-        await mergeRequest();
+    // 限制并发请求数量
+    function uploadChunkWithLimit(item: FileChunk) {
+        return limit(() => uploadChunk(item));
+    }
+
+    // 先过滤出已上传的切片，只上传未上传的切片
+    const uploadedSet = new Set(uploadedList);
+    const needUploadList = fileChunkList.value.filter(item => !uploadedSet.has(item.hash));
+
+    const requestList = needUploadList.map(item => uploadChunkWithLimit(item));
+
+    try {
+        // 并发请求
+        await Promise.all(requestList);
+
+        // 合并请求：已经上传的切片数量 + 本次上传的切片数量 = 所有切片数量时合并切片
+        if (uploadedList.length + requestList.length === fileChunkList.value.length) {
+            await mergeRequest();
+        }
+    } catch (error) {
+        console.error('Error during file chunk upload:', error);
     }
 }
 
@@ -345,7 +390,7 @@ async function handleUpload() {
     }
 
     if (!shouldUpload) {
-        ElMessage.success('文件存在');
+        ElMessage.warning('文件存在');
         console.log('skip upload：file upload success');
         return;
     }
@@ -361,6 +406,7 @@ async function handleUpload() {
         percentage: uploadedList.includes(index) ? 100 : 0,
     }));
 
+    // 上传
     await uploadFileChunks(uploadedList);
 }
 
@@ -376,6 +422,7 @@ function handlePause() {
  * 点击恢复
  */
 async function handleResume() {
+    // 验证文件是否需要上传
     const { code, shouldUpload, uploadedList } = await verifyUpload(
         container.value.file?.name as string,
         container.value.hash as string,
@@ -387,20 +434,62 @@ async function handleResume() {
     }
 
     if (!shouldUpload) {
-        ElMessage.success('文件存在');
+        ElMessage.warning('文件存在');
         console.log('skip upload：file upload success');
         return;
     }
 
+    // 上传
     await uploadFileChunks(uploadedList);
 }
+
+/**
+ * 上传进度区域宽度
+ */
+const cubeWidth = computed(() => {
+    return Math.ceil(Math.sqrt(fileChunkList.value.length)) * 20;
+});
 </script>
 <style lang="scss" scoped>
 .component {
     margin-bottom: 10px;
 }
 
-.upload {
-    float: right;
+.upload-container {
+    .upload {
+        padding: 5px;
+        border: 1px solid #eee;
+    }
+
+    .button {
+        float: right;
+    }
+}
+
+.cube-container {
+    width: 100px;
+    overflow: hidden;
+
+    .cube {
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        border: 1px solid black;
+        background: #eee;
+        float: left;
+
+        .success {
+            background: #67c23a;
+        }
+
+        .uploading {
+            background: #409eff;
+        }
+
+        .text {
+            font-size: 10px;
+            text-align: center;
+        }
+    }
 }
 </style>
