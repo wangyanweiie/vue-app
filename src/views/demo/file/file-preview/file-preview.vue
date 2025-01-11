@@ -2,9 +2,9 @@
     <div>
         <div v-if="showDom" id="domId" class="component">
             <el-card shadow="hover" header="x-file-preview" class="whole-node">
-                <el-button @click="preview({ src: wordUrl })"> WORD </el-button>
-                <el-button @click="preview({ src: excelUrl })"> EXCEl </el-button>
-                <el-button @click="preview({ src: pdfUrl })"> PDF </el-button>
+                <el-button @click="preview({ src: wordUrl, width: '' })"> WORD </el-button>
+                <el-button @click="preview({ src: excelUrl, width: '' })"> EXCEl </el-button>
+                <el-button @click="preview({ src: pdfUrl, width: '' })"> PDF </el-button>
                 <el-button @click="preview({ src: imageUrlList[0] })"> IMAGE </el-button>
             </el-card>
         </div>

@@ -1,5 +1,5 @@
 <template>
-    <el-dialog v-model="dialogVisible" destroy-on-close append-to-body>
+    <el-dialog v-model="dialogVisible" :width="width" :fullscreen="!width" destroy-on-close append-to-body>
         <template #header>
             <div class="header">
                 <div class="header-title">{{ title }}</div>
@@ -9,7 +9,7 @@
             </div>
         </template>
 
-        <div class="component">
+        <div :class="['component', width ? '' : 'fullscreen']">
             <component
                 :is="currentComponent"
                 v-if="fileType in fileTypeMap"
@@ -44,6 +44,8 @@ const props = withDefaults(
         visible: boolean;
         /** 弹窗标题 */
         title?: string;
+        /** 弹窗宽度 */
+        width?: string;
         /** 下载文字 */
         text?: string;
         /** 文档路径 */
@@ -52,6 +54,7 @@ const props = withDefaults(
     {
         visible: false,
         title: '文件预览',
+        width: '50%',
         text: '下载',
         src: '',
     },
@@ -152,5 +155,9 @@ function download() {
         width: 100%;
         height: 100%;
     }
+}
+
+.fullscreen {
+    height: calc(100vh - 80px);
 }
 </style>

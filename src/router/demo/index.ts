@@ -1,10 +1,12 @@
 import type { RouteRecordRaw } from 'vue-router';
 
+import ParentMenuView from '@/components/x-layout/parent-menu-view.vue';
+import ParentView from '@/components/x-layout/parent-view.vue';
 import i18n from '@/locale';
 
+import { componentRoutes } from './components';
+import { fileRoutes } from './file';
 import { subRoutes } from './sub';
-// import ParentMenuView from '@/components/Layout/ParentMenuView.vue';
-// import ParentView from '@/components/Layout/ParentView.vue';
 
 const { t } = i18n.global;
 
@@ -27,118 +29,70 @@ export const demoRoutes = computed<RouteRecordRaw>(() => {
             {
                 path: '/demo/sub',
                 name: 'demo-sub',
-                redirect: '/menu/sub/sub1',
+                redirect: '/demo/sub/sub1',
                 // 等价写法
-                component: () => import('@/views/demo/sub/index.vue'),
+                component: () => import('@/views/demo/sub/sub.vue'),
                 // component: h(ParentMenuView, {
                 //     matchedIndex: 3,
                 //     menus: subRoutes,
                 // }),
                 meta: {
                     title: t('532slvgU3F9qhxfZ2yVfw'),
-                    icon: '',
+                    icon: 'Tickets',
                     keepAlive: true,
                     permission: ['login:log:select'],
                 },
                 children: subRoutes.value,
             },
             {
-                path: '/demo/description',
-                name: 'demo-description',
-                component: () => import('@/views/demo/description.vue'),
+                path: '/demo/components',
+                name: 'demo-components',
+                redirect: '/demo/components/description',
                 meta: {
-                    title: t('16Egj6Vr1l9HmCaeDuKzy'),
-                    icon: '',
+                    title: t('s1XCyh11Qjakv1Da2VpA'),
+                    icon: 'Folder',
                     permission: ['login:log:select'],
                 },
+                children: componentRoutes.value,
             },
             {
-                path: '/demo/table',
-                name: 'demo-table',
-                component: () => import('@/views/demo/table.vue'),
+                path: '/demo/file',
+                name: 'demo-file',
+                redirect: '/demo/file/file-preview',
                 meta: {
-                    title: t('a42ztkHel2fc9gO5iuhCc'),
-                    icon: '',
+                    title: t('odG0s1WbIlAy3mWqdT1ad'),
+                    icon: 'Folder',
                     permission: ['login:log:select'],
                 },
-            },
-            {
-                path: '/demo/select',
-                name: 'demo-select',
-                component: () => import('@/views/demo/select.vue'),
-                meta: {
-                    title: t('ie5cDkag4HaOo6AMuo9a'),
-                    icon: '',
-                    permission: ['login:log:select'],
-                },
-            },
-            {
-                path: '/demo/form',
-                name: 'demo-form',
-                component: () => import('@/views/demo/form.vue'),
-                meta: {
-                    title: t('nbvW17gm2nTxwwRdOj9Z'),
-                    icon: '',
-                    permission: ['login:log:select'],
-                },
-            },
-            {
-                path: '/demo/text-editor',
-                name: 'demo-text-editor',
-                component: () => import('@/views/demo/text-editor.vue'),
-                meta: {
-                    title: t('f8bHnwHMh7iUPpn5W1fjK'),
-                    icon: '',
-                    permission: ['login:log:select'],
-                },
-            },
-            {
-                path: '/demo/file-preview',
-                name: 'demo-file-preview',
-                component: () => import('@/views/demo/file-preview.vue'),
-                meta: {
-                    title: t('jVEkL1PywXko1Bmb6sgC'),
-                    icon: '',
-                    permission: ['login:log:select'],
-                },
-            },
-            {
-                path: '/demo/file-upload',
-                name: 'demo-file-upload',
-                component: () => import('@/views/demo/file-upload/file-upload.vue'),
-                meta: {
-                    title: t('sJmD6Q2OiCyJyiOsfxF'),
-                    icon: '',
-                    permission: ['login:log:select'],
-                },
+                children: fileRoutes.value,
             },
             {
                 path: '/demo/curdPage',
                 name: 'demo-curdPage',
-                component: () => import('@/views/demo/curd-page.vue'),
+                component: () => import('@/views/demo/curd-page/curd-page.vue'),
                 meta: {
                     title: t('v7EtGnHupCoJ9cvAafy'),
-                    icon: '',
+                    icon: 'Tickets',
                     permission: ['login:log:select'],
                 },
             },
             {
                 path: '/demo/three-js',
                 name: 'demo-three-js',
-                component: () => import('@/views/demo/three-js.vue'),
+                component: () => import('@/views/demo/three-js/three-js.vue'),
                 meta: {
                     title: t('x_2IciI93yoEqi4uU0exd'),
-                    icon: '',
+                    icon: 'Tickets',
                     permission: ['login:log:select'],
                 },
             },
             {
                 path: '/demo/map',
                 name: 'demo-map',
-                component: () => import('@/views/demo/map.vue'),
+                component: () => import('@/views/demo/map/map.vue'),
                 meta: {
                     title: t('7m_3svGlMlsuBJbhScLz'),
-                    icon: '',
+                    icon: 'Tickets',
                     permission: ['login:log:select'],
                 },
             },

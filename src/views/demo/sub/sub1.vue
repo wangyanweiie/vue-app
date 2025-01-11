@@ -1,6 +1,7 @@
 <template>
     <div>
-        <el-input v-model="str" v-copy="str" placeholder="demo-sub1"></el-input>
+        <!-- <el-input v-model="str" v-copy="str" placeholder="demo-sub1"></el-input> -->
+        <el-input v-model="str" placeholder="demo-sub1"></el-input>
     </div>
 </template>
 

@@ -63,17 +63,17 @@ module.exports = defineConfig({
      */
     rules: {
         'prettier/prettier': 'error',
-        'no-var': ['error'],
+        'no-var': 'error',
         // 不要重复引入一个模块
-        'no-duplicate-imports': ['warn'],
+        'no-duplicate-imports': 'warn',
         // 组件名称以驼峰格式命名
-        'vue/multi-word-component-names': ['off'],
+        'vue/multi-word-component-names': 'off',
         // 组件名在模板中的命名方式的规则
         'vue/component-name-in-template-casing': ['error', 'kebab-case'],
         // 声明但未使用的变量
-        '@typescript-eslint/no-unused-vars': ['warn'],
+        '@typescript-eslint/no-unused-vars': 'warn',
         // any
-        '@typescript-eslint/no-explicit-any': ['warn'],
+        '@typescript-eslint/no-explicit-any': 'warn',
         // 箭头函数
         'arrow-parens': [
             'error',
@@ -83,8 +83,8 @@ module.exports = defineConfig({
             },
         ],
         // 导入排序
-        'simple-import-sort/imports': 'error',
+        'simple-import-sort/imports': 'warn',
         // 导出排序
-        'simple-import-sort/exports': 'error',
+        'simple-import-sort/exports': 'warn',
     },
 });

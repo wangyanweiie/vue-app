@@ -13,7 +13,7 @@ export const HOME_ROUTE = computed<RouteRecordRaw>(() => ({
     component: () => import('@/views/home/index.vue'),
     meta: {
         title: t('pZAw6rgPAsWmFf5mfvhI'),
-        icon: 'Folder',
+        icon: 'FolderOpened',
     },
 }));
 
