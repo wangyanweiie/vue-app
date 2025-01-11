@@ -38,5 +38,6 @@ withDefaults(
 .user-name {
     outline: none;
     cursor: pointer;
+    white-space: nowrap;
 }
 </style>

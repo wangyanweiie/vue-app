@@ -8,7 +8,13 @@
             <template #header-right>
                 <div class="header-right">
                     <!-- baseurl -->
-                    <el-input v-if="ENV !== 'production'" v-model="baseUrl" disabled placeholder="自动生成"></el-input>
+                    <el-input
+                        v-if="ENV !== 'production'"
+                        v-model="baseUrl"
+                        disabled
+                        placeholder="自动生成"
+                        style="width: 200px"
+                    ></el-input>
 
                     <!-- 数字大屏 -->
                     <el-button type="primary" text bg class="header-right__item" @click="handleJudge">screen</el-button>
