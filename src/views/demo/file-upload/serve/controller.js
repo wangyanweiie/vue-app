@@ -15,38 +15,6 @@ const UPLOAD_DIR = path.resolve(__dirname, '..', 'target');
 const extractExt = filename => filename.slice(filename.lastIndexOf('.'), filename.length);
 
 /**
- * 写入文件流
- * @param {*} path 目标文件路径
- * @param {*} writeStream 可写流
- * @returns
- */
-const pipeStream = (path, writeStream) =>
-    new Promise((resolve, reject) => {
-        // 创建可读流
-        const readStream = fse.createReadStream(path);
-
-        // 文件读取完成，删除源文件
-        // readStream.on('end', () => {
-        //     fse.unlinkSync(path);
-        //     resolve();
-        // });
-
-        // 文件读取完成，删除源文件
-        readStream.on('end', () => {
-            fse.unlink(path, err => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve();
-                }
-            });
-        });
-
-        // 将可读流传输到可写流
-        readStream.pipe(writeStream);
-    });
-
-/**
  * 处理请求数据
  * @param {*} request
  */
@@ -79,6 +47,32 @@ const getUploadedList = async fileHash =>
     fse.existsSync(getChunkDir(fileHash)) ? await fse.readdir(getChunkDir(fileHash)) : [];
 
 /**
+ * 写入文件流
+ * @param {*} chunkPath 目标文件路径
+ * @param {*} writeStream 可写流
+ * @returns
+ */
+const pipeStream = (chunkPath, writeStream) =>
+    new Promise((resolve, reject) => {
+        // 创建可读流
+        const readStream = fse.createReadStream(chunkPath);
+
+        // 文件读取完成，删除源文件
+        readStream.on('end', () => {
+            fse.unlink(chunkPath, err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
+            });
+        });
+
+        // 将可读流传输到可写流
+        readStream.pipe(writeStream);
+    });
+
+/**
  * 合并切片
  * @param {*} filePath 目标文件路径
  * @param {*} fileHash 文件 hash
@@ -90,42 +84,29 @@ const mergeFileChunk = async (filePath, fileHash, size) => {
         const chunkDir = getChunkDir(fileHash);
 
         // 读取切片目录下的所有文件
-        const chunkPaths = await fse.readdir(chunkDir);
+        const chunks = await fse.readdir(chunkDir);
 
-        if (chunkPaths.length === 0) {
+        if (chunks.length === 0) {
             console.warn('No chunks found in the directory.');
             return;
         }
 
         // 根据切片下标进行排序，否则直接读取目录的获得的顺序会错乱
-        chunkPaths.sort((a, b) => a.split('-')[1] - b.split('-')[1]);
+        chunks.sort((a, b) => a.split('-')[1] - b.split('-')[1]);
 
-        // 并发写入文件
-        // await Promise.all(
-        //     chunkPaths.map((chunkPath, index) =>
-        //         pipeStream(
-        //             path.resolve(chunkDir, chunkPath),
-
-        //             fse.createWriteStream(filePath, {
-        //                 start: index * size,
-        //             })
-        //         )
-        //     )
-        // );
-
-        // 顺序写入文件
-        for (let i = 0; i < chunkPaths.length; i++) {
-            const chunkPath = chunkPaths[i];
-
-            await pipeStream(
-                path.join(chunkDir, chunkPath),
+        // FIXME: 并发写入文件
+        await Promise.all(
+            chunks.map((chunk, i) => {
+                const chunkPath = path.join(chunkDir, chunk);
 
                 // 根据 size 在指定位置创建可写流
-                fse.createWriteStream(filePath, {
+                const writeStream = fse.createWriteStream(filePath, {
                     start: i * size,
-                }),
-            );
-        }
+                });
+
+                return pipeStream(chunkPath, writeStream);
+            }),
+        );
 
         // 合并后删除切片目录
         fse.rmSync(chunkDir, { recursive: true });

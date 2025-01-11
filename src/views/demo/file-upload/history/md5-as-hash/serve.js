@@ -35,7 +35,7 @@ const UPLOAD_DIR = path.resolve(__dirname, '..', 'target');
 const extractExt = filename => filename.slice(filename.lastIndexOf('.'), filename.length);
 
 /**
- * 处理 merge 请求参数
+ * 处理请求数据
  * @param {*} request
  */
 const handleRequest = request =>
@@ -57,7 +57,9 @@ const handleRequest = request =>
  * @returns
  */
 const getUploadedList = async fileHash =>
-    fse.existsSync(path.resolve(UPLOAD_DIR, fileHash)) ? await fse.readdir(path.resolve(UPLOAD_DIR, fileHash)) : [];
+    fse.existsSync(path.resolve(UPLOAD_DIR, `chunkDir_${fileHash}`))
+        ? await fse.readdir(path.resolve(UPLOAD_DIR, `chunkDir_${fileHash}`))
+        : [];
 
 /**
  * 写入文件流
@@ -114,31 +116,18 @@ const mergeFileChunk = async (filePath, fileHash, size) => {
         chunkPaths.sort((a, b) => a.split('-')[1] - b.split('-')[1]);
 
         // 并发写入文件
-        // await Promise.all(
-        //     chunkPaths.map((chunkPath, index) =>
-        //         pipeStream(
-        //             path.resolve(chunkDir, chunkPath),
+        await Promise.all(
+            chunkPaths.map((chunkPath, index) =>
+                pipeStream(
+                    path.resolve(chunkDir, chunkPath),
 
-        //             fse.createWriteStream(filePath, {
-        //                 start: index * size,
-        //             })
-        //         )
-        //     )
-        // );
-
-        // 顺序写入文件
-        for (let i = 0; i < chunkPaths.length; i++) {
-            const chunkPath = chunkPaths[i];
-
-            await pipeStream(
-                path.join(chunkDir, chunkPath),
-
-                // 根据 size 在指定位置创建可写流
-                fse.createWriteStream(filePath, {
-                    start: i * size,
-                }),
-            );
-        }
+                    // 根据 size 在指定位置创建可写流
+                    fse.createWriteStream(filePath, {
+                        start: index * size,
+                    }),
+                ),
+            ),
+        );
 
         // 合并后删除切片目录
         fse.rmSync(chunkDir, { recursive: true });
@@ -193,13 +182,13 @@ server.on('request', async (request, respone) => {
 
     // 合并请求
     if (request.url === '/merge') {
-        // 处理 merge 请求参数
+        // 处理请求数据
         const data = await handleRequest(request);
 
         // 获取文件名与切片大小
         const { size, filename, fileHash } = data;
 
-        // 服务端根据文件名可以找到上一步创建的切片文件夹
+        // 文件路径
         const ext = extractExt(filename);
         const filePath = path.resolve(UPLOAD_DIR, `${fileHash}${ext}`);
 
@@ -215,6 +204,7 @@ server.on('request', async (request, respone) => {
 
     // 验证请求：文件秒传（障眼法，实质上根本没有上传）
     if (request.url === '/verify') {
+        // 处理请求数据
         const data = await handleRequest(request);
 
         const { filename, fileHash } = data;
