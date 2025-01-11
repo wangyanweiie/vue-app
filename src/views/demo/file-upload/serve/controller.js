@@ -39,12 +39,12 @@ const handleRequest = request =>
 const getChunkDir = fileHash => path.resolve(UPLOAD_DIR, `chunkDir_${fileHash}`);
 
 /**
- * 返回已上传的所有切片名
+ * 返回已上传的所有切片
  * @param {*} fileHash 文件 hash
- * @returns
+ * @returns 已上传的所有切片
  */
-const getUploadedList = async fileHash =>
-    fse.existsSync(getChunkDir(fileHash)) ? await fse.readdir(getChunkDir(fileHash)) : [];
+const getUploadedList = fileHash =>
+    fse.existsSync(getChunkDir(fileHash)) ? fse.readdirSync(getChunkDir(fileHash)) : [];
 
 /**
  * 写入文件流
@@ -108,7 +108,7 @@ const mergeFileChunk = async (filePath, fileHash, size) => {
             }),
         );
 
-        // 合并后删除切片目录
+        // 合并后删除切片目录，递归删除
         fse.rmSync(chunkDir, { recursive: true });
     } catch (error) {
         console.error('Error during file chunk merging:', error);
@@ -202,7 +202,8 @@ module.exports = class {
         respone.end(
             JSON.stringify({
                 code: 200,
-                message: 'file merged success',
+                message: 'file merge success',
+                fileList: fse.readdirSync(UPLOAD_DIR),
             }),
         );
     }
@@ -225,6 +226,7 @@ module.exports = class {
             respone.end(
                 JSON.stringify({
                     code: 200,
+                    message: 'file not should upload',
                     shouldUpload: false,
                 }),
             );
@@ -232,8 +234,9 @@ module.exports = class {
             respone.end(
                 JSON.stringify({
                     code: 200,
+                    message: 'file should upload',
                     shouldUpload: true,
-                    uploadedList: await getUploadedList(fileHash),
+                    uploadedList: getUploadedList(fileHash),
                 }),
             );
         }

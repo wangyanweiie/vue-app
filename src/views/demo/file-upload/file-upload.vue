@@ -5,15 +5,12 @@
                 <input type="file" class="upload" @change="handleFileChange" />
 
                 <div class="button">
-                    <el-button :disabled="!container.file" @click="handleUpload"> 上传 </el-button>
-                    <el-button type="danger" :disabled="!container.file" @click="handlePause"> 暂停 </el-button>
+                    <el-button type="primary" :disabled="!container.file" @click="handleUpload"> 上传 </el-button>
+                    <el-button :disabled="!container.file" @click="handlePause"> 暂停 </el-button>
                     <el-button type="success" :disabled="!container.file" @click="handleResume"> 恢复 </el-button>
+                    <el-button type="danger" :disabled="!container.file" @click="handleDelete"> 删除 </el-button>
                 </div>
             </div>
-        </el-card>
-
-        <el-card header="文件上传进度" shadow="never" class="component">
-            <el-progress :percentage="fakeUploadPercentage" />
         </el-card>
 
         <!-- <el-card header="切片上传进度" shadow="never" class="component">
@@ -45,6 +42,16 @@
                 </div>
             </div>
         </el-card>
+
+        <el-card header="文件上传进度" shadow="never" class="component">
+            <el-progress type="circle" color="#67C23A" :percentage="fakeUploadPercentage" />
+        </el-card>
+
+        <el-card header="文件列表" shadow="never" class="component">
+            <ul>
+                <li v-for="file in fileList" :key="file">{{ file }}</li>
+            </ul>
+        </el-card>
     </div>
 </template>
 
@@ -68,7 +75,7 @@ interface FileChunk {
 /**
  * 切片大小：1mb
  */
-const CHUNK_SIZE = 10 * 1024 * 1024;
+const CHUNK_SIZE = 50 * 1024 * 1024;
 
 /**
  * 文件
@@ -88,6 +95,11 @@ const fileChunkList = ref<Array<FileChunk>>([]);
  * 切片上传请求列表
  */
 const fileChunkRequestList = ref<Array<XMLHttpRequest>>([]);
+
+/**
+ * 已上传文件列表
+ */
+const fileList = ref<Array<string>>([]);
 
 /**
  * 请求
@@ -162,9 +174,9 @@ function request<T>({
 }
 
 /**
- * 选择文件
+ * 重置数据
  */
-function handleFileChange(e: Event) {
+function handleReset() {
     container.value = {
         file: undefined,
         worker: undefined,
@@ -173,7 +185,15 @@ function handleFileChange(e: Event) {
 
     fileChunkList.value = [];
     fileChunkRequestList.value = [];
+    fileList.value = [];
     fakeUploadPercentage.value = 0;
+}
+
+/**
+ * 选择文件
+ */
+function handleFileChange(e: Event) {
+    handleReset();
 
     const target = e.target as HTMLInputElement;
 
@@ -303,14 +323,15 @@ async function mergeRequest() {
         }),
     });
 
-    const { code } = JSON.parse(data as string);
+    const { code, message, fileList: list } = JSON.parse(data as string);
 
     if (code !== 200) {
-        ElMessage.error('合并失败');
+        ElMessage.error(message);
         return;
     }
 
     ElMessage.success('合并成功');
+    fileList.value = list;
 }
 
 /**
@@ -357,7 +378,7 @@ async function uploadFileChunks(uploadedList: string[] = []) {
     const requestList = needUploadList.map(item => uploadChunkWithLimit(item));
 
     try {
-        // 并发请求
+        // FIXME: 并发请求
         await Promise.all(requestList);
 
         // 合并请求：已经上传的切片数量 + 本次上传的切片数量 = 所有切片数量时合并切片
@@ -382,10 +403,13 @@ async function handleUpload() {
     container.value.hash = (await calculateFileHash(chunkList)) as string;
 
     // 验证文件是否需要上传
-    const { code, shouldUpload, uploadedList } = await verifyUpload(container.value.file?.name, container.value.hash);
+    const { code, message, shouldUpload, uploadedList } = await verifyUpload(
+        container.value.file?.name,
+        container.value.hash,
+    );
 
     if (code !== 200) {
-        ElMessage.error('验证失败');
+        ElMessage.error(message);
         return;
     }
 
@@ -414,6 +438,11 @@ async function handleUpload() {
  * 点击暂停
  */
 function handlePause() {
+    if (fileChunkRequestList.value.length === 0) {
+        ElMessage.warning('没有上传任务');
+        return;
+    }
+
     fileChunkRequestList.value.forEach(xhr => xhr?.abort());
     fileChunkRequestList.value = [];
 }
@@ -423,13 +452,13 @@ function handlePause() {
  */
 async function handleResume() {
     // 验证文件是否需要上传
-    const { code, shouldUpload, uploadedList } = await verifyUpload(
+    const { code, message, shouldUpload, uploadedList } = await verifyUpload(
         container.value.file?.name as string,
         container.value.hash as string,
     );
 
     if (code !== 200) {
-        ElMessage.error('验证失败');
+        ElMessage.error(message);
         return;
     }
 
@@ -441,6 +470,29 @@ async function handleResume() {
 
     // 上传
     await uploadFileChunks(uploadedList);
+}
+
+/**
+ * 点击删除
+ */
+async function handleDelete() {
+    const { data } = await request({
+        url: 'http://localhost:8000/delete',
+        headers: {
+            'content-type': 'application/json',
+        },
+        data: JSON.stringify({}),
+    });
+
+    const { code, message } = JSON.parse(data as string);
+
+    if (code !== 200) {
+        ElMessage.error(message);
+        return;
+    }
+
+    ElMessage.success('删除成功');
+    handleReset();
 }
 
 /**
