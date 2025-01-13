@@ -233,8 +233,12 @@ function generateFileChunks(file: File, size = CHUNK_SIZE) {
 async function calculateFileHash(chunkList: Array<{ file: Blob }>): Promise<string> {
     return new Promise(resolve => {
         // 添加 worker 属性
-        container.value.worker = new Worker('/hash.js');
+        container.value.worker = new Worker('/worker/hash.js');
+
+        // 发送消息给 worker
         container.value.worker.postMessage({ chunkList });
+
+        // 监听 worker 消息
         container.value.worker.onmessage = e => {
             const { hash } = e.data;
 

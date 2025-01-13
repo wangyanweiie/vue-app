@@ -149,10 +149,8 @@ npx openapi-generator-cli generate -c ./openapitools.json --generator-key v2.0
 
 `template/xxx` 自定义模板文件；每个模板文件对应生成代码的不同部分：
 
-- api.mustache：定义 API 方法的接口。
 - apiInner.mustache：实现具体的 API 方法逻辑。
-- model.mustache：定义单个数据模型。
-- models.mustache：处理多个模型的导入和导出。
+- baseApi.mustache：定义 API 方法的接口。
 - index.mustache：生成 API 客户端的入口文件。
 
 *需要根据需求自行修改 `自定义模板文件夹` 中的文件。*

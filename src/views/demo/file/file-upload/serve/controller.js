@@ -94,19 +94,20 @@ const mergeFileChunk = async (filePath, fileHash, size) => {
         // 根据切片下标进行排序，否则直接读取目录的获得的顺序会错乱
         chunks.sort((a, b) => a.split('-')[1] - b.split('-')[1]);
 
-        // FIXME: 并发写入文件
-        await Promise.all(
-            chunks.map((chunk, i) => {
-                const chunkPath = path.join(chunkDir, chunk);
+        // 创建一个 Promise 数组，用于并发写入文件
+        const promiseList = chunks.map((chunk, index) => {
+            const chunkPath = path.join(chunkDir, chunk);
 
-                // 根据 size 在指定位置创建可写流
-                const writeStream = fse.createWriteStream(filePath, {
-                    start: i * size,
-                });
+            // 根据 size 在指定位置创建可写流
+            const writeStream = fse.createWriteStream(filePath, {
+                start: index * size,
+            });
 
-                return pipeStream(chunkPath, writeStream);
-            }),
-        );
+            return pipeStream(chunkPath, writeStream);
+        });
+
+        // 并发写入文件
+        await Promise.all(promiseList);
 
         // 合并后删除切片目录，递归删除
         fse.rmSync(chunkDir, { recursive: true });

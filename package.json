@@ -37,6 +37,7 @@
         "write-permission": "tsc --skipLibCheck ./script/permission/get-permission.ts && node ./script/permission/get-permission.js",
         "write-api": "tsc --skipLibCheck ./script/generate-api/get-api-docs.ts && node ./script/generate-api/get-api-docs.js",
         "generate-api": "cd ./script/generate-api && npx openapi-generator-cli generate -c openapitools.json --generator-key v2.0",
+        "open-api": "cd ./script/open-api && npx openapi-generator-cli generate -c openapitools.json --generator-key v2.0",
         "sort": "eslint --fix --ext .js,.jsx,.ts,.tsx,vue ./src "
     },
     "dependencies": {

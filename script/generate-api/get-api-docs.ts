@@ -6,12 +6,11 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
  */
 function handleApiData(apiData: Record<string, any>) {
     const data = apiData;
-    data.tags = data.tags.map((item: any) => {
+
+    data.tags.forEach((item: any) => {
         if (item.extensions) {
             delete item.extensions;
         }
-
-        return item;
     });
 
     Object.keys(data.paths).forEach(key => {
@@ -38,6 +37,7 @@ async function writeAPI() {
             `,
         );
     }
+
     if (!existsSync('./src/gen-api') && !existsSync('./src/gen-api/.openapi-generator-ignore')) {
         mkdirSync('./src/gen-api');
         writeFileSync(
