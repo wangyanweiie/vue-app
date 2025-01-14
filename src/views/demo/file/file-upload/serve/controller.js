@@ -106,7 +106,7 @@ const mergeFileChunk = async (filePath, fileHash, size) => {
             return pipeStream(chunkPath, writeStream);
         });
 
-        // 并发写入文件
+        // FIXME: 并发写入文件
         await Promise.all(promiseList);
 
         // 合并后删除切片目录，递归删除
