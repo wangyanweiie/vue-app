@@ -61,6 +61,7 @@ specifiers:
   ol: ^9.1.0
   p-limit: ^6.2.0
   pinia: ^2.1.7
+  pinyin-pro: ^3.26.0
   prettier: ^3.2.5
   print-js: ^1.6.0
   qrcode.vue: ^3.4.1
@@ -160,6 +161,7 @@ devDependencies:
   husky: 9.1.5
   jsdom: 24.1.3
   lint-staged: 15.2.9
+  pinyin-pro: 3.26.0
   prettier: 3.3.3
   rollup-plugin-visualizer: 5.12.0
   sass: 1.77.8
@@ -7064,6 +7066,10 @@ packages:
       vue: 3.4.38_typescript@5.4.5
       vue-demi: 0.14.10_vue@3.4.38
     dev: false
+
+  /pinyin-pro/3.26.0:
+    resolution: {integrity: sha512-HcBZZb0pvm0/JkPhZHWA5Hqp2cWHXrrW/WrV+OtaYYM+kf35ffvZppIUuGmyuQ7gDr1JDJKMkbEE+GN0wfMoGg==}
+    dev: true
 
   /pkg-types/1.2.0:
     resolution: {integrity: sha512-+ifYuSSqOQ8CqP4MbZA5hDpb97n3E8SVWdJe+Wms9kj745lmd3b7EZJiqvmLwAlmRfjrI7Hi5z3kdBJ93lFNPA==}
