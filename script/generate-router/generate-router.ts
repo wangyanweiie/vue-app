@@ -133,6 +133,10 @@ function generateRoutes(nodes: MenuTree, parentPath = '', parentName = ''): Rout
             // 递归处理子节点
             route.children = generateRoutes(node.children, fullPath, fullName);
             route.redirect = fullPath;
+        } else {
+            // 文件：删除子节点与重定向
+            delete route.children;
+            delete route.redirect;
         }
 
         return route;

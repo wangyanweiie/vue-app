@@ -46,9 +46,9 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import appLayout from '@/layout/index.vue';\n
 import { FORBIDDEN_ROUTE, HOME_ROUTE, LOGIN_ROUTE, SCREEN_ROUTE } from './base';
 
-const menuRoutes: RouteRecordRaw[] = [HOME_ROUTE.value, ...${JSON.stringify(routes, null, 2)}];
+const menuRoutes = computed<RouteRecordRaw[]>(() => [HOME_ROUTE.value, ...${JSON.stringify(routes, null, 2)}]);
 
-const routes: RouteRecordRaw[] = [
+const routes = computed<RouteRecordRaw[]>(() => [
     {
         path: '/',
         name: '/',
@@ -58,16 +58,16 @@ const routes: RouteRecordRaw[] = [
             icon: 'HomeFilled',
             title: 'index',
         },
-        children: menuRoutes,
+        children: menuRoutes.value,
     },\n
     LOGIN_ROUTE,
     FORBIDDEN_ROUTE,
     SCREEN_ROUTE,
-];
+]);
 
 const router = createRouter({
     history: createWebHistory(),
-    routes: routes,
+    routes: routes.value,
 });
 
 export default router;

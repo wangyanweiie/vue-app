@@ -138,6 +138,11 @@ function generateRoutes(nodes, parentPath, parentName) {
             route.children = generateRoutes(node.children, fullPath, fullName);
             route.redirect = fullPath;
         }
+        else {
+            // 文件：删除子节点与重定向
+            delete route.children;
+            delete route.redirect;
+        }
         return route;
     });
     var filteredRoutes = routes.filter(function (item) { var _a; return ((_a = item === null || item === void 0 ? void 0 : item.meta) === null || _a === void 0 ? void 0 : _a.title) !== base_1.HOME_NAME; });
@@ -202,6 +207,8 @@ function getRouter() {
                     routes = generateRoutes(objs);
                     content = (0, base_1.handleRouteFileContent)(routes);
                     (0, fs_1.writeFileSync)('./src/router/router.ts', content);
+                    // * 4.根据路由列表，生成页面所在的文件夹与文件
+                    generateFiles(routes);
                     return [2 /*return*/];
             }
         });

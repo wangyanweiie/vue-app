@@ -39,7 +39,7 @@
         "generate-api": "cd ./script/generate-api && npx openapi-generator-cli generate -c openapitools.json --generator-key v2.0",
         "open-api": "cd ./script/open-api && npx openapi-generator-cli generate -c openapitools.json --generator-key v2.0",
         "sort": "eslint --fix --ext .js,.jsx,.ts,.tsx,vue ./src ",
-        "generate-router": "tsc --skipLibCheck ./script/generate-router/generate-router.ts && node ./script/generate-router/generate-router.js"
+        "generate-router": "tsc --skipLibCheck ./script/generate-router/generate-router.ts --outDir ./script/generate-router/js && node ./script/generate-router/js/generate-router.js"
     },
     "dependencies": {
         "@element-plus/icons-vue": "^2.3.1",

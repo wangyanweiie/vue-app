@@ -4,7 +4,7 @@ import appLayout from '@/layout/index.vue';
 
 import { FORBIDDEN_ROUTE, HOME_ROUTE, LOGIN_ROUTE, SCREEN_ROUTE } from './base';
 
-const menuRoutes: RouteRecordRaw[] = [
+const menuRoutes = computed<RouteRecordRaw[]>(() => [
     HOME_ROUTE.value,
     ...[
         {
@@ -28,83 +28,69 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/basic-data/basic-info/material-list',
                             name: 'basic-data/basic-info/material-list',
-                            redirect: '',
                             component: () => import('@/pages/basic-data/basic-info/material-list/material-list.vue'),
                             meta: {
                                 title: '物料列表',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/basic-data/basic-info/factory-requirements',
                             name: 'basic-data/basic-info/factory-requirements',
-                            redirect: '',
                             component: () =>
                                 import('@/pages/basic-data/basic-info/factory-requirements/factory-requirements.vue'),
                             meta: {
                                 title: '厂内要求',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/basic-data/basic-info/customer-list',
                             name: 'basic-data/basic-info/customer-list',
-                            redirect: '',
                             component: () => import('@/pages/basic-data/basic-info/customer-list/customer-list.vue'),
                             meta: {
                                 title: '客户列表',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/basic-data/basic-info/customer-requirements',
                             name: 'basic-data/basic-info/customer-requirements',
-                            redirect: '',
                             component: () =>
                                 import('@/pages/basic-data/basic-info/customer-requirements/customer-requirements.vue'),
                             meta: {
                                 title: '客户要求',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/basic-data/basic-info/supplier-list',
                             name: 'basic-data/basic-info/supplier-list',
-                            redirect: '',
                             component: () => import('@/pages/basic-data/basic-info/supplier-list/supplier-list.vue'),
                             meta: {
                                 title: '供应商列表',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/basic-data/basic-info/unit-of-measurement',
                             name: 'basic-data/basic-info/unit-of-measurement',
-                            redirect: '',
                             component: () =>
                                 import('@/pages/basic-data/basic-info/unit-of-measurement/unit-of-measurement.vue'),
                             meta: {
                                 title: '计量单位',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/basic-data/basic-info/data-dictionary',
                             name: 'basic-data/basic-info/data-dictionary',
-                            redirect: '',
                             component: () =>
                                 import('@/pages/basic-data/basic-info/data-dictionary/data-dictionary.vue'),
                             meta: {
                                 title: '数据字典',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -120,64 +106,53 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/basic-data/production-materials/factory',
                             name: 'basic-data/production-materials/factory',
-                            redirect: '',
                             component: () => import('@/pages/basic-data/production-materials/factory/factory.vue'),
                             meta: {
                                 title: '工厂',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/basic-data/production-materials/workshop',
                             name: 'basic-data/production-materials/workshop',
-                            redirect: '',
                             component: () => import('@/pages/basic-data/production-materials/workshop/workshop.vue'),
                             meta: {
                                 title: '车间',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/basic-data/production-materials/storage-tank',
                             name: 'basic-data/production-materials/storage-tank',
-                            redirect: '',
                             component: () =>
                                 import('@/pages/basic-data/production-materials/storage-tank/storage-tank.vue'),
                             meta: {
                                 title: '储罐',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/basic-data/production-materials/team',
                             name: 'basic-data/production-materials/team',
-                            redirect: '',
                             component: () => import('@/pages/basic-data/production-materials/team/team.vue'),
                             meta: {
                                 title: '班组',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/basic-data/production-materials/production-line',
                             name: 'basic-data/production-materials/production-line',
-                            redirect: '',
                             component: () =>
                                 import('@/pages/basic-data/production-materials/production-line/production-line.vue'),
                             meta: {
                                 title: '生产线',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/basic-data/production-materials/collection-project',
                             name: 'basic-data/production-materials/collection-project',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/basic-data/production-materials/collection-project/collection-project.vue'
@@ -186,19 +161,16 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '采集项目',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/basic-data/production-materials/collection-plan',
                             name: 'basic-data/production-materials/collection-plan',
-                            redirect: '',
                             component: () =>
                                 import('@/pages/basic-data/production-materials/collection-plan/collection-plan.vue'),
                             meta: {
                                 title: '采集方案',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -223,7 +195,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 {
                                     path: '/basic-data/quality-data/inspection-plan/inspection-items',
                                     name: 'basic-data/quality-data/inspection-plan/inspection-items',
-                                    redirect: '',
                                     component: () =>
                                         import(
                                             '@/pages/basic-data/quality-data/inspection-plan/inspection-items/inspection-items.vue'
@@ -232,12 +203,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                         title: '检验项目',
                                         icon: 'Tickets',
                                     },
-                                    children: [],
                                 },
                                 {
                                     path: '/basic-data/quality-data/inspection-plan/factory-inspection-plan',
                                     name: 'basic-data/quality-data/inspection-plan/factory-inspection-plan',
-                                    redirect: '',
                                     component: () =>
                                         import(
                                             '@/pages/basic-data/quality-data/inspection-plan/factory-inspection-plan/factory-inspection-plan.vue'
@@ -246,12 +215,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                         title: '厂内检验方案',
                                         icon: 'Tickets',
                                     },
-                                    children: [],
                                 },
                                 {
                                     path: '/basic-data/quality-data/inspection-plan/customer-inspection-plan',
                                     name: 'basic-data/quality-data/inspection-plan/customer-inspection-plan',
-                                    redirect: '',
                                     component: () =>
                                         import(
                                             '@/pages/basic-data/quality-data/inspection-plan/customer-inspection-plan/customer-inspection-plan.vue'
@@ -260,7 +227,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                         title: '客户检验方案',
                                         icon: 'Tickets',
                                     },
-                                    children: [],
                                 },
                             ],
                         },
@@ -276,7 +242,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 {
                                     path: '/basic-data/quality-data/spc-judgment/discrimination-rule-setting',
                                     name: 'basic-data/quality-data/spc-judgment/discrimination-rule-setting',
-                                    redirect: '',
                                     component: () =>
                                         import(
                                             '@/pages/basic-data/quality-data/spc-judgment/discrimination-rule-setting/discrimination-rule-setting.vue'
@@ -285,7 +250,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                         title: '判异规则设置',
                                         icon: 'Tickets',
                                     },
-                                    children: [],
                                 },
                             ],
                         },
@@ -303,19 +267,16 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/basic-data/warehouse-information/warehouse-list',
                             name: 'basic-data/warehouse-information/warehouse-list',
-                            redirect: '',
                             component: () =>
                                 import('@/pages/basic-data/warehouse-information/warehouse-list/warehouse-list.vue'),
                             meta: {
                                 title: '仓库列表',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/basic-data/warehouse-information/inventory-warning',
                             name: 'basic-data/warehouse-information/inventory-warning',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/basic-data/warehouse-information/inventory-warning/inventory-warning.vue'
@@ -324,19 +285,16 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '库存预警',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/basic-data/warehouse-information/logistics-list',
                             name: 'basic-data/warehouse-information/logistics-list',
-                            redirect: '',
                             component: () =>
                                 import('@/pages/basic-data/warehouse-information/logistics-list/logistics-list.vue'),
                             meta: {
                                 title: '物流列表',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -354,30 +312,25 @@ const menuRoutes: RouteRecordRaw[] = [
                 {
                     path: '/plan-management/sales-order',
                     name: 'plan-management/sales-order',
-                    redirect: '',
                     component: () => import('@/pages/plan-management/sales-order/sales-order.vue'),
                     meta: {
                         title: '销售订单',
                         icon: 'Tickets',
                     },
-                    children: [],
                 },
                 {
                     path: '/plan-management/raw-material-arrival-order',
                     name: 'plan-management/raw-material-arrival-order',
-                    redirect: '',
                     component: () =>
                         import('@/pages/plan-management/raw-material-arrival-order/raw-material-arrival-order.vue'),
                     meta: {
                         title: '原料到货单',
                         icon: 'Tickets',
                     },
-                    children: [],
                 },
                 {
                     path: '/plan-management/production-line-operation-order',
                     name: 'plan-management/production-line-operation-order',
-                    redirect: '',
                     component: () =>
                         import(
                             '@/pages/plan-management/production-line-operation-order/production-line-operation-order.vue'
@@ -386,40 +339,33 @@ const menuRoutes: RouteRecordRaw[] = [
                         title: '产线运行单',
                         icon: 'Tickets',
                     },
-                    children: [],
                 },
                 {
                     path: '/plan-management/production-plan-order',
                     name: 'plan-management/production-plan-order',
-                    redirect: '',
                     component: () => import('@/pages/plan-management/production-plan-order/production-plan-order.vue'),
                     meta: {
                         title: '生产计划单',
                         icon: 'Tickets',
                     },
-                    children: [],
                 },
                 {
                     path: '/plan-management/filling-plan-order',
                     name: 'plan-management/filling-plan-order',
-                    redirect: '',
                     component: () => import('@/pages/plan-management/filling-plan-order/filling-plan-order.vue'),
                     meta: {
                         title: '充装计划单',
                         icon: 'Tickets',
                     },
-                    children: [],
                 },
                 {
                     path: '/plan-management/delivery-notice',
                     name: 'plan-management/delivery-notice',
-                    redirect: '',
                     component: () => import('@/pages/plan-management/delivery-notice/delivery-notice.vue'),
                     meta: {
                         title: '发货通知单',
                         icon: 'Tickets',
                     },
-                    children: [],
                 },
             ],
         },
@@ -444,7 +390,6 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/production-management/operation-record/production-registration-record',
                             name: 'production-management/operation-record/production-registration-record',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/production-management/operation-record/production-registration-record/production-registration-record.vue'
@@ -453,12 +398,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '生产登记记录',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/production-management/operation-record/filling-registration-record',
                             name: 'production-management/operation-record/filling-registration-record',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/production-management/operation-record/filling-registration-record/filling-registration-record.vue'
@@ -467,12 +410,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '充装登记记录',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/production-management/operation-record/material-recycling-record',
                             name: 'production-management/operation-record/material-recycling-record',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/production-management/operation-record/material-recycling-record/material-recycling-record.vue'
@@ -481,7 +422,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '物料回收记录',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -497,7 +437,6 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/production-management/production-report/daily-production-report',
                             name: 'production-management/production-report/daily-production-report',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/production-management/production-report/daily-production-report/daily-production-report.vue'
@@ -506,7 +445,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '日生产报表',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -533,7 +471,6 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/container-management/container-archives/container-archives',
                             name: 'container-management/container-archives/container-archives',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/container-management/container-archives/container-archives/container-archives.vue'
@@ -542,7 +479,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '容器档案',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -558,7 +494,6 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/container-management/container-processing-records/container-processing-records',
                             name: 'container-management/container-processing-records/container-processing-records',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/container-management/container-processing-records/container-processing-records/container-processing-records.vue'
@@ -567,7 +502,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '容器处理记录',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -583,7 +517,6 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/container-management/statistics-on-bottles-outside-the-factory/statistics-on-bottles-outside-the-factory',
                             name: 'container-management/statistics-on-bottles-outside-the-factory/statistics-on-bottles-outside-the-factory',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/container-management/statistics-on-bottles-outside-the-factory/statistics-on-bottles-outside-the-factory/statistics-on-bottles-outside-the-factory.vue'
@@ -592,7 +525,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '厂外存瓶统计',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -608,7 +540,6 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/container-management/container-circulation-history/container-circulation-history',
                             name: 'container-management/container-circulation-history/container-circulation-history',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/container-management/container-circulation-history/container-circulation-history/container-circulation-history.vue'
@@ -617,7 +548,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '容器流转履历',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -653,7 +583,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 {
                                     path: '/quality-management/analysis-equipment-management/equipment-archives/analysis-equipment-ledger',
                                     name: 'quality-management/analysis-equipment-management/equipment-archives/analysis-equipment-ledger',
-                                    redirect: '',
                                     component: () =>
                                         import(
                                             '@/pages/quality-management/analysis-equipment-management/equipment-archives/analysis-equipment-ledger/analysis-equipment-ledger.vue'
@@ -662,7 +591,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                         title: '分析设备台账',
                                         icon: 'Tickets',
                                     },
-                                    children: [],
                                 },
                             ],
                         },
@@ -678,7 +606,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 {
                                     path: '/quality-management/analysis-equipment-management/equipment-maintenance/maintenance-schema',
                                     name: 'quality-management/analysis-equipment-management/equipment-maintenance/maintenance-schema',
-                                    redirect: '',
                                     component: () =>
                                         import(
                                             '@/pages/quality-management/analysis-equipment-management/equipment-maintenance/maintenance-schema/maintenance-schema.vue'
@@ -687,12 +614,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                         title: '保养方案',
                                         icon: 'Tickets',
                                     },
-                                    children: [],
                                 },
                                 {
                                     path: '/quality-management/analysis-equipment-management/equipment-maintenance/maintenance-plan',
                                     name: 'quality-management/analysis-equipment-management/equipment-maintenance/maintenance-plan',
-                                    redirect: '',
                                     component: () =>
                                         import(
                                             '@/pages/quality-management/analysis-equipment-management/equipment-maintenance/maintenance-plan/maintenance-plan.vue'
@@ -701,12 +626,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                         title: '保养计划',
                                         icon: 'Tickets',
                                     },
-                                    children: [],
                                 },
                                 {
                                     path: '/quality-management/analysis-equipment-management/equipment-maintenance/maintenance-record',
                                     name: 'quality-management/analysis-equipment-management/equipment-maintenance/maintenance-record',
-                                    redirect: '',
                                     component: () =>
                                         import(
                                             '@/pages/quality-management/analysis-equipment-management/equipment-maintenance/maintenance-record/maintenance-record.vue'
@@ -715,7 +638,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                         title: '保养记录',
                                         icon: 'Tickets',
                                     },
-                                    children: [],
                                 },
                             ],
                         },
@@ -731,7 +653,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 {
                                     path: '/quality-management/analysis-equipment-management/equipment-on-site-inspection/inspection-plan',
                                     name: 'quality-management/analysis-equipment-management/equipment-on-site-inspection/inspection-plan',
-                                    redirect: '',
                                     component: () =>
                                         import(
                                             '@/pages/quality-management/analysis-equipment-management/equipment-on-site-inspection/inspection-plan/inspection-plan.vue'
@@ -740,12 +661,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                         title: '巡检方案',
                                         icon: 'Tickets',
                                     },
-                                    children: [],
                                 },
                                 {
                                     path: '/quality-management/analysis-equipment-management/equipment-on-site-inspection/inspection-plan',
                                     name: 'quality-management/analysis-equipment-management/equipment-on-site-inspection/inspection-plan',
-                                    redirect: '',
                                     component: () =>
                                         import(
                                             '@/pages/quality-management/analysis-equipment-management/equipment-on-site-inspection/inspection-plan/inspection-plan.vue'
@@ -754,12 +673,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                         title: '巡检计划',
                                         icon: 'Tickets',
                                     },
-                                    children: [],
                                 },
                                 {
                                     path: '/quality-management/analysis-equipment-management/equipment-on-site-inspection/inspection-record',
                                     name: 'quality-management/analysis-equipment-management/equipment-on-site-inspection/inspection-record',
-                                    redirect: '',
                                     component: () =>
                                         import(
                                             '@/pages/quality-management/analysis-equipment-management/equipment-on-site-inspection/inspection-record/inspection-record.vue'
@@ -768,7 +685,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                         title: '巡检记录',
                                         icon: 'Tickets',
                                     },
-                                    children: [],
                                 },
                             ],
                         },
@@ -785,7 +701,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 {
                                     path: '/quality-management/analysis-equipment-management/equipment-periodical-inspection/equipment-periodical-inspection',
                                     name: 'quality-management/analysis-equipment-management/equipment-periodical-inspection/equipment-periodical-inspection',
-                                    redirect: '',
                                     component: () =>
                                         import(
                                             '@/pages/quality-management/analysis-equipment-management/equipment-periodical-inspection/equipment-periodical-inspection/equipment-periodical-inspection.vue'
@@ -794,7 +709,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                         title: '设备定检',
                                         icon: 'Tickets',
                                     },
-                                    children: [],
                                 },
                             ],
                         },
@@ -810,7 +724,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 {
                                     path: '/quality-management/analysis-equipment-management/equipment-verification/equipment-verification',
                                     name: 'quality-management/analysis-equipment-management/equipment-verification/equipment-verification',
-                                    redirect: '',
                                     component: () =>
                                         import(
                                             '@/pages/quality-management/analysis-equipment-management/equipment-verification/equipment-verification/equipment-verification.vue'
@@ -819,7 +732,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                         title: '设备校验',
                                         icon: 'Tickets',
                                     },
-                                    children: [],
                                 },
                             ],
                         },
@@ -835,7 +747,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 {
                                     path: '/quality-management/analysis-equipment-management/equipment-repair/equipment-repair',
                                     name: 'quality-management/analysis-equipment-management/equipment-repair/equipment-repair',
-                                    redirect: '',
                                     component: () =>
                                         import(
                                             '@/pages/quality-management/analysis-equipment-management/equipment-repair/equipment-repair/equipment-repair.vue'
@@ -844,7 +755,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                         title: '设备检修',
                                         icon: 'Tickets',
                                     },
-                                    children: [],
                                 },
                             ],
                         },
@@ -862,7 +772,6 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/quality-management/quality-inspection/quality-inspection',
                             name: 'quality-management/quality-inspection/quality-inspection',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/quality-management/quality-inspection/quality-inspection/quality-inspection.vue'
@@ -871,7 +780,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '质量检验',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -887,7 +795,6 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/quality-management/quality-report/quality-report-configuration',
                             name: 'quality-management/quality-report/quality-report-configuration',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/quality-management/quality-report/quality-report-configuration/quality-report-configuration.vue'
@@ -896,7 +803,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '质量报告配置',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -912,14 +818,12 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/quality-management/spc-control/metered-spc',
                             name: 'quality-management/spc-control/metered-spc',
-                            redirect: '',
                             component: () =>
                                 import('@/pages/quality-management/spc-control/metered-spc/metered-spc.vue'),
                             meta: {
                                 title: '计量型SPC',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -946,7 +850,6 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/warehouse-management/wms-warehouse/empty-bottle-warehouse-inventory',
                             name: 'warehouse-management/wms-warehouse/empty-bottle-warehouse-inventory',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/warehouse-management/wms-warehouse/empty-bottle-warehouse-inventory/empty-bottle-warehouse-inventory.vue'
@@ -955,12 +858,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '空瓶仓库存',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/warehouse-management/wms-warehouse/raw-material-warehouse-inventory',
                             name: 'warehouse-management/wms-warehouse/raw-material-warehouse-inventory',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/warehouse-management/wms-warehouse/raw-material-warehouse-inventory/raw-material-warehouse-inventory.vue'
@@ -969,12 +870,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '原料仓库存',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/warehouse-management/wms-warehouse/finished-product-inventory',
                             name: 'warehouse-management/wms-warehouse/finished-product-inventory',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/warehouse-management/wms-warehouse/finished-product-inventory/finished-product-inventory.vue'
@@ -983,12 +882,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '成品库存',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/warehouse-management/wms-warehouse/storage-tank-inventory',
                             name: 'warehouse-management/wms-warehouse/storage-tank-inventory',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/warehouse-management/wms-warehouse/storage-tank-inventory/storage-tank-inventory.vue'
@@ -997,7 +894,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '储罐库存',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -1013,7 +909,6 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/warehouse-management/entry-and-exit-record/factory-inspection',
                             name: 'warehouse-management/entry-and-exit-record/factory-inspection',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/warehouse-management/entry-and-exit-record/factory-inspection/factory-inspection.vue'
@@ -1022,12 +917,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '入厂检验',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/warehouse-management/entry-and-exit-record/raw-material-inventory',
                             name: 'warehouse-management/entry-and-exit-record/raw-material-inventory',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/warehouse-management/entry-and-exit-record/raw-material-inventory/raw-material-inventory.vue'
@@ -1036,12 +929,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '原料入库',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/warehouse-management/entry-and-exit-record/finished-product-inventory',
                             name: 'warehouse-management/entry-and-exit-record/finished-product-inventory',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/warehouse-management/entry-and-exit-record/finished-product-inventory/finished-product-inventory.vue'
@@ -1050,12 +941,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '成品入库',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/warehouse-management/entry-and-exit-record/empty-bottle-export',
                             name: 'warehouse-management/entry-and-exit-record/empty-bottle-export',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/warehouse-management/entry-and-exit-record/empty-bottle-export/empty-bottle-export.vue'
@@ -1064,12 +953,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '空瓶出厂',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/warehouse-management/entry-and-exit-record/raw-materials-out-of-factory',
                             name: 'warehouse-management/entry-and-exit-record/raw-materials-out-of-factory',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/warehouse-management/entry-and-exit-record/raw-materials-out-of-factory/raw-materials-out-of-factory.vue'
@@ -1078,7 +965,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '原料出厂',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/warehouse-management/entry-and-exit-record/sales-out-of-factory',
@@ -1092,7 +978,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 {
                                     path: '/warehouse-management/entry-and-exit-record/sales-out-of-factory/out-of-warehouse-inspection',
                                     name: 'warehouse-management/entry-and-exit-record/sales-out-of-factory/out-of-warehouse-inspection',
-                                    redirect: '',
                                     component: () =>
                                         import(
                                             '@/pages/warehouse-management/entry-and-exit-record/sales-out-of-factory/out-of-warehouse-inspection/out-of-warehouse-inspection.vue'
@@ -1101,12 +986,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                         title: '出库检验',
                                         icon: 'Tickets',
                                     },
-                                    children: [],
                                 },
                                 {
                                     path: '/warehouse-management/entry-and-exit-record/sales-out-of-factory/oqc',
                                     name: 'warehouse-management/entry-and-exit-record/sales-out-of-factory/oqc',
-                                    redirect: '',
                                     component: () =>
                                         import(
                                             '@/pages/warehouse-management/entry-and-exit-record/sales-out-of-factory/oqc/oqc.vue'
@@ -1115,12 +998,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                         title: 'OQC',
                                         icon: 'Tickets',
                                     },
-                                    children: [],
                                 },
                                 {
                                     path: '/warehouse-management/entry-and-exit-record/sales-out-of-factory/shipment-out-of-factory',
                                     name: 'warehouse-management/entry-and-exit-record/sales-out-of-factory/shipment-out-of-factory',
-                                    redirect: '',
                                     component: () =>
                                         import(
                                             '@/pages/warehouse-management/entry-and-exit-record/sales-out-of-factory/shipment-out-of-factory/shipment-out-of-factory.vue'
@@ -1129,12 +1010,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                         title: '发货出厂',
                                         icon: 'Tickets',
                                     },
-                                    children: [],
                                 },
                                 {
                                     path: '/warehouse-management/entry-and-exit-record/sales-out-of-factory/customer-reception',
                                     name: 'warehouse-management/entry-and-exit-record/sales-out-of-factory/customer-reception',
-                                    redirect: '',
                                     component: () =>
                                         import(
                                             '@/pages/warehouse-management/entry-and-exit-record/sales-out-of-factory/customer-reception/customer-reception.vue'
@@ -1143,7 +1022,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                         title: '客户接收',
                                         icon: 'Tickets',
                                     },
-                                    children: [],
                                 },
                             ],
                         },
@@ -1172,7 +1050,6 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/equipment-management/equipment-archives/production-equipment-ledger',
                             name: 'equipment-management/equipment-archives/production-equipment-ledger',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/equipment-management/equipment-archives/production-equipment-ledger/production-equipment-ledger.vue'
@@ -1181,7 +1058,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '生产设备台账',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -1197,7 +1073,6 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/equipment-management/equipment-on-site-inspection/inspection-plan',
                             name: 'equipment-management/equipment-on-site-inspection/inspection-plan',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/equipment-management/equipment-on-site-inspection/inspection-plan/inspection-plan.vue'
@@ -1206,12 +1081,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '巡检方案',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/equipment-management/equipment-on-site-inspection/inspection-plan',
                             name: 'equipment-management/equipment-on-site-inspection/inspection-plan',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/equipment-management/equipment-on-site-inspection/inspection-plan/inspection-plan.vue'
@@ -1220,12 +1093,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '巡检计划',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/equipment-management/equipment-on-site-inspection/inspection-record',
                             name: 'equipment-management/equipment-on-site-inspection/inspection-record',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/equipment-management/equipment-on-site-inspection/inspection-record/inspection-record.vue'
@@ -1234,7 +1105,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '巡检记录',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -1250,7 +1120,6 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/equipment-management/equipment-maintenance/maintenance-schema',
                             name: 'equipment-management/equipment-maintenance/maintenance-schema',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/equipment-management/equipment-maintenance/maintenance-schema/maintenance-schema.vue'
@@ -1259,12 +1128,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '保养方案',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/equipment-management/equipment-maintenance/maintenance-plan',
                             name: 'equipment-management/equipment-maintenance/maintenance-plan',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/equipment-management/equipment-maintenance/maintenance-plan/maintenance-plan.vue'
@@ -1273,12 +1140,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '保养计划',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/equipment-management/equipment-maintenance/maintenance-record',
                             name: 'equipment-management/equipment-maintenance/maintenance-record',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/equipment-management/equipment-maintenance/maintenance-record/maintenance-record.vue'
@@ -1287,7 +1152,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '保养记录',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -1303,7 +1167,6 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/equipment-management/equipment-periodical-inspection/equipment-periodical-inspection',
                             name: 'equipment-management/equipment-periodical-inspection/equipment-periodical-inspection',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/equipment-management/equipment-periodical-inspection/equipment-periodical-inspection/equipment-periodical-inspection.vue'
@@ -1312,7 +1175,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '设备定检',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -1328,7 +1190,6 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/equipment-management/equipment-verification/equipment-verification',
                             name: 'equipment-management/equipment-verification/equipment-verification',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/equipment-management/equipment-verification/equipment-verification/equipment-verification.vue'
@@ -1337,7 +1198,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '设备校验',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -1353,7 +1213,6 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/equipment-management/equipment-repair/equipment-repair',
                             name: 'equipment-management/equipment-repair/equipment-repair',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/equipment-management/equipment-repair/equipment-repair/equipment-repair.vue'
@@ -1362,7 +1221,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '设备检修',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -1380,7 +1238,6 @@ const menuRoutes: RouteRecordRaw[] = [
                 {
                     path: '/abnormal-management/production-process-abnormal-handling-order',
                     name: 'abnormal-management/production-process-abnormal-handling-order',
-                    redirect: '',
                     component: () =>
                         import(
                             '@/pages/abnormal-management/production-process-abnormal-handling-order/production-process-abnormal-handling-order.vue'
@@ -1389,24 +1246,20 @@ const menuRoutes: RouteRecordRaw[] = [
                         title: '生产过程异常处置单',
                         icon: 'Tickets',
                     },
-                    children: [],
                 },
                 {
                     path: '/abnormal-management/return-handling-order',
                     name: 'abnormal-management/return-handling-order',
-                    redirect: '',
                     component: () =>
                         import('@/pages/abnormal-management/return-handling-order/return-handling-order.vue'),
                     meta: {
                         title: '退货处置单',
                         icon: 'Tickets',
                     },
-                    children: [],
                 },
                 {
                     path: '/abnormal-management/finished-product-abnormal-handling-order',
                     name: 'abnormal-management/finished-product-abnormal-handling-order',
-                    redirect: '',
                     component: () =>
                         import(
                             '@/pages/abnormal-management/finished-product-abnormal-handling-order/finished-product-abnormal-handling-order.vue'
@@ -1415,12 +1268,10 @@ const menuRoutes: RouteRecordRaw[] = [
                         title: '成品异常处置单',
                         icon: 'Tickets',
                     },
-                    children: [],
                 },
                 {
                     path: '/abnormal-management/online-analysis-abnormal-handling-single',
                     name: 'abnormal-management/online-analysis-abnormal-handling-single',
-                    redirect: '',
                     component: () =>
                         import(
                             '@/pages/abnormal-management/online-analysis-abnormal-handling-single/online-analysis-abnormal-handling-single.vue'
@@ -1429,12 +1280,10 @@ const menuRoutes: RouteRecordRaw[] = [
                         title: '在线分析异常处置单',
                         icon: 'Tickets',
                     },
-                    children: [],
                 },
                 {
                     path: '/abnormal-management/disposal-of-unqualified-areas',
                     name: 'abnormal-management/disposal-of-unqualified-areas',
-                    redirect: '',
                     component: () =>
                         import(
                             '@/pages/abnormal-management/disposal-of-unqualified-areas/disposal-of-unqualified-areas.vue'
@@ -1443,7 +1292,6 @@ const menuRoutes: RouteRecordRaw[] = [
                         title: '不合格区处置',
                         icon: 'Tickets',
                     },
-                    children: [],
                 },
             ],
         },
@@ -1468,7 +1316,6 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/system-management/system-permissions/organization-management',
                             name: 'system-management/system-permissions/organization-management',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/system-management/system-permissions/organization-management/organization-management.vue'
@@ -1477,12 +1324,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '组织管理',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/system-management/system-permissions/department-management',
                             name: 'system-management/system-permissions/department-management',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/system-management/system-permissions/department-management/department-management.vue'
@@ -1491,12 +1336,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '部门管理',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/system-management/system-permissions/role-management',
                             name: 'system-management/system-permissions/role-management',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/system-management/system-permissions/role-management/role-management.vue'
@@ -1505,12 +1348,10 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '角色管理',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/system-management/system-permissions/user-management',
                             name: 'system-management/system-permissions/user-management',
-                            redirect: '',
                             component: () =>
                                 import(
                                     '@/pages/system-management/system-permissions/user-management/user-management.vue'
@@ -1519,7 +1360,6 @@ const menuRoutes: RouteRecordRaw[] = [
                                 title: '用户管理',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
@@ -1535,34 +1375,30 @@ const menuRoutes: RouteRecordRaw[] = [
                         {
                             path: '/system-management/log-management/login-log',
                             name: 'system-management/log-management/login-log',
-                            redirect: '',
                             component: () => import('@/pages/system-management/log-management/login-log/login-log.vue'),
                             meta: {
                                 title: '登录日志',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                         {
                             path: '/system-management/log-management/operation-log',
                             name: 'system-management/log-management/operation-log',
-                            redirect: '',
                             component: () =>
                                 import('@/pages/system-management/log-management/operation-log/operation-log.vue'),
                             meta: {
                                 title: '操作日志',
                                 icon: 'Tickets',
                             },
-                            children: [],
                         },
                     ],
                 },
             ],
         },
     ],
-];
+]);
 
-const routes: RouteRecordRaw[] = [
+const routes = computed<RouteRecordRaw[]>(() => [
     {
         path: '/',
         name: '/',
@@ -1572,17 +1408,17 @@ const routes: RouteRecordRaw[] = [
             icon: 'HomeFilled',
             title: 'index',
         },
-        children: menuRoutes,
+        children: menuRoutes.value,
     },
 
     LOGIN_ROUTE,
     FORBIDDEN_ROUTE,
     SCREEN_ROUTE,
-];
+]);
 
 const router = createRouter({
     history: createWebHistory(),
-    routes: routes,
+    routes: routes.value,
 });
 
 export default router;
