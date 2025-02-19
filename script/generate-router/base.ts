@@ -1,12 +1,11 @@
 import { RouteRecordRaw } from 'vue-router';
 
 /**
- * 页面类型枚举
+ * 蓝湖项目地址
+ * 中科瑞景
  */
-export enum PageTypeEnum {
-    文件夹 = 'Folder',
-    文件 = 'Wireframe',
-}
+export const AXURE_PROJECT_URL =
+    'https://axure-file.lanhuapp.com/md588e80976-0395-4254-9f66-ee823a75b126__de973a4aa4f24bc781c757312aae8dfa.json';
 
 /**
  * 首页名称常量
@@ -22,6 +21,14 @@ export const BASE_PATH = 'src/pages';
  * pathMap.json 文件路径
  */
 export const PATH_MAP_FILE_PATH = './script/generate-router/pathMap.json';
+
+/**
+ * 页面类型枚举
+ */
+export enum PageTypeEnum {
+    文件夹 = 'Folder',
+    文件 = 'Wireframe',
+}
 
 /**
  * 初始化页面模板

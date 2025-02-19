@@ -128,23 +128,27 @@ function generateRoutes(nodes, parentPath, parentName) {
         route.path = fullPath;
         route.name = fullName;
         /**
-         * TODO: 箭头函数转为 JSON 会被忽略，需要使用字符串代替才能写入文件，后续怎么还原成箭头函数？
-         * 目前解决方法：文件生成后，手动替换
+         * TODO: 设置组件路径有问题：
+         * 1.箭头函数转为 JSON 会被忽略，需要转为字符串才能写入文件
+         * 2.如何还原为箭头函数？
+         *
+         * 当前解决方法：路由文件内容生成后，手动将字符串还原为箭头函数（全局替换）
          */
-        route.component =
-            node.type === base_1.PageTypeEnum.文件 ? "() => import('@/pages".concat(fullPath, "/").concat(translatedText, ".vue')") : undefined;
         if (node.children && node.type === base_1.PageTypeEnum.文件夹) {
+            delete route.component; // 删除组件
+            route.redirect = fullPath; // 设置重定向
             // 递归处理子节点
             route.children = generateRoutes(node.children, fullPath, fullName);
-            route.redirect = fullPath;
         }
         else {
-            // 文件：删除子节点与重定向
-            delete route.children;
-            delete route.redirect;
+            delete route.redirect; // 删除重定向
+            delete route.children; // 删除子节点
+            // 设置组件
+            route.component = "() => import('@/pages".concat(fullPath, "/").concat(translatedText, ".vue')");
         }
         return route;
     });
+    // 过滤首页
     var filteredRoutes = routes.filter(function (item) { var _a; return ((_a = item === null || item === void 0 ? void 0 : item.meta) === null || _a === void 0 ? void 0 : _a.title) !== base_1.HOME_NAME; });
     return filteredRoutes;
 }
@@ -192,9 +196,7 @@ function getRouter() {
         var _a, _b, _c, _d;
         return __generator(this, function (_e) {
             switch (_e.label) {
-                case 0: return [4 /*yield*/, axios_1.default.get(
-                    // 中科瑞景
-                    'https://axure-file.lanhuapp.com/md588e80976-0395-4254-9f66-ee823a75b126__de973a4aa4f24bc781c757312aae8dfa.json')];
+                case 0: return [4 /*yield*/, axios_1.default.get(base_1.AXURE_PROJECT_URL)];
                 case 1:
                     res = _e.sent();
                     if (!res) {

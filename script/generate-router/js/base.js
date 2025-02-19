@@ -1,14 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handleRouteFileContent = exports.handleInitPageTemplate = exports.PATH_MAP_FILE_PATH = exports.BASE_PATH = exports.HOME_NAME = exports.PageTypeEnum = void 0;
+exports.handleRouteFileContent = exports.handleInitPageTemplate = exports.PageTypeEnum = exports.PATH_MAP_FILE_PATH = exports.BASE_PATH = exports.HOME_NAME = exports.AXURE_PROJECT_URL = void 0;
 /**
- * 页面类型枚举
+ * 蓝湖项目地址
+ * 中科瑞景
  */
-var PageTypeEnum;
-(function (PageTypeEnum) {
-    PageTypeEnum["\u6587\u4EF6\u5939"] = "Folder";
-    PageTypeEnum["\u6587\u4EF6"] = "Wireframe";
-})(PageTypeEnum || (exports.PageTypeEnum = PageTypeEnum = {}));
+exports.AXURE_PROJECT_URL = 'https://axure-file.lanhuapp.com/md588e80976-0395-4254-9f66-ee823a75b126__de973a4aa4f24bc781c757312aae8dfa.json';
 /**
  * 首页名称常量
  */
@@ -21,6 +18,14 @@ exports.BASE_PATH = 'src/pages';
  * pathMap.json 文件路径
  */
 exports.PATH_MAP_FILE_PATH = './script/generate-router/pathMap.json';
+/**
+ * 页面类型枚举
+ */
+var PageTypeEnum;
+(function (PageTypeEnum) {
+    PageTypeEnum["\u6587\u4EF6\u5939"] = "Folder";
+    PageTypeEnum["\u6587\u4EF6"] = "Wireframe";
+})(PageTypeEnum || (exports.PageTypeEnum = PageTypeEnum = {}));
 /**
  * 初始化页面模板
  */

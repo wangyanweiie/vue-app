@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import * as path from 'path';
-// import * as ts from 'typescript';
 import { type RouteRecordRaw } from 'vue-router';
 
 import {
+    AXURE_PROJECT_URL,
     BASE_PATH,
     handleInitPageTemplate,
     handleRouteFileContent,
@@ -33,6 +33,7 @@ function extractPageNames(nodes: MenuTree): string[] {
         // 如果有子节点，递归处理
         if (node.children && node.type === PageTypeEnum.文件夹) {
             const list = extractPageNames(node.children);
+
             pageNames = pageNames.concat(list);
         }
     });
@@ -63,8 +64,8 @@ async function generatePathMap(nodes: MenuTree) {
      * 1. 不同的中文可能翻译成相同的英文
      * 2. 同一个中文可能连续翻译两遍
      *
-     * 例子：这里的 “日志管理” 翻译了两遍？所以导致翻译后的数组与原数组长度不一致，无法正确生成字典
-     * 目前解决办法：手动排查上述问题，确保翻译前后数组一一对应，并手动替换成唯一的英文
+     * 比如这里的 “日志管理” 翻译了两遍？所以导致翻译后的数组与原数组长度不一致，无法正确生成字典
+     * 当前解决方法：手动排查上述问题，确保翻译前后数组一一对应，并手动替换成唯一的英文
      */
     // if (pageNameList.length !== pageNameToEnglishList.length) {
     //     console.log('🔍 pageNameList', pageNameList);
@@ -123,25 +124,30 @@ function generateRoutes(nodes: MenuTree, parentPath = '', parentName = ''): Rout
         route.name = fullName;
 
         /**
-         * TODO: 箭头函数转为 JSON 会被忽略，需要使用字符串代替才能写入文件，后续怎么还原成箭头函数？
-         * 目前解决方法：文件生成后，手动替换
+         * TODO: 设置组件路径有问题：
+         * 1.箭头函数转为 JSON 会被忽略，需要转为字符串才能写入文件
+         * 2.如何还原为箭头函数？
+         *
+         * 当前解决方法：路由文件内容生成后，手动将字符串还原为箭头函数（全局替换）
          */
-        route.component =
-            node.type === PageTypeEnum.文件 ? `() => import('@/pages${fullPath}/${translatedText}.vue')` : undefined;
-
         if (node.children && node.type === PageTypeEnum.文件夹) {
+            delete route.component; // 删除组件
+            route.redirect = fullPath; // 设置重定向
+
             // 递归处理子节点
             route.children = generateRoutes(node.children, fullPath, fullName);
-            route.redirect = fullPath;
         } else {
-            // 文件：删除子节点与重定向
-            delete route.children;
-            delete route.redirect;
+            delete route.redirect; // 删除重定向
+            delete route.children; // 删除子节点
+
+            // 设置组件
+            route.component = `() => import('@/pages${fullPath}/${translatedText}.vue')`;
         }
 
         return route;
     });
 
+    // 过滤首页
     const filteredRoutes = routes.filter(item => item?.meta?.title !== HOME_NAME);
 
     return filteredRoutes;
@@ -190,12 +196,7 @@ function generateFiles(routes: RouteRecordRaw[], basePath: string = BASE_PATH) {
  */
 async function getRouter() {
     // 获取
-    const res = await axios.get(
-        // 中科瑞景
-        'https://axure-file.lanhuapp.com/md588e80976-0395-4254-9f66-ee823a75b126__de973a4aa4f24bc781c757312aae8dfa.json',
-        // 台湾东升
-        // 'https://axure-file.lanhuapp.com/md50898c760-7be0-4e1a-9b85-c452efd3a584__89ea65a5aa286d1cfdf08df57a067cdc.json',
-    );
+    const res = await axios.get(AXURE_PROJECT_URL);
 
     if (!res) {
         return;
