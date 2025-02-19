@@ -39,17 +39,73 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = require("axios");
 var fs_1 = require("fs");
 var path = require("path");
+var base_1 = require("./base");
 var hooks_1 = require("./hooks");
+/**
+ * 递归提取页面名称
+ * @param nodes 节点列表
+ * @returns 页面名称列表
+ */
+function extractPageNames(nodes) {
+    var pageNames = [];
+    nodes.forEach(function (node) {
+        // 去除括号
+        var cleaned = node.pageName.replace(/\s*（.*）\s*/, '');
+        // 添加当前节点的 pageName
+        pageNames.push(cleaned);
+        // 如果有子节点，递归处理
+        if (node.children && node.type === base_1.PageType.文件夹) {
+            var list = extractPageNames(node.children);
+            pageNames = pageNames.concat(list);
+        }
+    });
+    // 数组去重
+    var set = new Set(pageNames);
+    // 返回去重后的数组
+    return Array.from(set);
+}
+/**
+ * 生成映射字典
+ */
+function generatePathMap(nodes) {
+    return __awaiter(this, void 0, void 0, function () {
+        var pageNameList, translatedText, pageNameToEnglishList, map;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    pageNameList = extractPageNames(nodes);
+                    return [4 /*yield*/, (0, hooks_1.translateText)(pageNameList.join(','))];
+                case 1:
+                    translatedText = _a.sent();
+                    pageNameToEnglishList = translatedText
+                        .split(',')
+                        .map(function (item) { return item.trim(); })
+                        .map(function (item) { return item.replace(/\s+/g, '-'); });
+                    map = {};
+                    // 生成映射字典
+                    pageNameList.forEach(function (pageName, index) {
+                        map[pageName] = pageNameToEnglishList[index];
+                    });
+                    // 将映射字典写入到 pathMap.json 文件
+                    (0, fs_1.writeFileSync)(base_1.PATH_MAP_FILE_PATH, JSON.stringify(map, null, 2));
+                    console.log('🔍 PathMap：', map);
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
 /**
  * 递归生成路由
  * @param nodes 节点列表
  * @param parentPath 父路径
  * @returns 路由列表
  */
-function generateRoutes(data, parentPath, parentName) {
+function generateRoutes(nodes, parentPath, parentName) {
     if (parentPath === void 0) { parentPath = ''; }
     if (parentName === void 0) { parentName = ''; }
-    return data.map(function (item) {
+    var routes = nodes.map(function (node) {
+        // 去除括号
+        var cleaned = node.pageName.replace(/\s*（.*）\s*/, '');
         // const route: RouteRecordRaw = {
         var route = {
             path: '',
@@ -57,38 +113,44 @@ function generateRoutes(data, parentPath, parentName) {
             redirect: '',
             component: undefined,
             meta: {
-                title: item.pageName,
-                icon: item.type === 'Folder' ? 'Folder' : 'Tickets',
+                title: cleaned,
+                icon: node.type === base_1.PageType.文件夹 ? 'Folder' : 'Tickets',
             },
             children: [],
         };
-        // 生成路径和组件映射（使用翻译后的路径）
-        // const translatedText = translateToPinyin(item.pageName);
-        var translatedText = (0, hooks_1.translateToEnglish)(item.pageName);
+        // 读取 pathMap.json 文件
+        var pathMap = JSON.parse((0, fs_1.readFileSync)(base_1.PATH_MAP_FILE_PATH, 'utf-8'));
+        // 使用翻译后的路由标题作为路径
+        var translatedText = pathMap[cleaned];
         var fullPath = parentPath ? "".concat(parentPath, "/").concat(translatedText) : "/".concat(translatedText);
         var fullName = parentName ? "".concat(parentName, "/").concat(translatedText) : translatedText;
         // 设置路由属性
         route.path = fullPath;
         route.name = fullName;
-        // TODO: 箭头函数转为 JSON 会被忽略，使用字符串代替，怎么转换？
+        /**
+         * TODO: 箭头函数转为 JSON 会被忽略，需要使用字符串代替才能写入文件，怎么转换成箭头函数？
+         * 目前解决方法：文件生成后，手动替换
+         */
         route.component =
-            item.type === 'Wireframe' ? "() => import('@/pages".concat(fullPath, "/").concat(translatedText, ".vue')") : undefined;
-        if (item.children && item.type === 'Folder') {
+            node.type === base_1.PageType.文件 ? "() => import('@/pages".concat(fullPath, "/").concat(translatedText, ".vue')") : undefined;
+        if (node.children && node.type === base_1.PageType.文件夹) {
             // 递归处理子节点
-            route.children = generateRoutes(item.children, fullPath, fullName);
+            route.children = generateRoutes(node.children, fullPath, fullName);
             route.redirect = fullPath;
         }
         return route;
     });
+    var filteredRoutes = routes.filter(function (item) { var _a; return ((_a = item === null || item === void 0 ? void 0 : item.meta) === null || _a === void 0 ? void 0 : _a.title) !== '首页'; });
+    return filteredRoutes;
 }
 /**
  * 递归生成页面目录与文件
- * @param config 路由配置
+ * @param routes 路由配置
  * @param basePath 基础路径
  */
-function generateFiles(config, basePath) {
-    if (basePath === void 0) { basePath = 'src/pages'; }
-    config.forEach(function (route) {
+function generateFiles(routes, basePath) {
+    if (basePath === void 0) { basePath = base_1.BASE_PATH; }
+    routes.forEach(function (route) {
         var _a;
         if (route.component) {
             // 解析组件路径
@@ -102,7 +164,7 @@ function generateFiles(config, basePath) {
             }
             // 如果文件不存在，创建 Vue 文件
             if (!(0, fs_1.existsSync)(fullPath)) {
-                var template = "\n<template>\n    <div>\n        <h1>".concat(((_a = route === null || route === void 0 ? void 0 : route.meta) === null || _a === void 0 ? void 0 : _a.title) || '', "</h1>\n    </div>\n</template>\n\n<script lang=\"ts\" setup>\n</script>\n\n<style scoped>\n</style>");
+                var template = "\n<template>\n    <div>".concat(((_a = route === null || route === void 0 ? void 0 : route.meta) === null || _a === void 0 ? void 0 : _a.title) || '', "</div>\n</template>\n\n<script lang=\"ts\" setup>\n</script>\n\n<style lang=\"scss\" scoped>\n</style>");
                 (0, fs_1.writeFileSync)(fullPath, template, 'utf-8');
                 console.log("\u2705 Created: ".concat(fullPath));
             }
@@ -142,11 +204,9 @@ function getRouter() {
                         return [2 /*return*/];
                     }
                     objs = (_g = (_f = (_e = res.data) === null || _e === void 0 ? void 0 : _e.sitemap) === null || _f === void 0 ? void 0 : _f.rootNodes[1]) === null || _g === void 0 ? void 0 : _g.children;
-                    routes = generateRoutes(objs).filter(function (item) { var _a; return ((_a = item === null || item === void 0 ? void 0 : item.meta) === null || _a === void 0 ? void 0 : _a.title) !== '首页'; });
+                    routes = generateRoutes(objs);
                     content = generateRouteFile(routes);
                     (0, fs_1.writeFileSync)('./src/router/router.ts', content);
-                    // 遍历路由列表，生成对应的文件夹与文件
-                    generateFiles(routes);
                     return [2 /*return*/];
             }
         });

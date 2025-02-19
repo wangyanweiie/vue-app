@@ -8,29 +8,28 @@ const menuRoutes: RouteRecordRaw[] = [
     HOME_ROUTE.value,
     ...[
         {
-            path: '/ji-chu-shu-ju',
-            name: 'ji-chu-shu-ju',
-            redirect: '/ji-chu-shu-ju',
+            path: '/basic-data',
+            name: 'basic-data',
+            redirect: '/basic-data',
             meta: {
                 title: '基础数据',
                 icon: 'Folder',
             },
             children: [
                 {
-                    path: '/ji-chu-shu-ju/ji-chu-zi-liao',
-                    name: 'ji-chu-shu-ju/ji-chu-zi-liao',
-                    redirect: '/ji-chu-shu-ju/ji-chu-zi-liao',
+                    path: '/basic-data/basic-info',
+                    name: 'basic-data/basic-info',
+                    redirect: '/basic-data/basic-info',
                     meta: {
-                        title: '基础资料（已完成）',
+                        title: '基础资料',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/ji-chu-shu-ju/ji-chu-zi-liao/wu-liao-lie-biao',
-                            name: 'ji-chu-shu-ju/ji-chu-zi-liao/wu-liao-lie-biao',
+                            path: '/basic-data/basic-info/material-list',
+                            name: 'basic-data/basic-info/material-list',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/ji-chu-shu-ju/ji-chu-zi-liao/wu-liao-lie-biao/wu-liao-lie-biao.vue')",
+                            component: () => import('@/pages/basic-data/basic-info/material-list/material-list.vue'),
                             meta: {
                                 title: '物料列表',
                                 icon: 'Tickets',
@@ -38,11 +37,11 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/ji-chu-shu-ju/ji-chu-zi-liao/chang-nei-yao-qiu',
-                            name: 'ji-chu-shu-ju/ji-chu-zi-liao/chang-nei-yao-qiu',
+                            path: '/basic-data/basic-info/factory-requirements',
+                            name: 'basic-data/basic-info/factory-requirements',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/ji-chu-shu-ju/ji-chu-zi-liao/chang-nei-yao-qiu/chang-nei-yao-qiu.vue')",
+                            component: () =>
+                                import('@/pages/basic-data/basic-info/factory-requirements/factory-requirements.vue'),
                             meta: {
                                 title: '厂内要求',
                                 icon: 'Tickets',
@@ -50,11 +49,10 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/ji-chu-shu-ju/ji-chu-zi-liao/ke-hu-lie-biao',
-                            name: 'ji-chu-shu-ju/ji-chu-zi-liao/ke-hu-lie-biao',
+                            path: '/basic-data/basic-info/customer-list',
+                            name: 'basic-data/basic-info/customer-list',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/ji-chu-shu-ju/ji-chu-zi-liao/ke-hu-lie-biao/ke-hu-lie-biao.vue')",
+                            component: () => import('@/pages/basic-data/basic-info/customer-list/customer-list.vue'),
                             meta: {
                                 title: '客户列表',
                                 icon: 'Tickets',
@@ -62,11 +60,11 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/ji-chu-shu-ju/ji-chu-zi-liao/ke-hu-yao-qiu',
-                            name: 'ji-chu-shu-ju/ji-chu-zi-liao/ke-hu-yao-qiu',
+                            path: '/basic-data/basic-info/customer-requirements',
+                            name: 'basic-data/basic-info/customer-requirements',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/ji-chu-shu-ju/ji-chu-zi-liao/ke-hu-yao-qiu/ke-hu-yao-qiu.vue')",
+                            component: () =>
+                                import('@/pages/basic-data/basic-info/customer-requirements/customer-requirements.vue'),
                             meta: {
                                 title: '客户要求',
                                 icon: 'Tickets',
@@ -74,11 +72,10 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/ji-chu-shu-ju/ji-chu-zi-liao/gong-ying-shang-lie-biao',
-                            name: 'ji-chu-shu-ju/ji-chu-zi-liao/gong-ying-shang-lie-biao',
+                            path: '/basic-data/basic-info/supplier-list',
+                            name: 'basic-data/basic-info/supplier-list',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/ji-chu-shu-ju/ji-chu-zi-liao/gong-ying-shang-lie-biao/gong-ying-shang-lie-biao.vue')",
+                            component: () => import('@/pages/basic-data/basic-info/supplier-list/supplier-list.vue'),
                             meta: {
                                 title: '供应商列表',
                                 icon: 'Tickets',
@@ -86,11 +83,11 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/ji-chu-shu-ju/ji-chu-zi-liao/ji-liang-dan-wei',
-                            name: 'ji-chu-shu-ju/ji-chu-zi-liao/ji-liang-dan-wei',
+                            path: '/basic-data/basic-info/unit-of-measurement',
+                            name: 'basic-data/basic-info/unit-of-measurement',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/ji-chu-shu-ju/ji-chu-zi-liao/ji-liang-dan-wei/ji-liang-dan-wei.vue')",
+                            component: () =>
+                                import('@/pages/basic-data/basic-info/unit-of-measurement/unit-of-measurement.vue'),
                             meta: {
                                 title: '计量单位',
                                 icon: 'Tickets',
@@ -98,11 +95,11 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/ji-chu-shu-ju/ji-chu-zi-liao/shu-ju-zi-dian',
-                            name: 'ji-chu-shu-ju/ji-chu-zi-liao/shu-ju-zi-dian',
+                            path: '/basic-data/basic-info/data-dictionary',
+                            name: 'basic-data/basic-info/data-dictionary',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/ji-chu-shu-ju/ji-chu-zi-liao/shu-ju-zi-dian/shu-ju-zi-dian.vue')",
+                            component: () =>
+                                import('@/pages/basic-data/basic-info/data-dictionary/data-dictionary.vue'),
                             meta: {
                                 title: '数据字典',
                                 icon: 'Tickets',
@@ -112,20 +109,19 @@ const menuRoutes: RouteRecordRaw[] = [
                     ],
                 },
                 {
-                    path: '/ji-chu-shu-ju/sheng-chan-zi-liao',
-                    name: 'ji-chu-shu-ju/sheng-chan-zi-liao',
-                    redirect: '/ji-chu-shu-ju/sheng-chan-zi-liao',
+                    path: '/basic-data/production-materials',
+                    name: 'basic-data/production-materials',
+                    redirect: '/basic-data/production-materials',
                     meta: {
-                        title: '生产资料（已完成）',
+                        title: '生产资料',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/ji-chu-shu-ju/sheng-chan-zi-liao/gong-chang',
-                            name: 'ji-chu-shu-ju/sheng-chan-zi-liao/gong-chang',
+                            path: '/basic-data/production-materials/factory',
+                            name: 'basic-data/production-materials/factory',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/ji-chu-shu-ju/sheng-chan-zi-liao/gong-chang/gong-chang.vue')",
+                            component: () => import('@/pages/basic-data/production-materials/factory/factory.vue'),
                             meta: {
                                 title: '工厂',
                                 icon: 'Tickets',
@@ -133,10 +129,10 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/ji-chu-shu-ju/sheng-chan-zi-liao/che-jian',
-                            name: 'ji-chu-shu-ju/sheng-chan-zi-liao/che-jian',
+                            path: '/basic-data/production-materials/workshop',
+                            name: 'basic-data/production-materials/workshop',
                             redirect: '',
-                            component: "() => import('@/pages/ji-chu-shu-ju/sheng-chan-zi-liao/che-jian/che-jian.vue')",
+                            component: () => import('@/pages/basic-data/production-materials/workshop/workshop.vue'),
                             meta: {
                                 title: '车间',
                                 icon: 'Tickets',
@@ -144,10 +140,11 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/ji-chu-shu-ju/sheng-chan-zi-liao/chu-guan',
-                            name: 'ji-chu-shu-ju/sheng-chan-zi-liao/chu-guan',
+                            path: '/basic-data/production-materials/storage-tank',
+                            name: 'basic-data/production-materials/storage-tank',
                             redirect: '',
-                            component: "() => import('@/pages/ji-chu-shu-ju/sheng-chan-zi-liao/chu-guan/chu-guan.vue')",
+                            component: () =>
+                                import('@/pages/basic-data/production-materials/storage-tank/storage-tank.vue'),
                             meta: {
                                 title: '储罐',
                                 icon: 'Tickets',
@@ -155,10 +152,10 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/ji-chu-shu-ju/sheng-chan-zi-liao/ban-zu',
-                            name: 'ji-chu-shu-ju/sheng-chan-zi-liao/ban-zu',
+                            path: '/basic-data/production-materials/team',
+                            name: 'basic-data/production-materials/team',
                             redirect: '',
-                            component: "() => import('@/pages/ji-chu-shu-ju/sheng-chan-zi-liao/ban-zu/ban-zu.vue')",
+                            component: () => import('@/pages/basic-data/production-materials/team/team.vue'),
                             meta: {
                                 title: '班组',
                                 icon: 'Tickets',
@@ -166,11 +163,11 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/ji-chu-shu-ju/sheng-chan-zi-liao/sheng-chan-xian',
-                            name: 'ji-chu-shu-ju/sheng-chan-zi-liao/sheng-chan-xian',
+                            path: '/basic-data/production-materials/production-line',
+                            name: 'basic-data/production-materials/production-line',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/ji-chu-shu-ju/sheng-chan-zi-liao/sheng-chan-xian/sheng-chan-xian.vue')",
+                            component: () =>
+                                import('@/pages/basic-data/production-materials/production-line/production-line.vue'),
                             meta: {
                                 title: '生产线',
                                 icon: 'Tickets',
@@ -178,11 +175,13 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/ji-chu-shu-ju/sheng-chan-zi-liao/cai-ji-xiang-mu',
-                            name: 'ji-chu-shu-ju/sheng-chan-zi-liao/cai-ji-xiang-mu',
+                            path: '/basic-data/production-materials/collection-project',
+                            name: 'basic-data/production-materials/collection-project',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/ji-chu-shu-ju/sheng-chan-zi-liao/cai-ji-xiang-mu/cai-ji-xiang-mu.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/basic-data/production-materials/collection-project/collection-project.vue'
+                                ),
                             meta: {
                                 title: '采集项目',
                                 icon: 'Tickets',
@@ -190,11 +189,11 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/ji-chu-shu-ju/sheng-chan-zi-liao/cai-ji-fang-an',
-                            name: 'ji-chu-shu-ju/sheng-chan-zi-liao/cai-ji-fang-an',
+                            path: '/basic-data/production-materials/collection-plan',
+                            name: 'basic-data/production-materials/collection-plan',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/ji-chu-shu-ju/sheng-chan-zi-liao/cai-ji-fang-an/cai-ji-fang-an.vue')",
+                            component: () =>
+                                import('@/pages/basic-data/production-materials/collection-plan/collection-plan.vue'),
                             meta: {
                                 title: '采集方案',
                                 icon: 'Tickets',
@@ -204,29 +203,31 @@ const menuRoutes: RouteRecordRaw[] = [
                     ],
                 },
                 {
-                    path: '/ji-chu-shu-ju/zhi-liang-zi-liao',
-                    name: 'ji-chu-shu-ju/zhi-liang-zi-liao',
-                    redirect: '/ji-chu-shu-ju/zhi-liang-zi-liao',
+                    path: '/basic-data/quality-data',
+                    name: 'basic-data/quality-data',
+                    redirect: '/basic-data/quality-data',
                     meta: {
-                        title: '质量资料（已完成）',
+                        title: '质量资料',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/ji-chu-shu-ju/zhi-liang-zi-liao/jian-yan-fang-an',
-                            name: 'ji-chu-shu-ju/zhi-liang-zi-liao/jian-yan-fang-an',
-                            redirect: '/ji-chu-shu-ju/zhi-liang-zi-liao/jian-yan-fang-an',
+                            path: '/basic-data/quality-data/inspection-plan',
+                            name: 'basic-data/quality-data/inspection-plan',
+                            redirect: '/basic-data/quality-data/inspection-plan',
                             meta: {
                                 title: '检验方案',
                                 icon: 'Folder',
                             },
                             children: [
                                 {
-                                    path: '/ji-chu-shu-ju/zhi-liang-zi-liao/jian-yan-fang-an/jian-yan-xiang-mu',
-                                    name: 'ji-chu-shu-ju/zhi-liang-zi-liao/jian-yan-fang-an/jian-yan-xiang-mu',
+                                    path: '/basic-data/quality-data/inspection-plan/inspection-items',
+                                    name: 'basic-data/quality-data/inspection-plan/inspection-items',
                                     redirect: '',
-                                    component:
-                                        "() => import('@/pages/ji-chu-shu-ju/zhi-liang-zi-liao/jian-yan-fang-an/jian-yan-xiang-mu/jian-yan-xiang-mu.vue')",
+                                    component: () =>
+                                        import(
+                                            '@/pages/basic-data/quality-data/inspection-plan/inspection-items/inspection-items.vue'
+                                        ),
                                     meta: {
                                         title: '检验项目',
                                         icon: 'Tickets',
@@ -234,11 +235,13 @@ const menuRoutes: RouteRecordRaw[] = [
                                     children: [],
                                 },
                                 {
-                                    path: '/ji-chu-shu-ju/zhi-liang-zi-liao/jian-yan-fang-an/chang-nei-jian-yan-fang-an',
-                                    name: 'ji-chu-shu-ju/zhi-liang-zi-liao/jian-yan-fang-an/chang-nei-jian-yan-fang-an',
+                                    path: '/basic-data/quality-data/inspection-plan/factory-inspection-plan',
+                                    name: 'basic-data/quality-data/inspection-plan/factory-inspection-plan',
                                     redirect: '',
-                                    component:
-                                        "() => import('@/pages/ji-chu-shu-ju/zhi-liang-zi-liao/jian-yan-fang-an/chang-nei-jian-yan-fang-an/chang-nei-jian-yan-fang-an.vue')",
+                                    component: () =>
+                                        import(
+                                            '@/pages/basic-data/quality-data/inspection-plan/factory-inspection-plan/factory-inspection-plan.vue'
+                                        ),
                                     meta: {
                                         title: '厂内检验方案',
                                         icon: 'Tickets',
@@ -246,11 +249,13 @@ const menuRoutes: RouteRecordRaw[] = [
                                     children: [],
                                 },
                                 {
-                                    path: '/ji-chu-shu-ju/zhi-liang-zi-liao/jian-yan-fang-an/ke-hu-jian-yan-fang-an',
-                                    name: 'ji-chu-shu-ju/zhi-liang-zi-liao/jian-yan-fang-an/ke-hu-jian-yan-fang-an',
+                                    path: '/basic-data/quality-data/inspection-plan/customer-inspection-plan',
+                                    name: 'basic-data/quality-data/inspection-plan/customer-inspection-plan',
                                     redirect: '',
-                                    component:
-                                        "() => import('@/pages/ji-chu-shu-ju/zhi-liang-zi-liao/jian-yan-fang-an/ke-hu-jian-yan-fang-an/ke-hu-jian-yan-fang-an.vue')",
+                                    component: () =>
+                                        import(
+                                            '@/pages/basic-data/quality-data/inspection-plan/customer-inspection-plan/customer-inspection-plan.vue'
+                                        ),
                                     meta: {
                                         title: '客户检验方案',
                                         icon: 'Tickets',
@@ -260,20 +265,22 @@ const menuRoutes: RouteRecordRaw[] = [
                             ],
                         },
                         {
-                            path: '/ji-chu-shu-ju/zhi-liang-zi-liao/SPC-pan-yi',
-                            name: 'ji-chu-shu-ju/zhi-liang-zi-liao/SPC-pan-yi',
-                            redirect: '/ji-chu-shu-ju/zhi-liang-zi-liao/SPC-pan-yi',
+                            path: '/basic-data/quality-data/spc-judgment',
+                            name: 'basic-data/quality-data/spc-judgment',
+                            redirect: '/basic-data/quality-data/spc-judgment',
                             meta: {
                                 title: 'SPC判异',
                                 icon: 'Folder',
                             },
                             children: [
                                 {
-                                    path: '/ji-chu-shu-ju/zhi-liang-zi-liao/SPC-pan-yi/pan-yi-gui-ze-she-zhi',
-                                    name: 'ji-chu-shu-ju/zhi-liang-zi-liao/SPC-pan-yi/pan-yi-gui-ze-she-zhi',
+                                    path: '/basic-data/quality-data/spc-judgment/discrimination-rule-setting',
+                                    name: 'basic-data/quality-data/spc-judgment/discrimination-rule-setting',
                                     redirect: '',
-                                    component:
-                                        "() => import('@/pages/ji-chu-shu-ju/zhi-liang-zi-liao/SPC-pan-yi/pan-yi-gui-ze-she-zhi/pan-yi-gui-ze-she-zhi.vue')",
+                                    component: () =>
+                                        import(
+                                            '@/pages/basic-data/quality-data/spc-judgment/discrimination-rule-setting/discrimination-rule-setting.vue'
+                                        ),
                                     meta: {
                                         title: '判异规则设置',
                                         icon: 'Tickets',
@@ -285,20 +292,20 @@ const menuRoutes: RouteRecordRaw[] = [
                     ],
                 },
                 {
-                    path: '/ji-chu-shu-ju/cang-ku-zi-liao',
-                    name: 'ji-chu-shu-ju/cang-ku-zi-liao',
-                    redirect: '/ji-chu-shu-ju/cang-ku-zi-liao',
+                    path: '/basic-data/warehouse-information',
+                    name: 'basic-data/warehouse-information',
+                    redirect: '/basic-data/warehouse-information',
                     meta: {
-                        title: '仓库资料（已完成）',
+                        title: '仓库资料',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/ji-chu-shu-ju/cang-ku-zi-liao/cang-ku-lie-biao',
-                            name: 'ji-chu-shu-ju/cang-ku-zi-liao/cang-ku-lie-biao',
+                            path: '/basic-data/warehouse-information/warehouse-list',
+                            name: 'basic-data/warehouse-information/warehouse-list',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/ji-chu-shu-ju/cang-ku-zi-liao/cang-ku-lie-biao/cang-ku-lie-biao.vue')",
+                            component: () =>
+                                import('@/pages/basic-data/warehouse-information/warehouse-list/warehouse-list.vue'),
                             meta: {
                                 title: '仓库列表',
                                 icon: 'Tickets',
@@ -306,11 +313,13 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/ji-chu-shu-ju/cang-ku-zi-liao/ku-cun-yu-jing',
-                            name: 'ji-chu-shu-ju/cang-ku-zi-liao/ku-cun-yu-jing',
+                            path: '/basic-data/warehouse-information/inventory-warning',
+                            name: 'basic-data/warehouse-information/inventory-warning',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/ji-chu-shu-ju/cang-ku-zi-liao/ku-cun-yu-jing/ku-cun-yu-jing.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/basic-data/warehouse-information/inventory-warning/inventory-warning.vue'
+                                ),
                             meta: {
                                 title: '库存预警',
                                 icon: 'Tickets',
@@ -318,11 +327,11 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/ji-chu-shu-ju/cang-ku-zi-liao/wu-liu-lie-biao',
-                            name: 'ji-chu-shu-ju/cang-ku-zi-liao/wu-liu-lie-biao',
+                            path: '/basic-data/warehouse-information/logistics-list',
+                            name: 'basic-data/warehouse-information/logistics-list',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/ji-chu-shu-ju/cang-ku-zi-liao/wu-liu-lie-biao/wu-liu-lie-biao.vue')",
+                            component: () =>
+                                import('@/pages/basic-data/warehouse-information/logistics-list/logistics-list.vue'),
                             meta: {
                                 title: '物流列表',
                                 icon: 'Tickets',
@@ -334,19 +343,19 @@ const menuRoutes: RouteRecordRaw[] = [
             ],
         },
         {
-            path: '/ji-hua-guan-li',
-            name: 'ji-hua-guan-li',
-            redirect: '/ji-hua-guan-li',
+            path: '/plan-management',
+            name: 'plan-management',
+            redirect: '/plan-management',
             meta: {
                 title: '计划管理',
                 icon: 'Folder',
             },
             children: [
                 {
-                    path: '/ji-hua-guan-li/xiao-shou-ding-dan',
-                    name: 'ji-hua-guan-li/xiao-shou-ding-dan',
+                    path: '/plan-management/sales-order',
+                    name: 'plan-management/sales-order',
                     redirect: '',
-                    component: "() => import('@/pages/ji-hua-guan-li/xiao-shou-ding-dan/xiao-shou-ding-dan.vue')",
+                    component: () => import('@/pages/plan-management/sales-order/sales-order.vue'),
                     meta: {
                         title: '销售订单',
                         icon: 'Tickets',
@@ -354,10 +363,11 @@ const menuRoutes: RouteRecordRaw[] = [
                     children: [],
                 },
                 {
-                    path: '/ji-hua-guan-li/yuan-liao-dao-huo-dan',
-                    name: 'ji-hua-guan-li/yuan-liao-dao-huo-dan',
+                    path: '/plan-management/raw-material-arrival-order',
+                    name: 'plan-management/raw-material-arrival-order',
                     redirect: '',
-                    component: "() => import('@/pages/ji-hua-guan-li/yuan-liao-dao-huo-dan/yuan-liao-dao-huo-dan.vue')",
+                    component: () =>
+                        import('@/pages/plan-management/raw-material-arrival-order/raw-material-arrival-order.vue'),
                     meta: {
                         title: '原料到货单',
                         icon: 'Tickets',
@@ -365,11 +375,13 @@ const menuRoutes: RouteRecordRaw[] = [
                     children: [],
                 },
                 {
-                    path: '/ji-hua-guan-li/chan-xian-yun-xing-dan',
-                    name: 'ji-hua-guan-li/chan-xian-yun-xing-dan',
+                    path: '/plan-management/production-line-operation-order',
+                    name: 'plan-management/production-line-operation-order',
                     redirect: '',
-                    component:
-                        "() => import('@/pages/ji-hua-guan-li/chan-xian-yun-xing-dan/chan-xian-yun-xing-dan.vue')",
+                    component: () =>
+                        import(
+                            '@/pages/plan-management/production-line-operation-order/production-line-operation-order.vue'
+                        ),
                     meta: {
                         title: '产线运行单',
                         icon: 'Tickets',
@@ -377,10 +389,10 @@ const menuRoutes: RouteRecordRaw[] = [
                     children: [],
                 },
                 {
-                    path: '/ji-hua-guan-li/sheng-chan-ji-hua-dan',
-                    name: 'ji-hua-guan-li/sheng-chan-ji-hua-dan',
+                    path: '/plan-management/production-plan-order',
+                    name: 'plan-management/production-plan-order',
                     redirect: '',
-                    component: "() => import('@/pages/ji-hua-guan-li/sheng-chan-ji-hua-dan/sheng-chan-ji-hua-dan.vue')",
+                    component: () => import('@/pages/plan-management/production-plan-order/production-plan-order.vue'),
                     meta: {
                         title: '生产计划单',
                         icon: 'Tickets',
@@ -388,11 +400,10 @@ const menuRoutes: RouteRecordRaw[] = [
                     children: [],
                 },
                 {
-                    path: '/ji-hua-guan-li/chong-zhuang-ji-hua-dan',
-                    name: 'ji-hua-guan-li/chong-zhuang-ji-hua-dan',
+                    path: '/plan-management/filling-plan-order',
+                    name: 'plan-management/filling-plan-order',
                     redirect: '',
-                    component:
-                        "() => import('@/pages/ji-hua-guan-li/chong-zhuang-ji-hua-dan/chong-zhuang-ji-hua-dan.vue')",
+                    component: () => import('@/pages/plan-management/filling-plan-order/filling-plan-order.vue'),
                     meta: {
                         title: '充装计划单',
                         icon: 'Tickets',
@@ -400,10 +411,10 @@ const menuRoutes: RouteRecordRaw[] = [
                     children: [],
                 },
                 {
-                    path: '/ji-hua-guan-li/fa-huo-tong-zhi-dan',
-                    name: 'ji-hua-guan-li/fa-huo-tong-zhi-dan',
+                    path: '/plan-management/delivery-notice',
+                    name: 'plan-management/delivery-notice',
                     redirect: '',
-                    component: "() => import('@/pages/ji-hua-guan-li/fa-huo-tong-zhi-dan/fa-huo-tong-zhi-dan.vue')",
+                    component: () => import('@/pages/plan-management/delivery-notice/delivery-notice.vue'),
                     meta: {
                         title: '发货通知单',
                         icon: 'Tickets',
@@ -413,29 +424,31 @@ const menuRoutes: RouteRecordRaw[] = [
             ],
         },
         {
-            path: '/sheng-chan-guan-li',
-            name: 'sheng-chan-guan-li',
-            redirect: '/sheng-chan-guan-li',
+            path: '/production-management',
+            name: 'production-management',
+            redirect: '/production-management',
             meta: {
                 title: '生产管理',
                 icon: 'Folder',
             },
             children: [
                 {
-                    path: '/sheng-chan-guan-li/cao-zuo-ji-lu',
-                    name: 'sheng-chan-guan-li/cao-zuo-ji-lu',
-                    redirect: '/sheng-chan-guan-li/cao-zuo-ji-lu',
+                    path: '/production-management/operation-record',
+                    name: 'production-management/operation-record',
+                    redirect: '/production-management/operation-record',
                     meta: {
                         title: '操作记录',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/sheng-chan-guan-li/cao-zuo-ji-lu/sheng-chan-deng-ji-ji-lu',
-                            name: 'sheng-chan-guan-li/cao-zuo-ji-lu/sheng-chan-deng-ji-ji-lu',
+                            path: '/production-management/operation-record/production-registration-record',
+                            name: 'production-management/operation-record/production-registration-record',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/sheng-chan-guan-li/cao-zuo-ji-lu/sheng-chan-deng-ji-ji-lu/sheng-chan-deng-ji-ji-lu.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/production-management/operation-record/production-registration-record/production-registration-record.vue'
+                                ),
                             meta: {
                                 title: '生产登记记录',
                                 icon: 'Tickets',
@@ -443,11 +456,13 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/sheng-chan-guan-li/cao-zuo-ji-lu/chong-zhuang-deng-ji-ji-lu',
-                            name: 'sheng-chan-guan-li/cao-zuo-ji-lu/chong-zhuang-deng-ji-ji-lu',
+                            path: '/production-management/operation-record/filling-registration-record',
+                            name: 'production-management/operation-record/filling-registration-record',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/sheng-chan-guan-li/cao-zuo-ji-lu/chong-zhuang-deng-ji-ji-lu/chong-zhuang-deng-ji-ji-lu.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/production-management/operation-record/filling-registration-record/filling-registration-record.vue'
+                                ),
                             meta: {
                                 title: '充装登记记录',
                                 icon: 'Tickets',
@@ -455,11 +470,13 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/sheng-chan-guan-li/cao-zuo-ji-lu/wu-liao-hui-shou-ji-lu',
-                            name: 'sheng-chan-guan-li/cao-zuo-ji-lu/wu-liao-hui-shou-ji-lu',
+                            path: '/production-management/operation-record/material-recycling-record',
+                            name: 'production-management/operation-record/material-recycling-record',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/sheng-chan-guan-li/cao-zuo-ji-lu/wu-liao-hui-shou-ji-lu/wu-liao-hui-shou-ji-lu.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/production-management/operation-record/material-recycling-record/material-recycling-record.vue'
+                                ),
                             meta: {
                                 title: '物料回收记录',
                                 icon: 'Tickets',
@@ -469,20 +486,22 @@ const menuRoutes: RouteRecordRaw[] = [
                     ],
                 },
                 {
-                    path: '/sheng-chan-guan-li/sheng-chan-bao-biao',
-                    name: 'sheng-chan-guan-li/sheng-chan-bao-biao',
-                    redirect: '/sheng-chan-guan-li/sheng-chan-bao-biao',
+                    path: '/production-management/production-report',
+                    name: 'production-management/production-report',
+                    redirect: '/production-management/production-report',
                     meta: {
                         title: '生产报表',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/sheng-chan-guan-li/sheng-chan-bao-biao/ri-sheng-chan-bao-biao',
-                            name: 'sheng-chan-guan-li/sheng-chan-bao-biao/ri-sheng-chan-bao-biao',
+                            path: '/production-management/production-report/daily-production-report',
+                            name: 'production-management/production-report/daily-production-report',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/sheng-chan-guan-li/sheng-chan-bao-biao/ri-sheng-chan-bao-biao/ri-sheng-chan-bao-biao.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/production-management/production-report/daily-production-report/daily-production-report.vue'
+                                ),
                             meta: {
                                 title: '日生产报表',
                                 icon: 'Tickets',
@@ -494,29 +513,31 @@ const menuRoutes: RouteRecordRaw[] = [
             ],
         },
         {
-            path: '/rong-qi-guan-li',
-            name: 'rong-qi-guan-li',
-            redirect: '/rong-qi-guan-li',
+            path: '/container-management',
+            name: 'container-management',
+            redirect: '/container-management',
             meta: {
                 title: '容器管理',
                 icon: 'Folder',
             },
             children: [
                 {
-                    path: '/rong-qi-guan-li/rong-qi-dang-an',
-                    name: 'rong-qi-guan-li/rong-qi-dang-an',
-                    redirect: '/rong-qi-guan-li/rong-qi-dang-an',
+                    path: '/container-management/container-archives',
+                    name: 'container-management/container-archives',
+                    redirect: '/container-management/container-archives',
                     meta: {
                         title: '容器档案',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/rong-qi-guan-li/rong-qi-dang-an/rong-qi-dang-an',
-                            name: 'rong-qi-guan-li/rong-qi-dang-an/rong-qi-dang-an',
+                            path: '/container-management/container-archives/container-archives',
+                            name: 'container-management/container-archives/container-archives',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/rong-qi-guan-li/rong-qi-dang-an/rong-qi-dang-an/rong-qi-dang-an.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/container-management/container-archives/container-archives/container-archives.vue'
+                                ),
                             meta: {
                                 title: '容器档案',
                                 icon: 'Tickets',
@@ -526,20 +547,22 @@ const menuRoutes: RouteRecordRaw[] = [
                     ],
                 },
                 {
-                    path: '/rong-qi-guan-li/rong-qi-chu-li-ji-lu',
-                    name: 'rong-qi-guan-li/rong-qi-chu-li-ji-lu',
-                    redirect: '/rong-qi-guan-li/rong-qi-chu-li-ji-lu',
+                    path: '/container-management/container-processing-records',
+                    name: 'container-management/container-processing-records',
+                    redirect: '/container-management/container-processing-records',
                     meta: {
                         title: '容器处理记录',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/rong-qi-guan-li/rong-qi-chu-li-ji-lu/rong-qi-chu-li-ji-lu',
-                            name: 'rong-qi-guan-li/rong-qi-chu-li-ji-lu/rong-qi-chu-li-ji-lu',
+                            path: '/container-management/container-processing-records/container-processing-records',
+                            name: 'container-management/container-processing-records/container-processing-records',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/rong-qi-guan-li/rong-qi-chu-li-ji-lu/rong-qi-chu-li-ji-lu/rong-qi-chu-li-ji-lu.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/container-management/container-processing-records/container-processing-records/container-processing-records.vue'
+                                ),
                             meta: {
                                 title: '容器处理记录',
                                 icon: 'Tickets',
@@ -549,20 +572,22 @@ const menuRoutes: RouteRecordRaw[] = [
                     ],
                 },
                 {
-                    path: '/rong-qi-guan-li/chang-wai-cun-ping-tong-ji',
-                    name: 'rong-qi-guan-li/chang-wai-cun-ping-tong-ji',
-                    redirect: '/rong-qi-guan-li/chang-wai-cun-ping-tong-ji',
+                    path: '/container-management/statistics-on-bottles-outside-the-factory',
+                    name: 'container-management/statistics-on-bottles-outside-the-factory',
+                    redirect: '/container-management/statistics-on-bottles-outside-the-factory',
                     meta: {
                         title: '厂外存瓶统计',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/rong-qi-guan-li/chang-wai-cun-ping-tong-ji/chang-wai-cun-ping-tong-ji',
-                            name: 'rong-qi-guan-li/chang-wai-cun-ping-tong-ji/chang-wai-cun-ping-tong-ji',
+                            path: '/container-management/statistics-on-bottles-outside-the-factory/statistics-on-bottles-outside-the-factory',
+                            name: 'container-management/statistics-on-bottles-outside-the-factory/statistics-on-bottles-outside-the-factory',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/rong-qi-guan-li/chang-wai-cun-ping-tong-ji/chang-wai-cun-ping-tong-ji/chang-wai-cun-ping-tong-ji.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/container-management/statistics-on-bottles-outside-the-factory/statistics-on-bottles-outside-the-factory/statistics-on-bottles-outside-the-factory.vue'
+                                ),
                             meta: {
                                 title: '厂外存瓶统计',
                                 icon: 'Tickets',
@@ -572,20 +597,22 @@ const menuRoutes: RouteRecordRaw[] = [
                     ],
                 },
                 {
-                    path: '/rong-qi-guan-li/rong-qi-liu-zhuan-lü-li',
-                    name: 'rong-qi-guan-li/rong-qi-liu-zhuan-lü-li',
-                    redirect: '/rong-qi-guan-li/rong-qi-liu-zhuan-lü-li',
+                    path: '/container-management/container-circulation-history',
+                    name: 'container-management/container-circulation-history',
+                    redirect: '/container-management/container-circulation-history',
                     meta: {
                         title: '容器流转履历',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/rong-qi-guan-li/rong-qi-liu-zhuan-lü-li/rong-qi-liu-zhuan-lü-li',
-                            name: 'rong-qi-guan-li/rong-qi-liu-zhuan-lü-li/rong-qi-liu-zhuan-lü-li',
+                            path: '/container-management/container-circulation-history/container-circulation-history',
+                            name: 'container-management/container-circulation-history/container-circulation-history',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/rong-qi-guan-li/rong-qi-liu-zhuan-lü-li/rong-qi-liu-zhuan-lü-li/rong-qi-liu-zhuan-lü-li.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/container-management/container-circulation-history/container-circulation-history/container-circulation-history.vue'
+                                ),
                             meta: {
                                 title: '容器流转履历',
                                 icon: 'Tickets',
@@ -597,38 +624,40 @@ const menuRoutes: RouteRecordRaw[] = [
             ],
         },
         {
-            path: '/zhi-liang-guan-li',
-            name: 'zhi-liang-guan-li',
-            redirect: '/zhi-liang-guan-li',
+            path: '/quality-management',
+            name: 'quality-management',
+            redirect: '/quality-management',
             meta: {
                 title: '质量管理',
                 icon: 'Folder',
             },
             children: [
                 {
-                    path: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li',
-                    name: 'zhi-liang-guan-li/fen-xi-she-bei-guan-li',
-                    redirect: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li',
+                    path: '/quality-management/analysis-equipment-management',
+                    name: 'quality-management/analysis-equipment-management',
+                    redirect: '/quality-management/analysis-equipment-management',
                     meta: {
-                        title: '分析设备管理（已完成）',
+                        title: '分析设备管理',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-dang-an',
-                            name: 'zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-dang-an',
-                            redirect: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-dang-an',
+                            path: '/quality-management/analysis-equipment-management/equipment-archives',
+                            name: 'quality-management/analysis-equipment-management/equipment-archives',
+                            redirect: '/quality-management/analysis-equipment-management/equipment-archives',
                             meta: {
                                 title: '设备档案',
                                 icon: 'Folder',
                             },
                             children: [
                                 {
-                                    path: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-dang-an/fen-xi-she-bei-tai-zhang',
-                                    name: 'zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-dang-an/fen-xi-she-bei-tai-zhang',
+                                    path: '/quality-management/analysis-equipment-management/equipment-archives/analysis-equipment-ledger',
+                                    name: 'quality-management/analysis-equipment-management/equipment-archives/analysis-equipment-ledger',
                                     redirect: '',
-                                    component:
-                                        "() => import('@/pages/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-dang-an/fen-xi-she-bei-tai-zhang/fen-xi-she-bei-tai-zhang.vue')",
+                                    component: () =>
+                                        import(
+                                            '@/pages/quality-management/analysis-equipment-management/equipment-archives/analysis-equipment-ledger/analysis-equipment-ledger.vue'
+                                        ),
                                     meta: {
                                         title: '分析设备台账',
                                         icon: 'Tickets',
@@ -638,20 +667,22 @@ const menuRoutes: RouteRecordRaw[] = [
                             ],
                         },
                         {
-                            path: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-bao-yang',
-                            name: 'zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-bao-yang',
-                            redirect: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-bao-yang',
+                            path: '/quality-management/analysis-equipment-management/equipment-maintenance',
+                            name: 'quality-management/analysis-equipment-management/equipment-maintenance',
+                            redirect: '/quality-management/analysis-equipment-management/equipment-maintenance',
                             meta: {
                                 title: '设备保养',
                                 icon: 'Folder',
                             },
                             children: [
                                 {
-                                    path: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-bao-yang/bao-yang-fang-an',
-                                    name: 'zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-bao-yang/bao-yang-fang-an',
+                                    path: '/quality-management/analysis-equipment-management/equipment-maintenance/maintenance-schema',
+                                    name: 'quality-management/analysis-equipment-management/equipment-maintenance/maintenance-schema',
                                     redirect: '',
-                                    component:
-                                        "() => import('@/pages/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-bao-yang/bao-yang-fang-an/bao-yang-fang-an.vue')",
+                                    component: () =>
+                                        import(
+                                            '@/pages/quality-management/analysis-equipment-management/equipment-maintenance/maintenance-schema/maintenance-schema.vue'
+                                        ),
                                     meta: {
                                         title: '保养方案',
                                         icon: 'Tickets',
@@ -659,11 +690,13 @@ const menuRoutes: RouteRecordRaw[] = [
                                     children: [],
                                 },
                                 {
-                                    path: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-bao-yang/bao-yang-ji-hua',
-                                    name: 'zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-bao-yang/bao-yang-ji-hua',
+                                    path: '/quality-management/analysis-equipment-management/equipment-maintenance/maintenance-plan',
+                                    name: 'quality-management/analysis-equipment-management/equipment-maintenance/maintenance-plan',
                                     redirect: '',
-                                    component:
-                                        "() => import('@/pages/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-bao-yang/bao-yang-ji-hua/bao-yang-ji-hua.vue')",
+                                    component: () =>
+                                        import(
+                                            '@/pages/quality-management/analysis-equipment-management/equipment-maintenance/maintenance-plan/maintenance-plan.vue'
+                                        ),
                                     meta: {
                                         title: '保养计划',
                                         icon: 'Tickets',
@@ -671,11 +704,13 @@ const menuRoutes: RouteRecordRaw[] = [
                                     children: [],
                                 },
                                 {
-                                    path: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-bao-yang/bao-yang-ji-lu',
-                                    name: 'zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-bao-yang/bao-yang-ji-lu',
+                                    path: '/quality-management/analysis-equipment-management/equipment-maintenance/maintenance-record',
+                                    name: 'quality-management/analysis-equipment-management/equipment-maintenance/maintenance-record',
                                     redirect: '',
-                                    component:
-                                        "() => import('@/pages/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-bao-yang/bao-yang-ji-lu/bao-yang-ji-lu.vue')",
+                                    component: () =>
+                                        import(
+                                            '@/pages/quality-management/analysis-equipment-management/equipment-maintenance/maintenance-record/maintenance-record.vue'
+                                        ),
                                     meta: {
                                         title: '保养记录',
                                         icon: 'Tickets',
@@ -685,20 +720,22 @@ const menuRoutes: RouteRecordRaw[] = [
                             ],
                         },
                         {
-                            path: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-xun-jian',
-                            name: 'zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-xun-jian',
-                            redirect: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-xun-jian',
+                            path: '/quality-management/analysis-equipment-management/equipment-on-site-inspection',
+                            name: 'quality-management/analysis-equipment-management/equipment-on-site-inspection',
+                            redirect: '/quality-management/analysis-equipment-management/equipment-on-site-inspection',
                             meta: {
                                 title: '设备巡检',
                                 icon: 'Folder',
                             },
                             children: [
                                 {
-                                    path: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-xun-jian/xun-jian-fang-an',
-                                    name: 'zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-xun-jian/xun-jian-fang-an',
+                                    path: '/quality-management/analysis-equipment-management/equipment-on-site-inspection/inspection-plan',
+                                    name: 'quality-management/analysis-equipment-management/equipment-on-site-inspection/inspection-plan',
                                     redirect: '',
-                                    component:
-                                        "() => import('@/pages/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-xun-jian/xun-jian-fang-an/xun-jian-fang-an.vue')",
+                                    component: () =>
+                                        import(
+                                            '@/pages/quality-management/analysis-equipment-management/equipment-on-site-inspection/inspection-plan/inspection-plan.vue'
+                                        ),
                                     meta: {
                                         title: '巡检方案',
                                         icon: 'Tickets',
@@ -706,11 +743,13 @@ const menuRoutes: RouteRecordRaw[] = [
                                     children: [],
                                 },
                                 {
-                                    path: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-xun-jian/xun-jian-ji-hua',
-                                    name: 'zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-xun-jian/xun-jian-ji-hua',
+                                    path: '/quality-management/analysis-equipment-management/equipment-on-site-inspection/inspection-plan',
+                                    name: 'quality-management/analysis-equipment-management/equipment-on-site-inspection/inspection-plan',
                                     redirect: '',
-                                    component:
-                                        "() => import('@/pages/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-xun-jian/xun-jian-ji-hua/xun-jian-ji-hua.vue')",
+                                    component: () =>
+                                        import(
+                                            '@/pages/quality-management/analysis-equipment-management/equipment-on-site-inspection/inspection-plan/inspection-plan.vue'
+                                        ),
                                     meta: {
                                         title: '巡检计划',
                                         icon: 'Tickets',
@@ -718,11 +757,13 @@ const menuRoutes: RouteRecordRaw[] = [
                                     children: [],
                                 },
                                 {
-                                    path: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-xun-jian/xun-jian-ji-lu',
-                                    name: 'zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-xun-jian/xun-jian-ji-lu',
+                                    path: '/quality-management/analysis-equipment-management/equipment-on-site-inspection/inspection-record',
+                                    name: 'quality-management/analysis-equipment-management/equipment-on-site-inspection/inspection-record',
                                     redirect: '',
-                                    component:
-                                        "() => import('@/pages/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-xun-jian/xun-jian-ji-lu/xun-jian-ji-lu.vue')",
+                                    component: () =>
+                                        import(
+                                            '@/pages/quality-management/analysis-equipment-management/equipment-on-site-inspection/inspection-record/inspection-record.vue'
+                                        ),
                                     meta: {
                                         title: '巡检记录',
                                         icon: 'Tickets',
@@ -732,20 +773,23 @@ const menuRoutes: RouteRecordRaw[] = [
                             ],
                         },
                         {
-                            path: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-ding-jian',
-                            name: 'zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-ding-jian',
-                            redirect: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-ding-jian',
+                            path: '/quality-management/analysis-equipment-management/equipment-periodical-inspection',
+                            name: 'quality-management/analysis-equipment-management/equipment-periodical-inspection',
+                            redirect:
+                                '/quality-management/analysis-equipment-management/equipment-periodical-inspection',
                             meta: {
                                 title: '设备定检',
                                 icon: 'Folder',
                             },
                             children: [
                                 {
-                                    path: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-ding-jian/she-bei-ding-jian',
-                                    name: 'zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-ding-jian/she-bei-ding-jian',
+                                    path: '/quality-management/analysis-equipment-management/equipment-periodical-inspection/equipment-periodical-inspection',
+                                    name: 'quality-management/analysis-equipment-management/equipment-periodical-inspection/equipment-periodical-inspection',
                                     redirect: '',
-                                    component:
-                                        "() => import('@/pages/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-ding-jian/she-bei-ding-jian/she-bei-ding-jian.vue')",
+                                    component: () =>
+                                        import(
+                                            '@/pages/quality-management/analysis-equipment-management/equipment-periodical-inspection/equipment-periodical-inspection/equipment-periodical-inspection.vue'
+                                        ),
                                     meta: {
                                         title: '设备定检',
                                         icon: 'Tickets',
@@ -755,20 +799,22 @@ const menuRoutes: RouteRecordRaw[] = [
                             ],
                         },
                         {
-                            path: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-jiao-yan',
-                            name: 'zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-jiao-yan',
-                            redirect: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-jiao-yan',
+                            path: '/quality-management/analysis-equipment-management/equipment-verification',
+                            name: 'quality-management/analysis-equipment-management/equipment-verification',
+                            redirect: '/quality-management/analysis-equipment-management/equipment-verification',
                             meta: {
                                 title: '设备校验',
                                 icon: 'Folder',
                             },
                             children: [
                                 {
-                                    path: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-jiao-yan/she-bei-jiao-yan',
-                                    name: 'zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-jiao-yan/she-bei-jiao-yan',
+                                    path: '/quality-management/analysis-equipment-management/equipment-verification/equipment-verification',
+                                    name: 'quality-management/analysis-equipment-management/equipment-verification/equipment-verification',
                                     redirect: '',
-                                    component:
-                                        "() => import('@/pages/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-jiao-yan/she-bei-jiao-yan/she-bei-jiao-yan.vue')",
+                                    component: () =>
+                                        import(
+                                            '@/pages/quality-management/analysis-equipment-management/equipment-verification/equipment-verification/equipment-verification.vue'
+                                        ),
                                     meta: {
                                         title: '设备校验',
                                         icon: 'Tickets',
@@ -778,20 +824,22 @@ const menuRoutes: RouteRecordRaw[] = [
                             ],
                         },
                         {
-                            path: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-jian-xiu',
-                            name: 'zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-jian-xiu',
-                            redirect: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-jian-xiu',
+                            path: '/quality-management/analysis-equipment-management/equipment-repair',
+                            name: 'quality-management/analysis-equipment-management/equipment-repair',
+                            redirect: '/quality-management/analysis-equipment-management/equipment-repair',
                             meta: {
                                 title: '设备检修',
                                 icon: 'Folder',
                             },
                             children: [
                                 {
-                                    path: '/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-jian-xiu/she-bei-jian-xiu',
-                                    name: 'zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-jian-xiu/she-bei-jian-xiu',
+                                    path: '/quality-management/analysis-equipment-management/equipment-repair/equipment-repair',
+                                    name: 'quality-management/analysis-equipment-management/equipment-repair/equipment-repair',
                                     redirect: '',
-                                    component:
-                                        "() => import('@/pages/zhi-liang-guan-li/fen-xi-she-bei-guan-li/she-bei-jian-xiu/she-bei-jian-xiu/she-bei-jian-xiu.vue')",
+                                    component: () =>
+                                        import(
+                                            '@/pages/quality-management/analysis-equipment-management/equipment-repair/equipment-repair/equipment-repair.vue'
+                                        ),
                                     meta: {
                                         title: '设备检修',
                                         icon: 'Tickets',
@@ -803,20 +851,22 @@ const menuRoutes: RouteRecordRaw[] = [
                     ],
                 },
                 {
-                    path: '/zhi-liang-guan-li/zhi-liang-jian-yan',
-                    name: 'zhi-liang-guan-li/zhi-liang-jian-yan',
-                    redirect: '/zhi-liang-guan-li/zhi-liang-jian-yan',
+                    path: '/quality-management/quality-inspection',
+                    name: 'quality-management/quality-inspection',
+                    redirect: '/quality-management/quality-inspection',
                     meta: {
                         title: '质量检验',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/zhi-liang-guan-li/zhi-liang-jian-yan/zhi-liang-jian-yan',
-                            name: 'zhi-liang-guan-li/zhi-liang-jian-yan/zhi-liang-jian-yan',
+                            path: '/quality-management/quality-inspection/quality-inspection',
+                            name: 'quality-management/quality-inspection/quality-inspection',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/zhi-liang-guan-li/zhi-liang-jian-yan/zhi-liang-jian-yan/zhi-liang-jian-yan.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/quality-management/quality-inspection/quality-inspection/quality-inspection.vue'
+                                ),
                             meta: {
                                 title: '质量检验',
                                 icon: 'Tickets',
@@ -826,20 +876,22 @@ const menuRoutes: RouteRecordRaw[] = [
                     ],
                 },
                 {
-                    path: '/zhi-liang-guan-li/zhi-liang-bao-gao',
-                    name: 'zhi-liang-guan-li/zhi-liang-bao-gao',
-                    redirect: '/zhi-liang-guan-li/zhi-liang-bao-gao',
+                    path: '/quality-management/quality-report',
+                    name: 'quality-management/quality-report',
+                    redirect: '/quality-management/quality-report',
                     meta: {
                         title: '质量报告',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/zhi-liang-guan-li/zhi-liang-bao-gao/zhi-liang-bao-gao-pei-zhi',
-                            name: 'zhi-liang-guan-li/zhi-liang-bao-gao/zhi-liang-bao-gao-pei-zhi',
+                            path: '/quality-management/quality-report/quality-report-configuration',
+                            name: 'quality-management/quality-report/quality-report-configuration',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/zhi-liang-guan-li/zhi-liang-bao-gao/zhi-liang-bao-gao-pei-zhi/zhi-liang-bao-gao-pei-zhi.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/quality-management/quality-report/quality-report-configuration/quality-report-configuration.vue'
+                                ),
                             meta: {
                                 title: '质量报告配置',
                                 icon: 'Tickets',
@@ -849,20 +901,20 @@ const menuRoutes: RouteRecordRaw[] = [
                     ],
                 },
                 {
-                    path: '/zhi-liang-guan-li/SPC-kong-zhi',
-                    name: 'zhi-liang-guan-li/SPC-kong-zhi',
-                    redirect: '/zhi-liang-guan-li/SPC-kong-zhi',
+                    path: '/quality-management/spc-control',
+                    name: 'quality-management/spc-control',
+                    redirect: '/quality-management/spc-control',
                     meta: {
                         title: 'SPC控制',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/zhi-liang-guan-li/SPC-kong-zhi/ji-liang-xing-SPC',
-                            name: 'zhi-liang-guan-li/SPC-kong-zhi/ji-liang-xing-SPC',
+                            path: '/quality-management/spc-control/metered-spc',
+                            name: 'quality-management/spc-control/metered-spc',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/zhi-liang-guan-li/SPC-kong-zhi/ji-liang-xing-SPC/ji-liang-xing-SPC.vue')",
+                            component: () =>
+                                import('@/pages/quality-management/spc-control/metered-spc/metered-spc.vue'),
                             meta: {
                                 title: '计量型SPC',
                                 icon: 'Tickets',
@@ -874,29 +926,31 @@ const menuRoutes: RouteRecordRaw[] = [
             ],
         },
         {
-            path: '/cang-ku-guan-li',
-            name: 'cang-ku-guan-li',
-            redirect: '/cang-ku-guan-li',
+            path: '/warehouse-management',
+            name: 'warehouse-management',
+            redirect: '/warehouse-management',
             meta: {
                 title: '仓库管理',
                 icon: 'Folder',
             },
             children: [
                 {
-                    path: '/cang-ku-guan-li/WMS-cang',
-                    name: 'cang-ku-guan-li/WMS-cang',
-                    redirect: '/cang-ku-guan-li/WMS-cang',
+                    path: '/warehouse-management/wms-warehouse',
+                    name: 'warehouse-management/wms-warehouse',
+                    redirect: '/warehouse-management/wms-warehouse',
                     meta: {
                         title: 'WMS仓',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/cang-ku-guan-li/WMS-cang/kong-ping-cang-ku-cun',
-                            name: 'cang-ku-guan-li/WMS-cang/kong-ping-cang-ku-cun',
+                            path: '/warehouse-management/wms-warehouse/empty-bottle-warehouse-inventory',
+                            name: 'warehouse-management/wms-warehouse/empty-bottle-warehouse-inventory',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/cang-ku-guan-li/WMS-cang/kong-ping-cang-ku-cun/kong-ping-cang-ku-cun.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/warehouse-management/wms-warehouse/empty-bottle-warehouse-inventory/empty-bottle-warehouse-inventory.vue'
+                                ),
                             meta: {
                                 title: '空瓶仓库存',
                                 icon: 'Tickets',
@@ -904,11 +958,13 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/cang-ku-guan-li/WMS-cang/yuan-liao-cang-ku-cun',
-                            name: 'cang-ku-guan-li/WMS-cang/yuan-liao-cang-ku-cun',
+                            path: '/warehouse-management/wms-warehouse/raw-material-warehouse-inventory',
+                            name: 'warehouse-management/wms-warehouse/raw-material-warehouse-inventory',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/cang-ku-guan-li/WMS-cang/yuan-liao-cang-ku-cun/yuan-liao-cang-ku-cun.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/warehouse-management/wms-warehouse/raw-material-warehouse-inventory/raw-material-warehouse-inventory.vue'
+                                ),
                             meta: {
                                 title: '原料仓库存',
                                 icon: 'Tickets',
@@ -916,11 +972,13 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/cang-ku-guan-li/WMS-cang/cheng-pin-ku-cun',
-                            name: 'cang-ku-guan-li/WMS-cang/cheng-pin-ku-cun',
+                            path: '/warehouse-management/wms-warehouse/finished-product-inventory',
+                            name: 'warehouse-management/wms-warehouse/finished-product-inventory',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/cang-ku-guan-li/WMS-cang/cheng-pin-ku-cun/cheng-pin-ku-cun.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/warehouse-management/wms-warehouse/finished-product-inventory/finished-product-inventory.vue'
+                                ),
                             meta: {
                                 title: '成品库存',
                                 icon: 'Tickets',
@@ -928,11 +986,13 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/cang-ku-guan-li/WMS-cang/chu-guan-ku-cun',
-                            name: 'cang-ku-guan-li/WMS-cang/chu-guan-ku-cun',
+                            path: '/warehouse-management/wms-warehouse/storage-tank-inventory',
+                            name: 'warehouse-management/wms-warehouse/storage-tank-inventory',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/cang-ku-guan-li/WMS-cang/chu-guan-ku-cun/chu-guan-ku-cun.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/warehouse-management/wms-warehouse/storage-tank-inventory/storage-tank-inventory.vue'
+                                ),
                             meta: {
                                 title: '储罐库存',
                                 icon: 'Tickets',
@@ -942,32 +1002,36 @@ const menuRoutes: RouteRecordRaw[] = [
                     ],
                 },
                 {
-                    path: '/cang-ku-guan-li/chu-ru-ku-ji-lu',
-                    name: 'cang-ku-guan-li/chu-ru-ku-ji-lu',
-                    redirect: '/cang-ku-guan-li/chu-ru-ku-ji-lu',
+                    path: '/warehouse-management/entry-and-exit-record',
+                    name: 'warehouse-management/entry-and-exit-record',
+                    redirect: '/warehouse-management/entry-and-exit-record',
                     meta: {
                         title: '出入库记录',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/cang-ku-guan-li/chu-ru-ku-ji-lu/ru-chang-jian-yan',
-                            name: 'cang-ku-guan-li/chu-ru-ku-ji-lu/ru-chang-jian-yan',
+                            path: '/warehouse-management/entry-and-exit-record/factory-inspection',
+                            name: 'warehouse-management/entry-and-exit-record/factory-inspection',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/cang-ku-guan-li/chu-ru-ku-ji-lu/ru-chang-jian-yan/ru-chang-jian-yan.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/warehouse-management/entry-and-exit-record/factory-inspection/factory-inspection.vue'
+                                ),
                             meta: {
-                                title: '入厂检验（已完成）',
+                                title: '入厂检验',
                                 icon: 'Tickets',
                             },
                             children: [],
                         },
                         {
-                            path: '/cang-ku-guan-li/chu-ru-ku-ji-lu/yuan-liao-ru-ku',
-                            name: 'cang-ku-guan-li/chu-ru-ku-ji-lu/yuan-liao-ru-ku',
+                            path: '/warehouse-management/entry-and-exit-record/raw-material-inventory',
+                            name: 'warehouse-management/entry-and-exit-record/raw-material-inventory',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/cang-ku-guan-li/chu-ru-ku-ji-lu/yuan-liao-ru-ku/yuan-liao-ru-ku.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/warehouse-management/entry-and-exit-record/raw-material-inventory/raw-material-inventory.vue'
+                                ),
                             meta: {
                                 title: '原料入库',
                                 icon: 'Tickets',
@@ -975,11 +1039,13 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/cang-ku-guan-li/chu-ru-ku-ji-lu/cheng-pin-ru-ku',
-                            name: 'cang-ku-guan-li/chu-ru-ku-ji-lu/cheng-pin-ru-ku',
+                            path: '/warehouse-management/entry-and-exit-record/finished-product-inventory',
+                            name: 'warehouse-management/entry-and-exit-record/finished-product-inventory',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/cang-ku-guan-li/chu-ru-ku-ji-lu/cheng-pin-ru-ku/cheng-pin-ru-ku.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/warehouse-management/entry-and-exit-record/finished-product-inventory/finished-product-inventory.vue'
+                                ),
                             meta: {
                                 title: '成品入库',
                                 icon: 'Tickets',
@@ -987,11 +1053,13 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/cang-ku-guan-li/chu-ru-ku-ji-lu/kong-ping-chu-chang',
-                            name: 'cang-ku-guan-li/chu-ru-ku-ji-lu/kong-ping-chu-chang',
+                            path: '/warehouse-management/entry-and-exit-record/empty-bottle-export',
+                            name: 'warehouse-management/entry-and-exit-record/empty-bottle-export',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/cang-ku-guan-li/chu-ru-ku-ji-lu/kong-ping-chu-chang/kong-ping-chu-chang.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/warehouse-management/entry-and-exit-record/empty-bottle-export/empty-bottle-export.vue'
+                                ),
                             meta: {
                                 title: '空瓶出厂',
                                 icon: 'Tickets',
@@ -999,11 +1067,13 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/cang-ku-guan-li/chu-ru-ku-ji-lu/yuan-liao-chu-chang',
-                            name: 'cang-ku-guan-li/chu-ru-ku-ji-lu/yuan-liao-chu-chang',
+                            path: '/warehouse-management/entry-and-exit-record/raw-materials-out-of-factory',
+                            name: 'warehouse-management/entry-and-exit-record/raw-materials-out-of-factory',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/cang-ku-guan-li/chu-ru-ku-ji-lu/yuan-liao-chu-chang/yuan-liao-chu-chang.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/warehouse-management/entry-and-exit-record/raw-materials-out-of-factory/raw-materials-out-of-factory.vue'
+                                ),
                             meta: {
                                 title: '原料出厂',
                                 icon: 'Tickets',
@@ -1011,20 +1081,22 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/cang-ku-guan-li/chu-ru-ku-ji-lu/xiao-shou-chu-chang',
-                            name: 'cang-ku-guan-li/chu-ru-ku-ji-lu/xiao-shou-chu-chang',
-                            redirect: '/cang-ku-guan-li/chu-ru-ku-ji-lu/xiao-shou-chu-chang',
+                            path: '/warehouse-management/entry-and-exit-record/sales-out-of-factory',
+                            name: 'warehouse-management/entry-and-exit-record/sales-out-of-factory',
+                            redirect: '/warehouse-management/entry-and-exit-record/sales-out-of-factory',
                             meta: {
                                 title: '销售出厂',
                                 icon: 'Folder',
                             },
                             children: [
                                 {
-                                    path: '/cang-ku-guan-li/chu-ru-ku-ji-lu/xiao-shou-chu-chang/chu-ku-jian-yan',
-                                    name: 'cang-ku-guan-li/chu-ru-ku-ji-lu/xiao-shou-chu-chang/chu-ku-jian-yan',
+                                    path: '/warehouse-management/entry-and-exit-record/sales-out-of-factory/out-of-warehouse-inspection',
+                                    name: 'warehouse-management/entry-and-exit-record/sales-out-of-factory/out-of-warehouse-inspection',
                                     redirect: '',
-                                    component:
-                                        "() => import('@/pages/cang-ku-guan-li/chu-ru-ku-ji-lu/xiao-shou-chu-chang/chu-ku-jian-yan/chu-ku-jian-yan.vue')",
+                                    component: () =>
+                                        import(
+                                            '@/pages/warehouse-management/entry-and-exit-record/sales-out-of-factory/out-of-warehouse-inspection/out-of-warehouse-inspection.vue'
+                                        ),
                                     meta: {
                                         title: '出库检验',
                                         icon: 'Tickets',
@@ -1032,11 +1104,13 @@ const menuRoutes: RouteRecordRaw[] = [
                                     children: [],
                                 },
                                 {
-                                    path: '/cang-ku-guan-li/chu-ru-ku-ji-lu/xiao-shou-chu-chang/OQC',
-                                    name: 'cang-ku-guan-li/chu-ru-ku-ji-lu/xiao-shou-chu-chang/OQC',
+                                    path: '/warehouse-management/entry-and-exit-record/sales-out-of-factory/oqc',
+                                    name: 'warehouse-management/entry-and-exit-record/sales-out-of-factory/oqc',
                                     redirect: '',
-                                    component:
-                                        "() => import('@/pages/cang-ku-guan-li/chu-ru-ku-ji-lu/xiao-shou-chu-chang/OQC/OQC.vue')",
+                                    component: () =>
+                                        import(
+                                            '@/pages/warehouse-management/entry-and-exit-record/sales-out-of-factory/oqc/oqc.vue'
+                                        ),
                                     meta: {
                                         title: 'OQC',
                                         icon: 'Tickets',
@@ -1044,11 +1118,13 @@ const menuRoutes: RouteRecordRaw[] = [
                                     children: [],
                                 },
                                 {
-                                    path: '/cang-ku-guan-li/chu-ru-ku-ji-lu/xiao-shou-chu-chang/fa-huo-chu-chang',
-                                    name: 'cang-ku-guan-li/chu-ru-ku-ji-lu/xiao-shou-chu-chang/fa-huo-chu-chang',
+                                    path: '/warehouse-management/entry-and-exit-record/sales-out-of-factory/shipment-out-of-factory',
+                                    name: 'warehouse-management/entry-and-exit-record/sales-out-of-factory/shipment-out-of-factory',
                                     redirect: '',
-                                    component:
-                                        "() => import('@/pages/cang-ku-guan-li/chu-ru-ku-ji-lu/xiao-shou-chu-chang/fa-huo-chu-chang/fa-huo-chu-chang.vue')",
+                                    component: () =>
+                                        import(
+                                            '@/pages/warehouse-management/entry-and-exit-record/sales-out-of-factory/shipment-out-of-factory/shipment-out-of-factory.vue'
+                                        ),
                                     meta: {
                                         title: '发货出厂',
                                         icon: 'Tickets',
@@ -1056,11 +1132,13 @@ const menuRoutes: RouteRecordRaw[] = [
                                     children: [],
                                 },
                                 {
-                                    path: '/cang-ku-guan-li/chu-ru-ku-ji-lu/xiao-shou-chu-chang/ke-hu-jie-shou',
-                                    name: 'cang-ku-guan-li/chu-ru-ku-ji-lu/xiao-shou-chu-chang/ke-hu-jie-shou',
+                                    path: '/warehouse-management/entry-and-exit-record/sales-out-of-factory/customer-reception',
+                                    name: 'warehouse-management/entry-and-exit-record/sales-out-of-factory/customer-reception',
                                     redirect: '',
-                                    component:
-                                        "() => import('@/pages/cang-ku-guan-li/chu-ru-ku-ji-lu/xiao-shou-chu-chang/ke-hu-jie-shou/ke-hu-jie-shou.vue')",
+                                    component: () =>
+                                        import(
+                                            '@/pages/warehouse-management/entry-and-exit-record/sales-out-of-factory/customer-reception/customer-reception.vue'
+                                        ),
                                     meta: {
                                         title: '客户接收',
                                         icon: 'Tickets',
@@ -1074,29 +1152,31 @@ const menuRoutes: RouteRecordRaw[] = [
             ],
         },
         {
-            path: '/she-bei-guan-li',
-            name: 'she-bei-guan-li',
-            redirect: '/she-bei-guan-li',
+            path: '/equipment-management',
+            name: 'equipment-management',
+            redirect: '/equipment-management',
             meta: {
                 title: '设备管理',
                 icon: 'Folder',
             },
             children: [
                 {
-                    path: '/she-bei-guan-li/she-bei-dang-an',
-                    name: 'she-bei-guan-li/she-bei-dang-an',
-                    redirect: '/she-bei-guan-li/she-bei-dang-an',
+                    path: '/equipment-management/equipment-archives',
+                    name: 'equipment-management/equipment-archives',
+                    redirect: '/equipment-management/equipment-archives',
                     meta: {
                         title: '设备档案',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/she-bei-guan-li/she-bei-dang-an/sheng-chan-she-bei-tai-zhang',
-                            name: 'she-bei-guan-li/she-bei-dang-an/sheng-chan-she-bei-tai-zhang',
+                            path: '/equipment-management/equipment-archives/production-equipment-ledger',
+                            name: 'equipment-management/equipment-archives/production-equipment-ledger',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/she-bei-guan-li/she-bei-dang-an/sheng-chan-she-bei-tai-zhang/sheng-chan-she-bei-tai-zhang.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/equipment-management/equipment-archives/production-equipment-ledger/production-equipment-ledger.vue'
+                                ),
                             meta: {
                                 title: '生产设备台账',
                                 icon: 'Tickets',
@@ -1106,20 +1186,22 @@ const menuRoutes: RouteRecordRaw[] = [
                     ],
                 },
                 {
-                    path: '/she-bei-guan-li/she-bei-xun-jian',
-                    name: 'she-bei-guan-li/she-bei-xun-jian',
-                    redirect: '/she-bei-guan-li/she-bei-xun-jian',
+                    path: '/equipment-management/equipment-on-site-inspection',
+                    name: 'equipment-management/equipment-on-site-inspection',
+                    redirect: '/equipment-management/equipment-on-site-inspection',
                     meta: {
                         title: '设备巡检',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/she-bei-guan-li/she-bei-xun-jian/xun-jian-fang-an',
-                            name: 'she-bei-guan-li/she-bei-xun-jian/xun-jian-fang-an',
+                            path: '/equipment-management/equipment-on-site-inspection/inspection-plan',
+                            name: 'equipment-management/equipment-on-site-inspection/inspection-plan',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/she-bei-guan-li/she-bei-xun-jian/xun-jian-fang-an/xun-jian-fang-an.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/equipment-management/equipment-on-site-inspection/inspection-plan/inspection-plan.vue'
+                                ),
                             meta: {
                                 title: '巡检方案',
                                 icon: 'Tickets',
@@ -1127,11 +1209,13 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/she-bei-guan-li/she-bei-xun-jian/xun-jian-ji-hua',
-                            name: 'she-bei-guan-li/she-bei-xun-jian/xun-jian-ji-hua',
+                            path: '/equipment-management/equipment-on-site-inspection/inspection-plan',
+                            name: 'equipment-management/equipment-on-site-inspection/inspection-plan',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/she-bei-guan-li/she-bei-xun-jian/xun-jian-ji-hua/xun-jian-ji-hua.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/equipment-management/equipment-on-site-inspection/inspection-plan/inspection-plan.vue'
+                                ),
                             meta: {
                                 title: '巡检计划',
                                 icon: 'Tickets',
@@ -1139,11 +1223,13 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/she-bei-guan-li/she-bei-xun-jian/xun-jian-ji-lu',
-                            name: 'she-bei-guan-li/she-bei-xun-jian/xun-jian-ji-lu',
+                            path: '/equipment-management/equipment-on-site-inspection/inspection-record',
+                            name: 'equipment-management/equipment-on-site-inspection/inspection-record',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/she-bei-guan-li/she-bei-xun-jian/xun-jian-ji-lu/xun-jian-ji-lu.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/equipment-management/equipment-on-site-inspection/inspection-record/inspection-record.vue'
+                                ),
                             meta: {
                                 title: '巡检记录',
                                 icon: 'Tickets',
@@ -1153,20 +1239,22 @@ const menuRoutes: RouteRecordRaw[] = [
                     ],
                 },
                 {
-                    path: '/she-bei-guan-li/she-bei-bao-yang',
-                    name: 'she-bei-guan-li/she-bei-bao-yang',
-                    redirect: '/she-bei-guan-li/she-bei-bao-yang',
+                    path: '/equipment-management/equipment-maintenance',
+                    name: 'equipment-management/equipment-maintenance',
+                    redirect: '/equipment-management/equipment-maintenance',
                     meta: {
                         title: '设备保养',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/she-bei-guan-li/she-bei-bao-yang/bao-yang-fang-an',
-                            name: 'she-bei-guan-li/she-bei-bao-yang/bao-yang-fang-an',
+                            path: '/equipment-management/equipment-maintenance/maintenance-schema',
+                            name: 'equipment-management/equipment-maintenance/maintenance-schema',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/she-bei-guan-li/she-bei-bao-yang/bao-yang-fang-an/bao-yang-fang-an.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/equipment-management/equipment-maintenance/maintenance-schema/maintenance-schema.vue'
+                                ),
                             meta: {
                                 title: '保养方案',
                                 icon: 'Tickets',
@@ -1174,11 +1262,13 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/she-bei-guan-li/she-bei-bao-yang/bao-yang-ji-hua',
-                            name: 'she-bei-guan-li/she-bei-bao-yang/bao-yang-ji-hua',
+                            path: '/equipment-management/equipment-maintenance/maintenance-plan',
+                            name: 'equipment-management/equipment-maintenance/maintenance-plan',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/she-bei-guan-li/she-bei-bao-yang/bao-yang-ji-hua/bao-yang-ji-hua.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/equipment-management/equipment-maintenance/maintenance-plan/maintenance-plan.vue'
+                                ),
                             meta: {
                                 title: '保养计划',
                                 icon: 'Tickets',
@@ -1186,11 +1276,13 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/she-bei-guan-li/she-bei-bao-yang/bao-yang-ji-lu',
-                            name: 'she-bei-guan-li/she-bei-bao-yang/bao-yang-ji-lu',
+                            path: '/equipment-management/equipment-maintenance/maintenance-record',
+                            name: 'equipment-management/equipment-maintenance/maintenance-record',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/she-bei-guan-li/she-bei-bao-yang/bao-yang-ji-lu/bao-yang-ji-lu.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/equipment-management/equipment-maintenance/maintenance-record/maintenance-record.vue'
+                                ),
                             meta: {
                                 title: '保养记录',
                                 icon: 'Tickets',
@@ -1200,20 +1292,22 @@ const menuRoutes: RouteRecordRaw[] = [
                     ],
                 },
                 {
-                    path: '/she-bei-guan-li/she-bei-ding-jian',
-                    name: 'she-bei-guan-li/she-bei-ding-jian',
-                    redirect: '/she-bei-guan-li/she-bei-ding-jian',
+                    path: '/equipment-management/equipment-periodical-inspection',
+                    name: 'equipment-management/equipment-periodical-inspection',
+                    redirect: '/equipment-management/equipment-periodical-inspection',
                     meta: {
                         title: '设备定检',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/she-bei-guan-li/she-bei-ding-jian/she-bei-ding-jian',
-                            name: 'she-bei-guan-li/she-bei-ding-jian/she-bei-ding-jian',
+                            path: '/equipment-management/equipment-periodical-inspection/equipment-periodical-inspection',
+                            name: 'equipment-management/equipment-periodical-inspection/equipment-periodical-inspection',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/she-bei-guan-li/she-bei-ding-jian/she-bei-ding-jian/she-bei-ding-jian.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/equipment-management/equipment-periodical-inspection/equipment-periodical-inspection/equipment-periodical-inspection.vue'
+                                ),
                             meta: {
                                 title: '设备定检',
                                 icon: 'Tickets',
@@ -1223,20 +1317,22 @@ const menuRoutes: RouteRecordRaw[] = [
                     ],
                 },
                 {
-                    path: '/she-bei-guan-li/she-bei-jiao-yan',
-                    name: 'she-bei-guan-li/she-bei-jiao-yan',
-                    redirect: '/she-bei-guan-li/she-bei-jiao-yan',
+                    path: '/equipment-management/equipment-verification',
+                    name: 'equipment-management/equipment-verification',
+                    redirect: '/equipment-management/equipment-verification',
                     meta: {
                         title: '设备校验',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/she-bei-guan-li/she-bei-jiao-yan/she-bei-jiao-yan',
-                            name: 'she-bei-guan-li/she-bei-jiao-yan/she-bei-jiao-yan',
+                            path: '/equipment-management/equipment-verification/equipment-verification',
+                            name: 'equipment-management/equipment-verification/equipment-verification',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/she-bei-guan-li/she-bei-jiao-yan/she-bei-jiao-yan/she-bei-jiao-yan.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/equipment-management/equipment-verification/equipment-verification/equipment-verification.vue'
+                                ),
                             meta: {
                                 title: '设备校验',
                                 icon: 'Tickets',
@@ -1246,20 +1342,22 @@ const menuRoutes: RouteRecordRaw[] = [
                     ],
                 },
                 {
-                    path: '/she-bei-guan-li/she-bei-jian-xiu',
-                    name: 'she-bei-guan-li/she-bei-jian-xiu',
-                    redirect: '/she-bei-guan-li/she-bei-jian-xiu',
+                    path: '/equipment-management/equipment-repair',
+                    name: 'equipment-management/equipment-repair',
+                    redirect: '/equipment-management/equipment-repair',
                     meta: {
                         title: '设备检修',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/she-bei-guan-li/she-bei-jian-xiu/she-bei-jian-xiu',
-                            name: 'she-bei-guan-li/she-bei-jian-xiu/she-bei-jian-xiu',
+                            path: '/equipment-management/equipment-repair/equipment-repair',
+                            name: 'equipment-management/equipment-repair/equipment-repair',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/she-bei-guan-li/she-bei-jian-xiu/she-bei-jian-xiu/she-bei-jian-xiu.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/equipment-management/equipment-repair/equipment-repair/equipment-repair.vue'
+                                ),
                             meta: {
                                 title: '设备检修',
                                 icon: 'Tickets',
@@ -1271,20 +1369,22 @@ const menuRoutes: RouteRecordRaw[] = [
             ],
         },
         {
-            path: '/yi-chang-guan-li',
-            name: 'yi-chang-guan-li',
-            redirect: '/yi-chang-guan-li',
+            path: '/abnormal-management',
+            name: 'abnormal-management',
+            redirect: '/abnormal-management',
             meta: {
                 title: '异常管理',
                 icon: 'Folder',
             },
             children: [
                 {
-                    path: '/yi-chang-guan-li/sheng-chan-guo-cheng-yi-chang-chu-zhi-dan',
-                    name: 'yi-chang-guan-li/sheng-chan-guo-cheng-yi-chang-chu-zhi-dan',
+                    path: '/abnormal-management/production-process-abnormal-handling-order',
+                    name: 'abnormal-management/production-process-abnormal-handling-order',
                     redirect: '',
-                    component:
-                        "() => import('@/pages/yi-chang-guan-li/sheng-chan-guo-cheng-yi-chang-chu-zhi-dan/sheng-chan-guo-cheng-yi-chang-chu-zhi-dan.vue')",
+                    component: () =>
+                        import(
+                            '@/pages/abnormal-management/production-process-abnormal-handling-order/production-process-abnormal-handling-order.vue'
+                        ),
                     meta: {
                         title: '生产过程异常处置单',
                         icon: 'Tickets',
@@ -1292,10 +1392,11 @@ const menuRoutes: RouteRecordRaw[] = [
                     children: [],
                 },
                 {
-                    path: '/yi-chang-guan-li/tui-huo-chu-zhi-dan',
-                    name: 'yi-chang-guan-li/tui-huo-chu-zhi-dan',
+                    path: '/abnormal-management/return-handling-order',
+                    name: 'abnormal-management/return-handling-order',
                     redirect: '',
-                    component: "() => import('@/pages/yi-chang-guan-li/tui-huo-chu-zhi-dan/tui-huo-chu-zhi-dan.vue')",
+                    component: () =>
+                        import('@/pages/abnormal-management/return-handling-order/return-handling-order.vue'),
                     meta: {
                         title: '退货处置单',
                         icon: 'Tickets',
@@ -1303,11 +1404,13 @@ const menuRoutes: RouteRecordRaw[] = [
                     children: [],
                 },
                 {
-                    path: '/yi-chang-guan-li/cheng-pin-yi-chang-chu-zhi-dan',
-                    name: 'yi-chang-guan-li/cheng-pin-yi-chang-chu-zhi-dan',
+                    path: '/abnormal-management/finished-product-abnormal-handling-order',
+                    name: 'abnormal-management/finished-product-abnormal-handling-order',
                     redirect: '',
-                    component:
-                        "() => import('@/pages/yi-chang-guan-li/cheng-pin-yi-chang-chu-zhi-dan/cheng-pin-yi-chang-chu-zhi-dan.vue')",
+                    component: () =>
+                        import(
+                            '@/pages/abnormal-management/finished-product-abnormal-handling-order/finished-product-abnormal-handling-order.vue'
+                        ),
                     meta: {
                         title: '成品异常处置单',
                         icon: 'Tickets',
@@ -1315,11 +1418,13 @@ const menuRoutes: RouteRecordRaw[] = [
                     children: [],
                 },
                 {
-                    path: '/yi-chang-guan-li/zai-xian-fen-xi-yi-chang-chu-zhi-dan',
-                    name: 'yi-chang-guan-li/zai-xian-fen-xi-yi-chang-chu-zhi-dan',
+                    path: '/abnormal-management/online-analysis-abnormal-handling-single',
+                    name: 'abnormal-management/online-analysis-abnormal-handling-single',
                     redirect: '',
-                    component:
-                        "() => import('@/pages/yi-chang-guan-li/zai-xian-fen-xi-yi-chang-chu-zhi-dan/zai-xian-fen-xi-yi-chang-chu-zhi-dan.vue')",
+                    component: () =>
+                        import(
+                            '@/pages/abnormal-management/online-analysis-abnormal-handling-single/online-analysis-abnormal-handling-single.vue'
+                        ),
                     meta: {
                         title: '在线分析异常处置单',
                         icon: 'Tickets',
@@ -1327,10 +1432,13 @@ const menuRoutes: RouteRecordRaw[] = [
                     children: [],
                 },
                 {
-                    path: '/yi-chang-guan-li/bu-he-ge-qu-chu-zhi',
-                    name: 'yi-chang-guan-li/bu-he-ge-qu-chu-zhi',
+                    path: '/abnormal-management/disposal-of-unqualified-areas',
+                    name: 'abnormal-management/disposal-of-unqualified-areas',
                     redirect: '',
-                    component: "() => import('@/pages/yi-chang-guan-li/bu-he-ge-qu-chu-zhi/bu-he-ge-qu-chu-zhi.vue')",
+                    component: () =>
+                        import(
+                            '@/pages/abnormal-management/disposal-of-unqualified-areas/disposal-of-unqualified-areas.vue'
+                        ),
                     meta: {
                         title: '不合格区处置',
                         icon: 'Tickets',
@@ -1340,29 +1448,31 @@ const menuRoutes: RouteRecordRaw[] = [
             ],
         },
         {
-            path: '/xi-tong-guan-li',
-            name: 'xi-tong-guan-li',
-            redirect: '/xi-tong-guan-li',
+            path: '/system-management',
+            name: 'system-management',
+            redirect: '/system-management',
             meta: {
                 title: '系统管理',
                 icon: 'Folder',
             },
             children: [
                 {
-                    path: '/xi-tong-guan-li/xi-tong-quan-xian',
-                    name: 'xi-tong-guan-li/xi-tong-quan-xian',
-                    redirect: '/xi-tong-guan-li/xi-tong-quan-xian',
+                    path: '/system-management/system-permissions',
+                    name: 'system-management/system-permissions',
+                    redirect: '/system-management/system-permissions',
                     meta: {
                         title: '系统权限',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/xi-tong-guan-li/xi-tong-quan-xian/zu-zhi-guan-li',
-                            name: 'xi-tong-guan-li/xi-tong-quan-xian/zu-zhi-guan-li',
+                            path: '/system-management/system-permissions/organization-management',
+                            name: 'system-management/system-permissions/organization-management',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/xi-tong-guan-li/xi-tong-quan-xian/zu-zhi-guan-li/zu-zhi-guan-li.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/system-management/system-permissions/organization-management/organization-management.vue'
+                                ),
                             meta: {
                                 title: '组织管理',
                                 icon: 'Tickets',
@@ -1370,11 +1480,13 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/xi-tong-guan-li/xi-tong-quan-xian/bu-men-guan-li',
-                            name: 'xi-tong-guan-li/xi-tong-quan-xian/bu-men-guan-li',
+                            path: '/system-management/system-permissions/department-management',
+                            name: 'system-management/system-permissions/department-management',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/xi-tong-guan-li/xi-tong-quan-xian/bu-men-guan-li/bu-men-guan-li.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/system-management/system-permissions/department-management/department-management.vue'
+                                ),
                             meta: {
                                 title: '部门管理',
                                 icon: 'Tickets',
@@ -1382,11 +1494,13 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/xi-tong-guan-li/xi-tong-quan-xian/jue-se-guan-li',
-                            name: 'xi-tong-guan-li/xi-tong-quan-xian/jue-se-guan-li',
+                            path: '/system-management/system-permissions/role-management',
+                            name: 'system-management/system-permissions/role-management',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/xi-tong-guan-li/xi-tong-quan-xian/jue-se-guan-li/jue-se-guan-li.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/system-management/system-permissions/role-management/role-management.vue'
+                                ),
                             meta: {
                                 title: '角色管理',
                                 icon: 'Tickets',
@@ -1394,11 +1508,13 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/xi-tong-guan-li/xi-tong-quan-xian/yong-hu-guan-li',
-                            name: 'xi-tong-guan-li/xi-tong-quan-xian/yong-hu-guan-li',
+                            path: '/system-management/system-permissions/user-management',
+                            name: 'system-management/system-permissions/user-management',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/xi-tong-guan-li/xi-tong-quan-xian/yong-hu-guan-li/yong-hu-guan-li.vue')",
+                            component: () =>
+                                import(
+                                    '@/pages/system-management/system-permissions/user-management/user-management.vue'
+                                ),
                             meta: {
                                 title: '用户管理',
                                 icon: 'Tickets',
@@ -1408,20 +1524,19 @@ const menuRoutes: RouteRecordRaw[] = [
                     ],
                 },
                 {
-                    path: '/xi-tong-guan-li/ri-zhi-guan-li',
-                    name: 'xi-tong-guan-li/ri-zhi-guan-li',
-                    redirect: '/xi-tong-guan-li/ri-zhi-guan-li',
+                    path: '/system-management/log-management',
+                    name: 'system-management/log-management',
+                    redirect: '/system-management/log-management',
                     meta: {
                         title: '日志管理',
                         icon: 'Folder',
                     },
                     children: [
                         {
-                            path: '/xi-tong-guan-li/ri-zhi-guan-li/deng-lu-ri-zhi',
-                            name: 'xi-tong-guan-li/ri-zhi-guan-li/deng-lu-ri-zhi',
+                            path: '/system-management/log-management/login-log',
+                            name: 'system-management/log-management/login-log',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/xi-tong-guan-li/ri-zhi-guan-li/deng-lu-ri-zhi/deng-lu-ri-zhi.vue')",
+                            component: () => import('@/pages/system-management/log-management/login-log/login-log.vue'),
                             meta: {
                                 title: '登录日志',
                                 icon: 'Tickets',
@@ -1429,11 +1544,11 @@ const menuRoutes: RouteRecordRaw[] = [
                             children: [],
                         },
                         {
-                            path: '/xi-tong-guan-li/ri-zhi-guan-li/cao-zuo-ri-zhi',
-                            name: 'xi-tong-guan-li/ri-zhi-guan-li/cao-zuo-ri-zhi',
+                            path: '/system-management/log-management/operation-log',
+                            name: 'system-management/log-management/operation-log',
                             redirect: '',
-                            component:
-                                "() => import('@/pages/xi-tong-guan-li/ri-zhi-guan-li/cao-zuo-ri-zhi/cao-zuo-ri-zhi.vue')",
+                            component: () =>
+                                import('@/pages/system-management/log-management/operation-log/operation-log.vue'),
                             meta: {
                                 title: '操作日志',
                                 icon: 'Tickets',

@@ -1,74 +1,64 @@
-import * as google from '@vitalets/google-translate-api';
+import { translate } from '@vitalets/google-translate-api';
 import { pinyin } from 'pinyin-pro';
 import * as tunnel from 'tunnel';
 
 /**
- * 中文到英文的映射字典
- */
-export const pathMap: { [key: string]: string } = {
-    // 首页: 'home',
-    // 基础数据: 'basic-data',
-    // 添加更多映射...
-};
-
-/**
  * 翻译英文
- * @param text 文本
+ * @param text 文本（格式：...,...,..）
  * @returns 翻译后的文本
  */
-export function translateToEnglish(text: string) {
-    // 清理特殊字符
-    const cleaned = text
-        .replace(/（.*）/, '') // 删除括号内容
-        .replace(/[^\u4e00-\u9fa5a-zA-Z0-9]/g, ''); // 保留中文、英文和数字
-
-    // 优先使用映射表
-    if (pathMap[cleaned]) {
-        return pathMap[cleaned];
-    }
-
+export async function translateToEnglish(text: string) {
     // 谷歌翻译
-    const result = (google as any)(
-        cleaned,
-        { from: 'zh-CN', to: 'en' },
-        {
+    const result = await translate(text, {
+        from: 'zh-CN',
+        to: 'en',
+        fetchOptions: {
             agent: tunnel.httpsOverHttp({
                 proxy: {
-                    host: '127.0.0.1', // 代理 ip
-                    port: 7890, // 代理 port
+                    host: '127.0.0.1',
+                    port: 7890,
                     headers: {
                         'User-Agent': 'Node',
                     },
                 },
             }),
         },
-    );
+    });
 
-    return result.text;
+    const translated = result.text.toLowerCase(); // 转换为小写
+
+    console.log('🔍 English：', translated);
+    return translated;
 }
 
 /**
  * 翻译拼音
- * @param text 文本
+ * @param text 文本（格式：...,...,..）
  * @returns 翻译后的文本
  */
 export function translateToPinyin(text: string): string {
-    // 清理特殊字符
-    const cleaned = text
-        .replace(/（.*）/, '') // 删除括号内容
-        .replace(/[^\u4e00-\u9fa5a-zA-Z0-9]/g, ''); // 保留中文、英文和数字
-
-    // 优先使用映射表
-    if (pathMap[cleaned]) {
-        return pathMap[cleaned];
-    }
-
     // 拼音转换
-    const result = pinyin(cleaned, {
+    const result = pinyin(text, {
         pattern: 'pinyin', // 完整拼音
         toneType: 'none', // 不带声调
         nonZh: 'consecutive', // 连续非汉字字符无间距
     });
 
-    return result.replace(/ /g, '-');
+    const translated = result.toLowerCase(); // 转换为小写
+
+    console.log('🔍 Pinyin：', translated);
+    return translated;
+}
+
+/**
+ * 翻译
+ */
+export async function translateText(text: string) {
+    console.log('🔍 Chinese：', text);
+
+    try {
+        return translateToEnglish(text);
+    } catch (error) {
+        return translateToPinyin(text);
+    }
 }

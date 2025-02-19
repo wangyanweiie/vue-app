@@ -1,9 +1,82 @@
 import axios from 'axios';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import * as path from 'path';
 import { type RouteRecordRaw } from 'vue-router';
 
-import { translateToEnglish, translateToPinyin } from './hooks';
+import { BASE_PATH, PageType, PATH_MAP_FILE_PATH } from './base';
+import { translateText } from './hooks';
+import { MenuTree } from './interface';
+
+/**
+ * 递归提取页面名称
+ * @param nodes 节点列表
+ * @returns 页面名称列表
+ */
+function extractPageNames(nodes: MenuTree): string[] {
+    let pageNames: string[] = [];
+
+    nodes.forEach(node => {
+        // 去除括号
+        const cleaned = node.pageName.replace(/\s*（.*）\s*/, '');
+
+        // 添加当前节点的 pageName
+        pageNames.push(cleaned);
+
+        // 如果有子节点，递归处理
+        if (node.children && node.type === PageType.文件夹) {
+            const list = extractPageNames(node.children);
+            pageNames = pageNames.concat(list);
+        }
+    });
+
+    // 数组去重
+    const set = new Set(pageNames);
+
+    // 返回去重后的数组
+    return Array.from(set);
+}
+
+/**
+ * 生成映射字典
+ */
+async function generatePathMap(nodes: MenuTree) {
+    const pageNameList = extractPageNames(nodes);
+
+    const translatedText = await translateText(pageNameList.join(','));
+
+    // 字符串转数组，去除空格，并替换空格为连字符
+    const pageNameToEnglishList = translatedText
+        .split(',')
+        .map(item => item.trim())
+        .map(item => item.replace(/\s+/g, '-'));
+
+    /**
+     * TODO: 翻译存在问题：
+     * 1. 不同的中文可能翻译成相同的英文
+     * 2. 同一个中文可能连续翻译两遍
+     *
+     * 例子：这里的 ‘日志管理’ 翻译了两遍？所以导致翻译后的数组与原数组长度不一致，无法正确生成字典
+     * 目前解决办法：手动排查上述问题，确保翻译前后数组一一对应，并手动替换成唯一的英文
+     */
+    // if (pageNameList.length !== pageNameToEnglishList.length) {
+    //     console.log('🔍 pageNameList', pageNameList);
+    //     console.log('🔍 pageNameToEnglishList', pageNameToEnglishList);
+    //     return;
+    // }
+
+    const map: {
+        [key: string]: string;
+    } = {};
+
+    // 生成映射字典
+    pageNameList.forEach((pageName, index) => {
+        map[pageName] = pageNameToEnglishList[index];
+    });
+
+    // 将映射字典写入到 pathMap.json 文件
+    writeFileSync(PATH_MAP_FILE_PATH, JSON.stringify(map, null, 2));
+    console.log('🔍 PathMap：', map);
+}
 
 /**
  * 递归生成路由
@@ -11,8 +84,11 @@ import { translateToEnglish, translateToPinyin } from './hooks';
  * @param parentPath 父路径
  * @returns 路由列表
  */
-function generateRoutes(data: any[], parentPath = '', parentName = ''): RouteRecordRaw[] {
-    return data.map(item => {
+function generateRoutes(nodes: MenuTree, parentPath = '', parentName = ''): RouteRecordRaw[] {
+    const routes = nodes.map(node => {
+        // 去除括号
+        const cleaned = node.pageName.replace(/\s*（.*）\s*/, '');
+
         // const route: RouteRecordRaw = {
         const route: any = {
             path: '',
@@ -20,15 +96,17 @@ function generateRoutes(data: any[], parentPath = '', parentName = ''): RouteRec
             redirect: '',
             component: undefined,
             meta: {
-                title: item.pageName,
-                icon: item.type === 'Folder' ? 'Folder' : 'Tickets',
+                title: cleaned,
+                icon: node.type === PageType.文件夹 ? 'Folder' : 'Tickets',
             },
             children: [],
         };
 
-        // 生成路径和组件映射（使用翻译后的路径）
-        // const translatedText = translateToPinyin(item.pageName);
-        const translatedText = translateToEnglish(item.pageName);
+        // 读取 pathMap.json 文件
+        const pathMap = JSON.parse(readFileSync(PATH_MAP_FILE_PATH, 'utf-8'));
+
+        // 使用翻译后的路由标题作为路径
+        const translatedText = pathMap[cleaned];
         const fullPath = parentPath ? `${parentPath}/${translatedText}` : `/${translatedText}`;
         const fullName = parentName ? `${parentName}/${translatedText}` : translatedText;
 
@@ -36,27 +114,34 @@ function generateRoutes(data: any[], parentPath = '', parentName = ''): RouteRec
         route.path = fullPath;
         route.name = fullName;
 
-        // TODO: 箭头函数转为 JSON 会被忽略，使用字符串代替，怎么转换？
+        /**
+         * TODO: 箭头函数转为 JSON 会被忽略，需要使用字符串代替才能写入文件，怎么转换成箭头函数？
+         * 目前解决方法：文件生成后，手动替换
+         */
         route.component =
-            item.type === 'Wireframe' ? `() => import('@/pages${fullPath}/${translatedText}.vue')` : undefined;
+            node.type === PageType.文件 ? `() => import('@/pages${fullPath}/${translatedText}.vue')` : undefined;
 
-        if (item.children && item.type === 'Folder') {
+        if (node.children && node.type === PageType.文件夹) {
             // 递归处理子节点
-            route.children = generateRoutes(item.children, fullPath, fullName);
+            route.children = generateRoutes(node.children, fullPath, fullName);
             route.redirect = fullPath;
         }
 
         return route;
     });
+
+    const filteredRoutes = routes.filter(item => item?.meta?.title !== '首页');
+
+    return filteredRoutes;
 }
 
 /**
  * 递归生成页面目录与文件
- * @param config 路由配置
+ * @param routes 路由配置
  * @param basePath 基础路径
  */
-function generateFiles(config: RouteRecordRaw[], basePath: string = 'src/pages') {
-    config.forEach(route => {
+function generateFiles(routes: RouteRecordRaw[], basePath: string = BASE_PATH) {
+    routes.forEach(route => {
         if (route.component) {
             // 解析组件路径
             const componentPath = String(route.component).replace("() => import('@/pages/", '').replace("')", '');
@@ -74,15 +159,13 @@ function generateFiles(config: RouteRecordRaw[], basePath: string = 'src/pages')
             if (!existsSync(fullPath)) {
                 const template = `
 <template>
-    <div>
-        <h1>${route?.meta?.title || ''}</h1>
-    </div>
+    <div>${route?.meta?.title || ''}</div>
 </template>
 
 <script lang="ts" setup>
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 </style>`;
 
                 writeFileSync(fullPath, template, 'utf-8');
@@ -158,14 +241,17 @@ async function getRouter() {
     // 获取需要生成路由的节点列表
     const objs = res.data?.sitemap?.rootNodes[1]?.children;
 
-    // 生成路由列表
-    const routes = generateRoutes(objs).filter(item => item?.meta?.title !== '首页');
+    // *1.生成翻译字典，只需要生成一次
+    // generatePathMap(objs);
 
-    // 1.将生成的文件内容写入到指定文件
+    // *2.根据翻译字典，生成路由列表
+    const routes = generateRoutes(objs);
+
+    // *3.根据路由列表，生成路由文件
     const content = generateRouteFile(routes);
     writeFileSync('./src/router/router.ts', content);
 
-    // 2.遍历路由列表，生成对应的文件夹与文件
+    // *4.根据路由列表，生成页面所在的文件夹与文件
     // generateFiles(routes);
 }
 
