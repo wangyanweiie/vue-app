@@ -54,7 +54,7 @@ function extractPageNames(nodes) {
         // 添加当前节点的 pageName
         pageNames.push(cleaned);
         // 如果有子节点，递归处理
-        if (node.children && node.type === base_1.PageType.文件夹) {
+        if (node.children && node.type === base_1.PageTypeEnum.文件夹) {
             var list = extractPageNames(node.children);
             pageNames = pageNames.concat(list);
         }
@@ -82,7 +82,7 @@ function generatePathMap(nodes) {
                         .map(function (item) { return item.trim(); })
                         .map(function (item) { return item.replace(/\s+/g, '-'); });
                     map = {};
-                    // 生成映射字典
+                    // 遍历页面名称列表，生成映射字典
                     pageNameList.forEach(function (pageName, index) {
                         map[pageName] = pageNameToEnglishList[index];
                     });
@@ -114,11 +114,11 @@ function generateRoutes(nodes, parentPath, parentName) {
             component: undefined,
             meta: {
                 title: cleaned,
-                icon: node.type === base_1.PageType.文件夹 ? 'Folder' : 'Tickets',
+                icon: node.type === base_1.PageTypeEnum.文件夹 ? 'Folder' : 'Tickets',
             },
             children: [],
         };
-        // 读取 pathMap.json 文件
+        // 读取 pathMap.json 文件，获取翻译后的路由标题作为路径
         var pathMap = JSON.parse((0, fs_1.readFileSync)(base_1.PATH_MAP_FILE_PATH, 'utf-8'));
         // 使用翻译后的路由标题作为路径
         var translatedText = pathMap[cleaned];
@@ -128,19 +128,19 @@ function generateRoutes(nodes, parentPath, parentName) {
         route.path = fullPath;
         route.name = fullName;
         /**
-         * TODO: 箭头函数转为 JSON 会被忽略，需要使用字符串代替才能写入文件，怎么转换成箭头函数？
+         * TODO: 箭头函数转为 JSON 会被忽略，需要使用字符串代替才能写入文件，后续怎么还原成箭头函数？
          * 目前解决方法：文件生成后，手动替换
          */
         route.component =
-            node.type === base_1.PageType.文件 ? "() => import('@/pages".concat(fullPath, "/").concat(translatedText, ".vue')") : undefined;
-        if (node.children && node.type === base_1.PageType.文件夹) {
+            node.type === base_1.PageTypeEnum.文件 ? "() => import('@/pages".concat(fullPath, "/").concat(translatedText, ".vue')") : undefined;
+        if (node.children && node.type === base_1.PageTypeEnum.文件夹) {
             // 递归处理子节点
             route.children = generateRoutes(node.children, fullPath, fullName);
             route.redirect = fullPath;
         }
         return route;
     });
-    var filteredRoutes = routes.filter(function (item) { var _a; return ((_a = item === null || item === void 0 ? void 0 : item.meta) === null || _a === void 0 ? void 0 : _a.title) !== '首页'; });
+    var filteredRoutes = routes.filter(function (item) { var _a; return ((_a = item === null || item === void 0 ? void 0 : item.meta) === null || _a === void 0 ? void 0 : _a.title) !== base_1.HOME_NAME; });
     return filteredRoutes;
 }
 /**
@@ -164,7 +164,7 @@ function generateFiles(routes, basePath) {
             }
             // 如果文件不存在，创建 Vue 文件
             if (!(0, fs_1.existsSync)(fullPath)) {
-                var template = "\n<template>\n    <div>".concat(((_a = route === null || route === void 0 ? void 0 : route.meta) === null || _a === void 0 ? void 0 : _a.title) || '', "</div>\n</template>\n\n<script lang=\"ts\" setup>\n</script>\n\n<style lang=\"scss\" scoped>\n</style>");
+                var template = (0, base_1.handleInitPageTemplate)((_a = route.meta) === null || _a === void 0 ? void 0 : _a.title);
                 (0, fs_1.writeFileSync)(fullPath, template, 'utf-8');
                 console.log("\u2705 Created: ".concat(fullPath));
             }
@@ -179,33 +179,28 @@ function generateFiles(routes, basePath) {
     });
 }
 /**
- * 生成文件内容
- */
-function generateRouteFile(routes) {
-    // 将对象数组转换为 TypeScript 代码
-    var code = "\nimport { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';\n\nimport appLayout from '@/layout/index.vue';\n\nimport { FORBIDDEN_ROUTE, HOME_ROUTE, LOGIN_ROUTE, SCREEN_ROUTE } from './base';\n\n\nconst menuRoutes: RouteRecordRaw[] = [HOME_ROUTE.value, ...".concat(JSON.stringify(routes, null, 2), "];\n\nconst routes: RouteRecordRaw[] = [\n    {\n        path: '/',\n        name: '/',\n        component: markRaw(appLayout),\n        redirect: '/home',\n        meta: {\n            icon: 'HomeFilled',\n            title: 'index',\n        },\n        children: menuRoutes,\n    },\n\n    LOGIN_ROUTE,\n    FORBIDDEN_ROUTE,\n    SCREEN_ROUTE,\n];\n\nconst router = createRouter({\n    history: createWebHistory(),\n    routes: routes,\n});\n\nexport default router;\nexport { menuRoutes, routes };");
-    return code;
-}
-/**
  * 获取对象列表
  */
 function getRouter() {
     return __awaiter(this, void 0, void 0, function () {
         var res, objs, routes, content;
-        var _a, _b, _c, _d, _e, _f, _g;
-        return __generator(this, function (_h) {
-            switch (_h.label) {
+        var _a, _b, _c, _d;
+        return __generator(this, function (_e) {
+            switch (_e.label) {
                 case 0: return [4 /*yield*/, axios_1.default.get(
                     // 中科瑞景
                     'https://axure-file.lanhuapp.com/md588e80976-0395-4254-9f66-ee823a75b126__de973a4aa4f24bc781c757312aae8dfa.json')];
                 case 1:
-                    res = _h.sent();
-                    if (!res || !((_b = (_a = res.data) === null || _a === void 0 ? void 0 : _a.sitemap) === null || _b === void 0 ? void 0 : _b.rootNodes) || ((_d = (_c = res.data) === null || _c === void 0 ? void 0 : _c.sitemap) === null || _d === void 0 ? void 0 : _d.rootNodes.length) === 0) {
+                    res = _e.sent();
+                    if (!res) {
                         return [2 /*return*/];
                     }
-                    objs = (_g = (_f = (_e = res.data) === null || _e === void 0 ? void 0 : _e.sitemap) === null || _f === void 0 ? void 0 : _f.rootNodes[1]) === null || _g === void 0 ? void 0 : _g.children;
+                    objs = (_d = (_c = (_b = (_a = res.data) === null || _a === void 0 ? void 0 : _a.sitemap) === null || _b === void 0 ? void 0 : _b.rootNodes[1]) === null || _c === void 0 ? void 0 : _c.children) !== null && _d !== void 0 ? _d : [];
+                    if (!objs || objs.length === 0) {
+                        return [2 /*return*/];
+                    }
                     routes = generateRoutes(objs);
-                    content = generateRouteFile(routes);
+                    content = (0, base_1.handleRouteFileContent)(routes);
                     (0, fs_1.writeFileSync)('./src/router/router.ts', content);
                     return [2 /*return*/];
             }

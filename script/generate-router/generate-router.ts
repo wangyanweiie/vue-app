@@ -1,9 +1,17 @@
 import axios from 'axios';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import * as path from 'path';
+// import * as ts from 'typescript';
 import { type RouteRecordRaw } from 'vue-router';
 
-import { BASE_PATH, PageType, PATH_MAP_FILE_PATH } from './base';
+import {
+    BASE_PATH,
+    handleInitPageTemplate,
+    handleRouteFileContent,
+    HOME_NAME,
+    PageTypeEnum,
+    PATH_MAP_FILE_PATH,
+} from './base';
 import { translateText } from './hooks';
 import { MenuTree } from './interface';
 
@@ -23,7 +31,7 @@ function extractPageNames(nodes: MenuTree): string[] {
         pageNames.push(cleaned);
 
         // 如果有子节点，递归处理
-        if (node.children && node.type === PageType.文件夹) {
+        if (node.children && node.type === PageTypeEnum.文件夹) {
             const list = extractPageNames(node.children);
             pageNames = pageNames.concat(list);
         }
@@ -55,7 +63,7 @@ async function generatePathMap(nodes: MenuTree) {
      * 1. 不同的中文可能翻译成相同的英文
      * 2. 同一个中文可能连续翻译两遍
      *
-     * 例子：这里的 ‘日志管理’ 翻译了两遍？所以导致翻译后的数组与原数组长度不一致，无法正确生成字典
+     * 例子：这里的 “日志管理” 翻译了两遍？所以导致翻译后的数组与原数组长度不一致，无法正确生成字典
      * 目前解决办法：手动排查上述问题，确保翻译前后数组一一对应，并手动替换成唯一的英文
      */
     // if (pageNameList.length !== pageNameToEnglishList.length) {
@@ -68,7 +76,7 @@ async function generatePathMap(nodes: MenuTree) {
         [key: string]: string;
     } = {};
 
-    // 生成映射字典
+    // 遍历页面名称列表，生成映射字典
     pageNameList.forEach((pageName, index) => {
         map[pageName] = pageNameToEnglishList[index];
     });
@@ -97,12 +105,12 @@ function generateRoutes(nodes: MenuTree, parentPath = '', parentName = ''): Rout
             component: undefined,
             meta: {
                 title: cleaned,
-                icon: node.type === PageType.文件夹 ? 'Folder' : 'Tickets',
+                icon: node.type === PageTypeEnum.文件夹 ? 'Folder' : 'Tickets',
             },
             children: [],
         };
 
-        // 读取 pathMap.json 文件
+        // 读取 pathMap.json 文件，获取翻译后的路由标题作为路径
         const pathMap = JSON.parse(readFileSync(PATH_MAP_FILE_PATH, 'utf-8'));
 
         // 使用翻译后的路由标题作为路径
@@ -115,13 +123,13 @@ function generateRoutes(nodes: MenuTree, parentPath = '', parentName = ''): Rout
         route.name = fullName;
 
         /**
-         * TODO: 箭头函数转为 JSON 会被忽略，需要使用字符串代替才能写入文件，怎么转换成箭头函数？
+         * TODO: 箭头函数转为 JSON 会被忽略，需要使用字符串代替才能写入文件，后续怎么还原成箭头函数？
          * 目前解决方法：文件生成后，手动替换
          */
         route.component =
-            node.type === PageType.文件 ? `() => import('@/pages${fullPath}/${translatedText}.vue')` : undefined;
+            node.type === PageTypeEnum.文件 ? `() => import('@/pages${fullPath}/${translatedText}.vue')` : undefined;
 
-        if (node.children && node.type === PageType.文件夹) {
+        if (node.children && node.type === PageTypeEnum.文件夹) {
             // 递归处理子节点
             route.children = generateRoutes(node.children, fullPath, fullName);
             route.redirect = fullPath;
@@ -130,7 +138,7 @@ function generateRoutes(nodes: MenuTree, parentPath = '', parentName = ''): Rout
         return route;
     });
 
-    const filteredRoutes = routes.filter(item => item?.meta?.title !== '首页');
+    const filteredRoutes = routes.filter(item => item?.meta?.title !== HOME_NAME);
 
     return filteredRoutes;
 }
@@ -157,16 +165,7 @@ function generateFiles(routes: RouteRecordRaw[], basePath: string = BASE_PATH) {
 
             // 如果文件不存在，创建 Vue 文件
             if (!existsSync(fullPath)) {
-                const template = `
-<template>
-    <div>${route?.meta?.title || ''}</div>
-</template>
-
-<script lang="ts" setup>
-</script>
-
-<style lang="scss" scoped>
-</style>`;
+                const template = handleInitPageTemplate(route.meta?.title as string);
 
                 writeFileSync(fullPath, template, 'utf-8');
                 console.log(`✅ Created: ${fullPath}`);
@@ -183,46 +182,6 @@ function generateFiles(routes: RouteRecordRaw[], basePath: string = BASE_PATH) {
 }
 
 /**
- * 生成文件内容
- */
-function generateRouteFile(routes: RouteRecordRaw[]) {
-    // 将对象数组转换为 TypeScript 代码
-    const code = `
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';\n
-import appLayout from '@/layout/index.vue';\n
-import { FORBIDDEN_ROUTE, HOME_ROUTE, LOGIN_ROUTE, SCREEN_ROUTE } from './base';\n
-
-const menuRoutes: RouteRecordRaw[] = [HOME_ROUTE.value, ...${JSON.stringify(routes, null, 2)}];
-
-const routes: RouteRecordRaw[] = [
-    {
-        path: '/',
-        name: '/',
-        component: markRaw(appLayout),
-        redirect: '/home',
-        meta: {
-            icon: 'HomeFilled',
-            title: 'index',
-        },
-        children: menuRoutes,
-    },\n
-    LOGIN_ROUTE,
-    FORBIDDEN_ROUTE,
-    SCREEN_ROUTE,
-];
-
-const router = createRouter({
-    history: createWebHistory(),
-    routes: routes,
-});
-
-export default router;
-export { menuRoutes, routes };`;
-
-    return code;
-}
-
-/**
  * 获取对象列表
  */
 async function getRouter() {
@@ -234,25 +193,29 @@ async function getRouter() {
         // 'https://axure-file.lanhuapp.com/md50898c760-7be0-4e1a-9b85-c452efd3a584__89ea65a5aa286d1cfdf08df57a067cdc.json',
     );
 
-    if (!res || !res.data?.sitemap?.rootNodes || res.data?.sitemap?.rootNodes.length === 0) {
+    if (!res) {
         return;
     }
 
     // 获取需要生成路由的节点列表
-    const objs = res.data?.sitemap?.rootNodes[1]?.children;
+    const objs = res.data?.sitemap?.rootNodes[1]?.children ?? [];
 
-    // *1.生成翻译字典，只需要生成一次
+    if (!objs || objs.length === 0) {
+        return;
+    }
+
+    // * 1.生成翻译字典，只需要生成一次
     // generatePathMap(objs);
 
-    // *2.根据翻译字典，生成路由列表
+    // * 2.根据翻译字典，生成路由列表
     const routes = generateRoutes(objs);
 
-    // *3.根据路由列表，生成路由文件
-    const content = generateRouteFile(routes);
+    // * 3.根据路由列表，生成路由文件
+    const content = handleRouteFileContent(routes);
     writeFileSync('./src/router/router.ts', content);
 
-    // *4.根据路由列表，生成页面所在的文件夹与文件
-    // generateFiles(routes);
+    // * 4.根据路由列表，生成页面所在的文件夹与文件
+    generateFiles(routes);
 }
 
 /**

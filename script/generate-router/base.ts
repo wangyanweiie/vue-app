@@ -1,124 +1,17 @@
-/**
- * 中文到英文的映射字典
- */
-export const pathMap: { [key: string]: string } = {
-    首页: 'home-page',
-    基础数据: 'basic-data',
-    // 基础资料: 'basic-data',
-    基础资料: 'basic-info',
-    物料列表: 'material-list',
-    厂内要求: 'factory-requirements',
-    客户列表: 'customer-list',
-    客户要求: 'customer-requirements',
-    供应商列表: 'supplier-list',
-    计量单位: 'unit-of-measurement',
-    数据字典: 'data-dictionary',
-    生产资料: 'production-materials',
-    工厂: 'factory',
-    车间: 'workshop',
-    储罐: 'storage-tank',
-    班组: 'team',
-    生产线: 'production-line',
-    采集项目: 'collection-project',
-    采集方案: 'collection-plan',
-    质量资料: 'quality-data',
-    检验方案: 'inspection-plan',
-    检验项目: 'inspection-items',
-    厂内检验方案: 'factory-inspection-plan',
-    客户检验方案: 'customer-inspection-plan',
-    SPC判异: 'spc-judgment',
-    判异规则设置: 'discrimination-rule-setting',
-    仓库资料: 'warehouse-information',
-    仓库列表: 'warehouse-list',
-    库存预警: 'inventory-warning',
-    物流列表: 'logistics-list',
-    计划管理: 'plan-management',
-    销售订单: 'sales-order',
-    原料到货单: 'raw-material-arrival-order',
-    产线运行单: 'production-line-operation-order',
-    生产计划单: 'production-plan-order',
-    充装计划单: 'filling-plan-order',
-    发货通知单: 'delivery-notice',
-    生产管理: 'production-management',
-    操作记录: 'operation-record',
-    生产登记记录: 'production-registration-record',
-    充装登记记录: 'filling-registration-record',
-    物料回收记录: 'material-recycling-record',
-    生产报表: 'production-report',
-    日生产报表: 'daily-production-report',
-    容器管理: 'container-management',
-    容器档案: 'container-archives',
-    容器处理记录: 'container-processing-records',
-    厂外存瓶统计: 'statistics-on-bottles-outside-the-factory',
-    容器流转履历: 'container-circulation-history',
-    质量管理: 'quality-management',
-    分析设备管理: 'analysis-equipment-management',
-    设备档案: 'equipment-archives',
-    分析设备台账: 'analysis-equipment-ledger',
-    设备保养: 'equipment-maintenance',
-    // 保养方案: 'maintenance-plan',
-    保养方案: 'maintenance-schema',
-    保养计划: 'maintenance-plan',
-    保养记录: 'maintenance-record',
-    // 设备巡检: 'equipment-inspection',
-    设备巡检: 'equipment-on-site-inspection',
-    巡检方案: 'inspection-plan',
-    巡检计划: 'inspection-plan',
-    巡检记录: 'inspection-record',
-    // 设备定检: 'equipment-inspection',
-    设备定检: 'equipment-periodical-inspection',
-    设备校验: 'equipment-verification',
-    // 设备检修: 'equipment-inspection',
-    设备检修: 'equipment-repair',
-    质量检验: 'quality-inspection',
-    质量报告: 'quality-report',
-    质量报告配置: 'quality-report-configuration',
-    SPC控制: 'spc-control',
-    计量型SPC: 'metered-spc',
-    仓库管理: 'warehouse-management',
-    WMS仓: 'wms-warehouse',
-    空瓶仓库存: 'empty-bottle-warehouse-inventory',
-    原料仓库存: 'raw-material-warehouse-inventory',
-    成品库存: 'finished-product-inventory',
-    储罐库存: 'storage-tank-inventory',
-    出入库记录: 'entry-and-exit-record',
-    入厂检验: 'factory-inspection',
-    原料入库: 'raw-material-inventory',
-    成品入库: 'finished-product-inventory',
-    空瓶出厂: 'empty-bottle-export',
-    原料出厂: 'raw-materials-out-of-factory',
-    销售出厂: 'sales-out-of-factory',
-    出库检验: 'out-of-warehouse-inspection',
-    OQC: 'oqc',
-    发货出厂: 'shipment-out-of-factory',
-    客户接收: 'customer-reception',
-    设备管理: 'equipment-management',
-    生产设备台账: 'production-equipment-ledger',
-    异常管理: 'abnormal-management',
-    生产过程异常处置单: 'production-process-abnormal-handling-order',
-    退货处置单: 'return-handling-order',
-    成品异常处置单: 'finished-product-abnormal-handling-order',
-    在线分析异常处置单: 'online-analysis-abnormal-handling-single',
-    不合格区处置: 'disposal-of-unqualified-areas',
-    系统管理: 'system-management',
-    系统权限: 'system-permissions',
-    组织管理: 'organization-management',
-    部门管理: 'department-management',
-    角色管理: 'role-management',
-    用户管理: 'user-management',
-    日志管理: 'log-management',
-    登录日志: 'login-log',
-    操作日志: 'operation-log',
-    // 添加更多映射...
-};
+import { RouteRecordRaw } from 'vue-router';
 
 /**
  * 页面类型枚举
  */
-export enum PageType {
+export enum PageTypeEnum {
     文件夹 = 'Folder',
     文件 = 'Wireframe',
 }
+
+/**
+ * 首页名称常量
+ */
+export const HOME_NAME = '首页';
 
 /**
  * 基础路径常量
@@ -129,3 +22,54 @@ export const BASE_PATH = 'src/pages';
  * pathMap.json 文件路径
  */
 export const PATH_MAP_FILE_PATH = './script/generate-router/pathMap.json';
+
+/**
+ * 初始化页面模板
+ */
+export function handleInitPageTemplate(title: string) {
+    return `
+<template>
+    <div>${title}</div>
+</template>
+
+<script lang="ts" setup></script>
+
+<style lang="scss" scoped></style>`;
+}
+
+/**
+ * 路由文件内容模板
+ */
+export function handleRouteFileContent(routes: RouteRecordRaw[]) {
+    return `
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';\n
+import appLayout from '@/layout/index.vue';\n
+import { FORBIDDEN_ROUTE, HOME_ROUTE, LOGIN_ROUTE, SCREEN_ROUTE } from './base';
+
+const menuRoutes: RouteRecordRaw[] = [HOME_ROUTE.value, ...${JSON.stringify(routes, null, 2)}];
+
+const routes: RouteRecordRaw[] = [
+    {
+        path: '/',
+        name: '/',
+        component: markRaw(appLayout),
+        redirect: '/home',
+        meta: {
+            icon: 'HomeFilled',
+            title: 'index',
+        },
+        children: menuRoutes,
+    },\n
+    LOGIN_ROUTE,
+    FORBIDDEN_ROUTE,
+    SCREEN_ROUTE,
+];
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes: routes,
+});
+
+export default router;
+export { menuRoutes, routes };`;
+}
