@@ -68,7 +68,7 @@ function translateToEnglish(text) {
                 case 1:
                     result = _a.sent();
                     translated = result.text.toLowerCase();
-                    console.log('🔍 English：', translated);
+                    // console.log('🔍 English：', translated);
                     return [2 /*return*/, translated];
             }
         });
@@ -88,7 +88,7 @@ function translateToPinyin(text) {
         nonZh: 'consecutive', // 连续非汉字字符无间距
     });
     var translated = result.toLowerCase(); // 转换为小写
-    console.log('🔍 Pinyin：', translated);
+    // console.log('🔍 Pinyin：', translated);
     return translated;
 }
 exports.translateToPinyin = translateToPinyin;
@@ -98,7 +98,7 @@ exports.translateToPinyin = translateToPinyin;
 function translateText(text) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            console.log('🔍 Chinese：', text);
+            // console.log('🔍 Chinese：', text);
             try {
                 return [2 /*return*/, translateToEnglish(text)];
             }

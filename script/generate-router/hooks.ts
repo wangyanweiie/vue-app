@@ -27,7 +27,7 @@ export async function translateToEnglish(text: string) {
 
     const translated = result.text.toLowerCase(); // 转换为小写
 
-    console.log('🔍 English：', translated);
+    // console.log('🔍 English：', translated);
     return translated;
 }
 
@@ -46,7 +46,7 @@ export function translateToPinyin(text: string): string {
 
     const translated = result.toLowerCase(); // 转换为小写
 
-    console.log('🔍 Pinyin：', translated);
+    // console.log('🔍 Pinyin：', translated);
     return translated;
 }
 
@@ -54,7 +54,7 @@ export function translateToPinyin(text: string): string {
  * 翻译
  */
 export async function translateText(text: string) {
-    console.log('🔍 Chinese：', text);
+    // console.log('🔍 Chinese：', text);
 
     try {
         return translateToEnglish(text);

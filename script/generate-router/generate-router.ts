@@ -1,6 +1,9 @@
 import axios from 'axios';
+import { Command } from 'commander'; // commander 负责解析命令行参数
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
-import * as path from 'path';
+import inquirer from 'inquirer'; // inquirer 负责与用户进行交互
+import * as ora from 'ora'; // ora 负责显示加载动画
+import * as path from 'path'; // path 负责处理路径
 import { type RouteRecordRaw } from 'vue-router';
 
 import {
@@ -15,6 +18,7 @@ import {
 import { translateText } from './hooks';
 import { MenuTree } from './interface';
 
+// ============================ 生成方法 ============================
 /**
  * 递归提取页面名称
  * @param nodes 节点列表
@@ -38,7 +42,6 @@ function extractPageNames(nodes: MenuTree): string[] {
         }
     });
 
-    // 数组去重
     const set = new Set(pageNames);
 
     // 返回去重后的数组
@@ -64,7 +67,7 @@ async function generatePathMap(nodes: MenuTree) {
      * 1. 不同的中文可能翻译成相同的英文
      * 2. 同一个中文可能连续翻译两遍
      *
-     * 比如这里的 “日志管理” 翻译了两遍？所以导致翻译后的数组与原数组长度不一致，无法正确生成字典
+     * 比如这里的 "日志管理" 翻译了两遍？所以导致翻译后的数组与原数组长度不一致，无法正确生成字典
      * 当前解决方法：手动排查上述问题，确保翻译前后数组一一对应，并手动替换成唯一的英文
      */
     // if (pageNameList.length !== pageNameToEnglishList.length) {
@@ -84,7 +87,7 @@ async function generatePathMap(nodes: MenuTree) {
 
     // 将映射字典写入到 pathMap.json 文件
     writeFileSync(PATH_MAP_FILE_PATH, JSON.stringify(map, null, 2));
-    console.log('🔍 PathMap：', map);
+    // console.log('🔍 PathMap：', map);
 }
 
 /**
@@ -131,14 +134,14 @@ function generateRoutes(nodes: MenuTree, parentPath = '', parentName = ''): Rout
          * 当前解决方法：路由文件内容生成后，手动将字符串还原为箭头函数（全局替换）
          */
         if (node.children && node.type === PageTypeEnum.文件夹) {
-            delete route.component; // 删除组件
-            route.redirect = fullPath; // 设置重定向
+            delete route.component;
+            route.redirect = fullPath;
 
             // 递归处理子节点
             route.children = generateRoutes(node.children, fullPath, fullName);
         } else {
-            delete route.redirect; // 删除重定向
-            delete route.children; // 删除子节点
+            delete route.redirect;
+            delete route.children;
 
             // 设置组件
             route.component = `() => import('@/pages${fullPath}/${translatedText}.vue')`;
@@ -178,9 +181,9 @@ function generateFiles(routes: RouteRecordRaw[], basePath: string = BASE_PATH) {
                 const template = handleInitPageTemplate(route.meta?.title as string);
 
                 writeFileSync(fullPath, template, 'utf-8');
-                console.log(`✅ Created: ${fullPath}`);
+                // console.log(`✅ Created: ${fullPath}`);
             } else {
-                console.log(`⚠️ Exists: ${fullPath}`);
+                // console.log(`⚠️ Exists: ${fullPath}`);
             }
         }
 
@@ -193,37 +196,133 @@ function generateFiles(routes: RouteRecordRaw[], basePath: string = BASE_PATH) {
 
 /**
  * 获取对象列表
+ * @param translate 是否需要重新生成翻译字典
+ * @param generateRouter 是否需要生成路由文件
+ * @param generatePages 是否需要生成页面文件
  */
-async function getRouter() {
-    // 获取
-    const res = await axios.get(AXURE_PROJECT_URL);
+async function getRouter(translate = false, generateRouter = true, generatePages = true) {
+    try {
+        const spinner = ora();
 
-    if (!res) {
-        return;
+        // 获取数据
+        spinner.start('正在获取项目数据...');
+        const res = await axios.get(AXURE_PROJECT_URL);
+
+        if (!res?.data?.sitemap?.rootNodes?.[1]?.children) {
+            spinner.fail('❌ 获取项目数据失败');
+            return;
+        }
+
+        spinner.succeed('获取项目数据成功');
+
+        // 获取需要生成路由的节点列表
+        const objs = res.data.sitemap.rootNodes[1].children;
+
+        if (!objs || objs.length === 0) {
+            console.error('⚠️ 没有找到可用的节点列表');
+            return;
+        }
+
+        // 1.生成翻译字典
+        if (translate) {
+            spinner.start('正在生成翻译字典...');
+            await generatePathMap(objs);
+            spinner.succeed('翻译字典生成完成');
+        }
+
+        // 2.生成路由列表
+        const routes = generateRoutes(objs);
+
+        // 3.生成路由文件
+        if (generateRouter) {
+            spinner.start('正在生成路由文件...');
+            const content = handleRouteFileContent(routes);
+            writeFileSync('./src/router/router.ts', content);
+            spinner.succeed('路由文件生成完成');
+        }
+
+        // 4.生成页面文件
+        if (generatePages) {
+            spinner.start('正在生成页面文件...');
+            generateFiles(routes);
+            spinner.succeed('页面文件生成完成');
+        }
+
+        console.log('✨ 所有任务执行完成！');
+    } catch (error) {
+        console.error('❌ 执行过程中发生错误:', error);
+        process.exit(1);
     }
-
-    // 获取需要生成路由的节点列表
-    const objs = res.data?.sitemap?.rootNodes[1]?.children ?? [];
-
-    if (!objs || objs.length === 0) {
-        return;
-    }
-
-    // * 1.生成翻译字典，只需要生成一次
-    // generatePathMap(objs);
-
-    // * 2.根据翻译字典，生成路由列表
-    const routes = generateRoutes(objs);
-
-    // * 3.根据路由列表，生成路由文件
-    const content = handleRouteFileContent(routes);
-    writeFileSync('./src/router/router.ts', content);
-
-    // * 4.根据路由列表，生成页面所在的文件夹与文件
-    generateFiles(routes);
 }
 
 /**
  * 调用方法
  */
-getRouter();
+// getRouter();
+
+// ============================ 添加命令行交互 ============================
+/**
+ * 创建新的 Command 实例并设置基本信息
+ */
+const program = new Command();
+
+/**
+ * 以下代码使用了 commander 库来解析命令行参数，并定义了 cmd 命令；
+ * 在 cmd 命令被调用时，会使用 inquirer 库与用户进行交互，获取用户输入的内容；
+ * 然后根据用户输入的内容，调用 getRouter 方法生成路由文件；
+ *
+ * 控制台执行命令：generate-router cmd
+ */
+program
+    .command('cmd')
+    .description('生成路由文件和页面')
+    .action(async () => {
+        try {
+            // 检查必要的文件和目录是否存在
+            const requiredDirs = ['./src/router', './src/pages'];
+
+            for (const dir of requiredDirs) {
+                if (!existsSync(dir)) {
+                    mkdirSync(dir, {
+                        recursive: true,
+                    });
+                }
+            }
+
+            const { translate, generateRouter, generatePages } = await inquirer.prompt([
+                {
+                    type: 'confirm',
+                    name: 'translate',
+                    message: '是否需要生成翻译字典？',
+                    default: true,
+                },
+                {
+                    type: 'confirm',
+                    name: 'generateRouter',
+                    message: '是否需要生成路由文件？',
+                    default: true,
+                },
+                {
+                    type: 'confirm',
+                    name: 'generatePages',
+                    message: '是否需要生成页面文件？',
+                    default: true,
+                },
+            ]);
+
+            await getRouter(translate, generateRouter, generatePages);
+        } catch (error) {
+            console.error('命令执行失败:', error);
+            process.exit(1);
+        }
+    });
+
+/**
+ * 设置命令行名称、描述和版本
+ */
+program.name('generate-router').description('路由生成工具').version('1.0.0');
+
+/**
+ * 解析命令行参数
+ */
+program.parse(process.argv);
