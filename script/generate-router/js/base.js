@@ -24,7 +24,7 @@ exports.PATH_MAP_FILE_PATH = './script/generate-router/pathMap.json';
 var PageTypeEnum;
 (function (PageTypeEnum) {
     PageTypeEnum["\u6587\u4EF6\u5939"] = "Folder";
-    PageTypeEnum["\u6587\u4EF6"] = "Wireframe";
+    PageTypeEnum["\u9875\u9762"] = "Wireframe";
 })(PageTypeEnum || (exports.PageTypeEnum = PageTypeEnum = {}));
 /**
  * 初始化页面模板

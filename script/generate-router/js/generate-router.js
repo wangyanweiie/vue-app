@@ -41,7 +41,7 @@ var commander_1 = require("commander"); // commander 负责解析命令行参数
 var fs_1 = require("fs");
 var inquirer_1 = require("inquirer"); // inquirer 负责与用户进行交互
 var ora = require("ora"); // ora 负责显示加载动画
-var path = require("path"); // path 负责处理路径
+var path = require("path");
 var base_1 = require("./base");
 var hooks_1 = require("./hooks");
 // ============================ 生成方法 ============================
@@ -99,7 +99,8 @@ function generatePathMap(nodes) {
 /**
  * 递归生成路由
  * @param nodes 节点列表
- * @param parentPath 父路径
+ * @param parentPath 父级路径
+ * @param parentName 父级名称
  * @returns 路由列表
  */
 function generateRoutes(nodes, parentPath, parentName) {
@@ -171,7 +172,9 @@ function generateFiles(routes, basePath) {
             var dirPath = path.dirname(fullPath);
             // 创建目录
             if (!(0, fs_1.existsSync)(dirPath)) {
-                (0, fs_1.mkdirSync)(dirPath, { recursive: true });
+                (0, fs_1.mkdirSync)(dirPath, {
+                    recursive: true,
+                });
             }
             // 如果文件不存在，创建 Vue 文件
             if (!(0, fs_1.existsSync)(fullPath)) {
@@ -295,7 +298,7 @@ program
                             type: 'confirm',
                             name: 'translate',
                             message: '是否需要生成翻译字典？',
-                            default: false,
+                            default: true,
                         },
                         {
                             type: 'confirm',

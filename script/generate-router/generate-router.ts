@@ -3,7 +3,7 @@ import { Command } from 'commander'; // commander 负责解析命令行参数
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import inquirer from 'inquirer'; // inquirer 负责与用户进行交互
 import * as ora from 'ora'; // ora 负责显示加载动画
-import * as path from 'path'; // path 负责处理路径
+import * as path from 'path';
 import { type RouteRecordRaw } from 'vue-router';
 
 import {
@@ -93,7 +93,8 @@ async function generatePathMap(nodes: MenuTree) {
 /**
  * 递归生成路由
  * @param nodes 节点列表
- * @param parentPath 父路径
+ * @param parentPath 父级路径
+ * @param parentName 父级名称
  * @returns 路由列表
  */
 function generateRoutes(nodes: MenuTree, parentPath = '', parentName = ''): RouteRecordRaw[] {
@@ -173,7 +174,9 @@ function generateFiles(routes: RouteRecordRaw[], basePath: string = BASE_PATH) {
 
             // 创建目录
             if (!existsSync(dirPath)) {
-                mkdirSync(dirPath, { recursive: true });
+                mkdirSync(dirPath, {
+                    recursive: true,
+                });
             }
 
             // 如果文件不存在，创建 Vue 文件

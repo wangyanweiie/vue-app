@@ -27,7 +27,7 @@ export const PATH_MAP_FILE_PATH = './script/generate-router/pathMap.json';
  */
 export enum PageTypeEnum {
     文件夹 = 'Folder',
-    文件 = 'Wireframe',
+    页面 = 'Wireframe',
 }
 
 /**
